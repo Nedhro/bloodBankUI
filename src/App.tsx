@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./govtlogo.png";
 import "./App.scss";
 import MainLayout from "./components/layout/MainLayout";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DonorMedicalAssessment from "./components/donor/DonorMedicalAssessment";
 import AssessmentQuestionnaire from "./components/donor/AssessmentQuestionnaire";
 
