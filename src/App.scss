@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 6vmin;
+  height: 9vmin;
   pointer-events: visible;
 }
 
@@ -16,13 +16,15 @@
 .App-header {
   background-color: hsl(220, 85%, 8%);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 3vmin);
   color: white;
 }
-
+.navText{
+  color: whitesmoke;
+}
 .App-link {
   color: #61dafb;
 }
@@ -47,10 +49,11 @@
   font-weight: bold;
 }
 
+
 .footer a {
   color:hsl(219, 91%, 17%);
   font-weight: bold;
 }
 .footer a:hover {
-  color:hsl(214, 26%, 95%);
+  color:hsl(214, 26%, 95%)
 }
