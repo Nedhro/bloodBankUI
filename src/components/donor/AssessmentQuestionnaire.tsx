@@ -13,7 +13,7 @@ class AssessmentQuestionnaire extends React.Component<any,any>{
     render() {
         return (
           <div className="container-fluid">
-            <h2 className="text-info">Donor Medical Assessment Questionnaire</h2>
+            <h2>Donor Medical Assessment Questionnaire</h2>
           </div>
         );
       }

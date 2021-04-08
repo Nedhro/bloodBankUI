@@ -5,6 +5,8 @@ import MainLayout from "./components/layout/MainLayout";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DonorMedicalAssessment from "./components/donor/DonorMedicalAssessment";
 import AssessmentQuestionnaire from "./components/donor/AssessmentQuestionnaire";
+import PhysicalSuitability from "./components/donor/PhysicalSuitability";
+import Header from "./components/layout/Header";
 
 function App() {
   return (
@@ -16,26 +18,8 @@ function App() {
         <div className="col-4">
           <h2 className="text-left p-0 m-0">Blood Bank Module</h2>
         </div>
-        <div className="col-7 container">
-          <nav className="navbar navbar-expand-lg">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <a className="nav-link navText" href="/">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link navText" href="/donor/list">
-                  Donor
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link navText" href="/questionnaire/list">
-                  Questionnaire
-                </a>
-              </li>
-            </ul>
-          </nav>
+        <div className="col-7">
+            <Header/>
         </div>
       </div>
       <Router>
@@ -49,6 +33,9 @@ function App() {
           <Route exact path="/questionnaire/list">
             <AssessmentQuestionnaire />
           </Route>
+          <Route exact path="/donorPhysicalSuitability/test/list">
+            <PhysicalSuitability />
+          </Route>
         </Switch>
       </Router>
       <footer>
@@ -56,7 +43,7 @@ function App() {
           <p>
             &copy; {new Date().getFullYear()} Copyright || All right reserved ||
             Powered By :{" "}
-            <a className="text-center" href="https://ctechbd.com/">
+            <a className="text-center navText" href="https://ctechbd.com/">
               Crystal Technology Bangladesh Ltd.
             </a>
           </p>

@@ -24,6 +24,15 @@
 }
 .navText{
   color: whitesmoke;
+  padding: 10px;
+  font-size: medium;
+  font-style: unset;
+  font-weight: bolder;
+  text-align: center;
+}
+.navText:hover{
+  color: aquamarine;
+  transition: all;
 }
 .App-link {
   color: #61dafb;
