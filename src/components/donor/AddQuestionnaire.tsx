@@ -71,7 +71,7 @@ class AddQuestionnaire extends React.Component<any,any>{
                             </div>
                             <div className="col-8">
                                <select className="form-control" name="concernFor" id="concernFor" onChange={this.changeHandler} >
-                                    <option value="" disabled>Select</option>
+                                    <option value="">Select</option>
                                     <option value="Both">Both</option>
                                    <option value="Male">Male</option>
                                    <option value="Female">Female</option>
