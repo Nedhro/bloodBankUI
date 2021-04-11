@@ -11,11 +11,11 @@ class AddQuestionnaire extends React.Component<any,any>{
     
     submitHandler = (event: any) =>{
         event.preventDefault();
-        console.log(event.target.value);
         this.dataConfig = {
             question: this.state.question,
             concernFor: this.state.concernFor
           };
+          console.log(this.dataConfig);
           this.submitQuestionnnaire(this.dataConfig);
     };
 

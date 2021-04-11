@@ -55,7 +55,7 @@ class AssessmentQuestionnaire extends React.Component<any,any>{
                     striped ={true}
                     sortServer
                     noHeader
-                    onRowClicked = {(data)=>{ console.log(data)}}
+                    onRowClicked = {(data: any)=>{ console.log(data)}}
                 />
                 </div>
                 <div className="p-2 m-2" aria-readonly></div>
