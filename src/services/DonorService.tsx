@@ -17,7 +17,7 @@ class DonorService {
   }
 
   getAllQuestionnaire() {
-    return axios.get(urlPrefix + "bloodDonorPhysicalSuitability/list");
+    return axios.get(urlPrefix + "questionnaire/list");
   }
   //Physical Suitability
   savePhysicalSuitability(data: Object) {

@@ -39,7 +39,7 @@ class AddQuestionnaire extends React.Component<any,any>{
     submitQuestionnnaire(dataConfig: any) {
         DonorService.saveQuestionnaire(dataConfig).then(res=>{
             console.log(res);
-                    if(res.status === 201){
+                    if(res.status === 200){
                         this.setState({notification:"Questionnaire Created Successfully"})
                         this.props.history.push('/questionnaire/list');
                     }

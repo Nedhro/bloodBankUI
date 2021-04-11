@@ -31,7 +31,7 @@ class AssessmentQuestionnaire extends React.Component<any,any>{
     getQuestionnaireList =() =>{
         DonorService.getAllQuestionnaire().then(result=>{
             console.log(result);
-            this.dataFinal = result.data;
+            this.dataFinal = result.config.data;
         })
     };
 
