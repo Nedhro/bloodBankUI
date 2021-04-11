@@ -37,7 +37,7 @@ class AddQuestionnaire extends React.Component<any,any>{
     }
 
     submitQuestionnnaire(dataConfig: any) {
-        DonorService.saveQuestionnaire(JSON.stringify(dataConfig)).then(res=>{
+        DonorService.saveQuestionnaire(dataConfig).then(res=>{
             console.log(res);
                     if(res.status === 200){
                         this.setState({notification:"Questionnaire Created Successfully"})
