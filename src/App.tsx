@@ -7,6 +7,7 @@ import DonorMedicalAssessment from "./components/donor/DonorMedicalAssessment";
 import AssessmentQuestionnaire from "./components/donor/AssessmentQuestionnaire";
 import PhysicalSuitability from "./components/donor/PhysicalSuitability";
 import Header from "./components/layout/Header";
+import AddQuestionnaire from "./components/donor/AddQuestionnaire";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route exact path="/donor/list">
             <DonorMedicalAssessment />
+          </Route>
+          <Route exact path="/questionnaire/add">
+            <AddQuestionnaire />
           </Route>
           <Route exact path="/questionnaire/list">
             <AssessmentQuestionnaire />
