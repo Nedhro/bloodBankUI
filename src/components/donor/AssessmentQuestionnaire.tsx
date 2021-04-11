@@ -44,7 +44,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
           id: data.qid,
           question: data.question,
           concernFor: data.concernFor,
-          status: data.status
+          status: data.status === 1? 'Active':'Inactive' 
         };
         return config;
       });

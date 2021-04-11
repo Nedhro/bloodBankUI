@@ -1,5 +1,6 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
+import { withRouter } from "react-router-dom";
 
 class AddQuestionnaire extends React.Component<any,any>{
        
@@ -30,6 +31,7 @@ class AddQuestionnaire extends React.Component<any,any>{
           }
         this.submitHandler =this.submitHandler.bind(this);
         this.changeHandler =this.changeHandler.bind(this);
+        this.submitQuestionnnaire = this.submitQuestionnnaire.bind(this);
     }
 
     componentDidMount(){
@@ -43,6 +45,7 @@ class AddQuestionnaire extends React.Component<any,any>{
                         this.setState({notification:"Questionnaire Created Successfully"})
                         this.props.history.push('/questionnaire/list');
                     }
+                    this.setState({notification:"Please add valid and non duplicate question"})
         });
     }
 
@@ -68,10 +71,10 @@ class AddQuestionnaire extends React.Component<any,any>{
                             </div>
                             <div className="col-8">
                                <select className="form-control" name="concernFor" id="concernFor" onChange={this.changeHandler} >
+                                    <option value="" disabled>Select</option>
                                     <option value="Both">Both</option>
                                    <option value="Male">Male</option>
                                    <option value="Female">Female</option>
-                                   
                                 </select>
                             </div>
                         </div>
@@ -86,12 +89,12 @@ class AddQuestionnaire extends React.Component<any,any>{
                         </div>
                     </form>
                     <div className="text-danger">
-                            <p className="text-left bg-info font-weight-bold">{notification}</p>
-                        </div>
+                            <p className="text-center bg-info font-weight-bold">{notification}</p>
+                    </div>
                 </div>
             </div>
         );
     }
 
 }
-export default AddQuestionnaire
+export default withRouter(AddQuestionnaire)
