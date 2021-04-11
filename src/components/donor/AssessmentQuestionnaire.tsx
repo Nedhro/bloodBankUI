@@ -14,19 +14,10 @@ class AssessmentQuestionnaire extends React.Component<any,any>{
           sortable: true,
         },
         {
-          name: 'Phone',
-          selector: 'phone',
+          name: 'Concern For',
+          selector: 'concernFor',
           sortable: true,
-        },
-        {
-          name: 'Email',
-          selector: 'email',
-          sortable: true,
-        },
-        {
-          name: 'DOB',
-          selector: 'dob',
-        },
+        }
       ];
 
     constructor(props:any){
@@ -40,6 +31,7 @@ class AssessmentQuestionnaire extends React.Component<any,any>{
     getQuestionnaireList =() =>{
         DonorService.getAllQuestionnaire().then(result=>{
             console.log(result);
+            this.dataFinal = result.data;
         })
     };
 
