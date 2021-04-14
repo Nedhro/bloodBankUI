@@ -3,8 +3,7 @@ import DataTable from "react-data-table-component";
 import DonorService from "../../services/DonorService";
 
 class AssessmentQuestionnaire extends React.Component<any, any> {
-  dataFinal: any;
-
+ 
   columns = [
     {
       name: "Question",
@@ -69,10 +68,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
       return (
         <div className="container-fluid m-1">
           <div className="container bg-light p-2">
-            <a
-              className="btn btn-primary text-left float-left"
-              href="/questionnaire/add"
-            >
+            <a className="btn btn-primary text-left float-left" href="/questionnaire/add">
               Add Questionnaire
             </a>
             <br /> <br />
@@ -80,7 +76,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
               <div className="col-12 p-1 m-1">
                 <h2>Donor Medical Assessment Questionnaire</h2>
                 <DataTable
-                  className="table table-stripped table-hover table-sm"
+                  className="table table-stripped table-hover"
                   columns={this.columns}
                   data={items}
                   pagination
@@ -88,7 +84,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
                   highlightOnHover
                   paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
                   striped={true}
-                  sortServer
+                  responsive
                   noHeader
                   onRowClicked={(data: any) => {
                     console.log(data);

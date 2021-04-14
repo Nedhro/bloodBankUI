@@ -8,6 +8,7 @@ import AssessmentQuestionnaire from "./components/donor/AssessmentQuestionnaire"
 import PhysicalSuitability from "./components/donor/PhysicalSuitability";
 import Header from "./components/layout/Header";
 import AddQuestionnaire from "./components/donor/AddQuestionnaire";
+import AddDonorInfo from "./components/donor/AddDonorInfo";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <MainLayout />
+          </Route>
+          <Route exact path="/donor/add">
+            <AddDonorInfo />
           </Route>
           <Route exact path="/donor/list">
             <DonorMedicalAssessment />
