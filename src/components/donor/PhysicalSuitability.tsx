@@ -127,7 +127,7 @@ class PhysicalSuitability extends React.Component<any, any> {
           <div className="container bg-light p-2">
             <a
               className="btn btn-primary text-left float-left"
-              href="/questionnaire/add"
+              href="/donorPhysicalSuitability/test/add"
             >
               Physical Suitability Test
             </a>

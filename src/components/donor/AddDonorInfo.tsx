@@ -296,15 +296,13 @@ class AddDonorInfo extends React.Component<any, any> {
             </div>
 
             <div className="row">
-                <div className="col-6">
-
-                </div>
+              <div className="col-6"></div>
             </div>
 
             <div className="row form-group">
-                <div className="col-2"></div>
+              <div className="col-2"></div>
               <div className="col-4 m-1 p-1 float-right text-right">
-              <input
+                <input
                   type="submit"
                   className="form-control btn btn-success m-1 p-1"
                   value="Save"
