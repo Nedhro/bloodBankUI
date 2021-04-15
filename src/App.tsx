@@ -9,6 +9,7 @@ import PhysicalSuitability from "./components/donor/PhysicalSuitability";
 import Header from "./components/layout/Header";
 import AddQuestionnaire from "./components/donor/AddQuestionnaire";
 import AddDonorInfo from "./components/donor/AddDonorInfo";
+import AddPhysicalSuitabilityTest from "./components/donor/AddPhysicalSuitabilityTest";
 
 function App() {
   return (
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route exact path="/donorPhysicalSuitability/test/list">
             <PhysicalSuitability />
+          </Route>
+          <Route exact path="/donorPhysicalSuitability/test/add">
+            <AddPhysicalSuitabilityTest />
           </Route>
         </Switch>
       </Router>
