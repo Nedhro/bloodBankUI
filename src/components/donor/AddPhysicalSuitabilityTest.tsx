@@ -77,6 +77,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorHemoglobin"
                   id="donorHemoglobin"
+                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -92,6 +93,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorWeight"
                   id="donorWeight"
+                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -107,6 +109,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="text"
                   name="donorBloodPressure"
                   id="donorBloodPressure"
+                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -122,6 +125,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorPulseRate"
                   id="donorPulseRate"
+                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -137,6 +141,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorTemperature"
                   id="donorTemperature"
+                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -152,6 +157,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="text"
                   name="donorBloodGroup"
                   id="donorBloodGroup"
+                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -166,6 +172,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   className="form-control"
                   name="donorSelection"
                   id="donorSelection"
+                  required
                   onChange={this.changeHandler}
                 >
                   <option value="">Select</option>

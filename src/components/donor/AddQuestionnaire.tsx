@@ -65,6 +65,7 @@ class AddQuestionnaire extends React.Component<any, any> {
                   type="text"
                   name="question"
                   id="question"
+                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -79,6 +80,7 @@ class AddQuestionnaire extends React.Component<any, any> {
                   className="form-control"
                   name="concernFor"
                   id="concernFor"
+                  required
                   onChange={this.changeHandler}
                 >
                   <option value="">Select</option>
