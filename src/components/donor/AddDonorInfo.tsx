@@ -94,6 +94,7 @@ class AddDonorInfo extends React.Component<any, any> {
                     <input
                       className="form-control"
                       type="text"
+                      required
                       name="donorName"
                       id="donorName"
                       onChange={this.changeHandler}
@@ -110,6 +111,7 @@ class AddDonorInfo extends React.Component<any, any> {
                     <input
                       type="number"
                       className="form-control"
+                      required
                       name="donorAge"
                       id="donorAge"
                     />
@@ -130,6 +132,7 @@ class AddDonorInfo extends React.Component<any, any> {
                       type="text"
                       name="donorGuardian"
                       id="donorGuardian"
+                      required
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -164,6 +167,7 @@ class AddDonorInfo extends React.Component<any, any> {
                       className="form-control"
                       name="donorGender"
                       id="donorGender"
+                      required
                       onChange={this.changeHandler}
                     >
                       <option value="">Select</option>
@@ -184,6 +188,7 @@ class AddDonorInfo extends React.Component<any, any> {
                       className="form-control"
                       name="donorMaritalStatus"
                       id="donorMaritalStatus"
+                      required
                       onChange={this.changeHandler}
                     >
                       <option value="">Select</option>
@@ -210,6 +215,7 @@ class AddDonorInfo extends React.Component<any, any> {
                       type="text"
                       name="donorMobileNo"
                       id="donorMobileNo"
+                      required
                       onChange={this.changeHandler}
                     />
                   </div>
