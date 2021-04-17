@@ -165,6 +165,22 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
+                <label htmlFor="donorBloodGroupRhesus">Blood Group Rhesus</label>
+              </div>
+              <div className="col-8">
+                <input
+                  className="form-control"
+                  type="text"
+                  name="donorBloodGroupRhesus"
+                  id="donorBloodGroupRhesus"
+                  required
+                  onChange={this.changeHandler}
+                />
+              </div>
+            </div>
+
+            <div className="row form-group">
+              <div className="col-4 text-right">
                 <label htmlFor="donorSelection">Permission</label>
               </div>
               <div className="col-8">
