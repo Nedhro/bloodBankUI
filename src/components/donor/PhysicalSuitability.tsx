@@ -48,6 +48,7 @@ class PhysicalSuitability extends React.Component<any, any> {
       name: "Action",
       selector: "action",
       sortable: false,
+      button: true
     },
   ];
 
@@ -66,7 +67,6 @@ class PhysicalSuitability extends React.Component<any, any> {
   }
 
   loadTests() {
-    let dataFinal: any = [];
     DonorService.getPhysicalSuitabilityResults()
       .then((res) => {
         console.log(res);
@@ -81,6 +81,7 @@ class PhysicalSuitability extends React.Component<any, any> {
           "donorSelection",
           "action",
         ];
+        let dataFinal: any = [];
         let entries = this.filterData(res.data, keys);
         //rows
         entries.map((entry: any) => dataFinal.push(entry));
@@ -90,7 +91,6 @@ class PhysicalSuitability extends React.Component<any, any> {
         });
       })
       .catch((err) => console.log(err));
-    this.setState({ isLoaded: false });
   }
 
   filterData(dataArr: any, keys: any) {
