@@ -9,11 +9,6 @@ import 'bootstrap/dist/js/bootstrap.js';
 import 'jquery';
 import 'popper.js';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />,document.getElementById('root'));
 
 reportWebVitals();

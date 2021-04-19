@@ -69,7 +69,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorHemoglobin">Hemoglobin</label>
+                <label htmlFor="donorHemoglobin">Hemoglobin (g/dl)</label>
               </div>
               <div className="col-8">
                 <input
@@ -85,7 +85,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorWeight">Weight</label>
+                <label htmlFor="donorWeight">Weight (kg)</label>
               </div>
               <div className="col-8">
                 <input
@@ -101,7 +101,9 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorBloodPressure">Blood Pressure</label>
+                <label htmlFor="donorBloodPressure">
+                  Blood Pressure (low/high mmHg)
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -117,7 +119,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorPulseRate">Pulse Rate</label>
+                <label htmlFor="donorPulseRate">Pulse Rate (b/m)</label>
               </div>
               <div className="col-8">
                 <input
@@ -133,7 +135,9 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorTemperature">Temperature</label>
+                <label htmlFor="donorTemperature">
+                  Temperature (<sup>o</sup>C)
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -165,17 +169,22 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorBloodGroupRhesus">Blood Group Rhesus</label>
+                <label htmlFor="donorBloodGroupRhesus">
+                  Blood Group Rhesus
+                </label>
               </div>
               <div className="col-8">
-                <input
+                <select
                   className="form-control"
-                  type="text"
                   name="donorBloodGroupRhesus"
                   id="donorBloodGroupRhesus"
                   required
                   onChange={this.changeHandler}
-                />
+                >
+                  <option value="">Select</option>
+                  <option value="Rh-Positive">Rh-Positive</option>
+                  <option value="Rh-Negative">Rh-Negative</option>
+                </select>
               </div>
             </div>
 
@@ -216,7 +225,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
               </div>
             </div>
           </form>
-          <div className="text-danger">
+          <div className="text-danger m-1 p-1">
             <p className="text-center bg-info font-weight-bold">
               {notification}
             </p>

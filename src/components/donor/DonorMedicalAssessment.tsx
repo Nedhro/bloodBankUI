@@ -64,7 +64,10 @@ class DonorMedicalAssessment extends React.Component<any, any> {
   };
   constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = {
+      error: null,
+      show: false
+    };
   }
   componentDidMount() {}
 
@@ -100,7 +103,8 @@ class DonorMedicalAssessment extends React.Component<any, any> {
                   responsive
                   hover
                   onClick={(event: any) => {
-                    console.log(this.data);
+                    console.log(event.target);
+                    this.setState({show: true});
                   }}
                   data={this.data}
                 />
