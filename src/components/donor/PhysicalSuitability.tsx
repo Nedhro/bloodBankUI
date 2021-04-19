@@ -1,31 +1,33 @@
 import React from "react";
+import { Modal } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import DonorService from "../../services/DonorService";
+import SuitabilityTestModal from "../modals/SuitabilityTestModal";
 
 class PhysicalSuitability extends React.Component<any, any> {
   columns: any = [
     {
-      name: "Hemoglobin",
+      name: "Hemoglobin (g/dl)",
       selector: "donorHemoglobin",
       sortable: true,
     },
     {
-      name: "Weight",
+      name: "Weight (kg)",
       selector: "donorWeight",
       sortable: true,
     },
     {
-      name: "Blood Pressure",
+      name: "Blood Pressure (mmHg)",
       selector: "donorBloodPressure",
       sortable: true,
     },
     {
-      name: "Pulse Rate",
+      name: "Pulse Rate (b/m)",
       selector: "donorPulseRate",
       sortable: true,
     },
     {
-      name: "Temperature",
+      name: "Temperature (oC)",
       selector: "donorTemperature",
       sortable: true,
     },
@@ -44,12 +46,6 @@ class PhysicalSuitability extends React.Component<any, any> {
       selector: "donorSelection",
       sortable: true,
     },
-    {
-      name: "Action",
-      selector: "action",
-      sortable: false,
-      button: true
-    },
   ];
 
   constructor(props: any) {
@@ -59,8 +55,17 @@ class PhysicalSuitability extends React.Component<any, any> {
       error: null,
       items: [],
       notification: "",
+      show: false,
+      modalData: "",
+      query: "",
     };
   }
+
+  closeModal = () => {
+    this.setState({
+      show: false,
+    });
+  };
 
   componentDidMount() {
     this.loadTests();
@@ -68,9 +73,10 @@ class PhysicalSuitability extends React.Component<any, any> {
 
   loadTests() {
     DonorService.getPhysicalSuitabilityResults()
-      .then((res) => {
+      .then((res: any) => {
         console.log(res);
         let keys = [
+          "donorPhysicalSuitabilityId",
           "donorHemoglobin",
           "donorWeight",
           "donorBloodPressure",
@@ -79,7 +85,7 @@ class PhysicalSuitability extends React.Component<any, any> {
           "donorBloodGroup",
           "donorBloodGroupRhesus",
           "donorSelection",
-          "action",
+          "uuid",
         ];
         let dataFinal: any = [];
         let entries = this.filterData(res.data, keys);
@@ -90,7 +96,7 @@ class PhysicalSuitability extends React.Component<any, any> {
           items: dataFinal,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err: any) => console.log(err));
   }
 
   filterData(dataArr: any, keys: any) {
@@ -100,19 +106,27 @@ class PhysicalSuitability extends React.Component<any, any> {
         if (key in entry) {
           filteredEntry[key] = entry[key];
         }
-        if (key === "action") {
-          filteredEntry[key] =
-            '<button type="button" class="btn btn-indigo btn-sm m-0 " @click="editUserModal(item)"  >Edit</button> <button type="button" class="btn btn-red btn-sm m-0 ">Delete</button> ';
-        }
       });
       return filteredEntry;
     });
-    // console.log(data)
     return data;
   }
 
+  search = (rows: any) => {
+    const columns = rows[0] && Object.keys(rows[0]);
+    return rows.filter((row: any) =>
+      columns.some(
+        (column: any) =>
+          row[column]
+            .toString()
+            .toLowerCase()
+            .indexOf(this.state.query.toLowerCase()) > -1
+      )
+    );
+  };
+
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded, items, show, modalData, query } = this.state;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -132,13 +146,30 @@ class PhysicalSuitability extends React.Component<any, any> {
               Physical Suitability Test
             </a>
             <br /> <br />
-            <div className="row">
+            <div className="row no-printme">
               <div className="col-12 p-1 m-1">
                 <h2>Donor Physical Suitability Tests</h2>
+                <div className="container">
+                  <form className="form-group">
+                    <div className="row">
+                      <div className="col-3 form-inline">
+                        <label htmlFor="filter m-2 p-2">Filter</label>
+                        <input
+                          className="form-control m-1 p-1"
+                          type="text"
+                          value={query}
+                          onChange={(e) => {
+                            this.setState({ query: e.target.value });
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
                 <DataTable
                   className="table table-stripped table-hover"
                   columns={this.columns}
-                  data={items}
+                  data={this.search(items)}
                   pagination
                   pointerOnHover
                   highlightOnHover
@@ -146,10 +177,31 @@ class PhysicalSuitability extends React.Component<any, any> {
                   striped={true}
                   responsive
                   noHeader
-                  onRowClicked={(data: any) => {
-                    console.log(data);
+                  onRowClicked={(dataFinal: any) => {
+                    console.log(dataFinal.uuid);
+                    const modalData = dataFinal;
+                    this.setState({
+                      modalData: modalData,
+                      show: true,
+                    });
                   }}
                 />
+                <Modal
+                  show={show}
+                  onHide={this.closeModal}
+                  size="lg"
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  {show ? (
+                    <SuitabilityTestModal
+                      data={modalData}
+                      title={modalData.donorPhysicalSuitabilityId}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </Modal>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>

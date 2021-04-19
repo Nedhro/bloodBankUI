@@ -1,0 +1,16 @@
+@media print {
+  body * {
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  #printSection,
+  #printSection * {
+    visibility: visible;
+  }
+  #printSection {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+  }
+}
