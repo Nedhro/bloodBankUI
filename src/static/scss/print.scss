@@ -1,0 +1,45 @@
+@media print {
+  body * {
+    visibility: collapse;
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+  }
+  #printSection,
+  #printSection * {
+    visibility: visible;
+    white-space:normal;
+  }
+  #printSection {
+    position: relative;
+    width: 400px;
+    height: 1500px;
+  }
+}
+
+@media all {
+  .page-break {
+    display: none;
+  }
+}
+
+// @media print {
+//   html, body {
+//     height: initial !important;
+//     overflow: initial !important;
+//     -webkit-print-color-adjust: exact;
+//   }
+// }
+
+// @media print {
+//   .page-break {
+//     margin-top: 1rem;
+//     display: block;
+//     page-break-before: auto;
+//   }
+// }
+
+@page {
+  size: auto;
+  margin: 20mm;
+}

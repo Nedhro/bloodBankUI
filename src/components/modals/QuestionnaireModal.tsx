@@ -9,7 +9,7 @@ export interface TableModalProps {
   title: any;
 }
 
-class SuitabilityTestModal extends React.Component<TableModalProps, any> {
+class QuestionnaireModal extends React.Component<TableModalProps, any> {
   tableData: any = [];
   constructor(props: any) {
     super(props);
@@ -44,14 +44,9 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
         <div className="page-break" />
           <Modal.Body>
-            <h4>Test Result</h4>
-            <p>Hemoglobin : {modalData.donorHemoglobin}</p>
-            <p>Weight : {modalData.donorWeight}</p>
-            <p>Blood Pressure : {modalData.donorBloodPressure}</p>
-            <p>Pulse Rate : {modalData.donorPulseRate}</p>
-            <p>Temperature : {modalData.donorTemperature}</p>
-            <p>Rh : {modalData.donorBloodGroupRhesus}</p>
-            <p>Permission : {modalData.donorSelection}</p>
+            <h4>Questionnnaire</h4>
+            <p>Question : {modalData.question}</p>
+            <p>Concern For : {modalData.concernFor}</p>
           </Modal.Body>
         </div>
 
@@ -68,4 +63,4 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
   }
 }
 
-export default SuitabilityTestModal;
+export default QuestionnaireModal;

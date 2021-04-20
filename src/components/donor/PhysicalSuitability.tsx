@@ -139,13 +139,20 @@ class PhysicalSuitability extends React.Component<any, any> {
       return (
         <div className="container-fluid m-1">
           <div className="container bg-light p-2">
-            <a
-              className="btn btn-primary text-left float-left"
-              href="/donorPhysicalSuitability/test/add"
-            >
-              Physical Suitability Test
-            </a>
-            <br /> <br />
+            <div className="form-inline">
+              <a
+                className="btn btn-primary text-left float-left"
+                href="/donorPhysicalSuitability/test/add"
+              >
+                New Suitability Test
+              </a>
+              <a
+                className="btn btn-primary text-left float-left m-1"
+                href="/donor/list"
+              >
+                Donors
+              </a>
+            </div>
             <div className="row no-printme">
               <div className="col-12 p-1 m-1">
                 <h2>Donor Physical Suitability Tests</h2>
@@ -178,7 +185,7 @@ class PhysicalSuitability extends React.Component<any, any> {
                   responsive
                   noHeader
                   onRowClicked={(dataFinal: any) => {
-                    console.log(dataFinal.uuid);
+                    console.log(dataFinal);
                     const modalData = dataFinal;
                     this.setState({
                       modalData: modalData,
