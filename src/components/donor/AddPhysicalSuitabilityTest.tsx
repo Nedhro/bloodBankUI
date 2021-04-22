@@ -12,6 +12,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
   submitHandler = (event: any) => {
     event.preventDefault();
     this.dataConfig = {
+      bloodDonorId: this.state.bloodDonorId,
       donorHemoglobin: this.state.donorHemoglobin,
       donorWeight: this.state.donorWeight,
       donorBloodPressure: this.state.donorBloodPressure,
@@ -27,6 +28,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
+      bloodDonorId: "",
       donorHemoglobin: "",
       donorWeight: "",
       donorBloodPressure: "",
@@ -43,7 +45,12 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
     this.submitPhysicalTestInfo = this.submitPhysicalTestInfo.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log(this.props.match.params.donorId);
+    this.setState({
+      bloodDonorId: this.props.match.params.donorId,
+    });
+  }
 
   submitPhysicalTestInfo(dataConfig: any) {
     DonorService.savePhysicalSuitability(dataConfig).then((res) => {
@@ -52,7 +59,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
         this.setState({
           notification: "Physical Suitability Test is added successfully",
         });
-        this.props.history.push("/questionnaire/list");
+        this.props.history.push("/donorPhysicalSuitability/test/list");
       }
       this.setState({
         notification: "Please add valid and non duplicate values",
@@ -61,12 +68,28 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
   }
 
   render() {
-    const { notification } = this.state;
+    const { notification, bloodDonorId } = this.state;
     return (
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">Physical Suitability Test</h2>
         <div className="container p-1 m-1">
           <form className="form" onSubmit={this.submitHandler}>
+            <div className="row form-group">
+              <div className="col-4 text-right">
+                <label htmlFor="bloodDonorId">Donor ID</label>
+              </div>
+              <div className="col-8">
+                <input
+                  className="form-control"
+                  type="number"
+                  name="bloodDonorId"
+                  id="bloodDonorId"
+                  defaultValue={bloodDonorId}
+                  readOnly
+                  onChange={this.changeHandler}
+                />
+              </div>
+            </div>
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label htmlFor="donorHemoglobin">Hemoglobin (g/dl)</label>

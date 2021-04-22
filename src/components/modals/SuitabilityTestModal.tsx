@@ -44,12 +44,14 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
         <div className="page-break" />
           <Modal.Body>
-            <h4>Test Result</h4>
-            <p>Hemoglobin : {modalData.donorHemoglobin}</p>
-            <p>Weight : {modalData.donorWeight}</p>
-            <p>Blood Pressure : {modalData.donorBloodPressure}</p>
-            <p>Pulse Rate : {modalData.donorPulseRate}</p>
-            <p>Temperature : {modalData.donorTemperature}</p>
+            <h4>Test Result (Id: {title})</h4>
+            <p>Donor Id: {modalData.bloodDonorId}</p>
+            <p>Hemoglobin (g/dl) : {modalData.donorHemoglobin}</p>
+            <p>Weight (kg) : {modalData.donorWeight}</p>
+            <p>Blood Pressure (mmHg) : {modalData.donorBloodPressure}</p>
+            <p>Pulse Rate (b/m) : {modalData.donorPulseRate}</p>
+            <p>Temperature (<sup>o</sup>C) : {modalData.donorTemperature}</p>
+            <p>Blood Group : {modalData.donorBloodGroup}</p>
             <p>Rh : {modalData.donorBloodGroupRhesus}</p>
             <p>Permission : {modalData.donorSelection}</p>
           </Modal.Body>
