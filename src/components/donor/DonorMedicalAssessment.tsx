@@ -1,78 +1,116 @@
 import React from "react";
-import { MDBDataTable } from "mdbreact";
+import DataTable from "react-data-table-component";
+import { Modal } from "react-bootstrap";
+import DonorModal from "../modals/DonorModal";
+import DonorService from "../../services/DonorService";
 
 class DonorMedicalAssessment extends React.Component<any, any> {
-  data = {
-    columns: [
-      {
-        label: "Name",
-        field: "name",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Position",
-        field: "position",
-        sort: "asc",
-        width: 270,
-      },
-      {
-        label: "Office",
-        field: "office",
-        sort: "asc",
-        width: 200,
-      },
-      {
-        label: "Age",
-        field: "age",
-        sort: "asc",
-        width: 100,
-      },
-      {
-        label: "Start date",
-        field: "date",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Salary",
-        field: "salary",
-        sort: "asc",
-        width: 100,
-      },
-    ],
-    rows: [
-      {
-        id: 1,
-        name: "Tiger Nixon",
-        position: "System Architect",
-        office: "Edinburgh",
-        age: "61",
-        date: "2011/04/25",
-        salary: "$320",
-      },
-      {
-        id: 2,
-        name: "Cedric Kelly",
-        position: "Senior Javascript Developer",
-        office: "Edinburgh",
-        age: "22",
-        date: "2012/03/29",
-        salary: "$433",
-      },
-    ],
-  };
   constructor(props: any) {
     super(props);
     this.state = {
+      isLoaded: false,
       error: null,
-      show: false
+      items: [],
+      notification: "",
+      show: false,
+      modalData: "",
+      query: "",
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.getDonorList();
+  }
+
+  getDonorList() {
+    DonorService.getAllBloodDonor().then((result) => {
+      const resultData = result.data;
+      const datafinal = resultData?.map((data: any) => {
+        let config = {
+          uuid: data.uuid,
+          id: data.donorId,
+          name: data.donorName,
+          age: data.donorAge,
+          guardian: data.donorGuardian,
+          gender: data.donorGender,
+          maritalStatus: data.donorMaritalStatus,
+          profession: data.donorProfession,
+          presentAddress: data.donorPresentAddress,
+          permanentAddress: data.donorPermanentAddress,
+          mobile: data.donorMobileNo,
+          lastDonatedDate: data.donorLastDonatedDate,
+          lastDonatedPlace: data.donorLastDonatedPlace,
+          status: data.status === 1 ? "Active" : "Inactive",
+        };
+        return config;
+      });
+      this.setState({
+        isLoaded: true,
+        items: datafinal,
+      });
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      show: false,
+    });
+  };
+
+  columns = [
+    {
+      name: "Id",
+      selector: "id",
+      sortable: true,
+    },
+    {
+      name: "Name",
+      selector: "name",
+      sortable: true,
+    },
+    {
+      name: "Age",
+      selector: "age",
+      sortable: true,
+    },
+    {
+      name: "Address",
+      selector: "presentAddress",
+      sortable: true,
+    },
+    {
+      name: "Mobile No",
+      selector: "mobile",
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: "status",
+      sortable: true,
+    }
+  ];
+
+  search = (rows: any) => {
+    const columns = rows[0] && Object.keys(rows[0]);
+    return rows.filter((row: any) =>
+      columns.some(
+        (column: any) =>
+          row[column]
+            .toString()
+            .toLowerCase()
+            .indexOf(this.state.query.toLowerCase()) > -1
+      )
+    );
+  };
 
   render() {
-    const { error, isLoaded=true } = this.state;
+    const {
+      error,
+      isLoaded = true,
+      items,
+      show,
+      modalData,
+      query,
+    } = this.state;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -85,29 +123,83 @@ class DonorMedicalAssessment extends React.Component<any, any> {
       return (
         <div className="container-fluid m-1">
           <div className="container bg-light p-2">
-            <a
-              className="btn btn-primary text-left float-left"
-              href="/donor/add"
-            >
-              Add Donor Info
-            </a>
-            <br /> <br />
+            <div className="form-inline">
+              <a
+                className="btn btn-primary text-left float-left m-1"
+                href="/donor/add"
+              >
+                Add Donor Info
+              </a>
+              <a
+                className="btn btn-primary text-left float-left m-1"
+                href="/questionnaire/list"
+              >
+                Questionnaire
+              </a>
+              <a
+                className="btn btn-primary text-left float-left m-1"
+                href="/donorPhysicalSuitability/test/list"
+              >
+                Physical Suitability
+              </a>
+            </div>
+
             <div className="row">
               <div className="col-12 p-1 m-1">
-                <h2>Donor Medical Assessment Questionnaire</h2>
-                <MDBDataTable
+                <h2>Blood Donor Information</h2>
+                <div className="container">
+                  <form className="form-group">
+                    <div className="row">
+                      <div className="col-3 form-inline">
+                        <label htmlFor="filter m-2 p-2">Filter</label>
+                        <input
+                          className="form-control m-1 p-1"
+                          type="text"
+                          value={query}
+                          onChange={(e) => {
+                            this.setState({ query: e.target.value });
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <DataTable
                   className="table table-stripped table-hover"
-                  noBottomColumns
-                  exportToCSV
-                  striped
+                  columns={this.columns}
+                  data={this.search(items)}
+                  pagination
+                  pointerOnHover
+                  highlightOnHover
+                  paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
+                  striped={true}
                   responsive
-                  hover
-                  onClick={(event: any) => {
-                    console.log(event.target);
-                    this.setState({show: true});
+                  noHeader
+                  onRowClicked={(dataFinal: any) => {
+                    console.log(dataFinal.uuid);
+                    const modalData = dataFinal;
+                    this.setState({
+                      modalData: modalData,
+                      show: true,
+                    });
                   }}
-                  data={this.data}
                 />
+                <Modal
+                  show={show}
+                  onHide={this.closeModal}
+                  size="lg"
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  {show ? (
+                    <DonorModal
+                      data={modalData}
+                      title={modalData.id}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </Modal>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>
