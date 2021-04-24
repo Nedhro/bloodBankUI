@@ -86,16 +86,16 @@ class DonorMedicalAssessment extends React.Component<any, any> {
       name: "Status",
       selector: "status",
       sortable: true,
-    }
+    },
   ];
 
   search = (rows: any) => {
     const columns = rows[0] && Object.keys(rows[0]);
-    return rows.filter((row: any) =>
-      columns.some(
+    return rows?.filter((row: any) =>
+      columns?.some(
         (column: any) =>
           row[column]
-            .toString()
+            ?.toString()
             .toLowerCase()
             .indexOf(this.state.query.toLowerCase()) > -1
       )
@@ -135,12 +135,6 @@ class DonorMedicalAssessment extends React.Component<any, any> {
                 href="/questionnaire/list"
               >
                 Questionnaire
-              </a>
-              <a
-                className="btn btn-primary text-left float-left m-1"
-                href="/donorPhysicalSuitability/test/list"
-              >
-                Physical Suitability
               </a>
             </div>
 
@@ -192,10 +186,7 @@ class DonorMedicalAssessment extends React.Component<any, any> {
                   centered
                 >
                   {show ? (
-                    <DonorModal
-                      data={modalData}
-                      title={modalData.id}
-                    />
+                    <DonorModal data={modalData} title={modalData.id} />
                   ) : (
                     ""
                   )}

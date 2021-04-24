@@ -69,7 +69,7 @@ class AddDonorInfo extends React.Component<any, any> {
       console.log(res);
       if (res.status === 201) {
         this.setState({ notification: "Donor Info Added Successfully" });
-        this.props.history.push("/questionnaire/list");
+        this.props.history.push("/donor/list");
       }
       this.setState({
         notification: "Please add valid and non duplicate values",
@@ -114,6 +114,7 @@ class AddDonorInfo extends React.Component<any, any> {
                       required
                       name="donorAge"
                       id="donorAge"
+                      onChange={this.changeHandler}
                     />
                   </div>
                 </div>

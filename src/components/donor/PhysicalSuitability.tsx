@@ -7,6 +7,11 @@ import SuitabilityTestModal from "../modals/SuitabilityTestModal";
 class PhysicalSuitability extends React.Component<any, any> {
   columns: any = [
     {
+      name: "Donor Id",
+      selector: "bloodDonorId",
+      sortable: true,
+    },
+    {
       name: "Hemoglobin (g/dl)",
       selector: "donorHemoglobin",
       sortable: true,
@@ -85,7 +90,14 @@ class PhysicalSuitability extends React.Component<any, any> {
           "donorBloodGroup",
           "donorBloodGroupRhesus",
           "donorSelection",
+          "bloodDonorId",
           "uuid",
+          "status",
+          "dateCreated",
+          "dateChanged",
+          "voided",
+          "createdBy",
+          "updatedBy",
         ];
         let dataFinal: any = [];
         let entries = this.filterData(res.data, keys);
@@ -114,11 +126,11 @@ class PhysicalSuitability extends React.Component<any, any> {
 
   search = (rows: any) => {
     const columns = rows[0] && Object.keys(rows[0]);
-    return rows.filter((row: any) =>
-      columns.some(
+    return rows?.filter((row: any) =>
+      columns?.some(
         (column: any) =>
           row[column]
-            .toString()
+            ?.toString()
             .toLowerCase()
             .indexOf(this.state.query.toLowerCase()) > -1
       )
@@ -140,12 +152,6 @@ class PhysicalSuitability extends React.Component<any, any> {
         <div className="container-fluid m-1">
           <div className="container bg-light p-2">
             <div className="form-inline">
-              <a
-                className="btn btn-primary text-left float-left"
-                href="/donorPhysicalSuitability/test/add"
-              >
-                New Suitability Test
-              </a>
               <a
                 className="btn btn-primary text-left float-left m-1"
                 href="/donor/list"

@@ -61,11 +61,11 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
 
   search = (rows: any) => {
     const columns = rows[0] && Object.keys(rows[0]);
-    return rows.filter((row: any) =>
-      columns.some(
+    return rows?.filter((row: any) =>
+      columns?.some(
         (column: any) =>
           row[column]
-            .toString()
+            ?.toString()
             .toLowerCase()
             .indexOf(this.state.query.toLowerCase()) > -1
       )

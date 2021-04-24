@@ -38,7 +38,7 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Test Id : {title}
+            Question Id : {title}
           </Modal.Title>
         </Modal.Header>
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>

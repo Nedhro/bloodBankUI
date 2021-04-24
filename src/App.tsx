@@ -45,7 +45,7 @@ function App() {
           <Route exact path="/donorPhysicalSuitability/test/list">
             <PhysicalSuitability />
           </Route>
-          <Route exact path="/donorPhysicalSuitability/test/add">
+          <Route exact path="/donorPhysicalSuitability/test/add/:donorId">
             <AddPhysicalSuitabilityTest />
           </Route>
         </Switch>
