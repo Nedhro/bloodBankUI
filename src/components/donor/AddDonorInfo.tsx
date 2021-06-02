@@ -1,19 +1,21 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
 import { withRouter } from "react-router-dom";
+import { Checkbox } from "@material-ui/core";
 
 class AddDonorInfo extends React.Component<any, any> {
   dataConfig: any = {};
+  questionList: any = [];
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
     console.log(this.state);
     if (event.target.name === "concernName") {
       const concernSet = {
-        concernName: this.state.concernName,
+        concernName: event.target.value,
         concernStatus: "Yes",
       };
-      this.dataConfig.concernSet.push(concernSet);
+      this.questionList.push(concernSet);
     }
   };
 
@@ -31,7 +33,7 @@ class AddDonorInfo extends React.Component<any, any> {
       donorMobileNo: this.state.donorMobileNo,
       donorLastDonatedDate: this.state.donorLastDonatedDate,
       donorLastDonatedPlace: this.state.donorLastDonatedPlace,
-      concernSet: [],
+      concernSet: this.questionList,
     };
     console.log(this.dataConfig);
     this.submitDonorInfo(this.dataConfig);
@@ -43,26 +45,41 @@ class AddDonorInfo extends React.Component<any, any> {
       error: null,
       isLoaded: false,
       donorName: "",
-      donorAge: "",
+      patientId: "",
       donorGuardian: "",
+      donorProfession: "",
+      donorAge: "",
+      donorMobileNo: "",
       donorGender: "",
       donorMaritalStatus: "",
-      donorProfession: "",
       donorPresentAddress: "",
       donorPermanentAddress: "",
-      donorMobileNo: "",
       donorLastDonatedDate: "",
       donorLastDonatedPlace: "",
+      concernSet: [],
       concernName: "",
       concernStatus: "",
       notification: "",
+      questionList: [],
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
     this.submitDonorInfo = this.submitDonorInfo.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getQuestionList();
+  }
+
+  getQuestionList() {
+    DonorService.getAllQuestionnaire().then((res) => {
+      console.log(res);
+      const questionList = res.data;
+      this.setState({
+        questionList: questionList,
+      });
+    });
+  }
 
   submitDonorInfo(dataConfig: any) {
     DonorService.saveDonorInfo(dataConfig).then((res) => {
@@ -78,7 +95,7 @@ class AddDonorInfo extends React.Component<any, any> {
   }
 
   render() {
-    const { notification } = this.state;
+    const { notification, questionList } = this.state;
     return (
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">Add Donor Information</h2>
@@ -88,7 +105,9 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorName">Full Name</label>
+                    <label htmlFor="donorName" className="font-weight-bold">
+                      Full Name
+                    </label>
                   </div>
                   <div className="col-8">
                     <input
@@ -105,15 +124,17 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorAge">Age</label>
+                    <label htmlFor="patientId" className="font-weight-bold">
+                      Blood For(Patient Id)
+                    </label>
                   </div>
                   <div className="col-8">
                     <input
                       type="number"
                       className="form-control"
                       required
-                      name="donorAge"
-                      id="donorAge"
+                      name="patientId"
+                      id="patientId"
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -125,7 +146,9 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorGuardian">Guardian/Relative</label>
+                    <label htmlFor="donorGuardian" className="font-weight-bold">
+                      Guardian/Relative
+                    </label>
                   </div>
                   <div className="col-8">
                     <input
@@ -142,7 +165,12 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorProfession">Profession</label>
+                    <label
+                      htmlFor="donorProfession"
+                      className="font-weight-bold"
+                    >
+                      Profession
+                    </label>
                   </div>
                   <div className="col-8">
                     <input
@@ -161,7 +189,50 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorGender">Gender</label>
+                    <label htmlFor="donorAge" className="font-weight-bold">
+                      Age
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <input
+                      type="number"
+                      className="form-control"
+                      required
+                      name="donorAge"
+                      id="donorAge"
+                      onChange={this.changeHandler}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-6">
+                <div className="row form-group">
+                  <div className="col-4 text-right">
+                    <label htmlFor="donorMobileNo" className="font-weight-bold">
+                      Mobile
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="donorMobileNo"
+                      id="donorMobileNo"
+                      required
+                      onChange={this.changeHandler}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-6">
+                <div className="row form-group">
+                  <div className="col-4 text-right">
+                    <label htmlFor="donorGender" className="font-weight-bold">
+                      Gender
+                    </label>
                   </div>
                   <div className="col-8">
                     <select
@@ -182,7 +253,12 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorMaritalStatus">Marital Status</label>
+                    <label
+                      htmlFor="donorMaritalStatus"
+                      className="font-weight-bold"
+                    >
+                      Marital Status
+                    </label>
                   </div>
                   <div className="col-8">
                     <select
@@ -208,28 +284,12 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorMobileNo">Mobile</label>
-                  </div>
-                  <div className="col-8">
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="donorMobileNo"
-                      id="donorMobileNo"
-                      required
-                      onChange={this.changeHandler}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-6"></div>
-            </div>
-
-            <div className="row">
-              <div className="col-6">
-                <div className="row form-group">
-                  <div className="col-4 text-right">
-                    <label htmlFor="donorPresentAddress">Present Address</label>
+                    <label
+                      htmlFor="donorPresentAddress"
+                      className="font-weight-bold"
+                    >
+                      Present Address
+                    </label>
                   </div>
                   <div className="col-8">
                     <input
@@ -245,7 +305,10 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorPermanentAddress">
+                    <label
+                      htmlFor="donorPermanentAddress"
+                      className="font-weight-bold"
+                    >
                       Permanent Address
                     </label>
                   </div>
@@ -266,7 +329,10 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorLastDonatedDate">
+                    <label
+                      htmlFor="donorLastDonatedDate"
+                      className="font-weight-bold"
+                    >
                       Last Donated Date
                     </label>
                   </div>
@@ -285,7 +351,10 @@ class AddDonorInfo extends React.Component<any, any> {
               <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
-                    <label htmlFor="donorLastDonatedPlace">
+                    <label
+                      htmlFor="donorLastDonatedPlace"
+                      className="font-weight-bold"
+                    >
                       Last Donated Place
                     </label>
                   </div>
@@ -303,7 +372,22 @@ class AddDonorInfo extends React.Component<any, any> {
             </div>
 
             <div className="row">
-              <div className="col-6"></div>
+              <div className="col-6">
+                <div className="row form-group">
+                  {questionList?.map((item: any, i: any) => (
+                    <div className="col-8" key={i}>
+                      {item.question}
+                      <Checkbox
+                        className="form-control p-0"
+                        value={item.question}
+                        id="concernName"
+                        name="concernName"
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="row form-group">
