@@ -8,7 +8,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'jquery';
 import 'popper.js';
+import LangState from './context/lang';
 
-ReactDOM.render(<App />,document.getElementById('root'));
+ReactDOM.render(
+    <React.StrictMode>
+      <LangState>
+        <App />
+      </LangState>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
 
 reportWebVitals();

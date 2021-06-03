@@ -1,9 +1,12 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
-import { withRouter } from "react-router-dom";
 import { Checkbox } from "@material-ui/core";
 
-class AddDonorInfo extends React.Component<any, any> {
+interface DonorInfoProps{
+  translate: (key: string) => string
+}
+
+class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   dataConfig: any = {};
   questionList: any = [];
 
@@ -86,7 +89,7 @@ class AddDonorInfo extends React.Component<any, any> {
       console.log(res);
       if (res.status === 201) {
         this.setState({ notification: "Donor Info Added Successfully" });
-        this.props.history.push("/donor/list");
+        //this.props.history.push("/donor/list");
       }
       this.setState({
         notification: "Please add valid and non duplicate values",
@@ -95,10 +98,11 @@ class AddDonorInfo extends React.Component<any, any> {
   }
 
   render() {
+    const { translate} =this.props;
     const { notification, questionList } = this.state;
     return (
       <div className="container-fluid m-1 p-1">
-        <h2 className="text-info text-center">Add Donor Information</h2>
+        <h2 className="text-info text-center"> {translate('addDonorPageHeader')}</h2>
         <div className="container p-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row">
@@ -106,7 +110,7 @@ class AddDonorInfo extends React.Component<any, any> {
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="donorName" className="font-weight-bold">
-                      Full Name
+                      {translate('fullName')}
                     </label>
                   </div>
                   <div className="col-8">
@@ -418,4 +422,4 @@ class AddDonorInfo extends React.Component<any, any> {
     );
   }
 }
-export default withRouter(AddDonorInfo);
+export default AddDonorInfo;
