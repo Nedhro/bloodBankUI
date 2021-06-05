@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useContext } from "react";
 import logo from "./govtlogo.png";
 import "./App.scss";
 import MainLayout from "./components/layout/MainLayout";
@@ -10,8 +10,11 @@ import Header from "./components/layout/Header";
 import AddQuestionnaire from "./components/donor/AddQuestionnaire";
 import AddDonorInfo from "./components/donor/AddDonorInfo";
 import AddPhysicalSuitabilityTest from "./components/donor/AddPhysicalSuitabilityTest";
+import { LangContext } from "./context/lang";
+import Footer from "./components/layout/footer";
 
-function App() {
+const App:FC = () =>{
+    const { dispatch: { translate }} = useContext(LangContext);
   return (
     <div className="App">
       <div className="row App-header p-2">
@@ -31,7 +34,7 @@ function App() {
             <MainLayout />
           </Route>
           <Route exact path="/donor/add">
-            <AddDonorInfo />
+            <AddDonorInfo translate={translate} />
           </Route>
           <Route exact path="/donor/list">
             <DonorMedicalAssessment />
@@ -51,15 +54,7 @@ function App() {
         </Switch>
       </Router>
       <footer>
-        <div className="container-fliud text-center footer pt-2 mb-0 pb-0">
-          <p>
-            &copy; {new Date().getFullYear()} Copyright || All right reserved ||
-            Powered By :{" "}
-            <a className="text-center navText" href="https://ctechbd.com/">
-              Crystal Technology Bangladesh Ltd.
-            </a>
-          </p>
-        </div>
+        <Footer translate={translate}/>
       </footer>
     </div>
   );

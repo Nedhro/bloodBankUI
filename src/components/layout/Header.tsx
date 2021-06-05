@@ -1,22 +1,52 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useCallback } from "react";
+import { useRef } from "react";
+import { FC } from "react";
+import { LangContext } from "../../context/lang";
+import "../../static/scss/custom.scss";
 
-class Header extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = {};
+interface HeaderProps {
+  fixed?: boolean;
+  transparent?: boolean;
+}
+
+const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
+
+  const { state: { language}, dispatch: { setLanguage, translate } } = useContext(LangContext);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownEl = useRef<HTMLUListElement>(null);
+
+  const handleClickOutside = useCallback((e) => {
+    if(showDropdown && e.target.closest('.dropdown') !== dropdownEl.current) {
+      setShowDropdown(false);
+    }
+  }, [showDropdown, setShowDropdown, dropdownEl]);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    }
+  }, [handleClickOutside]);
+
+  const chooseLanguageHandler = (value: string) => {
+    setShowDropdown(false);
+    setLanguage(value);
   }
-  componentDidMount() {}
 
-  render() {
     return (
       <div className="container">
         <nav className="navbar navbar-nav navbar-expand navbar-toggle">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item navText nav-link">
               <a className="nav-link navText" href="/">
-                Home
+              Home
               </a>
             </li>
             <li className="dropdown navText nav-link">
@@ -78,10 +108,19 @@ class Header extends React.Component<any, any> {
               </ul>
             </li>
           </ul>
+          <div className="header__nav_lang mt-3 p-1">
+            <p className="selected" onClick={() => setShowDropdown(!showDropdown)}>{language==='EN'?'Eng':'বাংলা'}</p>
+            {showDropdown && <ul className="dropdown" ref={dropdownEl}>
+                <li onClick={() => chooseLanguageHandler('EN')}>{translate('en')}</li>  
+                <li onClick={() => chooseLanguageHandler('BN')}>{translate('bn')}</li>
+              </ul>
+            }
+          </div>
         </nav>
       </div>
     );
-  }
 }
 
 export default Header;
+
+
