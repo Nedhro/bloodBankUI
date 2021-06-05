@@ -2,9 +2,25 @@
   "en": "English",
   "bn": "Bangla",
   "home": "Home",
-  
+
   "addDonorPageHeader": "Add Donor Info",
-  "fullName": "Full Name",
+  "donorName": "Full Name",
+  "patientId": "Blood For (Patient Id)",
+  "donorGuardian": "Guardian / Relative",
+  "donorProfession": "Profession",
+  "donorAge": "Age",
+  "donorMobileNo": "Mobile No",
+  "donorGender": "Gender",
+  "donorMaritalStatus": "Marital Status",
+  "donorPresentAddress": "Present Address",
+  "donorPermanentAddress": "Permanent Address",
+  "donorLastDonatedDate": "Last Donated Date",
+  "donorLastDonatedPlace": "Last Donated Place",
+  "infoOfDonor": "Notable information about the blood donor (Tick on the applicable box)",
+
+  "commonSave": "Save",
+  "commonReset": "Reset",
+  "commonSelect": "Select",
 
   "copyright": "Copyright || All right reserved || Powered By :",
   "ctech": "Crystal Technology Bangladesh Ltd."
