@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import DataTable from "react-data-table-component";
 import { Modal } from "react-bootstrap";
 import DonorModal from "../modals/DonorModal";
 import DonorService from "../../services/DonorService";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class DonorMedicalAssessment extends React.Component<any, any> {
   constructor(props: any) {
@@ -86,6 +88,35 @@ class DonorMedicalAssessment extends React.Component<any, any> {
       name: "Status",
       selector: "status",
       sortable: true,
+    },
+    {
+      name: "Action",    
+      sortable: false,
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: false,
+      cell: (record: any) => {
+        return (
+          <Fragment>
+            <button
+              className="btn btn-info btn-sm m-1"
+              onClick={() => {
+                console.log(record);
+              }}
+            >
+              <FontAwesomeIcon size="sm" icon={faEdit} />
+            </button>
+            <button
+              className="btn btn-danger btn-sm m-1"
+              onClick={() => {
+                console.log(record);
+              }}
+            >
+              <FontAwesomeIcon  size="sm" icon={faTrash} />
+            </button>
+          </Fragment>
+        );
+      },
     },
   ];
 

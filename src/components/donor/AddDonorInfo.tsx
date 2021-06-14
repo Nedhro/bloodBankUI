@@ -4,6 +4,7 @@ import { Checkbox } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../static/scss/donor.scss";
+import { history } from "../custom/history";
 
 interface DonorInfoProps {
   translate: (key: string) => string;
@@ -90,7 +91,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       console.log(res);
       if (res.status === 201) {
         this.setState({ notification: "Donor Info Added Successfully" });
-        //this.props.history.push("/donor/list");
+        history.push("/donor/list");
+        window.location.reload();
       }
       this.setState({
         notification: "Please add valid and non duplicate values",
