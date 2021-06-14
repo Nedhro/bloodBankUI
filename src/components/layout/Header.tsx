@@ -108,7 +108,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
               </ul>
             </li>
           </ul>
-          <div className="header__nav_lang mt-3 p-1">
+          <div className="header__nav_lang mt-4 p-2">
             <p className="selected" onClick={() => setShowDropdown(!showDropdown)}>{language==='EN'?'Eng':'বাংলা'}</p>
             {showDropdown && <ul className="dropdown" ref={dropdownEl}>
                 <li onClick={() => chooseLanguageHandler('EN')}>{translate('en')}</li>  

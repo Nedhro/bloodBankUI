@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Modal } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import DonorService from "../../services/DonorService";
 import SuitabilityTestModal from "../modals/SuitabilityTestModal";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class PhysicalSuitability extends React.Component<any, any> {
   columns: any = [
@@ -50,6 +52,35 @@ class PhysicalSuitability extends React.Component<any, any> {
       name: "Permission",
       selector: "donorSelection",
       sortable: true,
+    },
+    {
+      name: "Action",    
+      sortable: false,
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: false,
+      cell: (record: any) => {
+        return (
+          <Fragment>
+            <button
+              className="btn btn-info btn-sm m-1"
+              onClick={() => {
+                console.log(record);
+              }}
+            >
+              <FontAwesomeIcon size="sm" icon={faEdit} />
+            </button>
+            <button
+              className="btn btn-danger btn-sm m-1"
+              onClick={() => {
+                console.log(record);
+              }}
+            >
+              <FontAwesomeIcon  size="sm" icon={faTrash} />
+            </button>
+          </Fragment>
+        );
+      },
     },
   ];
 
