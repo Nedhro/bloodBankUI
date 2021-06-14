@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Modal } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import DonorService from "../../services/DonorService";
 import QuestionnaireModal from "../modals/QuestionnaireModal";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class AssessmentQuestionnaire extends React.Component<any, any> {
   columns = [
@@ -20,6 +22,35 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
       name: "Status",
       selector: "status",
       sortable: true,
+    },
+    {
+      name: "Action",    
+      sortable: false,
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: false,
+      cell: (record: any) => {
+        return (
+          <Fragment>
+            <button
+              className="btn btn-info btn-sm m-1"
+              onClick={() => {
+                console.log(record);
+              }}
+            >
+              <FontAwesomeIcon size="sm" icon={faEdit} />
+            </button>
+            <button
+              className="btn btn-danger btn-sm m-1"
+              onClick={() => {
+                console.log(record);
+              }}
+            >
+              <FontAwesomeIcon  size="sm" icon={faTrash} />
+            </button>
+          </Fragment>
+        );
+      },
     },
   ];
 
@@ -80,6 +111,8 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
 
   render() {
     const { error, isLoaded, items, show, modalData, query } = this.state;
+    const data = this.search(items);
+    const columns = this.columns;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -127,25 +160,24 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
                   </form>
                 </div>
                 <DataTable
-                  className="table table-stripped table-hover"
-                  columns={this.columns}
-                  data={this.search(items)}
-                  pagination
-                  pointerOnHover
-                  highlightOnHover
-                  paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
-                  striped={true}
-                  responsive
-                  noHeader
-                  onRowClicked={(dataFinal: any) => {
-                    console.log(dataFinal);
-                    const modalData = dataFinal;
-                    this.setState({
-                      modalData: modalData,
-                      show: true,
-                    });
-                  }}
-                />
+                className="table table-hover table-sm"
+                columns={columns}
+                data={data}
+                noHeader
+                defaultSortAsc={true}
+                pagination
+                highlightOnHover
+                striped
+                paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
+                onRowClicked={(dataFinal: any) => {
+                  console.log(dataFinal);
+                  const modalData = dataFinal;
+                  this.setState({
+                    modalData: modalData,
+                    show: true,
+                  });
+                }}
+              />
                 <Modal
                   show={show}
                   onHide={this.closeModal}
@@ -154,10 +186,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
                   centered
                 >
                   {show ? (
-                    <QuestionnaireModal
-                      data={modalData}
-                      title={modalData.id}
-                    />
+                    <QuestionnaireModal data={modalData} title={modalData.id} />
                   ) : (
                     ""
                   )}

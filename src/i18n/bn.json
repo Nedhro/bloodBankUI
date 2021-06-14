@@ -4,7 +4,23 @@
   "home": "হোম",
 
   "addDonorPageHeader": "রক্তদাতার তথ্য",
-  "fullName": "নাম",
+  "donorName": "নাম",
+  "patientId": "রোগীর আইডি",
+  "donorGuardian": "অভিভাবক / আত্মীয়",
+  "donorProfession": "পেশা",
+  "donorAge": "বয়স",
+  "donorMobileNo": "মোবাইল নম্বর",
+  "donorGender": "লিঙ্গ",
+  "donorMaritalStatus": "বৈবাহিক অবস্থা",
+  "donorPresentAddress": "বর্তমান ঠিকানা",
+  "donorPermanentAddress": "স্থায়ী ঠিকানা",
+  "donorLastDonatedDate": "সর্বশেষ রক্তদানের তারিখ",
+  "donorLastDonatedPlace": "সর্বশেষ রক্তদানের স্থান",
+  "infoOfDonor": "রক্তদাতা সম্পর্কে জ্ঞাতব্য (প্রযোজ্য ঘরে টিক চিহ্ন দিন)",
+
+  "commonSave": "সংরক্ষণ করুন",
+  "commonReset": "নতুন করে বসান",
+  "commonSelect": "নির্বাচন করুন",
 
   "copyright": "স্বত্বাধিকার || সকল অধিকার সংরক্ষিত || তত্ত্বাবধায়নে :",
   "ctech": "ক্রিস্টাল টেকনোলজি বাংলাদেশ লিমিটেড"

@@ -1,5 +1,5 @@
 import React, { FC, useContext } from "react";
-import logo from "./govtlogo.png";
+import appLogo from "./govtlogo.png";
 import "./App.scss";
 import MainLayout from "./components/layout/MainLayout";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -19,7 +19,7 @@ const App:FC = () =>{
     <div className="App">
       <div className="row App-header p-2">
         <div className="col-1 float-left">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={appLogo} className="App-logo" alt="logo" />
         </div>
         <div className="col-4">
           <h2 className="text-left p-0 m-0">Blood Bank Module</h2>
