@@ -1,8 +1,8 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import bloodDonorImage from "../../static/images/bloodDonor.png";
-import bloodbilling from "../../static/images/billing.png";
+import bloodDonorImage from "../../static/images/BloodDonor.png";
+import bloodStockImage from "../../static/images/BloodStock.png";
 import "../../static/scss/donor.scss";
 
 class MainLayout extends React.Component<any, any> {
@@ -19,19 +19,27 @@ class MainLayout extends React.Component<any, any> {
         <div className="row">
           <div className="col-3 cardcol">
             <div className="card">
-              <img src={bloodDonorImage} height="150" width="100" className="card-img-top" alt="logo" />
+              <img
+                src={bloodDonorImage}
+                height="150px"
+                width="100"
+                className="card-img-top"
+                alt="logo"
+              />
               <div className="card-body">
-                <h6 className="card-title">Donor Medical Assessment</h6>
-                {/* <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p> */}
-                <a href="/donor/list" className="btn btn-primary">
+                <h6 className="card-title font-weight-bold text-info">
+                  Donor Medical Assessment
+                </h6>
+                <p className="card-text">
                   <FontAwesomeIcon
-                    color="white"
-                    size="lg"
+                    color="black"
+                    size="sm"
                     icon={faArrowRight}
-                  />{" "}
+                  />
+                  &nbsp;Donor Informations, Donor Suitability Tests,
+                  Questionnaires
+                </p>
+                <a href="/donor/list" className="btn btn-info font-weight-bold">
                   Donor List
                 </a>
               </div>
@@ -40,20 +48,27 @@ class MainLayout extends React.Component<any, any> {
 
           <div className="col-3 cardcol">
             <div className="card">
-              <img src={bloodbilling} height="150" width="100" className="card-img-top" alt="logo" />
+              <img
+                src={bloodStockImage}
+                height="150"
+                width="100"
+                className="card-img-top"
+                alt="logo"
+              />
               <div className="card-body">
-                <h6 className="card-title">Blood Bank Billing</h6>
-                {/* <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p> */}
-                <a href="/bill/list" className="btn btn-primary">
+                <h6 className="card-title font-weight-bold text-info">
+                  Blood Stock Management
+                </h6>
+                <p className="card-text">
                   <FontAwesomeIcon
-                    color="white"
-                    size="lg"
+                    color="black"
+                    size="sm"
                     icon={faArrowRight}
-                  />{" "}
-                  Billing List
+                  />
+                  &nbsp; Blood Stock, Blood Availability Check, Compatibility Test
+                </p>
+                <a href="/bloodStock" className="btn btn-info font-weight-bold">
+                  Blood Stock
                 </a>
               </div>
             </div>

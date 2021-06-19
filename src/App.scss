@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 9vmin;
+  height: 10vmin;
   pointer-events: visible;
 }
 
@@ -19,7 +19,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 3vmin);
+  font-size: calc(9px + 2vmin);
   color: white;
 }
 .navText{
@@ -53,16 +53,17 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color:#046B86;
+  // background-color:#046B86;
+  background-color:hsl(220, 85%, 8%);
   color:hsl(214, 26%, 95%);
   font-weight: bold;
 }
 
 
 .footer a {
-  color:hsl(219, 91%, 17%);
+  color: whitesmoke;
   font-weight: bold;
 }
 .footer a:hover {
-  color:hsl(214, 26%, 95%)
+  color: wheat;
 }
