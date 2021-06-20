@@ -11,10 +11,19 @@ class AddQuestionnaire extends React.Component<any, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    this.dataConfig = {
-      question: this.state.question,
-      concernFor: this.state.concernFor,
-    };
+    const id = this.props.match.params.id;
+    if (id) {
+      this.dataConfig = {
+        qid: id,
+        question: this.state.question,
+        concernFor: this.state.concernFor,
+      };
+    } else {
+      this.dataConfig = {
+        question: this.state.question,
+        concernFor: this.state.concernFor,
+      };
+    }
     console.log(this.dataConfig);
     this.submitQuestionnnaire(this.dataConfig);
   };
@@ -24,6 +33,7 @@ class AddQuestionnaire extends React.Component<any, any> {
     this.state = {
       error: null,
       isLoaded: false,
+      qid: "",
       question: "",
       concernFor: "",
       notification: "",
@@ -33,7 +43,21 @@ class AddQuestionnaire extends React.Component<any, any> {
     this.submitQuestionnnaire = this.submitQuestionnnaire.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    this.getQuestionnnaireById(id);
+  }
+
+  getQuestionnnaireById(id: any) {
+    DonorService.getQuestionnnaireById(id).then((res) => {
+      const question = res.data.question;
+      const concernFor = res.data.concernFor;
+      this.setState({
+        question: question,
+        concernFor: concernFor,
+      });
+    });
+  }
 
   submitQuestionnnaire(dataConfig: any) {
     DonorService.saveQuestionnaire(dataConfig).then((res) => {
@@ -65,6 +89,7 @@ class AddQuestionnaire extends React.Component<any, any> {
                   type="text"
                   name="question"
                   id="question"
+                  value={this.state.question}
                   required
                   onChange={this.changeHandler}
                 />
@@ -80,6 +105,7 @@ class AddQuestionnaire extends React.Component<any, any> {
                   className="form-control"
                   name="concernFor"
                   id="concernFor"
+                  value={this.state.concernFor}
                   required
                   onChange={this.changeHandler}
                 >
