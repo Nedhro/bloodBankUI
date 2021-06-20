@@ -36,6 +36,9 @@ const App:FC = () =>{
           <Route exact path="/donor/add">
             <AddDonorInfo translate={translate} />
           </Route>
+          <Route exact path="/donor/:id">
+            <AddDonorInfo translate={translate} />
+          </Route>
           <Route exact path="/donor/list">
             <DonorMedicalAssessment />
           </Route>
@@ -45,10 +48,16 @@ const App:FC = () =>{
           <Route exact path="/questionnaire/list">
             <AssessmentQuestionnaire />
           </Route>
+          <Route exact path="/questionnaire/:id">
+            <AddQuestionnaire />
+          </Route>
           <Route exact path="/donorPhysicalSuitability/test/list">
             <PhysicalSuitability />
           </Route>
           <Route exact path="/donorPhysicalSuitability/test/add/:donorId">
+            <AddPhysicalSuitabilityTest />
+          </Route>
+          <Route exact path="/donorPhysicalSuitability/test/add/:donorId/:id">
             <AddPhysicalSuitabilityTest />
           </Route>
         </Switch>

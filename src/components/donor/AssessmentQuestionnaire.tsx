@@ -5,6 +5,7 @@ import DonorService from "../../services/DonorService";
 import QuestionnaireModal from "../modals/QuestionnaireModal";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { history } from "../custom/history";
 
 class AssessmentQuestionnaire extends React.Component<any, any> {
   columns = [
@@ -35,7 +36,9 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
             <button
               className="btn btn-info btn-sm m-1"
               onClick={() => {
-                console.log(record);
+                const id = record.id;
+                history.push(`/questionnaire/${id}`);
+                window.location.reload();
               }}
             >
               <FontAwesomeIcon size="sm" icon={faEdit} />
@@ -43,7 +46,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
             <button
               className="btn btn-danger btn-sm m-1"
               onClick={() => {
-                console.log(record);
+           
               }}
             >
               <FontAwesomeIcon  size="sm" icon={faTrash} />
