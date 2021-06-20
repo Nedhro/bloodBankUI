@@ -5,6 +5,8 @@ import DonorModal from "../modals/DonorModal";
 import DonorService from "../../services/DonorService";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { history } from "../custom/history";
+import { Link } from "react-router-dom";
 
 class DonorMedicalAssessment extends React.Component<any, any> {
   constructor(props: any) {
@@ -90,7 +92,7 @@ class DonorMedicalAssessment extends React.Component<any, any> {
       sortable: true,
     },
     {
-      name: "Action",    
+      name: "Action",
       sortable: false,
       ignoreRowClick: true,
       allowOverflow: true,
@@ -98,21 +100,22 @@ class DonorMedicalAssessment extends React.Component<any, any> {
       cell: (record: any) => {
         return (
           <Fragment>
-            <button
+            <Link
+              to={`/donor/${record.id}`}
               className="btn btn-info btn-sm m-1"
               onClick={() => {
-                console.log(record);
+                sessionStorage.setItem("id", record.id);
               }}
             >
               <FontAwesomeIcon size="sm" icon={faEdit} />
-            </button>
+            </Link>
             <button
               className="btn btn-danger btn-sm m-1"
               onClick={() => {
                 console.log(record);
               }}
             >
-              <FontAwesomeIcon  size="sm" icon={faTrash} />
+              <FontAwesomeIcon size="sm" icon={faTrash} />
             </button>
           </Fragment>
         );

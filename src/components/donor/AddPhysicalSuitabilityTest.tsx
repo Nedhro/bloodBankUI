@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import DonorService from "../../services/DonorService";
+import { history } from "../custom/history";
 
 class AddPhysicalSuitabilityTest extends React.Component<any, any> {
   dataConfig: any = {};
@@ -11,17 +12,36 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    this.dataConfig = {
-      bloodDonorId: this.state.bloodDonorId,
-      donorHemoglobin: this.state.donorHemoglobin,
-      donorWeight: this.state.donorWeight,
-      donorBloodPressure: this.state.donorBloodPressure,
-      donorPulseRate: this.state.donorPulseRate,
-      donorTemperature: this.state.donorTemperature,
-      donorBloodGroup: this.state.donorBloodGroup,
-      donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
-      donorSelection: this.state.donorSelection,
-    };
+    const id = sessionStorage.getItem('id');
+    if (id) {
+      this.dataConfig = {
+        donorPhysicalSuitabilityId: id,
+        bloodDonorId: this.state.bloodDonorId,
+        donorHemoglobin: this.state.donorHemoglobin,
+        donorWeight: this.state.donorWeight,
+        donorBloodPressure: this.state.donorBloodPressure,
+        donorPulseRate: this.state.donorPulseRate,
+        donorTemperature: this.state.donorTemperature,
+        donorBloodGroup: this.state.donorBloodGroup,
+        donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
+        donorSelection: this.state.donorSelection,
+      };
+    }
+    else {
+      this.dataConfig = {
+        bloodDonorId: this.state.bloodDonorId,
+        donorHemoglobin: this.state.donorHemoglobin,
+        donorWeight: this.state.donorWeight,
+        donorBloodPressure: this.state.donorBloodPressure,
+        donorPulseRate: this.state.donorPulseRate,
+        donorTemperature: this.state.donorTemperature,
+        donorBloodGroup: this.state.donorBloodGroup,
+        donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
+        donorSelection: this.state.donorSelection,
+      };
+
+    }
+
     console.log(this.dataConfig);
     this.submitPhysicalTestInfo(this.dataConfig);
   };
@@ -50,6 +70,30 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
     this.setState({
       bloodDonorId: this.props.match.params.donorId,
     });
+    const id = sessionStorage.getItem('id');
+    this.getPhysicalTestInfoById(id);
+  }
+  getPhysicalTestInfoById(id: any) {
+    DonorService.getPhysicalTestInfoById(id).then((res) => {
+      const donorHemoglobin = res.data.donorHemoglobin;
+      const donorWeight = res.data.donorWeight;
+      const donorBloodPressure = res.data.donorBloodPressure;
+      const donorPulseRate = res.data.donorPulseRate;
+      const donorTemperature = res.data.donorTemperature;
+      const donorBloodGroup = res.data.donorBloodGroup;
+      const donorBloodGroupRhesus = res.data.donorBloodGroupRhesus;
+      const donorSelection = res.data.donorSelection;
+      this.setState({
+        donorHemoglobin: donorHemoglobin,
+        donorWeight: donorWeight,
+        donorBloodPressure: donorBloodPressure,
+        donorPulseRate: donorPulseRate,
+        donorTemperature: donorTemperature,
+        donorBloodGroup: donorBloodGroup,
+        donorBloodGroupRhesus: donorBloodGroupRhesus,
+        donorSelection: donorSelection,
+      });
+    });
   }
 
   submitPhysicalTestInfo(dataConfig: any) {
@@ -59,7 +103,17 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
         this.setState({
           notification: "Physical Suitability Test is added successfully",
         });
-        this.props.history.push("/donorPhysicalSuitability/test/list");
+        history.push("/donorPhysicalSuitability/test/list");
+        window.location.reload();
+
+      }
+      if (res.status === 202) {
+        this.setState({
+          notification: "Physical Suitability Test is Updated successfully",
+        });
+        history.push("/donorPhysicalSuitability/test/list");
+        sessionStorage.removeItem('id');
+        window.location.reload();
       }
       this.setState({
         notification: "Please add valid and non duplicate values",
@@ -100,6 +154,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorHemoglobin"
                   id="donorHemoglobin"
+                  value={this.state.donorHemoglobin}
                   required
                   onChange={this.changeHandler}
                 />
@@ -116,6 +171,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorWeight"
                   id="donorWeight"
+                  value={this.state.donorWeight}
                   required
                   onChange={this.changeHandler}
                 />
@@ -134,6 +190,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="text"
                   name="donorBloodPressure"
                   id="donorBloodPressure"
+                  value={this.state.donorBloodPressure}
                   required
                   onChange={this.changeHandler}
                 />
@@ -150,6 +207,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorPulseRate"
                   id="donorPulseRate"
+                  value={this.state.donorPulseRate}
                   required
                   onChange={this.changeHandler}
                 />
@@ -168,6 +226,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="number"
                   name="donorTemperature"
                   id="donorTemperature"
+                  value={this.state.donorTemperature}
                   required
                   onChange={this.changeHandler}
                 />
@@ -184,6 +243,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   type="text"
                   name="donorBloodGroup"
                   id="donorBloodGroup"
+                  value={this.state.donorBloodGroup}
                   required
                   onChange={this.changeHandler}
                 />
@@ -201,6 +261,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   className="form-control"
                   name="donorBloodGroupRhesus"
                   id="donorBloodGroupRhesus"
+                  value={this.state.donorBloodGroupRhesus}
                   required
                   onChange={this.changeHandler}
                 >
@@ -219,6 +280,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                 <select
                   className="form-control"
                   name="donorSelection"
+                  value={this.state.donorSelection}
                   id="donorSelection"
                   required
                   onChange={this.changeHandler}
