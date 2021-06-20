@@ -10,7 +10,7 @@ class MainLayout extends React.Component<any, any> {
     super(props);
     this.state = {};
   }
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (

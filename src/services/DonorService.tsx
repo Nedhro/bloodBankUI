@@ -11,6 +11,10 @@ class DonorService {
   getAllBloodDonor() {
     return axios.get(urlPrefix + "donors");
   }
+
+  getBloodDonorById(id: any) {
+    return axios.get(urlPrefix + "donor/" + id);
+  }
   //Questionnaire
   saveQuestionnaire(data: Object) {
     return axios.post(urlPrefix + "questionnaire/add", data);
@@ -30,6 +34,9 @@ class DonorService {
   }
   getPhysicalSuitabilityResults() {
     return axios.get(urlPrefix + "bloodDonorPhysicalSuitability/list");
+  }
+  getPhysicalTestInfoById(id: any) {
+    return axios.get(urlPrefix + "bloodDonorPhysicalSuitability/" + id);
   }
 }
 
