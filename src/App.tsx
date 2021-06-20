@@ -13,8 +13,8 @@ import AddPhysicalSuitabilityTest from "./components/donor/AddPhysicalSuitabilit
 import { LangContext } from "./context/lang";
 import Footer from "./components/layout/footer";
 
-const App:FC = () =>{
-    const { dispatch: { translate }} = useContext(LangContext);
+const App: FC = () => {
+  const { dispatch: { translate } } = useContext(LangContext);
   return (
     <div className="App">
       <div className="row App-header p-2">
@@ -25,7 +25,7 @@ const App:FC = () =>{
           <h2 className="text-left p-0 m-0">Blood Bank Module</h2>
         </div>
         <div className="col-7">
-            <Header/>
+          <Header />
         </div>
       </div>
       <Router>
@@ -33,15 +33,16 @@ const App:FC = () =>{
           <Route exact path="/">
             <MainLayout />
           </Route>
+          <Route exact path="/donor/list">
+            <DonorMedicalAssessment />
+          </Route>
           <Route exact path="/donor/add">
             <AddDonorInfo translate={translate} />
           </Route>
           <Route exact path="/donor/:id">
             <AddDonorInfo translate={translate} />
           </Route>
-          <Route exact path="/donor/list">
-            <DonorMedicalAssessment />
-          </Route>
+
           <Route exact path="/questionnaire/add">
             <AddQuestionnaire />
           </Route>
@@ -57,13 +58,13 @@ const App:FC = () =>{
           <Route exact path="/donorPhysicalSuitability/test/add/:donorId">
             <AddPhysicalSuitabilityTest />
           </Route>
-          <Route exact path="/donorPhysicalSuitability/test/add/:donorId/:id">
+          <Route exact path="/donorPhysicalSuitability/test/:donorId/:id">
             <AddPhysicalSuitabilityTest />
           </Route>
         </Switch>
       </Router>
       <footer>
-        <Footer translate={translate}/>
+        <Footer translate={translate} />
       </footer>
     </div>
   );
