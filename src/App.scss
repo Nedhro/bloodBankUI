@@ -6,6 +6,14 @@
   height: 10vmin;
   pointer-events: visible;
 }
+.mainlayout{
+  position: relative;
+  display: inline-flexbox;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

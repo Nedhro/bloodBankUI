@@ -5,6 +5,8 @@ import DonorService from "../../services/DonorService";
 import SuitabilityTestModal from "../modals/SuitabilityTestModal";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+
 
 class PhysicalSuitability extends React.Component<any, any> {
   columns: any = [
@@ -54,7 +56,7 @@ class PhysicalSuitability extends React.Component<any, any> {
       sortable: true,
     },
     {
-      name: "Action",    
+      name: "Action",
       sortable: false,
       ignoreRowClick: true,
       allowOverflow: true,
@@ -62,21 +64,28 @@ class PhysicalSuitability extends React.Component<any, any> {
       cell: (record: any) => {
         return (
           <Fragment>
-            <button
+            <Link
+              to={`/donorPhysicalSuitability/test/${record.bloodDonorId}/${record.donorPhysicalSuitabilityId}`}
               className="btn btn-info btn-sm m-1"
               onClick={() => {
-                console.log(record);
+                sessionStorage.setItem("id", record.donorPhysicalSuitabilityId);
+                // console.log(record);
+                // const id = record.donorPhysicalSuitabilityId;
+                // const donorID = record.bloodDonorId;
+                // history.push(`/donorPhysicalSuitability/test/${donorID}/${id}`);
+                // window.location.reload();
               }}
             >
               <FontAwesomeIcon size="sm" icon={faEdit} />
-            </button>
+            </Link>
             <button
               className="btn btn-danger btn-sm m-1"
               onClick={() => {
-                console.log(record);
+                const id = record.donorPhysicalSuitabilityId;
+                this.deleteSuitabilityTest(parseInt(id));
               }}
             >
-              <FontAwesomeIcon  size="sm" icon={faTrash} />
+              <FontAwesomeIcon size="sm" icon={faTrash} />
             </button>
           </Fragment>
         );
@@ -95,6 +104,17 @@ class PhysicalSuitability extends React.Component<any, any> {
       modalData: "",
       query: "",
     };
+  }
+
+  deleteSuitabilityTest(id:any){
+    DonorService.deletePhysicalTest(id).then(res=>{
+      console.log(res);
+      if(res.status === 202){
+        this.setState({
+          notification: "The test is deleted successfully"
+        });
+      }
+    });
   }
 
   closeModal = () => {
@@ -169,7 +189,7 @@ class PhysicalSuitability extends React.Component<any, any> {
   };
 
   render() {
-    const { error, isLoaded, items, show, modalData, query } = this.state;
+    const { error, isLoaded, items, show, modalData, query, notification } = this.state;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -249,6 +269,11 @@ class PhysicalSuitability extends React.Component<any, any> {
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>
+          </div>
+          <div className="text-danger m-1 p-1">
+            <p className="text-center bg-info font-weight-bold">
+              {notification}
+            </p>
           </div>
         </div>
       );

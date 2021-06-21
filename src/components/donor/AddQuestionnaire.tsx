@@ -1,6 +1,7 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
 import { withRouter } from "react-router-dom";
+import { history } from "../custom/history";
 
 class AddQuestionnaire extends React.Component<any, any> {
   dataConfig: any = {};
@@ -11,7 +12,7 @@ class AddQuestionnaire extends React.Component<any, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = this.props.match.params.id;
+    const id = sessionStorage.getItem('id');
     if (id) {
       this.dataConfig = {
         qid: id,
@@ -44,7 +45,7 @@ class AddQuestionnaire extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id;
+    const id = sessionStorage.getItem('id');
     this.getQuestionnnaireById(id);
   }
 
@@ -65,6 +66,14 @@ class AddQuestionnaire extends React.Component<any, any> {
       if (res.status === 201) {
         this.setState({ notification: "Questionnaire Created Successfully" });
         this.props.history.push("/questionnaire/list");
+      }
+      if (res.status === 202) {
+        this.setState({
+          notification: "Questionnaire Updated successfully",
+        });
+        history.push("/questionnaire/list");
+        sessionStorage.removeItem('id');
+        window.location.reload();
       }
       this.setState({
         notification: "Please add valid and non duplicate question",

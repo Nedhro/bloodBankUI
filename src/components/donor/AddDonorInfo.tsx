@@ -28,21 +28,43 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    this.dataConfig = {
-      donorName: this.state.donorName,
-      donorAge: this.state.donorAge,
-      donorGuardian: this.state.donorGuardian,
-      donorGender: this.state.donorGender,
-      donorMaritalStatus: this.state.donorMaritalStatus,
-      donorProfession: this.state.donorProfession,
-      donorPresentAddress: this.state.donorPresentAddress,
-      donorPermanentAddress: this.state.donorPermanentAddress,
-      donorMobileNo: this.state.donorMobileNo,
-      donorLastDonatedDate: this.state.donorLastDonatedDate,
-      donorLastDonatedPlace: this.state.donorLastDonatedPlace,
-      concernSet: this.questionList,
-    };
+    const id = sessionStorage.getItem('id');
+    if (id) {
+      this.dataConfig = {
+        id: id,
+        donorName: this.state.donorName,
+        donorAge: this.state.donorAge,
+        donorGuardian: this.state.donorGuardian,
+        donorGender: this.state.donorGender,
+        donorMaritalStatus: this.state.donorMaritalStatus,
+        donorProfession: this.state.donorProfession,
+        donorPresentAddress: this.state.donorPresentAddress,
+        donorPermanentAddress: this.state.donorPermanentAddress,
+        donorMobileNo: this.state.donorMobileNo,
+        donorLastDonatedDate: this.state.donorLastDonatedDate,
+        donorLastDonatedPlace: this.state.donorLastDonatedPlace,
+        concernSet: this.questionList,
+      };
+    }
+    else {
+      this.dataConfig = {
+        donorName: this.state.donorName,
+        donorAge: this.state.donorAge,
+        donorGuardian: this.state.donorGuardian,
+        donorGender: this.state.donorGender,
+        donorMaritalStatus: this.state.donorMaritalStatus,
+        donorProfession: this.state.donorProfession,
+        donorPresentAddress: this.state.donorPresentAddress,
+        donorPermanentAddress: this.state.donorPermanentAddress,
+        donorMobileNo: this.state.donorMobileNo,
+        donorLastDonatedDate: this.state.donorLastDonatedDate,
+        donorLastDonatedPlace: this.state.donorLastDonatedPlace,
+        concernSet: this.questionList,
+      };
+    }
+
     this.submitDonorInfo(this.dataConfig);
+    // sessionStorage.removeItem('id');
   };
 
   constructor(props: any) {
@@ -74,24 +96,67 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   componentDidMount() {
     this.getQuestionList();
+    const id = sessionStorage.getItem('id');
+    if(id !== null){
+      this.getDonorInfoById(id);
+    }
   }
 
   getQuestionList() {
     DonorService.getAllQuestionnaire().then((res) => {
-      console.log(res);
+      // console.log(res);
       const questionList = res.data;
       this.setState({
         questionList: questionList,
       });
     });
   }
-
+  getDonorInfoById(id: any) {
+    console.log('done');
+    DonorService.getBloodDonorById(id).then((res) => {
+      console.log(res);
+      const donorName = res.data.donorName;
+      const patientId = res.data.patientId;
+      const donorGuardian = res.data.donorGuardian;
+      const donorProfession = res.data.donorProfession;
+      const donorAge = res.data.donorAge;
+      const donorMobileNo = res.data.donorMobileNo;
+      const donorGender = res.data.donorGender;
+      const donorMaritalStatus = res.data.donorMaritalStatus;
+      const donorPresentAddress = res.data.donorPresentAddress;
+      const donorPermanentAddress = res.data.donorPermanentAddress;
+      const donorLastDonatedDate = res.data.donorLastDonatedDate;
+      const donorLastDonatedPlace = res.data.donorLastDonatedPlace;
+      const concernSet = res.data.concernSet;
+      this.setState({
+        donorName: donorName,
+        patientId: patientId,
+        donorGuardian: donorGuardian,
+        donorProfession: donorProfession,
+        donorAge: donorAge,
+        donorMobileNo: donorMobileNo,
+        donorGender: donorGender,
+        donorMaritalStatus: donorMaritalStatus,
+        donorPresentAddress: donorPresentAddress,
+        donorPermanentAddress: donorPermanentAddress,
+        donorLastDonatedDate: donorLastDonatedDate,
+        donorLastDonatedPlace: donorLastDonatedPlace,
+        questionList: concernSet,
+      });
+    });
+  }
   submitDonorInfo(dataConfig: any) {
     DonorService.saveDonorInfo(dataConfig).then((res) => {
       console.log(res);
       if (res.status === 201) {
         this.setState({ notification: "Donor Info Added Successfully" });
         history.push("/donor/list");
+        window.location.reload();
+      }
+      if (res.status === 202) {
+        this.setState({ notification: "Donor Info Updated Successfully" });
+        history.push("/donor/list");
+        sessionStorage.removeItem('id');
         window.location.reload();
       }
       this.setState({
@@ -125,6 +190,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       required
                       name="donorName"
                       id="donorName"
+                      value={this.state.donorName}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -144,6 +210,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       required
                       name="patientId"
                       id="patientId"
+                      value={this.state.patientId}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -165,6 +232,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       type="text"
                       name="donorGuardian"
                       id="donorGuardian"
+                      value={this.state.donorGuardian}
                       required
                       onChange={this.changeHandler}
                     />
@@ -187,6 +255,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       type="text"
                       name="donorProfession"
                       id="donorProfession"
+                      value={this.state.donorProfession}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -209,6 +278,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       required
                       name="donorAge"
                       id="donorAge"
+                      value={this.state.donorAge}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -227,6 +297,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       type="text"
                       name="donorMobileNo"
                       id="donorMobileNo"
+                      value={this.state.donorMobileNo}
                       required
                       onChange={this.changeHandler}
                     />
@@ -248,6 +319,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       className="form-control"
                       name="donorGender"
                       id="donorGender"
+                      value={this.state.donorGender}
                       required
                       onChange={this.changeHandler}
                     >
@@ -274,6 +346,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       className="form-control"
                       name="donorMaritalStatus"
                       id="donorMaritalStatus"
+                      value={this.state.donorMaritalStatus}
                       required
                       onChange={this.changeHandler}
                     >
@@ -306,6 +379,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       type="text"
                       name="donorPresentAddress"
                       id="donorPresentAddress"
+                      value={this.state.donorPresentAddress}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -327,6 +401,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       type="text"
                       name="donorPermanentAddress"
                       id="donorPermanentAddress"
+                      value={this.state.donorPermanentAddress}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -352,6 +427,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       pattern="yyyy-MM-dd"
                       name="donorLastDonatedDate"
                       id="donorLastDonatedDate"
+                      value={this.state.donorLastDonatedDate}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -373,6 +449,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       type="text"
                       name="donorLastDonatedPlace"
                       id="donorLastDonatedPlace"
+                      value={this.state.donorLastDonatedPlace}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -404,6 +481,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                         value={item.question}
                         id="concernName"
                         name="concernName"
+                        // value={this.state.concernName}
                         onChange={this.changeHandler}
                       />
                     </div>
