@@ -97,7 +97,9 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   componentDidMount() {
     this.getQuestionList();
     const id = sessionStorage.getItem('id');
-    // console.log(id);
+    if(id !== null){
+      this.getDonorInfoById(id);
+    }
   }
 
   getQuestionList() {
@@ -112,37 +114,35 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   getDonorInfoById(id: any) {
     console.log('done');
     DonorService.getBloodDonorById(id).then((res) => {
-
-      // const donorName = res.data.donorName;
-      // const patientId = res.data.patientId;
-      // const donorGuardian = res.data.donorGuardian;
-      // const donorProfession = res.data.donorProfession;
-      // const donorAge = res.data.donorAge;
-      // const donorMobileNo = res.data.donorMobileNo;
-      // const donorGender = res.data.donorGender;
-      // const donorMaritalStatus = res.data.donorMaritalStatus;
-      // const donorPresentAddress = res.data.donorPresentAddress;
-      // const donorPermanentAddress = res.data.donorPermanentAddress;
-      // const donorLastDonatedDate = res.data.donorLastDonatedDate;
-      // const donorLastDonatedPlace = res.data.donorLastDonatedPlace;
-      // const concernName = res.data.concernName;
-      // const concernStatus = res.data.concernStatus;
-      // this.setState({
-      //   donorName: donorName,
-      //   patientId: patientId,
-      //   donorGuardian: donorGuardian,
-      //   donorProfession: donorProfession,
-      //   donorAge: donorAge,
-      //   donorMobileNo: donorMobileNo,
-      //   donorGender: donorGender,
-      //   donorMaritalStatus: donorMaritalStatus,
-      //   donorPresentAddress: donorPresentAddress,
-      //   donorPermanentAddress: donorPermanentAddress,
-      //   donorLastDonatedDate: donorLastDonatedDate,
-      //   donorLastDonatedPlace: donorLastDonatedPlace,
-      //   concernName: concernName,
-      //   concernStatus: concernStatus,
-      // });
+      console.log(res);
+      const donorName = res.data.donorName;
+      const patientId = res.data.patientId;
+      const donorGuardian = res.data.donorGuardian;
+      const donorProfession = res.data.donorProfession;
+      const donorAge = res.data.donorAge;
+      const donorMobileNo = res.data.donorMobileNo;
+      const donorGender = res.data.donorGender;
+      const donorMaritalStatus = res.data.donorMaritalStatus;
+      const donorPresentAddress = res.data.donorPresentAddress;
+      const donorPermanentAddress = res.data.donorPermanentAddress;
+      const donorLastDonatedDate = res.data.donorLastDonatedDate;
+      const donorLastDonatedPlace = res.data.donorLastDonatedPlace;
+      const concernSet = res.data.concernSet;
+      this.setState({
+        donorName: donorName,
+        patientId: patientId,
+        donorGuardian: donorGuardian,
+        donorProfession: donorProfession,
+        donorAge: donorAge,
+        donorMobileNo: donorMobileNo,
+        donorGender: donorGender,
+        donorMaritalStatus: donorMaritalStatus,
+        donorPresentAddress: donorPresentAddress,
+        donorPermanentAddress: donorPermanentAddress,
+        donorLastDonatedDate: donorLastDonatedDate,
+        donorLastDonatedPlace: donorLastDonatedPlace,
+        questionList: concernSet,
+      });
     });
   }
   submitDonorInfo(dataConfig: any) {
@@ -190,6 +190,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       required
                       name="donorName"
                       id="donorName"
+                      value={this.state.donorName}
                       onChange={this.changeHandler}
                     />
                   </div>
@@ -477,10 +478,10 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                     >
                       <Checkbox
                         className="form-control mr-0 pr-0"
-                        // value={item.question}
+                        value={item.question}
                         id="concernName"
                         name="concernName"
-                        value={this.state.concernName}
+                        // value={this.state.concernName}
                         onChange={this.changeHandler}
                       />
                     </div>

@@ -5,7 +5,6 @@ import DonorModal from "../modals/DonorModal";
 import DonorService from "../../services/DonorService";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { history } from "../custom/history";
 import { Link } from "react-router-dom";
 
 class DonorMedicalAssessment extends React.Component<any, any> {
