@@ -1,11 +1,15 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import bloodDonorImage from "../../static/images/bloodDonor.png";
+import bloodDonorImage from "../../static/images/BloodDonor.png";
 import bloodStockImage from "../../static/images/BloodStock.png";
 import "../../static/scss/donor.scss";
 
-class MainLayout extends React.Component<any, any> {
+
+interface MainLayoutProps {
+  translate: (key: string) => string;
+}
+class MainLayout extends React.Component<MainLayoutProps, any> {
   constructor(props: any) {
     super(props);
     this.state = {};
@@ -13,9 +17,10 @@ class MainLayout extends React.Component<any, any> {
   componentDidMount() { }
 
   render() {
+    const { translate } = this.props;
     return (
       <div className="container mainlayout">
-        <h2 className="text-center">Welcome</h2>
+        <h2 className="text-center ">{translate("welcome")}</h2>
         <div className="row">
           <div className="col-4 cardcol m-2 p-2">
             <div className="card">
@@ -28,7 +33,7 @@ class MainLayout extends React.Component<any, any> {
               />
               <div className="card-body">
                 <h6 className="card-title font-weight-bold text-info">
-                  Donor Medical Assessment
+                  {translate("donorAssessment")}
                 </h6>
                 <p className="card-text">
                   <FontAwesomeIcon
@@ -36,11 +41,11 @@ class MainLayout extends React.Component<any, any> {
                     size="sm"
                     icon={faArrowRight}
                   />
-                  &nbsp;Donor Informations, Donor Suitability Tests,
-                  Questionnaires
+                  &nbsp;
+                  <span>{translate("donorInformation")}</span>
                 </p>
                 <a href="/donor/list" className="btn btn-info font-weight-bold">
-                  Donor List
+                  {translate("donorList")}
                 </a>
               </div>
             </div>
@@ -57,7 +62,7 @@ class MainLayout extends React.Component<any, any> {
               />
               <div className="card-body">
                 <h6 className="card-title font-weight-bold text-info">
-                  Blood Stock Management
+                  {translate("bloodManagement")}
                 </h6>
                 <p className="card-text">
                   <FontAwesomeIcon
@@ -65,10 +70,11 @@ class MainLayout extends React.Component<any, any> {
                     size="sm"
                     icon={faArrowRight}
                   />
-                  &nbsp; Blood Stock, Blood Availability Check, Compatibility Test
+                  &nbsp;
+                  <span>{translate("bloodManagementInfo")}</span>
                 </p>
                 <a href="/bloodStock" className="btn btn-info font-weight-bold">
-                  Blood Stock
+                  {translate("bloodStock")}
                 </a>
               </div>
             </div>

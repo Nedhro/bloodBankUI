@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
 
-// import $ from "jquery";
 
 export interface TableModalProps {
   data: Object;

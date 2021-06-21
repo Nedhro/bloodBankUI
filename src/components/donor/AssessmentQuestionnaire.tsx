@@ -7,55 +7,12 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-class AssessmentQuestionnaire extends React.Component<any, any> {
-  columns = [
-    {
-      name: "Question",
-      selector: "question",
-      sortable: true,
-    },
-    {
-      name: "Concern For",
-      selector: "concernFor",
-      sortable: true,
-    },
-    {
-      name: "Status",
-      selector: "status",
-      sortable: true,
-    },
-    {
-      name: "Action",
-      sortable: false,
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: false,
-      cell: (record: any) => {
-        return (
-          <Fragment>
-            <Link
-              to={`/questionnaire/${record.id}`}
-              className="btn btn-info btn-sm m-1"
-              onClick={() => {
-                sessionStorage.setItem("id", record.id);
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faEdit} />
-            </Link>
-            <button
-              className="btn btn-danger btn-sm m-1"
-              onClick={() => {
-                this.deleteQuestionnnaire(record.id);
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faTrash} />
-            </button>
-          </Fragment>
-        );
-      },
-    },
-  ];
-
+interface AssessmentQuestionnaireProps {
+  translate: (key: string) => string;
+}
+class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnaireProps, any> {
+  
+  
   constructor(props: any) {
     super(props);
     this.state = {
@@ -67,12 +24,13 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
       modalData: "",
       query: "",
     };
+    
   }
   componentDidMount() {
     this.getQuestionnaireList();
   }
 
-  deleteQuestionnnaire(id: any) {
+  deleteQuestionnaire(id: any) {
     DonorService.deleteQuestionnaire(id).then((res) => {
       console.log(res);
       if (res.status === 202) {
@@ -126,7 +84,56 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
   render() {
     const { error, isLoaded, items, show, modalData, query, notification } = this.state;
     const data = this.search(items);
-    const columns = this.columns;
+    const { translate } = this.props;
+
+    const columns = [
+      {
+        name: `${translate("question")}`,
+        selector: "question",
+        sortable: true,
+      },
+      {
+        name: `${translate("concernFor")}`,
+        selector: "concernFor",
+        sortable: true,
+      },
+      {
+        name: `${translate("status")}`,
+        selector: "status",
+        sortable: true,
+      },
+      {
+        name: `${translate("action")}`,
+        sortable: false,
+        ignoreRowClick: true,
+        allowOverflow: true,
+        button: false,
+        cell: (record: any) => {
+          return (
+            <Fragment>
+              <Link
+                to={`/questionnaire/${record.id}`}
+                className="btn btn-info btn-sm m-1"
+                onClick={() => {
+                  sessionStorage.setItem("id", record.id);
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faEdit} />
+              </Link>
+              <button
+                className="btn btn-danger btn-sm m-1"
+                onClick={() => {
+                  this.deleteQuestionnaire(record.id);
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faTrash} />
+              </button>
+            </Fragment>
+          );
+        },
+      },
+    ];
+
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -144,23 +151,23 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
                 className="btn btn-primary text-left float-left m-1"
                 href="/questionnaire/add"
               >
-                Add Questionnaire
+                {translate("addNewQues")}
               </a>
               <a
                 className="btn btn-primary text-left float-left m-1"
                 href="/donor/list"
               >
-                Donors
+                {translate("commonDonors")}
               </a>
             </div>
             <div className="row">
               <div className="col-12 p-1 m-1">
-                <h2>Donor Medical Assessment Questionnaire</h2>
+                <h2>{translate("donorQuesList")}</h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">
                       <div className="col-3 form-inline">
-                        <label htmlFor="filter m-2 p-2">Filter</label>
+                        <label htmlFor="filter m-2 p-2">{translate("commonFilter")}</label>
                         <input
                           className="form-control m-1 p-1"
                           type="text"

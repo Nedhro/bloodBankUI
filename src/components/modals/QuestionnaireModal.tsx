@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
 
-// import $ from "jquery";
 
 export interface TableModalProps {
   data: Object;
@@ -44,7 +43,7 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
         <div className="page-break" />
           <Modal.Body>
-            <h4>Questionnnaire</h4>
+            <h4>Questionnaire</h4>
             <p>Question : {modalData.question}</p>
             <p>Concern For : {modalData.concernFor}</p>
           </Modal.Body>

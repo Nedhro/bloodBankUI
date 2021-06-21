@@ -1,9 +1,12 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import DonorService from "../../services/DonorService";
 import { history } from "../custom/history";
 
-class AddPhysicalSuitabilityTest extends React.Component<any, any> {
+
+interface PhysicalSuitabilityProps {
+  translate: (key: string) => string;
+}
+class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProps, any> {
   dataConfig: any = {};
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -66,10 +69,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.donorId);
-    this.setState({
-      bloodDonorId: this.props.match.params.donorId,
-    });
+    
     const id = sessionStorage.getItem('id');
     this.getPhysicalTestInfoById(id);
   }
@@ -123,14 +123,15 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
   render() {
     const { notification, bloodDonorId } = this.state;
+    const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
-        <h2 className="text-info text-center">Physical Suitability Test</h2>
+        <h2 className="text-info text-center">{translate("physicalTest")}</h2>
         <div className="container p-1 m-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="bloodDonorId">Donor ID</label>
+                <label htmlFor="bloodDonorId">{translate("donorId")}</label>
               </div>
               <div className="col-8">
                 <input
@@ -146,7 +147,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorHemoglobin">Hemoglobin (g/dl)</label>
+                <label htmlFor="donorHemoglobin">{translate("hemoglobin")} </label>
               </div>
               <div className="col-8">
                 <input
@@ -163,7 +164,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorWeight">Weight (kg)</label>
+                <label htmlFor="donorWeight">{translate("weight")} </label>
               </div>
               <div className="col-8">
                 <input
@@ -181,7 +182,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label htmlFor="donorBloodPressure">
-                  Blood Pressure (low/high mmHg)
+                  {translate("bloodPressure")} 
                 </label>
               </div>
               <div className="col-8">
@@ -199,7 +200,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorPulseRate">Pulse Rate (b/m)</label>
+                <label htmlFor="donorPulseRate">{translate("pulse")} </label>
               </div>
               <div className="col-8">
                 <input
@@ -217,7 +218,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label htmlFor="donorTemperature">
-                  Temperature (<sup>o</sup>C)
+                  {translate("temp")} (<sup>o</sup>{translate("cel")})
                 </label>
               </div>
               <div className="col-8">
@@ -235,7 +236,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorBloodGroup">Blood Group</label>
+                <label htmlFor="donorBloodGroup">{translate("bloodGroup")}</label>
               </div>
               <div className="col-8">
                 <input
@@ -253,7 +254,7 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label htmlFor="donorBloodGroupRhesus">
-                  Blood Group Rhesus
+                  {translate("bloodGroup")} {translate("rhesus")}
                 </label>
               </div>
               <div className="col-8">
@@ -265,16 +266,16 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   required
                   onChange={this.changeHandler}
                 >
-                  <option value="">Select</option>
-                  <option value="Rh-Positive">Rh-Positive</option>
-                  <option value="Rh-Negative">Rh-Negative</option>
+                  <option value="">{translate("commonSelect")}</option>
+                  <option value="Rh-Positive">{translate("rhPositive")}</option>
+                  <option value="Rh-Negative">{translate("rhNegative")}</option>
                 </select>
               </div>
             </div>
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorSelection">Permission</label>
+                <label htmlFor="donorSelection">{translate("permission")}</label>
               </div>
               <div className="col-8">
                 <select
@@ -285,9 +286,9 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                   required
                   onChange={this.changeHandler}
                 >
-                  <option value="">Select</option>
-                  <option value="Selected">Selected</option>
-                  <option value="Rejected">Rejected</option>
+                  <option value="">{translate("commonSelect")}</option>
+                  <option value="Selected">{translate("selected")}</option>
+                  <option value="Rejected">{translate("rejected")}</option>
                 </select>
               </div>
             </div>
@@ -298,14 +299,14 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
                 <input
                   type="submit"
                   className="form-control btn btn-success m-1 p-1"
-                  value="Save"
+                  value={translate("commonSave")}
                 />
               </div>
               <div className="col-3 m-1 p-1 float-right text-right">
                 <input
                   type="reset"
                   className="form-control btn btn-danger m-1 p-1"
-                  value="Reset"
+                  value={translate("commonReset")}
                 />
               </div>
             </div>
@@ -321,4 +322,4 @@ class AddPhysicalSuitabilityTest extends React.Component<any, any> {
   }
 }
 
-export default withRouter(AddPhysicalSuitabilityTest);
+export default AddPhysicalSuitabilityTest;

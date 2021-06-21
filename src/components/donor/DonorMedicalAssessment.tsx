@@ -7,7 +7,11 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-class DonorMedicalAssessment extends React.Component<any, any> {
+
+interface DonorMedicalAssessmentProps {
+  translate: (key: string) => string;
+}
+class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -59,69 +63,7 @@ class DonorMedicalAssessment extends React.Component<any, any> {
     });
   };
 
-  columns = [
-    {
-      name: "Id",
-      selector: "id",
-      sortable: true,
-    },
-    {
-      name: "Name",
-      selector: "name",
-      sortable: true,
-    },
-    {
-      name: "Age",
-      selector: "age",
-      sortable: true,
-    },
-    {
-      name: "Address",
-      selector: "presentAddress",
-      sortable: true,
-    },
-    {
-      name: "Mobile No",
-      selector: "mobile",
-      sortable: true,
-    },
-    {
-      name: "Status",
-      selector: "status",
-      sortable: true,
-    },
-    {
-      name: "Action",
-      sortable: false,
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: false,
-      cell: (record: any) => {
-        return (
-          <Fragment>
-            <Link
-              to={`/donor/${record.id}`}
-              className="btn btn-info btn-sm m-1"
-              onClick={() => {
-                sessionStorage.setItem("id", record.id);
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faEdit} />
-            </Link>
-            <button
-              className="btn btn-danger btn-sm m-1"
-              onClick={() => {
-                console.log(record);
-                this.deleteDonorInfo(record.id);
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faTrash} />
-            </button>
-          </Fragment>
-        );
-      },
-    },
-  ];
+ 
 
   deleteDonorInfo(id: any) {
     DonorService.deleteBloodDonor(id).then((res) => {
@@ -151,6 +93,70 @@ class DonorMedicalAssessment extends React.Component<any, any> {
   render() {
     const { error, isLoaded, items, show, modalData, query, notification } =
       this.state;
+    const { translate } = this.props;
+    const columns = [
+      {
+        name: `${translate("id")}`,
+        selector: "id",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorName")}`,
+        selector: "name",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorAge")}`,
+        selector: "age",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorPresentAddress")}`,
+        selector: "presentAddress",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorMobileNo")}`,
+        selector: "mobile",
+        sortable: true,
+      },
+      {
+        name: `${translate("status")}`,
+        selector: "status",
+        sortable: true,
+      },
+      {
+        name: `${translate("action")}`,
+        sortable: false,
+        ignoreRowClick: true,
+        allowOverflow: true,
+        button: false,
+        cell: (record: any) => {
+          return (
+            <Fragment>
+              <Link
+                to={`/donor/${record.id}`}
+                className="btn btn-info btn-sm m-1"
+                onClick={() => {
+                  sessionStorage.setItem("id", record.id);
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faEdit} />
+              </Link>
+              <button
+                className="btn btn-danger btn-sm m-1"
+                onClick={() => {
+                  console.log(record);
+                  this.deleteDonorInfo(record.id);
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faTrash} />
+              </button>
+            </Fragment>
+          );
+        },
+      },
+    ];
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -168,24 +174,24 @@ class DonorMedicalAssessment extends React.Component<any, any> {
                 className="btn btn-primary text-left float-left m-1"
                 href="/donor/add"
               >
-                Add Donor Info
+                {translate("addDonor")}
               </a>
               <a
                 className="btn btn-primary text-left float-left m-1"
                 href="/questionnaire/list"
               >
-                Questionnaire
+                {translate("donorQues")}
               </a>
             </div>
 
             <div className="row">
               <div className="col-12 p-1 m-1">
-                <h2>Blood Donor Information</h2>
+                <h2>{translate("donorInfo")}</h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">
                       <div className="col-3 form-inline">
-                        <label htmlFor="filter m-2 p-2">Filter</label>
+                        <label htmlFor="filter m-2 p-2"> {translate("commonFilter")}</label>
                         <input
                           className="form-control m-1 p-1"
                           type="text"
@@ -200,7 +206,7 @@ class DonorMedicalAssessment extends React.Component<any, any> {
                 </div>
                 <DataTable
                   className="table table-stripped table-hover"
-                  columns={this.columns}
+                  columns={columns}
                   data={this.search(items)}
                   pagination
                   pointerOnHover
