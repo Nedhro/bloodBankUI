@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
+import { history } from "../custom/history";
 
 
 export interface TableModalProps {
@@ -61,7 +62,16 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
             <Button variant="success" onClick={this.printDiv}>
               Print
             </Button>
-            <Button variant="secondary">Edit</Button>
+            <Button variant="info" onClick={()=>{
+              if(modalData.donorSelection === 'Selected'){
+                const donorId = modalData.bloodDonorId;
+                sessionStorage.setItem("donorId", donorId);
+                history.push(`/blood/${donorId}/stock/add`);
+                window.location.reload();
+              }else{
+                alert('Donor is not fit for donating blood');
+              }
+            }}>Add Blood to Stock</Button>
           </Modal.Footer>
         </div>
       </div>

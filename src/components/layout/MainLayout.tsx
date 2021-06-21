@@ -1,7 +1,7 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import bloodDonorImage from "../../static/images/BloodDonor.png";
+import bloodDonorImage from "../../static/images/bloodDonor.png";
 import bloodStockImage from "../../static/images/BloodStock.png";
 import "../../static/scss/donor.scss";
 

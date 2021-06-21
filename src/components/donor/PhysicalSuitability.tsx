@@ -173,6 +173,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
                   sessionStorage.setItem("id", record.donorPhysicalSuitabilityId);
+                  sessionStorage.setItem("donorId", record.bloodDonorId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />

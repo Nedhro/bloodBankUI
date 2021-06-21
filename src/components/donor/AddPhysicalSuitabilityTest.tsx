@@ -44,7 +44,6 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
       };
 
     }
-
     console.log(this.dataConfig);
     this.submitPhysicalTestInfo(this.dataConfig);
   };
@@ -69,7 +68,10 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
   }
 
   componentDidMount() {
-    
+    const donorId = sessionStorage.getItem('donorId');
+    this.setState({
+      bloodDonorId: donorId
+    });
     const id = sessionStorage.getItem('id');
     this.getPhysicalTestInfoById(id);
   }
@@ -103,16 +105,17 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
         this.setState({
           notification: "Physical Suitability Test is added successfully",
         });
+        sessionStorage.removeItem('donorId');
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
-
       }
       if (res.status === 202) {
         this.setState({
           notification: "Physical Suitability Test is Updated successfully",
         });
-        history.push("/donorPhysicalSuitability/test/list");
+        sessionStorage.removeItem('donorId');
         sessionStorage.removeItem('id');
+        history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
       }
       this.setState({

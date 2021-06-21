@@ -12,6 +12,8 @@ import AddDonorInfo from "./components/donor/AddDonorInfo";
 import AddPhysicalSuitabilityTest from "./components/donor/AddPhysicalSuitabilityTest";
 import { LangContext } from "./context/lang";
 import Footer from "./components/layout/footer";
+import AddBloodStock from "./components/bloodStock/AddBloodStock";
+import BloodStock from "./components/bloodStock/BloodStockList";
 
 const App: FC = () => {
   const { dispatch: { translate } } = useContext(LangContext);
@@ -60,6 +62,16 @@ const App: FC = () => {
           </Route>
           <Route exact path="/donorPhysicalSuitability/test/:donorId/:id">
             <AddPhysicalSuitabilityTest translate={translate} />
+          </Route>
+
+          <Route exact path="/blood/:donorId/stock/add">
+            <AddBloodStock translate={translate} />
+          </Route>
+          <Route exact path="/blood/:donorId/stock/:id">
+            <AddBloodStock translate={translate} />
+          </Route>
+          <Route exact path="/blood/stock/list">
+            <BloodStock translate={translate} />
           </Route>
         </Switch>
       </Router>
