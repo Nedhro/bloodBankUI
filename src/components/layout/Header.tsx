@@ -13,6 +13,7 @@ import "../../static/scss/custom.scss";
 interface HeaderProps {
   fixed?: boolean;
   transparent?: boolean;
+  translate: (key: string) => string;
 }
 
 const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
@@ -46,7 +47,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item navText nav-link">
               <a className="nav-link navText" href="/">
-              Home
+                {translate("home")}
               </a>
             </li>
             <li className="dropdown navText nav-link">
@@ -58,18 +59,18 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Donor
+                {translate("donor")}
                 <span className="caret"></span>
               </a>
               <ul className="dropdown-menu">
                 <li className="p-1 m-1">
                   <a className="text-info" href="/donor/list">
-                    Donors
+                    {translate("commonDonors")}
                   </a>
                 </li>
                 <li className="p-1 m-1">
                   <a className="text-info" href="/questionnaire/list">
-                    Questionnaires
+                    {translate("ques")}
                   </a>
                 </li>
                 <li className="p-1 m-1">
@@ -77,7 +78,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                     className="text-info"
                     href="/donorPhysicalSuitability/test/list"
                   >
-                    Suitability Test
+                    {translate("test")}
                   </a>
                 </li>
               </ul>

@@ -64,7 +64,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     }
 
     this.submitDonorInfo(this.dataConfig);
-    // sessionStorage.removeItem('id');
   };
 
   constructor(props: any) {
@@ -97,14 +96,14 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   componentDidMount() {
     this.getQuestionList();
     const id = sessionStorage.getItem('id');
-    if(id !== null){
+    if (id !== null) {
       this.getDonorInfoById(id);
+      sessionStorage.removeItem('id');
     }
   }
 
   getQuestionList() {
     DonorService.getAllQuestionnaire().then((res) => {
-      // console.log(res);
       const questionList = res.data;
       this.setState({
         questionList: questionList,
@@ -114,7 +113,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   getDonorInfoById(id: any) {
     console.log('done');
     DonorService.getBloodDonorById(id).then((res) => {
-      console.log(res);
+      console.log(res.data);
       const donorName = res.data.donorName;
       const patientId = res.data.patientId;
       const donorGuardian = res.data.donorGuardian;
@@ -476,12 +475,12 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       className="col-2 text-right float-right mr-0 pr-0"
                       key={i}
                     >
+                      {/* <input className=" mr-0 pr-0" type="checkbox" value={item.question} checked={this.state.chkbox} onChange={this.changeHandler} /> */}
                       <Checkbox
                         className="form-control mr-0 pr-0"
                         value={item.question}
                         id="concernName"
                         name="concernName"
-                        // value={this.state.concernName}
                         onChange={this.changeHandler}
                       />
                     </div>
