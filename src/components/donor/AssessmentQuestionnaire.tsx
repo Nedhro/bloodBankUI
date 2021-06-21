@@ -7,7 +7,6 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-
 class AssessmentQuestionnaire extends React.Component<any, any> {
   columns = [
     {
@@ -34,7 +33,6 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
       cell: (record: any) => {
         return (
           <Fragment>
-
             <Link
               to={`/questionnaire/${record.id}`}
               className="btn btn-info btn-sm m-1"
@@ -47,7 +45,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
             <button
               className="btn btn-danger btn-sm m-1"
               onClick={() => {
-
+                this.deleteQuestionnnaire(record.id);
               }}
             >
               <FontAwesomeIcon size="sm" icon={faTrash} />
@@ -72,6 +70,18 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
   }
   componentDidMount() {
     this.getQuestionnaireList();
+  }
+
+  deleteQuestionnnaire(id: any) {
+    DonorService.deleteQuestionnaire(id).then((res) => {
+      console.log(res);
+      if (res.status === 202) {
+        this.setState({
+          notification: "The Questionnaire is deleted successfully",
+        });
+        window.location.reload();
+      }
+    });
   }
 
   getQuestionnaireList() {
@@ -114,7 +124,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
   };
 
   render() {
-    const { error, isLoaded, items, show, modalData, query } = this.state;
+    const { error, isLoaded, items, show, modalData, query, notification } = this.state;
     const data = this.search(items);
     const columns = this.columns;
     if (error) {
@@ -195,6 +205,11 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
                     ""
                   )}
                 </Modal>
+              </div>
+              <div className="text-danger m-1 p-1">
+                <p className="text-center bg-info font-weight-bold">
+                  {notification}
+                </p>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>

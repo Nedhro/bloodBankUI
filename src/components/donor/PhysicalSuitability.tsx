@@ -7,7 +7,6 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-
 class PhysicalSuitability extends React.Component<any, any> {
   columns: any = [
     {
@@ -106,13 +105,14 @@ class PhysicalSuitability extends React.Component<any, any> {
     };
   }
 
-  deleteSuitabilityTest(id:any){
-    DonorService.deletePhysicalTest(id).then(res=>{
+  deleteSuitabilityTest(id: any) {
+    DonorService.deletePhysicalTest(id).then((res) => {
       console.log(res);
-      if(res.status === 202){
+      if (res.status === 202) {
         this.setState({
-          notification: "The test is deleted successfully"
+          notification: "The test is deleted successfully",
         });
+        window.location.reload();
       }
     });
   }
@@ -189,7 +189,8 @@ class PhysicalSuitability extends React.Component<any, any> {
   };
 
   render() {
-    const { error, isLoaded, items, show, modalData, query, notification } = this.state;
+    const { error, isLoaded, items, show, modalData, query, notification } =
+      this.state;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -267,13 +268,13 @@ class PhysicalSuitability extends React.Component<any, any> {
                   )}
                 </Modal>
               </div>
+              <div className="text-danger m-1 p-1">
+                <p className="text-center bg-info font-weight-bold">
+                  {notification}
+                </p>
+              </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>
-          </div>
-          <div className="text-danger m-1 p-1">
-            <p className="text-center bg-info font-weight-bold">
-              {notification}
-            </p>
           </div>
         </div>
       );
