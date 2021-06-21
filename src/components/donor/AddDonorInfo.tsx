@@ -475,14 +475,14 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       className="col-2 text-right float-right mr-0 pr-0"
                       key={i}
                     >
-                      <input className=" mr-0 pr-0" type="checkbox" value={item.question} checked={this.state.chkbox} onChange={this.changeHandler} />
-                      {/* <Checkbox
+                      {/* <input className=" mr-0 pr-0" type="checkbox" value={item.question} checked={this.state.chkbox} onChange={this.changeHandler} /> */}
+                      <Checkbox
                         className="form-control mr-0 pr-0"
                         value={item.question}
                         id="concernName"
                         name="concernName"
                         onChange={this.changeHandler}
-                      /> */}
+                      />
                     </div>
                     <div className="col-10 text-left mt-2 pt-1">
                       {item.question}
