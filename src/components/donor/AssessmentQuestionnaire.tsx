@@ -7,7 +7,10 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-class AssessmentQuestionnaire extends React.Component<any, any> {
+interface AssessmentQuestionnaireProps {
+  translate: (key: string) => string;
+}
+class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnaireProps, any> {
   columns = [
     {
       name: "Question",
@@ -127,6 +130,7 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
     const { error, isLoaded, items, show, modalData, query, notification } = this.state;
     const data = this.search(items);
     const columns = this.columns;
+    const { translate } = this.props;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -144,23 +148,23 @@ class AssessmentQuestionnaire extends React.Component<any, any> {
                 className="btn btn-primary text-left float-left m-1"
                 href="/questionnaire/add"
               >
-                Add Questionnaire
+                {translate("addNewQues")}
               </a>
               <a
                 className="btn btn-primary text-left float-left m-1"
                 href="/donor/list"
               >
-                Donors
+                {translate("commonDonors")}
               </a>
             </div>
             <div className="row">
               <div className="col-12 p-1 m-1">
-                <h2>Donor Medical Assessment Questionnaire</h2>
+                <h2>{translate("donorQuesList")}</h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">
                       <div className="col-3 form-inline">
-                        <label htmlFor="filter m-2 p-2">Filter</label>
+                        <label htmlFor="filter m-2 p-2">{translate("commonFilter")}</label>
                         <input
                           className="form-control m-1 p-1"
                           type="text"

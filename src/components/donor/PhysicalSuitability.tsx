@@ -7,7 +7,10 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-class PhysicalSuitability extends React.Component<any, any> {
+interface PhysicalSuitabilityProps {
+  translate: (key: string) => string;
+}
+class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any> {
   columns: any = [
     {
       name: "Donor Id",
@@ -191,6 +194,7 @@ class PhysicalSuitability extends React.Component<any, any> {
   render() {
     const { error, isLoaded, items, show, modalData, query, notification } =
       this.state;
+    const { translate } = this.props;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -208,17 +212,17 @@ class PhysicalSuitability extends React.Component<any, any> {
                 className="btn btn-primary text-left float-left m-1"
                 href="/donor/list"
               >
-                Donors
+                {translate("commonDonors")}
               </a>
             </div>
             <div className="row no-printme">
               <div className="col-12 p-1 m-1">
-                <h2>Donor Physical Suitability Tests</h2>
+                <h2>{translate("suitabilityTest")}</h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">
                       <div className="col-3 form-inline">
-                        <label htmlFor="filter m-2 p-2">Filter</label>
+                        <label htmlFor="filter m-2 p-2">{translate("commonFilter")}</label>
                         <input
                           className="form-control m-1 p-1"
                           type="text"

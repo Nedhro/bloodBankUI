@@ -7,7 +7,11 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-class DonorMedicalAssessment extends React.Component<any, any> {
+
+interface DonorMedicalAssessmentProps {
+  translate: (key: string) => string;
+}
+class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -151,6 +155,7 @@ class DonorMedicalAssessment extends React.Component<any, any> {
   render() {
     const { error, isLoaded, items, show, modalData, query, notification } =
       this.state;
+    const { translate } = this.props;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -168,24 +173,24 @@ class DonorMedicalAssessment extends React.Component<any, any> {
                 className="btn btn-primary text-left float-left m-1"
                 href="/donor/add"
               >
-                Add Donor Info
+                {translate("addDonor")}
               </a>
               <a
                 className="btn btn-primary text-left float-left m-1"
                 href="/questionnaire/list"
               >
-                Questionnaire
+                {translate("donorQues")}
               </a>
             </div>
 
             <div className="row">
               <div className="col-12 p-1 m-1">
-                <h2>Blood Donor Information</h2>
+                <h2>{translate("donorInfo")}</h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">
                       <div className="col-3 form-inline">
-                        <label htmlFor="filter m-2 p-2">Filter</label>
+                        <label htmlFor="filter m-2 p-2"> {translate("commonFilter")}</label>
                         <input
                           className="form-control m-1 p-1"
                           type="text"

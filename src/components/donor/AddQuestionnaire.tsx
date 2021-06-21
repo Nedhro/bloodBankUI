@@ -1,9 +1,13 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import { history } from "../custom/history";
 
-class AddQuestionnaire extends React.Component<any, any> {
+
+interface QuestionnaireProps {
+  translate: (key: string) => string;
+}
+class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
   dataConfig: any = {};
 
   changeHandler = (event: any) => {
@@ -65,7 +69,7 @@ class AddQuestionnaire extends React.Component<any, any> {
       console.log(res);
       if (res.status === 201) {
         this.setState({ notification: "Questionnaire Created Successfully" });
-        this.props.history.push("/questionnaire/list");
+        history.push("/questionnaire/list");
       }
       if (res.status === 202) {
         this.setState({
@@ -83,14 +87,15 @@ class AddQuestionnaire extends React.Component<any, any> {
 
   render() {
     const { notification } = this.state;
+    const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
-        <h2 className="text-info text-center">Add Questionnaire</h2>
+        <h2 className="text-info text-center">{translate("commonAddQues")}</h2>
         <div className="container p-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="question">Question</label>
+                <label htmlFor="question">{translate("question")}</label>
               </div>
               <div className="col-8">
                 <input
@@ -107,7 +112,7 @@ class AddQuestionnaire extends React.Component<any, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="concernFor">Concern For</label>
+                <label htmlFor="concernFor">{translate("concernFor")}</label>
               </div>
               <div className="col-8">
                 <select
@@ -118,10 +123,10 @@ class AddQuestionnaire extends React.Component<any, any> {
                   required
                   onChange={this.changeHandler}
                 >
-                  <option value="">Select</option>
-                  <option value="Both">Both</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
+                  <option value="">{translate("commonSelect")}</option>
+                  <option value="Both">{translate("both")}</option>
+                  <option value="Male">{translate("male")}</option>
+                  <option value="Female">{translate("female")}</option>
                 </select>
               </div>
             </div>
@@ -131,12 +136,12 @@ class AddQuestionnaire extends React.Component<any, any> {
                 <input
                   type="submit"
                   className="btn btn-success m-1"
-                  value="Save"
+                  value={translate("commonSave")}
                 />
                 <input
                   type="reset"
                   className="btn btn-danger m-1"
-                  value="Reset"
+                  value={translate("commonReset")}
                 />
               </div>
             </div>
@@ -151,4 +156,4 @@ class AddQuestionnaire extends React.Component<any, any> {
     );
   }
 }
-export default withRouter(AddQuestionnaire);
+export default AddQuestionnaire;

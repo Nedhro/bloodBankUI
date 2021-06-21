@@ -22,19 +22,19 @@ const App: FC = () => {
           <img src={appLogo} className="App-logo" alt="logo" />
         </div>
         <div className="col-4">
-          <h2 className="text-left p-0 m-0">Blood Bank Module</h2>
+          <h2 className="text-left p-0 m-0">{translate("title")}</h2>
         </div>
         <div className="col-7">
-          <Header />
+          <Header translate={translate} />
         </div>
       </div>
       <Router>
         <Switch>
           <Route exact path="/">
-            <MainLayout />
+            <MainLayout translate={translate} />
           </Route>
           <Route exact path="/donor/list">
-            <DonorMedicalAssessment />
+            <DonorMedicalAssessment translate={translate} />
           </Route>
           <Route exact path="/donor/add">
             <AddDonorInfo translate={translate} />
@@ -44,22 +44,22 @@ const App: FC = () => {
           </Route>
 
           <Route exact path="/questionnaire/add">
-            <AddQuestionnaire />
+            <AddQuestionnaire translate={translate} />
           </Route>
           <Route exact path="/questionnaire/list">
-            <AssessmentQuestionnaire />
+            <AssessmentQuestionnaire translate={translate}/>
           </Route>
           <Route exact path="/questionnaire/:id">
-            <AddQuestionnaire />
+            <AddQuestionnaire translate={translate} />
           </Route>
           <Route exact path="/donorPhysicalSuitability/test/list">
-            <PhysicalSuitability />
+            <PhysicalSuitability translate={translate} />
           </Route>
           <Route exact path="/donorPhysicalSuitability/test/add/:donorId">
-            <AddPhysicalSuitabilityTest />
+            <AddPhysicalSuitabilityTest translate={translate} />
           </Route>
           <Route exact path="/donorPhysicalSuitability/test/:donorId/:id">
-            <AddPhysicalSuitabilityTest />
+            <AddPhysicalSuitabilityTest translate={translate} />
           </Route>
         </Switch>
       </Router>

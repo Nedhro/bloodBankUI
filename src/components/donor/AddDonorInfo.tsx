@@ -97,8 +97,9 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   componentDidMount() {
     this.getQuestionList();
     const id = sessionStorage.getItem('id');
-    if(id !== null){
+    if (id !== null) {
       this.getDonorInfoById(id);
+      sessionStorage.removeItem('id');
     }
   }
 
