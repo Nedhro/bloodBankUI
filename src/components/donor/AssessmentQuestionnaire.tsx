@@ -11,54 +11,8 @@ interface AssessmentQuestionnaireProps {
   translate: (key: string) => string;
 }
 class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnaireProps, any> {
-  columns = [
-    {
-      name: "Question",
-      selector: "question",
-      sortable: true,
-    },
-    {
-      name: "Concern For",
-      selector: "concernFor",
-      sortable: true,
-    },
-    {
-      name: "Status",
-      selector: "status",
-      sortable: true,
-    },
-    {
-      name: "Action",
-      sortable: false,
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: false,
-      cell: (record: any) => {
-        return (
-          <Fragment>
-            <Link
-              to={`/questionnaire/${record.id}`}
-              className="btn btn-info btn-sm m-1"
-              onClick={() => {
-                sessionStorage.setItem("id", record.id);
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faEdit} />
-            </Link>
-            <button
-              className="btn btn-danger btn-sm m-1"
-              onClick={() => {
-                this.deleteQuestionnnaire(record.id);
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faTrash} />
-            </button>
-          </Fragment>
-        );
-      },
-    },
-  ];
-
+  
+  
   constructor(props: any) {
     super(props);
     this.state = {
@@ -70,12 +24,13 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
       modalData: "",
       query: "",
     };
+    
   }
   componentDidMount() {
     this.getQuestionnaireList();
   }
 
-  deleteQuestionnnaire(id: any) {
+  deleteQuestionnaire(id: any) {
     DonorService.deleteQuestionnaire(id).then((res) => {
       console.log(res);
       if (res.status === 202) {
@@ -129,8 +84,56 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
   render() {
     const { error, isLoaded, items, show, modalData, query, notification } = this.state;
     const data = this.search(items);
-    const columns = this.columns;
     const { translate } = this.props;
+
+    const columns = [
+      {
+        name: `${translate("question")}`,
+        selector: "question",
+        sortable: true,
+      },
+      {
+        name: `${translate("concernFor")}`,
+        selector: "concernFor",
+        sortable: true,
+      },
+      {
+        name: `${translate("status")}`,
+        selector: "status",
+        sortable: true,
+      },
+      {
+        name: `${translate("action")}`,
+        sortable: false,
+        ignoreRowClick: true,
+        allowOverflow: true,
+        button: false,
+        cell: (record: any) => {
+          return (
+            <Fragment>
+              <Link
+                to={`/questionnaire/${record.id}`}
+                className="btn btn-info btn-sm m-1"
+                onClick={() => {
+                  sessionStorage.setItem("id", record.id);
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faEdit} />
+              </Link>
+              <button
+                className="btn btn-danger btn-sm m-1"
+                onClick={() => {
+                  this.deleteQuestionnaire(record.id);
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faTrash} />
+              </button>
+            </Fragment>
+          );
+        },
+      },
+    ];
+
     if (error) {
       return (
         <div className="text-center font-weight-bold">

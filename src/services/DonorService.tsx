@@ -28,7 +28,7 @@ class DonorService {
     return axios.get(urlPrefix + "questionnaire/list");
   }
 
-  getQuestionnnaireById(id: any) {
+  getQuestionnaireById(id: any) {
     return axios.get(urlPrefix + "questionnaire/" + id);
   }
 

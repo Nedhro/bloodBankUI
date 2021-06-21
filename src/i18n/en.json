@@ -30,38 +30,24 @@
   "donorInformation":"Donor Informations, Donor Suitability Tests, Questionnaires",
   "donorList":"Donor List",
 
-
   "bloodManagement":"Blood Stock Management",
   "bloodManagementInfo":"Blood Stock, Blood Availability Check, Compatibility Test",
   "bloodStock": "Blood Stock",
-
 
   "addDonor": "Add Donor Info",
   "donorQues": "Questionnaire",
   "donorInfo": "Blood Donor Information",
 
-
-
-  
-
-
-  
   "question": "Question",
   "concernFor": "Concern For",
   "both": "Both",
   "male": "Male",
   "female": "Female",
 
-
   "addNewQues": "Add Questionnaire",
   "donorQuesList": "Donor Medical Assessment Questionnaire",
 
-
-
   "suitabilityTest": "Donor Physical Suitability Tests",
-
-
-
 
   "physicalTest": "Physical Suitability Test",
   "donorId": "Donor ID",
@@ -79,17 +65,16 @@
   "selected": "Selected",
   "rejected": "Rejected",
 
-
-
-
-
-
   "commonSave": "Save",
   "commonReset": "Reset",
   "commonSelect": "Select",
   "commonFilter": "Filter",
   "commonAddQues": "Add Questionnaire",
   "commonDonors": "Donors",
+
+  "status": "Status",
+  "action": "Action",
+  "id": "Id",
 
   "copyright": "Copyright || All right reserved || Powered By :",
   "ctech": "Crystal Technology Bangladesh Ltd."

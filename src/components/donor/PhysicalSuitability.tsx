@@ -11,89 +11,7 @@ interface PhysicalSuitabilityProps {
   translate: (key: string) => string;
 }
 class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any> {
-  columns: any = [
-    {
-      name: "Donor Id",
-      selector: "bloodDonorId",
-      sortable: true,
-    },
-    {
-      name: "Hemoglobin (g/dl)",
-      selector: "donorHemoglobin",
-      sortable: true,
-    },
-    {
-      name: "Weight (kg)",
-      selector: "donorWeight",
-      sortable: true,
-    },
-    {
-      name: "Blood Pressure (mmHg)",
-      selector: "donorBloodPressure",
-      sortable: true,
-    },
-    {
-      name: "Pulse Rate (b/m)",
-      selector: "donorPulseRate",
-      sortable: true,
-    },
-    {
-      name: "Temperature (oC)",
-      selector: "donorTemperature",
-      sortable: true,
-    },
-    {
-      name: "Blood Group",
-      selector: "donorBloodGroup",
-      sortable: true,
-    },
-    {
-      name: "Blood Group Rhesus",
-      selector: "donorBloodGroupRhesus",
-      sortable: true,
-    },
-    {
-      name: "Permission",
-      selector: "donorSelection",
-      sortable: true,
-    },
-    {
-      name: "Action",
-      sortable: false,
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: false,
-      cell: (record: any) => {
-        return (
-          <Fragment>
-            <Link
-              to={`/donorPhysicalSuitability/test/${record.bloodDonorId}/${record.donorPhysicalSuitabilityId}`}
-              className="btn btn-info btn-sm m-1"
-              onClick={() => {
-                sessionStorage.setItem("id", record.donorPhysicalSuitabilityId);
-                // console.log(record);
-                // const id = record.donorPhysicalSuitabilityId;
-                // const donorID = record.bloodDonorId;
-                // history.push(`/donorPhysicalSuitability/test/${donorID}/${id}`);
-                // window.location.reload();
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faEdit} />
-            </Link>
-            <button
-              className="btn btn-danger btn-sm m-1"
-              onClick={() => {
-                const id = record.donorPhysicalSuitabilityId;
-                this.deleteSuitabilityTest(parseInt(id));
-              }}
-            >
-              <FontAwesomeIcon size="sm" icon={faTrash} />
-            </button>
-          </Fragment>
-        );
-      },
-    },
-  ];
+  
 
   constructor(props: any) {
     super(props);
@@ -195,6 +113,84 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     const { error, isLoaded, items, show, modalData, query, notification } =
       this.state;
     const { translate } = this.props;
+    const columns: any = [
+      {
+        name: `${translate("donorId")}`,
+        selector: "bloodDonorId",
+        sortable: true,
+      },
+      {
+        name: `${translate("hemoglobin")}`,
+        selector: "donorHemoglobin",
+        sortable: true,
+      },
+      {
+        name: `${translate("weight")}`,
+        selector: "donorWeight",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodPressure")}`,
+        selector: "donorBloodPressure",
+        sortable: true,
+      },
+      {
+        name: `${translate("pulse")}`,
+        selector: "donorPulseRate",
+        sortable: true,
+      },
+      {
+        name: `${translate("temp")}(o${translate("cel")})`,
+        selector: "donorTemperature",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodGroup")}`,
+        selector: "donorBloodGroup",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodGroup")} ${translate("rhesus")}`,
+        selector: "donorBloodGroupRhesus",
+        sortable: true,
+      },
+      {
+        name: `${translate("permission")}`,
+        selector: "donorSelection",
+        sortable: true,
+      },
+      {
+        name: `${translate("action")}`,
+        sortable: false,
+        ignoreRowClick: true,
+        allowOverflow: true,
+        button: false,
+        cell: (record: any) => {
+          return (
+            <Fragment>
+              <Link
+                to={`/donorPhysicalSuitability/test/${record.bloodDonorId}/${record.donorPhysicalSuitabilityId}`}
+                className="btn btn-info btn-sm m-1"
+                onClick={() => {
+                  sessionStorage.setItem("id", record.donorPhysicalSuitabilityId);
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faEdit} />
+              </Link>
+              <button
+                className="btn btn-danger btn-sm m-1"
+                onClick={() => {
+                  const id = record.donorPhysicalSuitabilityId;
+                  this.deleteSuitabilityTest(parseInt(id));
+                }}
+              >
+                <FontAwesomeIcon size="sm" icon={faTrash} />
+              </button>
+            </Fragment>
+          );
+        },
+      },
+    ];
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -237,7 +233,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 </div>
                 <DataTable
                   className="table table-stripped table-hover"
-                  columns={this.columns}
+                  columns={columns}
                   data={this.search(items)}
                   pagination
                   pointerOnHover

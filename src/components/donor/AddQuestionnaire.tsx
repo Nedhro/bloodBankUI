@@ -1,6 +1,5 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
-// import { withRouter } from "react-router-dom";
 import { history } from "../custom/history";
 
 
@@ -30,7 +29,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
       };
     }
     console.log(this.dataConfig);
-    this.submitQuestionnnaire(this.dataConfig);
+    this.submitQuestionnaire(this.dataConfig);
   };
 
   constructor(props: any) {
@@ -45,16 +44,16 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
-    this.submitQuestionnnaire = this.submitQuestionnnaire.bind(this);
+    this.submitQuestionnaire = this.submitQuestionnaire.bind(this);
   }
 
   componentDidMount() {
     const id = sessionStorage.getItem('id');
-    this.getQuestionnnaireById(id);
+    this.getQuestionnaireById(id);
   }
 
-  getQuestionnnaireById(id: any) {
-    DonorService.getQuestionnnaireById(id).then((res) => {
+  getQuestionnaireById(id: any) {
+    DonorService.getQuestionnaireById(id).then((res) => {
       const question = res.data.question;
       const concernFor = res.data.concernFor;
       this.setState({
@@ -64,14 +63,15 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
     });
   }
 
-  submitQuestionnnaire(dataConfig: any) {
+  submitQuestionnaire(dataConfig: any) {
     DonorService.saveQuestionnaire(dataConfig).then((res) => {
       console.log(res);
       if (res.status === 201) {
         this.setState({ notification: "Questionnaire Created Successfully" });
         history.push("/questionnaire/list");
+        window.location.reload();
       }
-      if (res.status === 202) {
+      else if (res.status === 202) {
         this.setState({
           notification: "Questionnaire Updated successfully",
         });
@@ -79,9 +79,11 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
         sessionStorage.removeItem('id');
         window.location.reload();
       }
-      this.setState({
-        notification: "Please add valid and non duplicate question",
-      });
+      else{
+        this.setState({
+          notification: "Please add valid and non duplicate question",
+        });
+      }
     });
   }
 
