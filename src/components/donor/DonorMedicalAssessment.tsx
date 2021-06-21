@@ -112,6 +112,7 @@ class DonorMedicalAssessment extends React.Component<any, any> {
               className="btn btn-danger btn-sm m-1"
               onClick={() => {
                 console.log(record);
+                this.deleteDonorInfo(record.id);
               }}
             >
               <FontAwesomeIcon size="sm" icon={faTrash} />
@@ -121,6 +122,18 @@ class DonorMedicalAssessment extends React.Component<any, any> {
       },
     },
   ];
+
+  deleteDonorInfo(id: any) {
+    DonorService.deleteBloodDonor(id).then((res) => {
+      console.log(res);
+      if (res.status === 202) {
+        this.setState({
+          notification: "The Donor Info is deleted successfully",
+        });
+        window.location.reload();
+      }
+    });
+  }
 
   search = (rows: any) => {
     const columns = rows[0] && Object.keys(rows[0]);
@@ -136,14 +149,8 @@ class DonorMedicalAssessment extends React.Component<any, any> {
   };
 
   render() {
-    const {
-      error,
-      isLoaded = true,
-      items,
-      show,
-      modalData,
-      query,
-    } = this.state;
+    const { error, isLoaded, items, show, modalData, query, notification } =
+      this.state;
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -224,6 +231,11 @@ class DonorMedicalAssessment extends React.Component<any, any> {
                     ""
                   )}
                 </Modal>
+              </div>
+              <div className="text-danger m-1 p-1">
+                <p className="text-center bg-info font-weight-bold">
+                  {notification}
+                </p>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>

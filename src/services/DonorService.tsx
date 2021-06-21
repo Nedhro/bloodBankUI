@@ -17,7 +17,7 @@ class DonorService {
   }
 
   deleteBloodDonor(id: any) {
-    return axios.post(urlPrefix + "donor/delete/" + id);
+    return axios.put(urlPrefix + "donor/delete/" + id);
   }
   //Questionnaire
   saveQuestionnaire(data: Object) {
@@ -32,8 +32,8 @@ class DonorService {
     return axios.get(urlPrefix + "questionnaire/" + id);
   }
 
-  deleteQuestionnnaire(id: any) {
-    return axios.post(urlPrefix + "questionnaire/delete/" + id);
+  deleteQuestionnaire(id: any) {
+    return axios.put(urlPrefix + "questionnaire/delete/" + id);
   }
 
   //Physical Suitability
@@ -47,7 +47,7 @@ class DonorService {
     return axios.get(urlPrefix + "bloodDonorPhysicalSuitability/" + id);
   }
   deletePhysicalTest(id: any) {
-    return axios.post(urlPrefix + "bloodDonorPhysicalSuitability/delete/" + id);
+    return axios.put(urlPrefix + "bloodDonorPhysicalSuitability/delete/" + id);
   }
 }
 
