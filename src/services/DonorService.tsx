@@ -5,15 +5,19 @@ const urlPrefix = "https://192.168.1.184/openmrs/ws/rest/v1/bloodbank/";
 class DonorService {
   //DonorForm
   saveDonorInfo(data: Object) {
-    return axios.post(urlPrefix + "donorForm", data);
+    return axios.post(urlPrefix + "donor/add", data);
   }
 
   getAllBloodDonor() {
-    return axios.get(urlPrefix + "donors");
+    return axios.get(urlPrefix + "donor/list");
   }
 
   getBloodDonorById(id: any) {
     return axios.get(urlPrefix + "donor/" + id);
+  }
+
+  deleteBloodDonor(id: any) {
+    return axios.post(urlPrefix + "donor/delete/" + id);
   }
   //Questionnaire
   saveQuestionnaire(data: Object) {
@@ -28,6 +32,10 @@ class DonorService {
     return axios.get(urlPrefix + "questionnaire/" + id);
   }
 
+  deleteQuestionnnaire(id: any) {
+    return axios.post(urlPrefix + "questionnaire/delete/" + id);
+  }
+
   //Physical Suitability
   savePhysicalSuitability(data: Object) {
     return axios.post(urlPrefix + "bloodDonorPhysicalSuitability/add", data);
@@ -37,6 +45,9 @@ class DonorService {
   }
   getPhysicalTestInfoById(id: any) {
     return axios.get(urlPrefix + "bloodDonorPhysicalSuitability/" + id);
+  }
+  deletePhysicalTest(id: any) {
+    return axios.post(urlPrefix + "bloodDonorPhysicalSuitability/delete/" + id);
   }
 }
 

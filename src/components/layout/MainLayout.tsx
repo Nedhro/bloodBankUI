@@ -14,10 +14,10 @@ class MainLayout extends React.Component<any, any> {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container mainlayout">
         <h2 className="text-center">Welcome</h2>
         <div className="row">
-          <div className="col-3 cardcol">
+          <div className="col-4 cardcol m-2 p-2">
             <div className="card">
               <img
                 src={bloodDonorImage}
@@ -46,7 +46,7 @@ class MainLayout extends React.Component<any, any> {
             </div>
           </div>
 
-          <div className="col-3 cardcol">
+          <div className="col-4 cardcol m-2 p-2">
             <div className="card">
               <img
                 src={bloodStockImage}
