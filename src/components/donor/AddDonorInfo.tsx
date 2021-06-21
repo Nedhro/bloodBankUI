@@ -72,7 +72,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       error: null,
       isLoaded: false,
       donorName: "",
-      patientId: "",
       donorGuardian: "",
       donorProfession: "",
       donorAge: "",
@@ -86,15 +85,20 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       concernName: "",
       concernStatus: "",
       notification: "",
+      selectOptions: [],
+      patientId: "",
+      patientName: "",
       questionList: [],
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
     this.submitDonorInfo = this.submitDonorInfo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.getQuestionList();
+    this.getPatientList();
     const id = sessionStorage.getItem('id');
     if (id !== null) {
       this.getDonorInfoById(id);
@@ -110,6 +114,22 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       });
     });
   }
+
+  async getPatientList(){
+    DonorService.getAllActivePatients().then(res=>{
+      const result = res.data;
+      const options = result.map((d:any) => ({
+        value: d.patient_id,
+        label: d.name,
+      }));
+      this.setState({ selectOptions: options });
+    });
+  }
+  handleChange(e: any) {
+    this.setState({ patientId: e.target.value, patientName: e.target.label });
+    console.log(this.state);
+  }
+
   getDonorInfoById(id: any) {
     console.log('done');
     DonorService.getBloodDonorById(id).then((res) => {
@@ -203,7 +223,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                     </label>
                   </div>
                   <div className="col-8">
-                    <input
+                    {/* <input
                       type="number"
                       className="form-control"
                       required
@@ -211,7 +231,22 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       id="patientId"
                       value={this.state.patientId}
                       onChange={this.changeHandler}
-                    />
+                    /> */}
+                    <select
+                          className="form-control"
+                          name="patientId"
+                          value={this.state.patientId}
+                          onChange={this.handleChange}
+                        >
+                          <option value="" disabled>{translate("commonSelect")}</option>
+                          {this.state.selectOptions.map((e: any, key: any) => {
+                            return (
+                              <option key={key} value={e.value}>
+                                {e.label}
+                              </option>
+                            );
+                          })}
+                        </select>
                   </div>
                 </div>
               </div>
