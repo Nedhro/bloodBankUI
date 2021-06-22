@@ -2,11 +2,13 @@ import React from "react";
 import DonorService from "../../services/DonorService";
 import { history } from "../custom/history";
 
-
 interface PhysicalSuitabilityProps {
   translate: (key: string) => string;
 }
-class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProps, any> {
+class AddPhysicalSuitabilityTest extends React.Component<
+  PhysicalSuitabilityProps,
+  any
+> {
   dataConfig: any = {};
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -15,7 +17,7 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem('id');
+    const id = sessionStorage.getItem("id");
     if (id) {
       this.dataConfig = {
         donorPhysicalSuitabilityId: id,
@@ -29,8 +31,7 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
         donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
         donorSelection: this.state.donorSelection,
       };
-    }
-    else {
+    } else {
       this.dataConfig = {
         bloodDonorId: this.state.bloodDonorId,
         donorHemoglobin: this.state.donorHemoglobin,
@@ -42,7 +43,6 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
         donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
         donorSelection: this.state.donorSelection,
       };
-
     }
     console.log(this.dataConfig);
     this.submitPhysicalTestInfo(this.dataConfig);
@@ -68,11 +68,11 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
   }
 
   componentDidMount() {
-    const donorId = sessionStorage.getItem('donorId');
+    const donorId = sessionStorage.getItem("donorId");
     this.setState({
-      bloodDonorId: donorId
+      bloodDonorId: donorId,
     });
-    const id = sessionStorage.getItem('id');
+    const id = sessionStorage.getItem("id");
     this.getPhysicalTestInfoById(id);
   }
   getPhysicalTestInfoById(id: any) {
@@ -105,22 +105,22 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
         this.setState({
           notification: "Physical Suitability Test is added successfully",
         });
-        sessionStorage.removeItem('donorId');
+        sessionStorage.removeItem("donorId");
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
-      }
-      if (res.status === 202) {
+      } else if (res.status === 202) {
         this.setState({
           notification: "Physical Suitability Test is Updated successfully",
         });
-        sessionStorage.removeItem('donorId');
-        sessionStorage.removeItem('id');
+        sessionStorage.removeItem("donorId");
+        sessionStorage.removeItem("id");
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
+      } else {
+        this.setState({
+          notification: "Please add valid and non duplicate values",
+        });
       }
-      this.setState({
-        notification: "Please add valid and non duplicate values",
-      });
     });
   }
 
@@ -150,7 +150,9 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorHemoglobin">{translate("hemoglobin")} </label>
+                <label htmlFor="donorHemoglobin">
+                  {translate("hemoglobin")}{" "}
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -185,7 +187,7 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label htmlFor="donorBloodPressure">
-                  {translate("bloodPressure")} 
+                  {translate("bloodPressure")}
                 </label>
               </div>
               <div className="col-8">
@@ -221,7 +223,8 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label htmlFor="donorTemperature">
-                  {translate("temp")} (<sup>o</sup>{translate("cel")})
+                  {translate("temp")} (<sup>o</sup>
+                  {translate("cel")})
                 </label>
               </div>
               <div className="col-8">
@@ -239,7 +242,9 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorBloodGroup">{translate("bloodGroup")}</label>
+                <label htmlFor="donorBloodGroup">
+                  {translate("bloodGroup")}
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -278,7 +283,9 @@ class AddPhysicalSuitabilityTest extends React.Component<PhysicalSuitabilityProp
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="donorSelection">{translate("permission")}</label>
+                <label htmlFor="donorSelection">
+                  {translate("permission")}
+                </label>
               </div>
               <div className="col-8">
                 <select

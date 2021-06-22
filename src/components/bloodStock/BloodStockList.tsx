@@ -4,6 +4,8 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import BloodStockService from "../../services/BloodStockService";
+import { Modal } from "react-bootstrap";
+import BloodStockModal from "../modals/BloodStockModal";
 
 interface BloodStockProps {
   translate: (key: string) => string;
@@ -104,14 +106,8 @@ class BloodStock extends React.Component<BloodStockProps, any> {
   };
 
   render() {
-    const {
-      error,
-      isLoaded,
-      items,
-      // show, modalData,
-      query,
-      notification,
-    } = this.state;
+    const { error, isLoaded, items, show, modalData, query, notification } =
+      this.state;
     const { translate } = this.props;
     const columns: any = [
       {
@@ -167,8 +163,8 @@ class BloodStock extends React.Component<BloodStockProps, any> {
               <button
                 className="btn btn-danger btn-sm m-1"
                 onClick={() => {
-                   const id = record.bloodStockTracingId;
-                   this.deleteBloodStock(parseInt(id));
+                  const id = record.bloodStockTracingId;
+                  this.deleteBloodStock(parseInt(id));
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />
@@ -240,22 +236,23 @@ class BloodStock extends React.Component<BloodStockProps, any> {
                     });
                   }}
                 />
-                {/* <Modal
-                                show={show}
-                                onHide={this.closeModal}
-                                size="lg"
-                                aria-labelledby="contained-modal-title-vcenter"
-                                centered
-                            >
-                                {show ? (
-                                    <SuitabilityTestModal
-                                        data={modalData}
-                                        title={modalData.donorPhysicalSuitabilityId}
-                                    />
-                                ) : (
-                                    ""
-                                )}
-                            </Modal> */}
+                <Modal
+                  show={show}
+                  onHide={this.closeModal}
+                  size="lg"
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  {show ? (
+                    <BloodStockModal
+                      translate={translate}
+                      data={modalData}
+                      title={modalData.bloodStockTracingId}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </Modal>
               </div>
               <div className="text-danger m-1 p-1">
                 <p className="text-center bg-info font-weight-bold">

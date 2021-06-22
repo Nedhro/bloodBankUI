@@ -29,18 +29,21 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     const id = sessionStorage.getItem("id");
     const donorId = sessionStorage.getItem("donorId");
     const bloodGroup = sessionStorage.getItem("bloodGroup");
+    console.log(donorId);
     this.setState({
-      bloodGroup: bloodGroup,
       bloodDonorId: donorId,
+      bloodGroup: bloodGroup,
     });
-    this.getBloodStockById(id);
+    if(id !== null){
+      this.getBloodStockById(id);
+    }
+    console.log(this.state);
   }
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
-
     if (event.target.name === "sourceOfBlood") {
-      const donorId = this.state.bloodDonorId;
+      const donorId = parseInt(this.state.bloodDonorId);
       if (event.target.value === "NITOR") {
         this.setState({
           bloodBagId: "NITOR-" + donorId,
@@ -71,7 +74,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     if (id) {
       this.dataConfig = {
         bloodStockTracingId: id,
-        bloodDonorId: this.state.bloodDonorId,
+        bloodDonorId: parseInt(this.state.bloodDonorId),
         bloodStorage: this.state.bloodStorage,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
@@ -80,7 +83,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       };
     } else {
       this.dataConfig = {
-        bloodDonorId: this.state.bloodDonorId,
+        bloodDonorId: parseInt(this.state.bloodDonorId),
         bloodStorage: this.state.bloodStorage,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
