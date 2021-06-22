@@ -73,7 +73,7 @@ class MainLayout extends React.Component<MainLayoutProps, any> {
                   &nbsp;
                   <span>{translate("bloodManagementInfo")}</span>
                 </p>
-                <a href="/bloodStock" className="btn btn-info font-weight-bold">
+                <a href="/blood/stock/list" className="btn btn-info font-weight-bold">
                   {translate("bloodStock")}
                 </a>
               </div>
