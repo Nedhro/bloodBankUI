@@ -6,6 +6,7 @@ import "../../static/scss/print.scss";
 export interface TableModalProps {
   data: Object;
   title: any;
+  translate: (key: string) => string;
 }
 
 class QuestionnaireModal extends React.Component<TableModalProps, any> {
@@ -33,26 +34,27 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
 
   render() {
     const { title, modalData } = this.state;
+    const { translate } = this.props;
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Question Id : {title}
+            {translate("quesId")} : {title}
           </Modal.Title>
         </Modal.Header>
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
         <div className="page-break" />
           <Modal.Body>
-            <h4>Questionnaire</h4>
-            <p>Question : {modalData.question}</p>
-            <p>Concern For : {modalData.concernFor}</p>
+            <h4>{translate("questionnaire")}</h4>
+            <p>{translate("question")} : {modalData.question}</p>
+            <p>{translate("concernFor")} : {modalData.concernFor}</p>
           </Modal.Body>
         </div>
 
         <div className="no-printme">
           <Modal.Footer>
             <Button variant="success" onClick={this.printDiv}>
-              Print
+              {translate("commonPrint")}
             </Button>
           </Modal.Footer>
         </div>

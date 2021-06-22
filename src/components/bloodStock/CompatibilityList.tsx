@@ -56,52 +56,52 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
         const { translate } = this.props;
         const columns: any = [
             {
-                name: "Blood Bag Id:",
+                name: `${translate("bloodBagId")}:`,
                 selector: "bloodBagId",
                 sortable: true,
             },
             {
-                name: "Patient",
+                name: `${translate("patient")}`,
                 selector: "patient",
                 sortable: true,
             },
             {
-                name: "Blood Screening",
+                name: `${translate("bloodScreening")}`,
                 selector: "bloodScreening",
                 sortable: true,
             },
             {
-                name: "Blood Grouping",
+                name: `${translate("bloodGrouping")}`,
                 selector: "bloodGrouping",
                 sortable: true,
             },
             {
-                name: "Blood Cross Matching",
+                name: `${translate("bloodCrossMatching")}`,
                 selector: "bloodCrossMatching",
                 sortable: true,
             },
             {
-                name: "Blood Hiv Test",
+                name: `${translate("bloodHivTest")}`,
                 selector: "bloodHivTest",
                 sortable: true,
             },
             {
-                name: "Blood Hbv Test",
+                name: `${translate("bloodHbvTest")}`,
                 selector: "bloodHbvTest",
                 sortable: true,
             },
             {
-                name: "Blood Hcv Test",
+                name: `${translate("bloodHcvTest")}`,
                 selector: "bloodHcvTest",
                 sortable: true,
             },
             {
-                name: "Blood Syphilis Test",
+                name: `${translate("bloodSyphilisTest")}`,
                 selector: "bloodSyphilisTest",
                 sortable: true,
             },
             {
-                name: "Blood Malaria Test",
+                name: `${translate("bloodMalariaTest")}`,
                 selector: "bloodMalariaTest",
                 sortable: true,
             },
@@ -160,7 +160,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
                         </div>
                         <div className="row no-printme">
                             <div className="col-12 p-1 m-1">
-                                <h2>Compatibility Test</h2>
+                                <h2>{translate("compatibilityTest")}</h2>
                                 <div className="container">
                                     <form className="form-group">
                                         <div className="row">

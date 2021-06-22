@@ -67,16 +67,57 @@
 
   "typeOfDonor": "Type of Donor",
 
+  "status": "Status",
+  "action": "Action",
+  "id": "Id",
+
+  "name": "Name",
+
+  "testPhysicalSuitability": "Test Physical Suitability",
+
+  "quesId": "Question Id",
+  "questionnaire": "Questionnaire",
+
+  "testId": "Test Id",
+  "testResult": "Test Result",
+  "rh": "Rh",
+  "stockBlood": "Add Blood to Stock",
+
+  "addBloodStock": "Add Blood to Stock",
+  "sourceOfBlood": "Source of Blood",
+  "bloodBagId": "Blood Bag Id",
+  "stockStatus": "Stock Status",
+  "available": "Available",
+  "notAvailable": "Not Available",
+  "bloodStorage": "Blood Storage",
+  "fridge1": "Fridge-1",
+  "fridge2": "Fridge-2",
+  "fridge3": "Fridge-3",
+  "fridge4": "Fridge-4",
+
+
+  "compatibilityTest": "Compatibility Test",
+  "patient": "Patient",
+  "bloodScreening": "Blood Screening",
+  "compatible": "Compatible",
+  "nonCompatible": "Non-Compatible",
+  "bloodGrouping": "Blood Grouping",
+  "bloodCrossMatching": "Blood Cross Matching",
+  "bloodHivTest": "Blood Hiv Test",
+  "positive": "Positive",
+  "negative": "Negative",
+  "bloodHbvTest": "Blood Hbv Test",
+  "bloodHcvTest": "Blood Hcv Test",
+  "bloodSyphilisTest": "Blood Syphilis Test",
+  "bloodMalariaTest": "Blood Malaria Test",
+
   "commonSave": "Save",
   "commonReset": "Reset",
   "commonSelect": "Select",
   "commonFilter": "Filter",
   "commonAddQues": "Add Questionnaire",
   "commonDonors": "Donors",
-
-  "status": "Status",
-  "action": "Action",
-  "id": "Id",
+  "commonPrint": "Print",
 
   "copyright": "Copyright || All right reserved || Powered By :",
   "ctech": "Crystal Technology Bangladesh Ltd."

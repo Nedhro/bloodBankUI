@@ -7,6 +7,7 @@ import { history } from "../custom/history";
 export interface TableModalProps {
   data: Object;
   title: any;
+  translate: (key: string) => string;
 }
 
 class SuitabilityTestModal extends React.Component<TableModalProps, any> {
@@ -34,33 +35,34 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
 
   render() {
     const { title, modalData } = this.state;
+    const { translate } = this.props;
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Test Id : {title}
+            {translate("testId")} : {title}
           </Modal.Title>
         </Modal.Header>
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
         <div className="page-break" />
           <Modal.Body>
-            <h4>Test Result (Id: {title})</h4>
-            <p>Donor Id: {modalData.bloodDonorId}</p>
-            <p>Hemoglobin (g/dl) : {modalData.donorHemoglobin}</p>
-            <p>Weight (kg) : {modalData.donorWeight}</p>
-            <p>Blood Pressure (mmHg) : {modalData.donorBloodPressure}</p>
-            <p>Pulse Rate (b/m) : {modalData.donorPulseRate}</p>
-            <p>Temperature (<sup>o</sup>C) : {modalData.donorTemperature}</p>
-            <p>Blood Group : {modalData.donorBloodGroup}</p>
-            <p>Rh : {modalData.donorBloodGroupRhesus}</p>
-            <p>Permission : {modalData.donorSelection}</p>
+            <h4>{translate("testResult")} ({translate("id")}: {title})</h4>
+            <p>{translate("donorId")} : {modalData.bloodDonorId}</p>
+            <p>{translate("hemoglobin")} : {modalData.donorHemoglobin}</p>
+            <p>{translate("weight")} : {modalData.donorWeight}</p>
+            <p>{translate("bloodPressure")} : {modalData.donorBloodPressure}</p>
+            <p>{translate("pulse")} : {modalData.donorPulseRate}</p>
+            <p>{translate("temp")} (<sup>o</sup>{translate("cel")}) : {modalData.donorTemperature}</p>
+            <p>{translate("bloodGroup")} : {modalData.donorBloodGroup}</p>
+            <p>{translate("rh")}  : {modalData.donorBloodGroupRhesus}</p>
+            <p>{translate("permission")} : {modalData.donorSelection}</p>
           </Modal.Body>
         </div>
 
         <div className="no-printme">
           <Modal.Footer>
             <Button variant="success" onClick={this.printDiv}>
-              Print
+              {translate("commonPrint")}
             </Button>
             <Button variant="info" onClick={()=>{
               if(modalData.donorSelection === 'Selected'){
@@ -73,7 +75,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
               }else{
                 alert('Donor is not fit for donating blood');
               }
-            }}>Add Blood to Stock</Button>
+            }}>{translate("stockBlood")}</Button>
           </Modal.Footer>
         </div>
       </div>

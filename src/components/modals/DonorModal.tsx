@@ -51,8 +51,8 @@ class DonorModal extends React.Component<TableModalProps, any> {
           <div className="page-break" />
           <Modal.Body>
             <h4>{translate("donorId")}</h4>
-            <p>Name : {modalData.name}</p>
-            <p>Age : {modalData.age}</p>
+            <p>{translate("name")}  : {modalData.name}</p>
+            <p>{translate("donorAge")} : {modalData.age}</p>
           </Modal.Body>
         </div>
 
@@ -65,10 +65,10 @@ class DonorModal extends React.Component<TableModalProps, any> {
                 sessionStorage.setItem("donorId", title);
               }}
             >
-              Test Physical Suitability
+              {translate("testPhysicalSuitability")}
             </a>
             <Button variant="success" onClick={this.printDiv}>
-              Print
+              {translate("commonPrint")}
             </Button>
           </Modal.Footer>
         </div>
