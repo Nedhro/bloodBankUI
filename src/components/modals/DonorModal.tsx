@@ -6,6 +6,7 @@ import "../../static/scss/print.scss";
 export interface TableModalProps {
   data: Object;
   title: any;
+  translate: (key: string) => string;
 }
 
 class DonorModal extends React.Component<TableModalProps, any> {
@@ -34,11 +35,12 @@ class DonorModal extends React.Component<TableModalProps, any> {
 
   render() {
     const { title, modalData } = this.state;
+    const { translate } = this.props;
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Donor Id : {title}
+            {translate("donorId")} : {title}
           </Modal.Title>
         </Modal.Header>
         <div
@@ -48,7 +50,7 @@ class DonorModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4>Donor Information</h4>
+            <h4>{translate("donorId")}</h4>
             <p>Name : {modalData.name}</p>
             <p>Age : {modalData.age}</p>
           </Modal.Body>
