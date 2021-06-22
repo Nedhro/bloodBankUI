@@ -102,7 +102,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       notification: "",
       selectOptions: [],
       patientId: "",
-      patientName: "",
       questionList: [],
       showPatient: false,
     };
@@ -151,8 +150,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     });
   }
   handleChange(e: any) {
-    this.setState({ patientId: e.target.value, patientName: e.target.label });
-    console.log(this.state);
+    this.setState({ patientId: e.target.value });
   }
 
   getDonorInfoById(id: any) {

@@ -16,6 +16,23 @@ class BloodStockService {
   deleteBloodStock(id: any) {
     return axios.put(urlPrefix + "bloodStockTracing/delete/" + id);
   }
+
+  //CompatibilityTest
+  saveCompatibilityTest(data: Object) {
+    return axios.post(urlPrefix + "bloodCompatibilityTest/add", data);
+  }
+  getCompatibilityTestList() {
+    return axios.get(urlPrefix + "bloodCompatibilityTest/list");
+  }
+  getCompatibilityTestById(id: any) {
+    return axios.get(urlPrefix + "bloodCompatibilityTest/" + id);
+  }
+  deleteCompatibilityTest(id: any) {
+    return axios.put(urlPrefix + "bloodCompatibilityTest/delete/" + id);
+  }
+  updateCompatibilityTestStatus(bloodBagId: any) {
+    return axios.put(urlPrefix + "bloodStockTracing/updateStatus/" + bloodBagId);
+  }
 }
 
 export default new BloodStockService();

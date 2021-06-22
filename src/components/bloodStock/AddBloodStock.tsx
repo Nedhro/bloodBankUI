@@ -93,6 +93,9 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     }
     console.log(this.dataConfig);
     this.saveBloodStock(this.dataConfig);
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("donorId");
+    sessionStorage.removeItem("bloodGroup");
   };
 
   saveBloodStock(data: any) {
