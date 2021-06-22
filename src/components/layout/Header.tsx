@@ -73,12 +73,57 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                     {translate("ques")}
                   </a>
                 </li>
-                <li className="p-1 m-1">
+               
+              </ul>
+            </li>
+            <li className="dropdown navText nav-link">
+              <a
+                href="#/#"
+                className="dropdown-toggle nav-link navText"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Tests
+                <span className="caret"></span>
+              </a>
+              <ul className="dropdown-menu">
+              <li className="p-1 m-1">
                   <a
                     className="text-info"
                     href="/donorPhysicalSuitability/test/list"
                   >
                     {translate("test")}
+                  </a>
+                </li>
+                <li className="p-1 m-1">
+                  <a className="text-info" href="/blood/compatibility/test/list">
+                    Compatibility Test
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li className="dropdown navText nav-link">
+              <a
+                href="#/#"
+                className="dropdown-toggle nav-link navText"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Blood Stock
+                <span className="caret"></span>
+              </a>
+              <ul className="dropdown-menu">
+              <li className="p-1 m-1">
+                  <a
+                    className="text-info"
+                    href="/blood/stock/list"
+                  >
+                    Blood Stock
                   </a>
                 </li>
               </ul>
