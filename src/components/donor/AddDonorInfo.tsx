@@ -24,14 +24,14 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       this.questionList.push(concernSet);
     }
     if (event.target.name === "typeOfDonor") {
-      if(event.target.value === "Directory"){
+      if (event.target.value === "Directory") {
         this.setState({
-          showPatient: true
+          showPatient: true,
         });
-      }else{
+      } else {
         this.setState({
           showPatient: false,
-          patienId: ""
+          patienId: "",
         });
       }
     }
@@ -40,9 +40,9 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   submitHandler = (event: any) => {
     event.preventDefault();
     const id = sessionStorage.getItem("id");
-    if (id) {
+    if (id !) {
       this.dataConfig = {
-        id: id,
+        donorId: id,
         donorName: this.state.donorName,
         donorAge: this.state.donorAge,
         typeOfDonor: this.state.typeOfDonor,
@@ -104,7 +104,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       patientId: "",
       patientName: "",
       questionList: [],
-      showPatient: false
+      showPatient: false,
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -118,7 +118,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     const id = sessionStorage.getItem("id");
     if (id !== null) {
       this.getDonorInfoById(id);
-      sessionStorage.removeItem("id");
     }
   }
 
@@ -131,15 +130,15 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     });
   }
 
- formatDate(data: any) {
-   let date = new Date(data);
-   let year = date.getFullYear().toString();
-   let month = (date.getMonth() + 101).toString().substring(1);
-   let day = (date.getDate() + 100).toString().substring(1);
-   let formattedDate = year + "-" + month + "-" + day;
-   console.log(formattedDate);
-   return formattedDate;
-}
+  formatDate(data: any) {
+    let date = new Date(data);
+    let year = date.getFullYear().toString();
+    let month = (date.getMonth() + 101).toString().substring(1);
+    let day = (date.getDate() + 100).toString().substring(1);
+    let formattedDate = year + "-" + month + "-" + day;
+    console.log(formattedDate);
+    return formattedDate;
+  }
 
   async getPatientList() {
     DonorService.getAllActivePatients().then((res) => {
@@ -170,7 +169,9 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       const donorMaritalStatus = res.data.donorMaritalStatus;
       const donorPresentAddress = res.data.donorPresentAddress;
       const donorPermanentAddress = res.data.donorPermanentAddress;
-      const donorLastDonatedDate = this.formatDate(res.data.donorLastDonatedDate);
+      const donorLastDonatedDate = this.formatDate(
+        res.data.donorLastDonatedDate
+      );
       const donorLastDonatedPlace = res.data.donorLastDonatedPlace;
       const concernSet = res.data.concernSet;
       this.setState({
@@ -189,13 +190,13 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         donorLastDonatedPlace: donorLastDonatedPlace,
         questionList: concernSet,
       });
-      if(typeOfDonor === "Directory"){
+      if (typeOfDonor === "Directory") {
         this.setState({
-          showPatient: true
+          showPatient: true,
         });
-      }else{
+      } else {
         this.setState({
-          showPatient: false
+          showPatient: false,
         });
       }
     });
@@ -207,16 +208,16 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         this.setState({ notification: "Donor Info Added Successfully" });
         history.push("/donor/list");
         window.location.reload();
-      }
-      if (res.status === 202) {
+      } else if (res.status === 202) {
         this.setState({ notification: "Donor Info Updated Successfully" });
         history.push("/donor/list");
         sessionStorage.removeItem("id");
         window.location.reload();
+      } else {
+        this.setState({
+          notification: "Please add valid and non duplicate values",
+        });
       }
-      this.setState({
-        notification: "Please add valid and non duplicate values",
-      });
     });
   }
 
@@ -277,15 +278,16 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 </div>
               </div>
 
-              {showPatient && <div className="col-6">
-                <div className="row form-group">
-                  <div className="col-4 text-right">
-                    <label htmlFor="patientId" className="font-weight-bold">
-                      {translate("patientId")}
-                    </label>
-                  </div>
-                  <div className="col-8">
-                    {/* <input
+              {showPatient && (
+                <div className="col-6">
+                  <div className="row form-group">
+                    <div className="col-4 text-right">
+                      <label htmlFor="patientId" className="font-weight-bold">
+                        {translate("patientId")}
+                      </label>
+                    </div>
+                    <div className="col-8">
+                      {/* <input
                       type="number"
                       className="form-control"
                       required
@@ -294,27 +296,27 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       value={this.state.patientId}
                       onChange={this.changeHandler}
                     /> */}
-                    <select
-                      className="form-control"
-                      name="patientId"
-                      value={this.state.patientId}
-                      onChange={this.handleChange}
-                    >
-                      <option value="" disabled>
-                        {translate("commonSelect")}
-                      </option>
-                      {this.state.selectOptions.map((e: any, key: any) => {
-                        return (
-                          <option key={key} value={e.value}>
-                            {e.label}
-                          </option>
-                        );
-                      })}
-                    </select>
+                      <select
+                        className="form-control"
+                        name="patientId"
+                        value={this.state.patientId}
+                        onChange={this.handleChange}
+                      >
+                        <option value="" disabled>
+                          {translate("commonSelect")}
+                        </option>
+                        {this.state.selectOptions.map((e: any, key: any) => {
+                          return (
+                            <option key={key} value={e.value}>
+                              {e.label}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
+              )}
             </div>
 
             <div className="row">
