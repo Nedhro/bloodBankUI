@@ -65,7 +65,9 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
             <Button variant="info" onClick={()=>{
               if(modalData.donorSelection === 'Selected'){
                 const donorId = modalData.bloodDonorId;
+                const bloodGroup = modalData.donorBloodGroup;
                 sessionStorage.setItem("donorId", donorId);
+                sessionStorage.setItem("bloodGroup", bloodGroup);
                 history.push(`/blood/${donorId}/stock/add`);
                 window.location.reload();
               }else{

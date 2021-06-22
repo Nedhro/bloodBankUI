@@ -232,7 +232,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
                   centered
                 >
                   {show ? (
-                    <DonorModal data={modalData} title={modalData.id} />
+                    <DonorModal translate={translate} data={modalData} title={modalData.id} />
                   ) : (
                     ""
                   )}
