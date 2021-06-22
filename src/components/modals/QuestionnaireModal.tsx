@@ -54,7 +54,6 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
             <Button variant="success" onClick={this.printDiv}>
               Print
             </Button>
-            <Button variant="secondary">Edit</Button>
           </Modal.Footer>
         </div>
       </div>

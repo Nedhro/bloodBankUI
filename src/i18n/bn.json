@@ -11,7 +11,7 @@
 
   "addDonorPageHeader": "রক্তদাতার তথ্য",
   "donorName": "নাম",
-  "patientId": "রোগীর আইডি",
+  "patientId": "রোগীর নাম",
   "donorGuardian": "অভিভাবক / আত্মীয়",
   "donorProfession": "পেশা",
   "donorAge": "বয়স",

@@ -11,7 +11,7 @@
 
   "addDonorPageHeader": "Add Donor Info",
   "donorName": "Full Name",
-  "patientId": "Blood For (Patient Id)",
+  "patientId": "Blood For (Patient)",
   "donorGuardian": "Guardian / Relative",
   "donorProfession": "Profession",
   "donorAge": "Age",

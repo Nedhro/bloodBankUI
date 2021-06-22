@@ -59,13 +59,15 @@ class DonorModal extends React.Component<TableModalProps, any> {
             <a
               className="btn btn-info"
               href={`/donorPhysicalSuitability/test/add/${title}`}
+              onClick={() => {
+                sessionStorage.setItem("donorId", title);
+              }}
             >
               Test Physical Suitability
             </a>
             <Button variant="success" onClick={this.printDiv}>
               Print
             </Button>
-            <Button variant="secondary">Edit</Button>
           </Modal.Footer>
         </div>
       </div>

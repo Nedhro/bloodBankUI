@@ -11,11 +11,9 @@ import 'popper.js';
 import LangState from './context/lang';
 
 ReactDOM.render(
-    <React.StrictMode>
       <LangState>
         <App />
-      </LangState>
-    </React.StrictMode>,
+      </LangState>,
     document.getElementById('root')
   );
 

@@ -3,6 +3,10 @@ import axios from "axios";
 const urlPrefix = "https://192.168.1.184/openmrs/ws/rest/v1/bloodbank/";
 
 class DonorService {
+  //patients
+  getAllActivePatients(){
+    return axios.get(urlPrefix + "patients");
+  }
   //DonorForm
   saveDonorInfo(data: Object) {
     return axios.post(urlPrefix + "donor/add", data);
