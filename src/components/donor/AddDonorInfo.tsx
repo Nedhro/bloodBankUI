@@ -131,6 +131,16 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     });
   }
 
+ formatDate(data: any) {
+   let date = new Date(data);
+   let year = date.getFullYear().toString();
+   let month = (date.getMonth() + 101).toString().substring(1);
+   let day = (date.getDate() + 100).toString().substring(1);
+   let formattedDate = year + "-" + month + "-" + day;
+   console.log(formattedDate);
+   return formattedDate;
+}
+
   async getPatientList() {
     DonorService.getAllActivePatients().then((res) => {
       const result = res.data;
@@ -151,6 +161,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       console.log(res.data);
       const donorName = res.data.donorName;
       const patientId = res.data.patient;
+      const typeOfDonor = res.data.typeOfDonor;
       const donorGuardian = res.data.donorGuardian;
       const donorProfession = res.data.donorProfession;
       const donorAge = res.data.donorAge;
@@ -159,12 +170,13 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       const donorMaritalStatus = res.data.donorMaritalStatus;
       const donorPresentAddress = res.data.donorPresentAddress;
       const donorPermanentAddress = res.data.donorPermanentAddress;
-      const donorLastDonatedDate = res.data.donorLastDonatedDate;
+      const donorLastDonatedDate = this.formatDate(res.data.donorLastDonatedDate);
       const donorLastDonatedPlace = res.data.donorLastDonatedPlace;
       const concernSet = res.data.concernSet;
       this.setState({
         donorName: donorName,
         patientId: patientId,
+        typeOfDonor: typeOfDonor,
         donorGuardian: donorGuardian,
         donorProfession: donorProfession,
         donorAge: donorAge,
@@ -177,6 +189,15 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         donorLastDonatedPlace: donorLastDonatedPlace,
         questionList: concernSet,
       });
+      if(typeOfDonor === "Directory"){
+        this.setState({
+          showPatient: true
+        });
+      }else{
+        this.setState({
+          showPatient: false
+        });
+      }
     });
   }
   submitDonorInfo(dataConfig: any) {
@@ -243,6 +264,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       required
                       className="form-control"
                       name="typeOfDonor"
+                      id="typeOfDonor"
                       value={this.state.typeOfDonor}
                       onChange={this.changeHandler}
                     >
