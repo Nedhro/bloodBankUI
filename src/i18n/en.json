@@ -65,6 +65,8 @@
   "selected": "Selected",
   "rejected": "Rejected",
 
+  "typeOfDonor": "Type of Donor",
+
   "commonSave": "Save",
   "commonReset": "Reset",
   "commonSelect": "Select",

@@ -16,7 +16,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);
     if (event.target.name === "concernName") {
       const concernSet = {
         concernName: event.target.value,
@@ -24,16 +23,30 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       };
       this.questionList.push(concernSet);
     }
+    if (event.target.name === "typeOfDonor") {
+      if(event.target.value === "Directory"){
+        this.setState({
+          showPatient: true
+        });
+      }else{
+        this.setState({
+          showPatient: false,
+          patienId: ""
+        });
+      }
+    }
   };
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem('id');
+    const id = sessionStorage.getItem("id");
     if (id) {
       this.dataConfig = {
         id: id,
         donorName: this.state.donorName,
         donorAge: this.state.donorAge,
+        typeOfDonor: this.state.typeOfDonor,
+        patient: this.state.patientId,
         donorGuardian: this.state.donorGuardian,
         donorGender: this.state.donorGender,
         donorMaritalStatus: this.state.donorMaritalStatus,
@@ -45,10 +58,11 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         donorLastDonatedPlace: this.state.donorLastDonatedPlace,
         concernSet: this.questionList,
       };
-    }
-    else {
+    } else {
       this.dataConfig = {
         donorName: this.state.donorName,
+        typeOfDonor: this.state.typeOfDonor,
+        patient: this.state.patientId,
         donorAge: this.state.donorAge,
         donorGuardian: this.state.donorGuardian,
         donorGender: this.state.donorGender,
@@ -62,7 +76,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         concernSet: this.questionList,
       };
     }
-
+    console.log(this.dataConfig);
     this.submitDonorInfo(this.dataConfig);
   };
 
@@ -72,6 +86,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       error: null,
       isLoaded: false,
       donorName: "",
+      typeOfDonor: "",
       donorGuardian: "",
       donorProfession: "",
       donorAge: "",
@@ -89,6 +104,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       patientId: "",
       patientName: "",
       questionList: [],
+      showPatient: false
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -99,10 +115,10 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   componentDidMount() {
     this.getQuestionList();
     this.getPatientList();
-    const id = sessionStorage.getItem('id');
+    const id = sessionStorage.getItem("id");
     if (id !== null) {
       this.getDonorInfoById(id);
-      sessionStorage.removeItem('id');
+      sessionStorage.removeItem("id");
     }
   }
 
@@ -115,12 +131,12 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     });
   }
 
-  async getPatientList(){
-    DonorService.getAllActivePatients().then(res=>{
+  async getPatientList() {
+    DonorService.getAllActivePatients().then((res) => {
       const result = res.data;
-      const options = result.map((d:any) => ({
+      const options = result.map((d: any) => ({
         value: d.patient_id,
-        label: d.name,
+        label: d.name + " (" + d.identifier + ")",
       }));
       this.setState({ selectOptions: options });
     });
@@ -131,11 +147,10 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   }
 
   getDonorInfoById(id: any) {
-    console.log('done');
     DonorService.getBloodDonorById(id).then((res) => {
       console.log(res.data);
       const donorName = res.data.donorName;
-      const patientId = res.data.patientId;
+      const patientId = res.data.patient;
       const donorGuardian = res.data.donorGuardian;
       const donorProfession = res.data.donorProfession;
       const donorAge = res.data.donorAge;
@@ -175,7 +190,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       if (res.status === 202) {
         this.setState({ notification: "Donor Info Updated Successfully" });
         history.push("/donor/list");
-        sessionStorage.removeItem('id');
+        sessionStorage.removeItem("id");
         window.location.reload();
       }
       this.setState({
@@ -186,7 +201,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   render() {
     const { translate } = this.props;
-    const { notification, questionList } = this.state;
+    const { notification, questionList, showPatient } = this.state;
     return (
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">
@@ -215,7 +230,32 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                   </div>
                 </div>
               </div>
+
               <div className="col-6">
+                <div className="row form-group">
+                  <div className="col-4 text-right">
+                    <label htmlFor="typeOfDonor" className="font-weight-bold">
+                      {translate("typeOfDonor")}
+                    </label>
+                  </div>
+                  <div className="col-8">
+                    <select
+                      required
+                      className="form-control"
+                      name="typeOfDonor"
+                      value={this.state.typeOfDonor}
+                      onChange={this.changeHandler}
+                    >
+                      <option value="">{translate("commonSelect")}</option>
+                      <option value="Voluntary">Voluntary</option>
+                      <option value="Directory">Directory</option>
+                      <option value="Others">Others</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {showPatient && <div className="col-6">
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="patientId" className="font-weight-bold">
@@ -233,23 +273,26 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       onChange={this.changeHandler}
                     /> */}
                     <select
-                          className="form-control"
-                          name="patientId"
-                          value={this.state.patientId}
-                          onChange={this.handleChange}
-                        >
-                          <option value="" disabled>{translate("commonSelect")}</option>
-                          {this.state.selectOptions.map((e: any, key: any) => {
-                            return (
-                              <option key={key} value={e.value}>
-                                {e.label}
-                              </option>
-                            );
-                          })}
-                        </select>
+                      className="form-control"
+                      name="patientId"
+                      value={this.state.patientId}
+                      onChange={this.handleChange}
+                    >
+                      <option value="" disabled>
+                        {translate("commonSelect")}
+                      </option>
+                      {this.state.selectOptions.map((e: any, key: any) => {
+                        return (
+                          <option key={key} value={e.value}>
+                            {e.label}
+                          </option>
+                        );
+                      })}
+                    </select>
                   </div>
                 </div>
               </div>
+            }
             </div>
 
             <div className="row">
