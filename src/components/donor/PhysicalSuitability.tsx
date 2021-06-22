@@ -42,6 +42,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     this.setState({
       show: false,
     });
+    window.location.reload();
   };
 
   componentDidMount() {
@@ -261,6 +262,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 >
                   {show ? (
                     <SuitabilityTestModal
+                      translate={translate}
                       data={modalData}
                       title={modalData.donorPhysicalSuitabilityId}
                     />

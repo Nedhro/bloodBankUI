@@ -79,6 +79,7 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
     this.setState({
       show: false,
     });
+    window.location.reload();
   };
 
   render() {
@@ -207,7 +208,7 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
                   centered
                 >
                   {show ? (
-                    <QuestionnaireModal data={modalData} title={modalData.id} />
+                    <QuestionnaireModal translate={translate} data={modalData} title={modalData.id} />
                   ) : (
                     ""
                   )}

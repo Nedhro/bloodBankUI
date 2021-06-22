@@ -121,22 +121,22 @@ class BloodStock extends React.Component<BloodStockProps, any> {
         sortable: true,
       },
       {
-        name: "Source of Blood",
+          name: `${translate("sourceOfBlood")}`,
         selector: "sourceOfBlood",
         sortable: true,
       },
       {
-        name: "Blood Bag Id",
+          name: `${translate("bloodBagId")}`,
         selector: "bloodBagId",
         sortable: true,
       },
       {
-        name: "Stock Status",
+          name: `${translate("stockStatus")}`,
         selector: "stockStatus",
         sortable: true,
       },
       {
-        name: "Blood Storage",
+          name: `${translate("bloodStorage")}`,
         selector: "bloodStorage",
         sortable: true,
       },
@@ -196,7 +196,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
             </div> */}
             <div className="row no-printme">
               <div className="col-12 p-1 m-1">
-                <h2>Blood Stock</h2>
+                <h2>{translate("bloodStock")}</h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">

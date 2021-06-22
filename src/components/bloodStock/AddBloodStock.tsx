@@ -140,7 +140,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
-        <h2 className="text-info text-center">Add Blood Stock</h2>
+        <h2 className="text-info text-center">{translate("addBloodStock")}</h2>
         <div className="container p-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
@@ -180,7 +180,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="sourceOfBlood">Source of Blood</label>
+                <label htmlFor="sourceOfBlood">{translate("sourceOfBlood")}</label>
               </div>
               <div className="col-8">
                 <select
@@ -200,7 +200,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="bloodBagId">Blood Bag Id</label>
+                <label htmlFor="bloodBagId">{translate("bloodBagId")}</label>
               </div>
               <div className="col-8">
                 <input
@@ -217,7 +217,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="stockStatus">Stock Status</label>
+                <label htmlFor="stockStatus">{translate("stockStatus")}</label>
               </div>
               <div className="col-8">
                 <select
@@ -229,14 +229,14 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Available">Available</option>
-                  <option value="NotAvailable">Not Available</option>
+                  <option value="Available">{translate("available")}</option>
+                  <option value="NotAvailable">{translate("notAvailable")}</option>
                 </select>
               </div>
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="bloodStorage">Blood Storage</label>
+                <label htmlFor="bloodStorage">{translate("bloodStorage")}</label>
               </div>
               <div className="col-8">
                 <select
@@ -248,10 +248,10 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Fridge-1">Fridge-1</option>
-                  <option value="Fridge-2">Fridge-2</option>
-                  <option value="Fridge-3">Fridge-3</option>
-                  <option value="Fridge-4">Fridge-4</option>
+                  <option value="Fridge-1">{translate("fridge1")}</option>
+                  <option value="Fridge-2">{translate("fridge2")}</option>
+                  <option value="Fridge-3">{translate("fridge3")}</option>
+                  <option value="Fridge-4">{translate("fridge4")}</option>
                 </select>
               </div>
             </div>

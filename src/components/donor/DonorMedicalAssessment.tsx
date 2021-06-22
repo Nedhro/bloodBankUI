@@ -61,6 +61,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
     this.setState({
       show: false,
     });
+    window.location.reload();
   };
 
  
