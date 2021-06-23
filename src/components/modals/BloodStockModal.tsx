@@ -65,12 +65,16 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
               {translate("commonPrint")}
             </Button>
             <Button variant="info" onClick={()=>{
-              const bloodBagId = modalData.bloodBagId;
-              const donorId = modalData.bloodDonorId;
-              sessionStorage.setItem("bloodBagId", bloodBagId);
-              sessionStorage.setItem("donorId", donorId);
-              history.push(`/blood/compatibility/${bloodBagId}/test/add`);
-              window.location.reload();
+              if(modalData.stockStatus === 'Available'){
+                const bloodBagId = modalData.bloodBagId;
+                const donorId = modalData.bloodDonorId;
+                sessionStorage.setItem("bloodBagId", bloodBagId);
+                sessionStorage.setItem("donorId", donorId);
+                history.push(`/blood/compatibility/${bloodBagId}/test/add`);
+                window.location.reload();
+              }else{
+                alert('Blood is not available');
+              }
             }}>
               {translate("compatibilityWithPatient")}
             </Button>
