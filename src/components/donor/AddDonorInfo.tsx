@@ -143,7 +143,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     DonorService.getAllActivePatients().then((res) => {
       const result = res.data;
       const options = result.map((d: any) => ({
-        value: d.patient_id,
+        value: d.identifier,
         label: d.name + " (" + d.identifier + ")",
       }));
       this.setState({ selectOptions: options });
