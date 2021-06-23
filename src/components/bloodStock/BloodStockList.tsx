@@ -186,14 +186,14 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       return (
         <div className="container-fluid m-1">
           <div className="container bg-light p-2">
-            {/* <div className="form-inline">
+            <div className="form-inline">
               <a
-                className="btn btn-primary text-left float-left m-1"
-                href="/donor/list"
+                className="btn btn-info text-left float-left m-1"
+                href="/blood/stock/add"
               >
-                {translate("commonDonors")}
+                {translate("stockBlood")}
               </a>
-            </div> */}
+            </div>
             <div className="row no-printme">
               <div className="col-12 p-1 m-1">
                 <h2>{translate("bloodStock")}</h2>

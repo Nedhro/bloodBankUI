@@ -20,6 +20,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       stockStatus: "",
       bloodBagId: "",
       notification: "",
+      allowSave: false
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -44,25 +45,39 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "sourceOfBlood") {
       const donorId = parseInt(this.state.bloodDonorId);
+      const randomstring = Math.random().toString(10).slice(-4);
+      console.log(randomstring);
       if (event.target.value === "NITOR") {
-        this.setState({
-          bloodBagId: "NITOR-" + donorId,
-          stockStatus: "Available"
-        });
+        if(donorId){
+          this.setState({
+            bloodBagId: "NITOR-" + donorId,
+            stockStatus: "Available",
+            allowSave: true
+          });
+        }else{
+          alert("Donor Id is not available. Blood Source is not valid");
+          this.setState({
+            stockStatus: "NotAvailable",
+            allowSave: false
+          });
+        }
       } else if (event.target.value === "OutdoorCampaign") {
         this.setState({
-          bloodBagId: "Campaign-" + donorId,
-          stockStatus: "Available"
+          bloodBagId: "Campaign-" + randomstring,
+          stockStatus: "Available",
+          allowSave: true
         });
       } else if (event.target.value === "Outsource") {
         this.setState({
-          bloodBagId: "Outsource-" + donorId,
-          stockStatus: "Available"
+          bloodBagId: "Outsource-" + randomstring,
+          stockStatus: "Available",
+          allowSave: true
         });
       } else {
         this.setState({
           bloodBagId: "",
-          stockStatus: "NotAvailable"
+          stockStatus: "NotAvailable",
+          allowSave: false
         });
       }
     }
@@ -139,7 +154,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
   }
 
   render() {
-    const { notification } = this.state;
+    const { notification, allowSave } = this.state;
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
@@ -158,7 +173,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   id="bloodDonorId"
                   value={this.state.bloodDonorId}
                   readOnly
-                  required
                   onChange={this.changeHandler}
                 />
               </div>
@@ -169,16 +183,24 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                 <label htmlFor="bloodGroup">{translate("bloodGroup")}</label>
               </div>
               <div className="col-8">
-                <input
+                <select
                   className="form-control"
-                  type="text"
                   name="bloodGroup"
                   id="bloodGroup"
                   value={this.state.bloodGroup}
-                  readOnly
                   required
                   onChange={this.changeHandler}
-                />
+                >
+                  <option value="">{translate("commonSelect")}</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
               </div>
             </div>
             <div className="row form-group">
@@ -263,6 +285,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
               <div className="col-8 float-left text-left ">
                 <input
                   type="submit"
+                  disabled={!allowSave}
                   className="btn btn-success m-1"
                   value={translate("commonSave")}
                 />

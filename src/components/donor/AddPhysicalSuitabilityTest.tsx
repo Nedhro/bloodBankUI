@@ -247,15 +247,24 @@ class AddPhysicalSuitabilityTest extends React.Component<
                 </label>
               </div>
               <div className="col-8">
-                <input
+                <select
                   className="form-control"
-                  type="text"
-                  name="donorBloodGroup"
-                  id="donorBloodGroup"
-                  value={this.state.donorBloodGroup}
+                  name="bloodGroup"
+                  id="bloodGroup"
+                  value={this.state.bloodGroup}
                   required
                   onChange={this.changeHandler}
-                />
+                >
+                  <option value="">{translate("commonSelect")}</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
               </div>
             </div>
 
