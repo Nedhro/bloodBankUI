@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
+import { history } from "../custom/history";
 
 export interface TableModalProps {
   data: Object;
@@ -89,6 +90,8 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
               onClick={() => {
                 const bloodBagId = modalData.bloodBagId;
                 this.updateBloodStockStatus(bloodBagId);
+                history.push("/blood/stock/list");
+                window.location.reload();
               }}
             >
               {translate("approveBlood")}
