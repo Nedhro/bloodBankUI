@@ -36,7 +36,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      isLoaded: true,
       qid: "",
       question: "",
       concernFor: "",

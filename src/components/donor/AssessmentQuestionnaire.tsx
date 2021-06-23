@@ -16,7 +16,7 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
   constructor(props: any) {
     super(props);
     this.state = {
-      isLoaded: false,
+      isLoaded: true,
       error: null,
       items: [],
       notification: "",

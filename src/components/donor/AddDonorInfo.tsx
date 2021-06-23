@@ -84,7 +84,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      isLoaded: true,
       donorName: "",
       typeOfDonor: "",
       donorGuardian: "",
