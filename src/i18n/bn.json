@@ -121,8 +121,22 @@
 
   "tests": "টেষ্ট",
 
+  "bloodStockList": "সংরক্ষিত রক্তের তালিকা",
+
+  "editBloodHeader": "রক্ত সংরক্ষণ তথ্য আপডেট করুন",
+
+  "editCompatibilityHeader": "সামঞ্জস্যতা পরীক্ষা আপডেট করুন",
+
+  "editDonorPageHeader": "রক্তদাতার তথ্য আপডেট করুন",
+
+  "editPhysicalTestHeader": "শারীরিক উপযুক্ততা পরীক্ষা আপডেট করুন",
+
+  "editQuesHeader": "জ্ঞাতব্য প্রশ্নাবলী আপডেট করুন",
+
   "commonSave": "সংরক্ষণ করুন",
+  "commonUpdate": "আপডেট করুন",
   "commonReset": "নতুন করে বসান",
+  "commonCancel": "বাতিল করুন",
   "commonSelect": "নির্বাচন করুন",
   "commonFilter": "ফিল্টার",
   "commonAddQues": "জ্ঞাতব্য প্রশ্নাবলী",

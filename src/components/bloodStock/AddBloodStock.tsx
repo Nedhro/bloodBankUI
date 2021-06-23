@@ -158,12 +158,22 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
-        <h2 className="text-info text-center">{translate("addBloodStock")}</h2>
+        {
+          sessionStorage.getItem("id") ? <> <h2 className="text-info text-center">
+            {translate("editBloodHeader")}
+          </h2>
+          </>
+            : <>
+              <h2 className="text-info text-center">
+                {translate("stockBlood")}
+              </h2>
+            </>
+        }
         <div className="container p-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="bloodDonorId">{translate("donorId")}</label>
+                <label className="font-weight-bold" htmlFor="bloodDonorId">{translate("donorId")}</label>
               </div>
               <div className="col-8">
                 <input
@@ -180,7 +190,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="bloodGroup">{translate("bloodGroup")}</label>
+                <label className="font-weight-bold" htmlFor="bloodGroup">{translate("bloodGroup")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <select
@@ -205,7 +215,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="sourceOfBlood">{translate("sourceOfBlood")}</label>
+                <label className="font-weight-bold" htmlFor="sourceOfBlood">{translate("sourceOfBlood")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <select
@@ -225,7 +235,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="bloodBagId">{translate("bloodBagId")}</label>
+                <label className="font-weight-bold" htmlFor="bloodBagId">{translate("bloodBagId")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <input
@@ -242,7 +252,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="stockStatus">{translate("stockStatus")}</label>
+                <label className="font-weight-bold" htmlFor="stockStatus">{translate("stockStatus")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <select
@@ -261,7 +271,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="bloodStorage">{translate("bloodStorage")}</label>
+                <label className="font-weight-bold" htmlFor="bloodStorage">{translate("bloodStorage")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <select
@@ -282,18 +292,41 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right"></div>
-              <div className="col-8 float-left text-left ">
-                <input
-                  type="submit"
-                  disabled={!allowSave}
-                  className="btn btn-success m-1"
-                  value={translate("commonSave")}
-                />
-                <input
-                  type="reset"
-                  className="btn btn-danger m-1"
-                  value={translate("commonReset")}
-                />
+              <div className="col-8 float-right text-right ">
+                {
+                  sessionStorage.getItem("id") ?<> <input
+                    type="submit"
+                    disabled={!allowSave}
+                    className="btn btn-success m-1"
+                    value={translate("commonUpdate")}
+                  />
+                    <input
+                      type="cancel"
+                      className="btn btn-danger m-1"
+                      onClick={() => {
+                        history.push("/blood/stock/list");
+                        window.location.reload();
+                        sessionStorage.removeItem("id");
+                        sessionStorage.removeItem("donorId");
+                        sessionStorage.removeItem("bloodGroup");
+                      }}
+                      value={translate("commonCancel")}
+                    />
+                  </>
+                    : <>
+                    <input
+                      type="submit"
+                      disabled={!allowSave}
+                      className="btn btn-success m-1"
+                      value={translate("commonSave")}
+                    />
+                      <input
+                        type="reset"
+                        className="btn btn-danger m-1"
+                        value={translate("commonReset")}
+                      />
+                      </>
+                }
               </div>
             </div>
           </form>
