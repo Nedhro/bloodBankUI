@@ -2,7 +2,7 @@
   "en": "ইংরেজি" ,
   "bn": "বাংলা",
 
-  "title": "ব্লাড ব্যাংক",
+  "title": "ব্লাড ব্যাংক (নিটোর)",
 
   "home": "হোম",
   "donor": "রক্তদাতা",
@@ -70,7 +70,6 @@
   "id": "আইডি",
 
   "typeOfDonor": "রক্তদাতার ধরণ",
-
   "name": "নাম",
 
   "testPhysicalSuitability": "শারীরিক উপযুক্ততা যাচাই করুন",
@@ -103,13 +102,13 @@
   "nonCompatible": "অনুপযুক্ত",
   "bloodGrouping": "রক্তের গ্রুপিং",
   "bloodCrossMatching": "রক্তের ক্রস ম্যাচিং",
-  "bloodHivTest": "রক্তের এইচ আই ভি টেষ্ট",
+  "bloodHivTest": "এইচ আই ভি",
   "positive": "পজিটিভ",
   "negative": "নেগেটিভ",
-  "bloodHbvTest": "রক্তের এইচ বি ভি টেষ্ট",
-  "bloodHcvTest": "রক্তের এইচ সি ভি টেষ্ট",
-  "bloodSyphilisTest": "রক্তের সিফিলিসিস টেষ্ট",
-  "bloodMalariaTest": "রক্তের ম্যালেরিয়া টেষ্ট",
+  "bloodHbvTest": "এইচ বি ভি",
+  "bloodHcvTest": "এইচ সি ভি",
+  "bloodSyphilisTest": "সিফিলিস",
+  "bloodMalariaTest": "ম্যালেরিয়া",
 
   "commonSave": "সংরক্ষণ করুন",
   "commonReset": "নতুন করে বসান",

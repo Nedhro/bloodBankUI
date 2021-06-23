@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
+import { history } from "../custom/history";
 
 export interface TableModalProps {
   data: Object;
@@ -63,8 +64,12 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
               Print
             </Button>
             <Button variant="info" onClick={()=>{
-              const bloodBagId = modalData.donorBloodGroup;
+              const bloodBagId = modalData.bloodBagId;
+              const donorId = modalData.bloodDonorId;
               sessionStorage.setItem("bloodBagId", bloodBagId);
+              sessionStorage.setItem("donorId", donorId);
+              history.push(`/blood/compatibility/${bloodBagId}/test/add`);
+              window.location.reload();
             }}>
               Compatibility Test with Patient
             </Button>
