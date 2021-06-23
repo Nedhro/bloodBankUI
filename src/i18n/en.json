@@ -122,8 +122,22 @@
 
   "tests": "Tests",
 
+  "bloodStockList": "Blood Stock List",
+
+  "editBloodHeader": "Edit Blood Stock Information",
+
+  "editCompatibilityHeader": "Edit Compatibility Test",
+
+  "editDonorPageHeader": "Edit Donor Info",
+
+  "editPhysicalTestHeader": "Edit Physical Suitability Test",
+
+  "editQuesHeader": "Edit Questionnaire",
+
   "commonSave": "Save",
+  "commonUpdate": "Update",
   "commonReset": "Reset",
+  "commonCancel": "Cancel",
   "commonSelect": "Select",
   "commonFilter": "Filter",
   "commonAddQues": "Add Questionnaire",

@@ -92,12 +92,22 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
-        <h2 className="text-info text-center">{translate("commonAddQues")}</h2>
+        {
+          sessionStorage.getItem("id") ? <> <h2 className="text-info text-center">
+            {translate("editQuesHeader")}
+          </h2>
+          </>
+            : <>
+              <h2 className="text-info text-center">
+                {translate("commonAddQues")}
+              </h2>
+            </>
+        }
         <div className="container p-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="question">{translate("question")}</label>
+                <label className="font-weight-bold" htmlFor="question">{translate("question")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <input
@@ -114,7 +124,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label htmlFor="concernFor">{translate("concernFor")}</label>
+                <label className="font-weight-bold" htmlFor="concernFor">{translate("concernFor")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <select
@@ -132,21 +142,45 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
                 </select>
               </div>
             </div>
-            <div className="row form-group">
-              <div className="col-4 text-right"></div>
-              <div className="col-8 float-left text-left ">
-                <input
-                  type="submit"
-                  className="btn btn-success m-1"
-                  value={translate("commonSave")}
-                />
-                <input
-                  type="reset"
-                  className="btn btn-danger m-1"
-                  value={translate("commonReset")}
-                />
-              </div>
-            </div>
+            {
+              sessionStorage.getItem("id") ?
+
+                <div className="row form-group">
+                  <div className="col-4 text-right"></div>
+                  <div className="col-8 float-right text-right ">
+                    <input
+                      type="submit"
+                      className="btn btn-success m-1"
+                      value={translate("commonUpdate")}
+                    />
+                    <input
+                      type="cancel"
+                      className="btn btn-danger m-1"
+                      onClick={() => {
+                        history.push("/questionnaire/list");
+                        window.location.reload();
+                        sessionStorage.removeItem('id');
+                      }}
+                      value={translate("commonCancel")}
+                    />
+                  </div>
+                </div>
+                : <div className="row form-group">
+                  <div className="col-4 text-right"></div>
+                  <div className="col-8 float-right text-right ">
+                    <input
+                      type="submit"
+                      className="btn btn-success m-1"
+                      value={translate("commonSave")}
+                    />
+                    <input
+                      type="reset"
+                      className="btn btn-danger m-1"
+                      value={translate("commonReset")}
+                    />
+                  </div>
+                </div>
+            }
           </form>
           <div className="text-danger">
             <p className="text-center bg-info font-weight-bold">
