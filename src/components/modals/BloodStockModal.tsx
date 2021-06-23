@@ -34,11 +34,12 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
 
   render() {
     const { title, modalData } = this.state;
+    const { translate } = this.props;
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Blood Stock Id : {title}
+            {translate("bloodStockId")} : {title}
           </Modal.Title>
         </Modal.Header>
         <div
@@ -48,20 +49,20 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4 className="font-weight-bold">Blood Sample ({modalData.bloodBagId})</h4>
-            <p>Blood Donor Id : {modalData.bloodDonorId}</p>
-            <p>Blood Group : {modalData.bloodGroup}</p>
-            <p>Source Of Blood : {modalData.sourceOfBlood}</p>
-            <p>Blood Bag Id : {modalData.bloodBagId}</p>
-            <p>Blood Storage : {modalData.bloodStorage}</p>
-            <p>Stock Status : {modalData.stockStatus}</p>
+            <h4 className="font-weight-bold">{translate("bloodSample")} ({modalData.bloodBagId})</h4>
+            <p>{translate("bloodDonorId")} : {modalData.bloodDonorId}</p>
+            <p>{translate("bloodGroup")} : {modalData.bloodGroup}</p>
+            <p>{translate("sourceOfBlood")} : {modalData.sourceOfBlood}</p>
+            <p>{translate("bloodBagId")} : {modalData.bloodBagId}</p>
+            <p>{translate("bloodStorage")} : {modalData.bloodStorage}</p>
+            <p>{translate("stockStatus")} : {modalData.stockStatus}</p>
           </Modal.Body>
         </div>
 
         <div className="no-printme">
           <Modal.Footer>
             <Button variant="success" onClick={this.printDiv}>
-              Print
+              {translate("commonPrint")}
             </Button>
             <Button variant="info" onClick={()=>{
               const bloodBagId = modalData.bloodBagId;
@@ -71,7 +72,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
               history.push(`/blood/compatibility/${bloodBagId}/test/add`);
               window.location.reload();
             }}>
-              Compatibility Test with Patient
+              {translate("compatibilityWithPatient")}
             </Button>
           </Modal.Footer>
         </div>

@@ -85,7 +85,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Tests
+                {translate("tests")}
                 <span className="caret"></span>
               </a>
               <ul className="dropdown-menu">
@@ -99,7 +99,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                 </li>
                 <li className="p-1 m-1">
                   <a className="text-info" href="/blood/compatibility/test/list">
-                    Compatibility Test
+                    {translate("compatibilityTest")}
                   </a>
                 </li>
               </ul>
@@ -114,7 +114,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Blood Stock
+                {translate("bloodStock")}
                 <span className="caret"></span>
               </a>
               <ul className="dropdown-menu">
@@ -123,7 +123,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                     className="text-info"
                     href="/blood/stock/list"
                   >
-                    Blood Stock
+                    {translate("bloodStock")}
                   </a>
                 </li>
               </ul>
