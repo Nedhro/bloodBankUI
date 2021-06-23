@@ -48,11 +48,12 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
 
   render() {
     const { title, modalData, notification } = this.state;
+    const { translate } = this.props;
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Blood Comatiability Test Id : {title}
+            {translate("bloodCompatibilityId")} : {title}
           </Modal.Title>
         </Modal.Header>
         <div
@@ -63,25 +64,25 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
           <div className="page-break" />
           <Modal.Body>
             <h4 className="font-weight-bold">
-              Compatiability Test ({modalData.bloodCompatibilityId})
+              {translate("compatibilityTest")} ({modalData.bloodCompatibilityId})
             </h4>
-            <p>Blood Bag Id : {modalData.bloodBagId}</p>
-            <p>Patient : {modalData.patient}</p>
-            <p>Blood Screening : {modalData.bloodScreening}</p>
-            <p>Blood Grouping : {modalData.bloodGrouping}</p>
-            <p>Blood Cross Matching : {modalData.bloodCrossMatching}</p>
-            <p>HIV : {modalData.bloodHivTest}</p>
-            <p>HBV : {modalData.bloodHbvTest}</p>
-            <p>HCV : {modalData.bloodHcvTest}</p>
-            <p>Syphilis : {modalData.bloodSyphilisTest}</p>
-            <p>Malaria : {modalData.bloodMalariaTest}</p>
+            <p>{translate("bloodBagId")} : {modalData.bloodBagId}</p>
+            <p>{translate("patient")} : {modalData.patient}</p>
+            <p>{translate("bloodScreening")} : {modalData.bloodScreening}</p>
+            <p>{translate("bloodGrouping")} : {modalData.bloodGrouping}</p>
+            <p>{translate("crossMatching")} : {modalData.bloodCrossMatching}</p>
+            <p>{translate("bloodHivTest")} : {modalData.bloodHivTest}</p>
+            <p>{translate("bloodHbvTest")} : {modalData.bloodHbvTest}</p>
+            <p>{translate("bloodHcvTest")} : {modalData.bloodHcvTest}</p>
+            <p>{translate("bloodSyphilisTest")} : {modalData.bloodSyphilisTest}</p>
+            <p>{translate("bloodMalariaTest")} : {modalData.bloodMalariaTest}</p>
           </Modal.Body>
         </div>
 
         <div className="no-printme">
           <Modal.Footer>
             <Button variant="success" onClick={this.printDiv}>
-              Print
+              {translate("commonPrint")}
             </Button>
             <Button
               variant="info"
@@ -90,7 +91,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                 this.updateBloodStockStatus(bloodBagId);
               }}
             >
-              Approve Blood For Patient
+              {translate("approveBlood")}
             </Button>
           </Modal.Footer>
 

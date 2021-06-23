@@ -53,9 +53,17 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           "updatedBy",
         ];
         let dataFinal: any = [];
+        // if (res.data === "Compatible"){
+        //   res.data = "c";
+        // }
         let entries = this.filterData(res.data, keys);
         //rows
-        entries.map((entry: any) => dataFinal.push(entry));
+        console.log(keys);
+
+        entries.map((entry: any) => {
+          console.log(entry);
+          return dataFinal.push(entry)
+        });
         this.setState({
           isLoaded: true,
           items: dataFinal,
