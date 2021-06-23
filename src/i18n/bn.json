@@ -110,6 +110,17 @@
   "bloodSyphilisTest": "সিফিলিস",
   "bloodMalariaTest": "ম্যালেরিয়া",
 
+  "bloodStockId": "স্টক আইডি",
+  "bloodSample": "স্যাম্পল",
+  "bloodDonorId": "ডোনার আইডি",
+  "compatibilityWithPatient": "রোগীর সাথে সামঞ্জস্যতা পরীক্ষা",
+
+  "bloodCompatibilityId": "সামঞ্জস্যতা পরীক্ষা আইডি",
+  "crossMatching": "রক্তের ক্রস ম্যাচিং",
+  "approveBlood": "রক্ত ​​অনুমোদন করুন",
+
+  "tests": "টেষ্ট",
+
   "commonSave": "সংরক্ষণ করুন",
   "commonReset": "নতুন করে বসান",
   "commonSelect": "নির্বাচন করুন",

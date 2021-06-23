@@ -111,6 +111,17 @@
   "bloodSyphilisTest": "Syphilis",
   "bloodMalariaTest": "Malaria",
 
+  "bloodStockId": "Blood Stock Id",
+  "bloodSample": "Blood Sample",
+  "bloodDonorId": "Blood Donor Id",
+  "compatibilityWithPatient": "Compatibility Test with Patient",
+
+  "bloodCompatibilityId": "Blood Compatibility Test Id",
+  "crossMatching": "Blood Cross Matching",
+  "approveBlood": "Approve Blood For Patient",
+
+  "tests": "Tests",
+
   "commonSave": "Save",
   "commonReset": "Reset",
   "commonSelect": "Select",
