@@ -15,7 +15,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
   constructor(props: any) {
     super(props);
     this.state = {
-      isLoaded: false,
+      isLoaded: true,
       error: null,
       items: [],
       notification: "",

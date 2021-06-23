@@ -123,7 +123,7 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                     className="text-info"
                     href="/blood/stock/list"
                   >
-                    {translate("bloodStock")}
+                    {translate("bloodStockList")}
                   </a>
                 </li>
               </ul>

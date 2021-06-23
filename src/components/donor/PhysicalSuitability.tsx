@@ -16,7 +16,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
   constructor(props: any) {
     super(props);
     this.state = {
-      isLoaded: false,
+      isLoaded: true,
       error: null,
       items: [],
       notification: "",
