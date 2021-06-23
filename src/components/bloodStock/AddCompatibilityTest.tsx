@@ -395,7 +395,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
               </div>
             </div>
 
-            <div className="row form-group">
+            <div className="row pb-5 form-group">
               <div className="col-4 text-right"></div>
               <div className="col-8 float-right text-right ">
                 {
