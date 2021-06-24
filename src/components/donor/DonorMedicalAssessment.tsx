@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import { Modal } from "react-bootstrap";
 import DonorModal from "../modals/DonorModal";
 import DonorService from "../../services/DonorService";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
@@ -66,7 +66,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
 
  
 
-  deleteDonorInfo(id: any) {
+ /* deleteDonorInfo(id: any) {
     DonorService.deleteBloodDonor(id).then((res) => {
       console.log(res);
       if (res.status === 202) {
@@ -76,7 +76,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
         window.location.reload();
       }
     });
-  }
+  }*/
 
   search = (rows: any) => {
     const columns = rows[0] && Object.keys(rows[0]);
@@ -144,7 +144,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
               </Link>
-              <button
+              {/* <button
                 className="btn btn-danger btn-sm m-1"
                 onClick={() => {
                   console.log(record);
@@ -152,7 +152,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />
-              </button>
+              </button> */}
             </Fragment>
           );
         },

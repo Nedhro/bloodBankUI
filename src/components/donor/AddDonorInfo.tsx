@@ -15,6 +15,44 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   dataConfig: any = {};
   questionList: any = [];
 
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      donorName: "",
+      typeOfDonor: "",
+      donorGuardian: "",
+      donorProfession: "",
+      donorAge: "",
+      donorMobileNo: "",
+      donorGender: "",
+      donorMaritalStatus: "",
+      donorPresentAddress: "",
+      donorPermanentAddress: "",
+      donorLastDonatedDate: "",
+      donorLastDonatedPlace: "",
+      concernName: "",
+      concernStatus: "",
+      notification: "",
+      selectOptions: [],
+      patientId: null,
+      questionList: [],
+      showPatient: false,
+    };
+    this.submitHandler = this.submitHandler.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
+    this.submitDonorInfo = this.submitDonorInfo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.getQuestionList();
+    this.getPatientList();
+    const id = sessionStorage.getItem("donorId");
+    if (id !== null) {
+      this.getDonorInfoById(id);
+    }
+  }
+
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "concernName") {
@@ -32,7 +70,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       } else {
         this.setState({
           showPatient: false,
-          patienId: "",
+          patientId: "",
         });
       }
     }
@@ -81,43 +119,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     this.submitDonorInfo(this.dataConfig);
   };
 
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      donorName: "",
-      typeOfDonor: "",
-      donorGuardian: "",
-      donorProfession: "",
-      donorAge: "",
-      donorMobileNo: "",
-      donorGender: "",
-      donorMaritalStatus: "",
-      donorPresentAddress: "",
-      donorPermanentAddress: "",
-      donorLastDonatedDate: "",
-      donorLastDonatedPlace: "",
-      concernName: "",
-      concernStatus: "",
-      notification: "",
-      selectOptions: [],
-      patientId: null,
-      questionList: [],
-      showPatient: false,
-    };
-    this.submitHandler = this.submitHandler.bind(this);
-    this.changeHandler = this.changeHandler.bind(this);
-    this.submitDonorInfo = this.submitDonorInfo.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.getQuestionList();
-    this.getPatientList();
-    const id = sessionStorage.getItem("donorId");
-    if (id !== null) {
-      this.getDonorInfoById(id);
-    }
-  }
 
   getQuestionList() {
     DonorService.getAllQuestionnaire().then((res) => {

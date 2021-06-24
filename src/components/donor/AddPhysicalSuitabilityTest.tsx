@@ -68,7 +68,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
   }
 
   componentDidMount() {
-    const donorId = sessionStorage.getItem("donorId");
+    const donorId = sessionStorage.getItem("bloodId");
     this.setState({
       bloodDonorId: donorId,
     });
