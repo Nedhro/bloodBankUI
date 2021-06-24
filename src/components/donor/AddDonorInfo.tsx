@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../static/scss/donor.scss";
 import { history } from "../custom/history";
+import Select from "react-select";
 
 interface DonorInfoProps {
   translate: (key: string) => string;
@@ -40,13 +41,13 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   submitHandler = (event: any) => {
     event.preventDefault();
     const id = sessionStorage.getItem("donorId");
-    if (id !) {
+    if (id) {
       this.dataConfig = {
         donorId: id,
         donorName: this.state.donorName,
         donorAge: this.state.donorAge,
         typeOfDonor: this.state.typeOfDonor,
-        patient: this.state.patientId,
+        patient: this.state.patientId.value,
         donorGuardian: this.state.donorGuardian,
         donorGender: this.state.donorGender,
         donorMaritalStatus: this.state.donorMaritalStatus,
@@ -62,7 +63,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       this.dataConfig = {
         donorName: this.state.donorName,
         typeOfDonor: this.state.typeOfDonor,
-        patient: this.state.patientId,
+        patient: this.state.patientId.value,
         donorAge: this.state.donorAge,
         donorGuardian: this.state.donorGuardian,
         donorGender: this.state.donorGender,
@@ -83,8 +84,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      error: null,
-      isLoaded: true,
       donorName: "",
       typeOfDonor: "",
       donorGuardian: "",
@@ -101,7 +100,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       concernStatus: "",
       notification: "",
       selectOptions: [],
-      patientId: "",
+      patientId: null,
       questionList: [],
       showPatient: false,
     };
@@ -135,7 +134,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     let month = (date.getMonth() + 101).toString().substring(1);
     let day = (date.getDate() + 100).toString().substring(1);
     let formattedDate = year + "-" + month + "-" + day;
-    console.log(formattedDate);
     return formattedDate;
   }
 
@@ -149,9 +147,10 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       this.setState({ selectOptions: options });
     });
   }
-  handleChange(e: any) {
-    this.setState({ patientId: e.target.value });
-  }
+
+  handleChange = (selectedOption: any) => {
+    this.setState({ patientId: selectedOption });
+  };
 
   getDonorInfoById(id: any) {
     DonorService.getBloodDonorById(id).then((res) => {
@@ -223,19 +222,22 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     const { translate } = this.props;
     const { notification, questionList, showPatient } = this.state;
     return (
-      <div className="container-fluid m-1 p-1">
+      <div className="container-fluid">
         <h2 className="text-info text-center">
-          {
-            sessionStorage.getItem("donorId") ? <> <h2 className="text-info text-center">
-              {translate("editDonorPageHeader")}
-            </h2>
+          {sessionStorage.getItem("donorId") ? (
+            <>
+              {" "}
+              <h2 className="text-info text-center">
+                {translate("editDonorPageHeader")}
+              </h2>
             </>
-              : <>
-                <h2 className="text-info text-center">
-                  {translate("addDonorPageHeader")}
-                </h2>
-              </>
-          }
+          ) : (
+            <>
+              <h2 className="text-info text-center">
+                {translate("addDonorPageHeader")}
+              </h2>
+            </>
+          )}
         </h2>
         <div className="container p-1">
           <form className="form" onSubmit={this.submitHandler}>
@@ -244,7 +246,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="donorName" className="font-weight-bold">
-                      {translate("donorName")}<span className="text-danger">*</span>
+                      {translate("donorName")}
+                      <span className="text-danger">*</span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -265,7 +268,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="typeOfDonor" className="font-weight-bold">
-                      {translate("typeOfDonor")}<span className="text-danger">*</span>
+                      {translate("typeOfDonor")}
+                      <span className="text-danger">*</span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -295,7 +299,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       </label>
                     </div>
                     <div className="col-8">
-                      <select
+                      {/* <select
                         className="form-control"
                         name="patientId"
                         value={this.state.patientId}
@@ -311,7 +315,14 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                             </option>
                           );
                         })}
-                      </select>
+                      </select> */}
+                      <Select
+                        className="text-left"
+                        name="patientId"
+                        defaultInputValue={this.state.patientId}
+                        onChange={this.handleChange}
+                        options={this.state.selectOptions}
+                      />
                     </div>
                   </div>
                 </div>
@@ -323,7 +334,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="donorGuardian" className="font-weight-bold">
-                      {translate("donorGuardian")}<span className="text-danger">*</span>
+                      {translate("donorGuardian")}
+                      <span className="text-danger">*</span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -368,7 +380,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="donorAge" className="font-weight-bold">
-                      {translate("donorAge")}<span className="text-danger">*</span>
+                      {translate("donorAge")}
+                      <span className="text-danger">*</span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -388,7 +401,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="donorMobileNo" className="font-weight-bold">
-                      {translate("donorMobileNo")}<span className="text-danger">*</span>
+                      {translate("donorMobileNo")}
+                      <span className="text-danger">*</span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -411,7 +425,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="row form-group">
                   <div className="col-4 text-right">
                     <label htmlFor="donorGender" className="font-weight-bold">
-                      {translate("donorGender")}<span className="text-danger">*</span>
+                      {translate("donorGender")}
+                      <span className="text-danger">*</span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -438,7 +453,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       htmlFor="donorMaritalStatus"
                       className="font-weight-bold"
                     >
-                      {translate("donorMaritalStatus")}<span className="text-danger">*</span>
+                      {translate("donorMaritalStatus")}
+                      <span className="text-danger">*</span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -592,49 +608,49 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 </div>
               ))}
             </div>
-            
-            {
-              sessionStorage.getItem("donorId") ? 
-                <div className="row form-group">
-                  <div className="col-8"></div>
-                  <div className="col-2 float-right text-right">
-                    <input
-                      type="submit"
-                      className="form-control btn btn-success m-1"
-                      value={translate("commonUpdate")}
-                    />
-                  </div>
-                  <div className="col-2 float-right text-right">
-                    <input
-                      type="cancel"
-                      className="btn btn-danger m-1"
-                      onClick={() => {
-                        history.push("/donor/list");
-                        window.location.reload();
-                        sessionStorage.removeItem("donorId");
-                      }}
-                      value={translate("commonCancel")}
-                    />
-                  </div>
+
+            {sessionStorage.getItem("donorId") ? (
+              <div className="row form-group">
+                <div className="col-8"></div>
+                <div className="col-2 float-right text-right">
+                  <input
+                    type="submit"
+                    className="form-control btn btn-success m-1"
+                    value={translate("commonUpdate")}
+                  />
                 </div>
-                : <div className="row form-group">
-                  <div className="col-8"></div>
-                  <div className="col-2 float-right text-right">
-                    <input
-                      type="submit"
-                      className="form-control btn btn-success"
-                      value={translate("commonSave")}
-                    />
-                  </div>
-                  <div className="col-2 float-right text-right">
-                    <input
-                      type="reset"
-                      className="form-control btn btn-danger"
-                      value={translate("commonReset")}
-                    />
-                  </div>
+                <div className="col-2 float-right text-right">
+                  <input
+                    type="cancel"
+                    className="btn btn-danger m-1"
+                    onClick={() => {
+                      history.push("/donor/list");
+                      window.location.reload();
+                      sessionStorage.removeItem("donorId");
+                    }}
+                    value={translate("commonCancel")}
+                  />
                 </div>
-            }
+              </div>
+            ) : (
+              <div className="row form-group">
+                <div className="col-8"></div>
+                <div className="col-2 float-right text-right">
+                  <input
+                    type="submit"
+                    className="form-control btn btn-success"
+                    value={translate("commonSave")}
+                  />
+                </div>
+                <div className="col-2 float-right text-right">
+                  <input
+                    type="reset"
+                    className="form-control btn btn-danger"
+                    value={translate("commonReset")}
+                  />
+                </div>
+              </div>
+            )}
           </form>
           <div className="text-danger m-1 p-1">
             <p className="text-center bg-info font-weight-bold">

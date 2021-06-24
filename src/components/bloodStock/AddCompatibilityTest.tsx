@@ -1,4 +1,5 @@
 import React from "react";
+import Select from "react-select";
 import BloodStockService from "../../services/BloodStockService";
 import DonorService from "../../services/DonorService";
 import { history } from "../custom/history";
@@ -67,9 +68,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     });
   }
 
-  handleChange(e: any) {
-    this.setState({ patient: e.target.value });
-  }
+  handleChange = (selectedOption: any) => {
+    this.setState({ patient: selectedOption.value });
+  };
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -195,7 +196,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 <label className="font-weight-bold" htmlFor="patient">{translate("patient")}</label>
               </div>
               <div className="col-8">
-                <select
+                {/* <select
                   className="form-control"
                   name="patient"
                   id="patient"
@@ -212,7 +213,14 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                       </option>
                     );
                   })}
-                </select>
+                </select> */}
+                <Select
+                        className="text-left"
+                        name="patient"
+                        inputValue={this.state.patient}
+                        onChange={this.handleChange}
+                        options={this.state.selectOptions}
+                      />
               </div>
             </div>
 
