@@ -46,8 +46,8 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
         <div className="page-break" />
           <Modal.Body>
             <h4>{translate("questionnaire")}</h4>
-            <p>{translate("question")} : {modalData.question}</p>
-            <p>{translate("concernFor")} : {modalData.concernFor}</p>
+            <p><span className="font-weight-bold">{translate("question")}</span> : {modalData.question}</p>
+            <p><span className="font-weight-bold">{translate("concernFor")}</span> : {modalData.concernFor}</p>
           </Modal.Body>
         </div>
 

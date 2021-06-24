@@ -46,16 +46,16 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
         <div className="page-break" />
           <Modal.Body>
-            <h4>{translate("testResult")} ({translate("id")}: {title})</h4>
-            <p>{translate("donorId")} : {modalData.bloodDonorId}</p>
-            <p>{translate("hemoglobin")} : {modalData.donorHemoglobin}</p>
-            <p>{translate("weight")} : {modalData.donorWeight}</p>
-            <p>{translate("bloodPressure")} : {modalData.donorBloodPressure}</p>
-            <p>{translate("pulse")} : {modalData.donorPulseRate}</p>
-            <p>{translate("temp")} (<sup>o</sup>{translate("cel")}) : {modalData.donorTemperature}</p>
-            <p>{translate("bloodGroup")} : {modalData.donorBloodGroup}</p>
-            <p>{translate("rh")}  : {modalData.donorBloodGroupRhesus}</p>
-            <p>{translate("permission")} : {modalData.donorSelection}</p>
+            <h4><span className="font-weight-bold">{translate("testResult")} ({translate("id")}</span>: {title})</h4>
+            <p><span className="font-weight-bold">{translate("donorId")}</span> : {modalData.bloodDonorId}</p>
+            <p><span className="font-weight-bold">{translate("hemoglobin")}</span> : {modalData.donorHemoglobin}</p>
+            <p><span className="font-weight-bold">{translate("weight")}</span> : {modalData.donorWeight}</p>
+            <p><span className="font-weight-bold">{translate("bloodPressure")}</span> : {modalData.donorBloodPressure}</p>
+            <p><span className="font-weight-bold">{translate("pulse")}</span> : {modalData.donorPulseRate}</p>
+            <p><span className="font-weight-bold">{translate("temp")} (<sup>o</sup>{translate("cel")})</span> : {modalData.donorTemperature}</p>
+            <p><span className="font-weight-bold">{translate("bloodGroup")}</span> : {modalData.donorBloodGroup}</p>
+            <p><span className="font-weight-bold">{translate("rh")}</span>  : {modalData.donorBloodGroupRhesus}</p>
+            <p><span className="font-weight-bold">{translate("permission")}</span> : {modalData.donorSelection}</p>
           </Modal.Body>
         </div>
 
