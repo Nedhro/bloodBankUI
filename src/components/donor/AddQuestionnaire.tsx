@@ -13,6 +13,14 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  removeHandler = (event: any) => {
+    this.setState({
+      qid: "",
+      question: "",
+      concernFor: "",
+     });
+  };
+
   submitHandler = (event: any) => {
     event.preventDefault();
     const id = sessionStorage.getItem('quesId');
@@ -91,7 +99,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
     const { notification } = this.state;
     const { translate } = this.props;
     return (
-      <div className="container-fluid m-1 p-1">
+      <div className="mainlayout m-1 p-1">
         {
           sessionStorage.getItem("quesId") ? <> <h2 className="text-info text-center">
             {translate("editQuesHeader")}
@@ -175,6 +183,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
                     />
                     <input
                       type="reset"
+                      onClick={this.removeHandler}
                       className="btn btn-danger m-1"
                       value={translate("commonReset")}
                     />

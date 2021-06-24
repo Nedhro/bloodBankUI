@@ -43,6 +43,24 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     this.submitDonorInfo = this.submitDonorInfo.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  removeHandler = (event: any) => {
+    this.setState({
+      donorName: "",
+      typeOfDonor: "",
+      donorGuardian: "",
+      donorProfession: "",
+      donorAge: "",
+      donorMobileNo: "",
+      donorGender: "",
+      donorMaritalStatus: "",
+      donorPresentAddress: "",
+      donorPermanentAddress: "",
+      donorLastDonatedDate: "",
+      donorLastDonatedPlace: "",
+      concernName: "",
+      concernStatus: "",
+    });
+  };
 
   componentDidMount() {
     this.getQuestionList();
@@ -646,6 +664,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="col-2 float-right text-right">
                   <input
                     type="reset"
+                    onClick={this.removeHandler}
                     className="form-control btn btn-danger"
                     value={translate("commonReset")}
                   />

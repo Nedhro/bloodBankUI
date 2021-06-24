@@ -184,7 +184,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       return <div className="text-center font-weight-bold">Loading...</div>;
     } else {
       return (
-        <div className="container-fluid m-1">
+        <div className="mainlayout m-1">
           <div className="container bg-light p-2">
             <div className="form-inline">
               <a
