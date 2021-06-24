@@ -28,7 +28,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
 
   componentDidMount() {
     const id = sessionStorage.getItem("bloodStockTracingId");
-    const donorId = sessionStorage.getItem("bloodDonorId");
+    const donorId = sessionStorage.getItem("donorId");
     const bloodGroup = sessionStorage.getItem("bloodGroup");
     console.log(donorId);
     this.setState({
@@ -137,6 +137,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     sessionStorage.removeItem("bloodStockTracingId");
     sessionStorage.removeItem("bloodDonorId");
     sessionStorage.removeItem("bloodGroup");
+    sessionStorage.removeItem("donorId");
+    
   }
 
   getBloodStockById(id: any){
