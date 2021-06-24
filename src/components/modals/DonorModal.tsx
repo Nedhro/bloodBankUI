@@ -60,18 +60,18 @@ class DonorModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4>{translate("donorId")} : {title}</h4>
-            <p>{translate("name")}  : {modalData.name}</p>
-            <p>{translate("donorAge")} : {modalData.age}</p>
-            <p>{translate("donorGender")} : {modalData.gender}</p>
-            <p>{translate("donorMobileNo")} : {modalData.mobile}</p>
-            <p>{translate("donorMaritalStatus")} : {modalData.maritalStatus}</p>
-            <p>{translate("donorProfession")} : {modalData.profession}</p>
-            <p>{translate("donorGuardian")} : {modalData.guardian}</p>
-            <p>{translate("donorPresentAddress")} : {modalData.presentAddress}</p>
-            <p>{translate("donorPermanentAddress")} : {modalData.permanentAddress}</p>
-            <p>{translate("donorLastDonatedDate")} : {modalData.lastDonatedPlace}</p>
-            <p>{translate("donorLastDonatedPlace")} : {this.formatDate(modalData.lastDonatedDate)}</p>
+            <h4><span className="font-weight-bold">{translate("donorId")}</span> : {title}</h4>
+            <p><span className="font-weight-bold">{translate("name")}</span>  : {modalData.name}</p>
+            <p><span className="font-weight-bold">{translate("donorAge")}</span> : {modalData.age}</p>
+            <p><span className="font-weight-bold">{translate("donorGender")}</span> : {modalData.gender}</p>
+            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData.mobile}</p>
+            <p><span className="font-weight-bold">{translate("donorMaritalStatus")}</span> : {modalData.maritalStatus}</p>
+            <p><span className="font-weight-bold">{translate("donorProfession")}</span> : {modalData.profession}</p>
+            <p><span className="font-weight-bold">{translate("donorGuardian")}</span> : {modalData.guardian}</p>
+            <p><span className="font-weight-bold">{translate("donorPresentAddress")}</span> : {modalData.presentAddress}</p>
+            <p><span className="font-weight-bold">{translate("donorPermanentAddress")}</span> : {modalData.permanentAddress}</p>
+            <p><span className="font-weight-bold">{translate("donorLastDonatedDate")}</span> : {this.formatDate(modalData.lastDonatedDate)}</p>
+            <p><span className="font-weight-bold">{translate("donorLastDonatedPlace")}</span> : {modalData.lastDonatedPlace}</p>
           </Modal.Body>
         </div>
 
