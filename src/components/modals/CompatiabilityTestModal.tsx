@@ -67,16 +67,16 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
             <h4 className="font-weight-bold">
               {translate("compatibilityTest")} ({modalData.bloodCompatibilityId})
             </h4>
-            <p>{translate("bloodBagId")} : {modalData.bloodBagId}</p>
-            <p>{translate("patient")} : {modalData.patient}</p>
-            <p>{translate("bloodScreening")} : {modalData.bloodScreening}</p>
-            <p>{translate("bloodGrouping")} : {modalData.bloodGrouping}</p>
-            <p>{translate("crossMatching")} : {modalData.bloodCrossMatching}</p>
-            <p>{translate("bloodHivTest")} : {modalData.bloodHivTest}</p>
-            <p>{translate("bloodHbvTest")} : {modalData.bloodHbvTest}</p>
-            <p>{translate("bloodHcvTest")} : {modalData.bloodHcvTest}</p>
-            <p>{translate("bloodSyphilisTest")} : {modalData.bloodSyphilisTest}</p>
-            <p>{translate("bloodMalariaTest")} : {modalData.bloodMalariaTest}</p>
+            <p><span className="font-weight-bold">{translate("bloodBagId")}</span> : {modalData.bloodBagId}</p>
+            <p><span className="font-weight-bold">{translate("patient")}</span> : {modalData.patient}</p>
+            <p><span className="font-weight-bold">{translate("bloodScreening")}</span> : {modalData.bloodScreening}</p>
+            <p><span className="font-weight-bold">{translate("bloodGrouping")}</span> : {modalData.bloodGrouping}</p>
+            <p><span className="font-weight-bold">{translate("crossMatching")}</span> : {modalData.bloodCrossMatching}</p>
+            <p><span className="font-weight-bold">{translate("bloodHivTest")}</span> : {modalData.bloodHivTest}</p>
+            <p><span className="font-weight-bold">{translate("bloodHbvTest")}</span> : {modalData.bloodHbvTest}</p>
+            <p><span className="font-weight-bold">{translate("bloodHcvTest")}</span> : {modalData.bloodHcvTest}</p>
+            <p><span className="font-weight-bold">{translate("bloodSyphilisTest")}</span> : {modalData.bloodSyphilisTest}</p>
+            <p><span className="font-weight-bold">{translate("bloodMalariaTest")}</span> : {modalData.bloodMalariaTest}</p>
           </Modal.Body>
         </div>
 

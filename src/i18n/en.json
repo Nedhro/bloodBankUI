@@ -56,7 +56,7 @@
   "bloodPressure": "Blood Pressure (low/high mmHg)",
   "pulse": "Pulse Rate (b/m)",
   "temp": "Temperature",
-  "cel": "C",
+  "cel": "F",
   "bloodGroup": "Blood Group",
   "rhesus": "Rhesus",
   "rhPositive": "Rh-Positive",
