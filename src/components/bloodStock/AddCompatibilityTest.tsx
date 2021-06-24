@@ -109,6 +109,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     this.saveCompatiabilityTest(this.dataConfig);
     sessionStorage.removeItem("bloodCompatibilityId");
     sessionStorage.removeItem("bloodBagId");
+    sessionStorage.removeItem("donorId");
   };
 
   saveCompatiabilityTest(data: any) {

@@ -32,10 +32,20 @@ class DonorModal extends React.Component<TableModalProps, any> {
     console.log(state);
     return state;
   }
+  formatDate(data: any) {
+    let date = new Date(data);
+    let year = date.getFullYear().toString();
+    let month = (date.getMonth() + 101).toString().substring(1);
+    let day = (date.getDate() + 100).toString().substring(1);
+    let formattedDate = year + "-" + month + "-" + day;
+    console.log(formattedDate);
+    return formattedDate;
+  }
 
   render() {
     const { title, modalData } = this.state;
     const { translate } = this.props;
+    
     return (
       <div>
         <Modal.Header closeButton>
@@ -53,6 +63,15 @@ class DonorModal extends React.Component<TableModalProps, any> {
             <h4>{translate("donorId")}</h4>
             <p>{translate("name")}  : {modalData.name}</p>
             <p>{translate("donorAge")} : {modalData.age}</p>
+            <p>{translate("donorGender")} : {modalData.gender}</p>
+            <p>{translate("donorMobileNo")} : {modalData.mobile}</p>
+            <p>{translate("donorMaritalStatus")} : {modalData.maritalStatus}</p>
+            <p>{translate("donorProfession")} : {modalData.profession}</p>
+            <p>{translate("donorGuardian")} : {modalData.guardian}</p>
+            <p>{translate("donorPresentAddress")} : {modalData.presentAddress}</p>
+            <p>{translate("donorPermanentAddress")} : {modalData.permanentAddress}</p>
+            <p>{translate("donorLastDonatedDate")} : {modalData.lastDonatedPlace}</p>
+            <p>{translate("donorLastDonatedPlace")} : {this.formatDate(modalData.lastDonatedDate)}</p>
           </Modal.Body>
         </div>
 

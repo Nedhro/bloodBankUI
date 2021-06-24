@@ -68,7 +68,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
   }
 
   componentDidMount() {
-    const donorId = sessionStorage.getItem("bloodId");
+    const donorId = sessionStorage.getItem("donorId");
     this.setState({
       bloodDonorId: donorId,
     });
@@ -105,7 +105,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
         this.setState({
           notification: "Physical Suitability Test is added successfully",
         });
-        sessionStorage.removeItem("bloodId");
+        sessionStorage.removeItem("donorId");
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
       } else if (res.status === 202) {
