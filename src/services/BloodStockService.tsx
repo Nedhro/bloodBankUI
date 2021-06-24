@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const urlPrefix = "https://192.168.1.184/openmrs/ws/rest/v1/bloodbank/";
+const urlPrefix = "https://192.168.1.147/openmrs/ws/rest/v1/bloodbank/";
 
 class BloodStockService {
   //Blood Stock

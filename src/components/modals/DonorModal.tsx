@@ -60,7 +60,7 @@ class DonorModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4>{translate("donorId")}</h4>
+            <h4>{translate("donorId")} : {title}</h4>
             <p>{translate("name")}  : {modalData.name}</p>
             <p>{translate("donorAge")} : {modalData.age}</p>
             <p>{translate("donorGender")} : {modalData.gender}</p>
