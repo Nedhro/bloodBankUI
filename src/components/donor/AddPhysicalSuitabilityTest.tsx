@@ -128,7 +128,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
     const { notification, bloodDonorId } = this.state;
     const { translate } = this.props;
     return (
-      <div className="container-fluid m-1 p-1">
+      <div className="mainlayout m-1 p-1">
         {
           sessionStorage.getItem("donorPhysicalSuitabilityId") ? <> <h2 className="text-info text-center">
             {translate("editPhysicalTestHeader")}

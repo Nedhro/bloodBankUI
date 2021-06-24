@@ -158,7 +158,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     const { translate } = this.props;
     const { notification } = this.state;
     return (
-      <div className="container-fluid m-1 p-1">
+      <div className="mainlayout m-1 p-1">
         <h2 className="text-info text-center">
           {
             sessionStorage.getItem("bloodCompatibilityId") ? <> <h2 className="text-info text-center">

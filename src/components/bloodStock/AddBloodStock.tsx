@@ -159,7 +159,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     const { notification, allowSave } = this.state;
     const { translate } = this.props;
     return (
-      <div className="container-fluid m-1 p-1">
+      <div className="mainlayout m-1 p-1">
         {
           sessionStorage.getItem("bloodStockTracingId") ? <> <h2 className="text-info text-center">
             {translate("editBloodHeader")}
