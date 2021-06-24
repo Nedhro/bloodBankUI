@@ -153,9 +153,9 @@ class BloodStock extends React.Component<BloodStockProps, any> {
                 to={`/blood/${record.bloodDonorId}/stock/${record.bloodStockTracingId}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("id", record.bloodStockTracingId);
+                  sessionStorage.setItem("bloodStockTracingId", record.bloodStockTracingId);
                   sessionStorage.setItem("bloodGroup", record.bloodGroup);
-                  sessionStorage.setItem("donorId", record.bloodDonorId);
+                  sessionStorage.setItem("bloodDonorId", record.bloodDonorId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
