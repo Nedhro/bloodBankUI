@@ -139,7 +139,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
                 to={`/donor/${record.id}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("id", record.id);
+                  sessionStorage.setItem("donorId", record.id);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />

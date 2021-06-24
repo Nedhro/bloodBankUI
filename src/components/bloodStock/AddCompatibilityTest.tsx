@@ -36,7 +36,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     if (donorId) {
       this.getPatientFromDonorId(donorId);
     }
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("bloodCompatibilityId");
     if (id) {
       this.getCompatibilityTestById(id);
     }
@@ -77,7 +77,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("bloodCompatibilityId");
     if (id) {
       this.dataConfig = {
         bloodCompatibilityId: id,
@@ -107,7 +107,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       };
     }
     this.saveCompatiabilityTest(this.dataConfig);
-    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("bloodCompatibilityId");
     sessionStorage.removeItem("bloodBagId");
   };
 
@@ -159,7 +159,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">
           {
-            sessionStorage.getItem("id") ? <> <h2 className="text-info text-center">
+            sessionStorage.getItem("bloodCompatibilityId") ? <> <h2 className="text-info text-center">
               {translate("editCompatibilityHeader")}
             </h2>
             </>
@@ -399,7 +399,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
               <div className="col-4 text-right"></div>
               <div className="col-8 float-right text-right ">
                 {
-                  sessionStorage.getItem("id") ? <> <input
+                  sessionStorage.getItem("bloodCompatibilityId") ? <> <input
                     type="submit"
                     className="btn btn-success m-1"
                     value={translate("commonUpdate")}
@@ -410,7 +410,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                       onClick={() => {
                         history.push("/blood/compatibility/test/list");
                         window.location.reload();
-                        sessionStorage.removeItem("id");
+                        sessionStorage.removeItem("bloodCompatibilityId");
                         sessionStorage.removeItem("bloodBagId");
                       }}
                       value={translate("commonCancel")}

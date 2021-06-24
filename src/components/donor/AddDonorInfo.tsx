@@ -39,7 +39,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("donorId");
     if (id !) {
       this.dataConfig = {
         donorId: id,
@@ -114,7 +114,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   componentDidMount() {
     this.getQuestionList();
     this.getPatientList();
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("donorId");
     if (id !== null) {
       this.getDonorInfoById(id);
     }
@@ -209,7 +209,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       } else if (res.status === 202) {
         this.setState({ notification: "Donor Info Updated Successfully" });
         history.push("/donor/list");
-        sessionStorage.removeItem("id");
+        sessionStorage.removeItem("donorId");
         window.location.reload();
       } else {
         this.setState({
@@ -226,7 +226,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">
           {
-            sessionStorage.getItem("id") ? <> <h2 className="text-info text-center">
+            sessionStorage.getItem("donorId") ? <> <h2 className="text-info text-center">
               {translate("editDonorPageHeader")}
             </h2>
             </>
@@ -594,7 +594,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
             </div>
             
             {
-              sessionStorage.getItem("id") ? 
+              sessionStorage.getItem("donorId") ? 
                 <div className="row form-group">
                   <div className="col-8"></div>
                   <div className="col-2 float-right text-right">
@@ -611,7 +611,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       onClick={() => {
                         history.push("/donor/list");
                         window.location.reload();
-                        sessionStorage.removeItem("id");
+                        sessionStorage.removeItem("donorId");
                       }}
                       value={translate("commonCancel")}
                     />

@@ -15,7 +15,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem('id');
+    const id = sessionStorage.getItem('quesId');
     if (id) {
       this.dataConfig = {
         qid: id,
@@ -48,7 +48,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
   }
 
   componentDidMount() {
-    const id = sessionStorage.getItem('id');
+    const id = sessionStorage.getItem('quesId');
     this.getQuestionnaireById(id);
   }
 
@@ -76,7 +76,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
           notification: "Questionnaire Updated successfully",
         });
         history.push("/questionnaire/list");
-        sessionStorage.removeItem('id');
+        sessionStorage.removeItem('quesId');
         window.location.reload();
       }
       else{
@@ -93,7 +93,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
     return (
       <div className="container-fluid m-1 p-1">
         {
-          sessionStorage.getItem("id") ? <> <h2 className="text-info text-center">
+          sessionStorage.getItem("quesId") ? <> <h2 className="text-info text-center">
             {translate("editQuesHeader")}
           </h2>
           </>
@@ -143,7 +143,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
               </div>
             </div>
             {
-              sessionStorage.getItem("id") ?
+              sessionStorage.getItem("quesId") ?
 
                 <div className="row form-group">
                   <div className="col-4 text-right"></div>
@@ -159,7 +159,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
                       onClick={() => {
                         history.push("/questionnaire/list");
                         window.location.reload();
-                        sessionStorage.removeItem('id');
+                        sessionStorage.removeItem('quesId');
                       }}
                       value={translate("commonCancel")}
                     />

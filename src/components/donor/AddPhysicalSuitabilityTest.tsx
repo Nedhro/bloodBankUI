@@ -17,7 +17,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("donorPhysicalSuitabilityId");
     if (id) {
       this.dataConfig = {
         donorPhysicalSuitabilityId: id,
@@ -68,11 +68,11 @@ class AddPhysicalSuitabilityTest extends React.Component<
   }
 
   componentDidMount() {
-    const donorId = sessionStorage.getItem("donorId");
+    const donorId = sessionStorage.getItem("bloodId");
     this.setState({
       bloodDonorId: donorId,
     });
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("donorPhysicalSuitabilityId");
     this.getPhysicalTestInfoById(id);
   }
   getPhysicalTestInfoById(id: any) {
@@ -105,15 +105,15 @@ class AddPhysicalSuitabilityTest extends React.Component<
         this.setState({
           notification: "Physical Suitability Test is added successfully",
         });
-        sessionStorage.removeItem("donorId");
+        sessionStorage.removeItem("bloodId");
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
       } else if (res.status === 202) {
         this.setState({
           notification: "Physical Suitability Test is Updated successfully",
         });
-        sessionStorage.removeItem("donorId");
-        sessionStorage.removeItem("id");
+        sessionStorage.removeItem("bloodId");
+        sessionStorage.removeItem("donorPhysicalSuitabilityId");
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
       } else {
@@ -130,7 +130,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
     return (
       <div className="container-fluid m-1 p-1">
         {
-          sessionStorage.getItem("id") ? <> <h2 className="text-info text-center">
+          sessionStorage.getItem("donorPhysicalSuitabilityId") ? <> <h2 className="text-info text-center">
             {translate("editPhysicalTestHeader")}
           </h2>
           </>
@@ -322,7 +322,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
               </div>
             </div>
             {
-              sessionStorage.getItem("id") ?
+              sessionStorage.getItem("donorPhysicalSuitabilityId") ?
                
                 <div className="row form-group">
                   <div className="col-4"></div>
@@ -340,8 +340,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
                       onClick={() => {
                         history.push("/donorPhysicalSuitability/test/list");
                         window.location.reload();
-                        sessionStorage.removeItem("donorId");
-                        sessionStorage.removeItem("id");          
+                        sessionStorage.removeItem("bloodId");
+                        sessionStorage.removeItem("donorPhysicalSuitabilityId");          
                       }}
                       value={translate("commonCancel")}
                     />
