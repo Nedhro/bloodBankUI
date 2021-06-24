@@ -173,8 +173,8 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 to={`/donorPhysicalSuitability/test/${record.bloodDonorId}/${record.donorPhysicalSuitabilityId}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("id", record.donorPhysicalSuitabilityId);
-                  sessionStorage.setItem("donorId", record.bloodDonorId);
+                  sessionStorage.setItem("donorPhysicalSuitabilityId", record.donorPhysicalSuitabilityId);
+                  sessionStorage.setItem("bloodId", record.bloodDonorId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />

@@ -27,8 +27,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
   }
 
   componentDidMount() {
-    const id = sessionStorage.getItem("id");
-    const donorId = sessionStorage.getItem("donorId");
+    const id = sessionStorage.getItem("bloodStockTracingId");
+    const donorId = sessionStorage.getItem("bloodDonorId");
     const bloodGroup = sessionStorage.getItem("bloodGroup");
     console.log(donorId);
     this.setState({
@@ -85,7 +85,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("bloodStockTracingId");
     if (id) {
       this.dataConfig = {
         bloodStockTracingId: id,
@@ -108,8 +108,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     }
     console.log(this.dataConfig);
     this.saveBloodStock(this.dataConfig);
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("donorId");
+    sessionStorage.removeItem("bloodStockTracingId");
+    sessionStorage.removeItem("bloodDonorId");
     sessionStorage.removeItem("bloodGroup");
   };
 
@@ -134,8 +134,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         });
       }
     });
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("donorId");
+    sessionStorage.removeItem("bloodStockTracingId");
+    sessionStorage.removeItem("bloodDonorId");
     sessionStorage.removeItem("bloodGroup");
   }
 
@@ -159,7 +159,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     return (
       <div className="container-fluid m-1 p-1">
         {
-          sessionStorage.getItem("id") ? <> <h2 className="text-info text-center">
+          sessionStorage.getItem("bloodStockTracingId") ? <> <h2 className="text-info text-center">
             {translate("editBloodHeader")}
           </h2>
           </>
@@ -294,7 +294,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
               <div className="col-4 text-right"></div>
               <div className="col-8 float-right text-right ">
                 {
-                  sessionStorage.getItem("id") ?<> <input
+                  sessionStorage.getItem("bloodStockTracingId") ?<> <input
                     type="submit"
                     disabled={!allowSave}
                     className="btn btn-success m-1"
@@ -306,8 +306,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                       onClick={() => {
                         history.push("/blood/stock/list");
                         window.location.reload();
-                        sessionStorage.removeItem("id");
-                        sessionStorage.removeItem("donorId");
+                        sessionStorage.removeItem("bloodStockTracingId");
+                        sessionStorage.removeItem("bloodDonorId");
                         sessionStorage.removeItem("bloodGroup");
                       }}
                       value={translate("commonCancel")}

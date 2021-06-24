@@ -185,7 +185,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
                 to={`/blood/compatibility/${record.bloodBagId}/test/${record.bloodCompatibilityId}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("id", record.bloodCompatibilityId);
+                  sessionStorage.setItem("bloodCompatibilityId", record.bloodCompatibilityId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
