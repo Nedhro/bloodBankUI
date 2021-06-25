@@ -196,13 +196,21 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 <label className="font-weight-bold" htmlFor="patient">{translate("patient")}</label>
               </div>
               <div className="col-8">
-                <Select
+                {this.state?.patient &&<Select
                         className="text-left"
                         name="patient"
                         inputValue={this.state.patient}
                         onChange={this.handleChange}
                         options={this.state.selectOptions}
-                      />
+                />}
+                {!this.state?.patient &&<Select
+                        className="text-left"
+                        name="patient"
+                        defaultInputValue={this.state.patient}
+                        onChange={this.handleChange}
+                        options={this.state.selectOptions}
+                />}
+                
               </div>
             </div>
 
