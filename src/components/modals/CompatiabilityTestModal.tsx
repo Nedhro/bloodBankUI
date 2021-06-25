@@ -22,12 +22,20 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
   }
 
   updateBloodStockStatus(bloodBagId: any) {
+    const testId = this.state.modalData.bloodCompatibilityId;
     BloodStockService.updateCompatibilityTestStatus(bloodBagId).then((res) => {
       console.log(res);
       if (res.status === 202) {
         this.setState({
           notification:
             "Blood has been approved for the patient and made unavailable from the stock",
+        });
+        BloodStockService.deleteCompatibilityTest(testId).then((res) => {
+          if (res.status === 202) {
+            this.setState({
+              notification: "Compatibility test has been deleted",
+            });
+          }
         });
         history.push("/blood/stock/list");
         window.location.reload();

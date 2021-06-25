@@ -220,6 +220,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   type="text"
                   name="donorBloodPressure"
                   id="donorBloodPressure"
+                  placeholder="120/80"
                   value={this.state.donorBloodPressure}
                   required
                   onChange={this.changeHandler}
