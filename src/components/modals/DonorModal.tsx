@@ -29,6 +29,7 @@ class DonorModal extends React.Component<TableModalProps, any> {
   static getDerivedStateFromProps(props: any, state: any) {
     state.title = props.title;
     state.modalData = props.data;
+    state.donorId =props.data.id;
     console.log(state);
     return state;
   }
@@ -38,12 +39,11 @@ class DonorModal extends React.Component<TableModalProps, any> {
     let month = (date.getMonth() + 101).toString().substring(1);
     let day = (date.getDate() + 100).toString().substring(1);
     let formattedDate = year + "-" + month + "-" + day;
-    console.log(formattedDate);
     return formattedDate;
   }
 
   render() {
-    const { title, modalData } = this.state;
+    const { title, modalData, donorId } = this.state;
     const { translate } = this.props;
     
     return (
@@ -60,18 +60,24 @@ class DonorModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4><span className="font-weight-bold">{translate("donorId")}</span> : {title}</h4>
-            <p><span className="font-weight-bold">{translate("name")}</span>  : {modalData.name}</p>
-            <p><span className="font-weight-bold">{translate("donorAge")}</span> : {modalData.age}</p>
-            <p><span className="font-weight-bold">{translate("donorGender")}</span> : {modalData.gender}</p>
-            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData.mobile}</p>
-            <p><span className="font-weight-bold">{translate("donorMaritalStatus")}</span> : {modalData.maritalStatus}</p>
-            <p><span className="font-weight-bold">{translate("donorProfession")}</span> : {modalData.profession}</p>
+            <h4><span className="font-weight-bold">{translate("donorId")}</span> : {donorId}</h4>
+            <p><span className="font-weight-bold">{translate("name")}</span>  : {modalData.name} </p>
             <p><span className="font-weight-bold">{translate("donorGuardian")}</span> : {modalData.guardian}</p>
+            <p><span className="font-weight-bold">{translate("donorGender")}</span> : {modalData.gender} &nbsp; &nbsp; <span className="font-weight-bold">{translate("donorAge")}</span> : {modalData.age} &nbsp; &nbsp; <span className="font-weight-bold">{translate("donorProfession")}</span> : {modalData.profession}</p>
+            <p><span className="font-weight-bold">{translate("typeOfDonor")}</span>  : {modalData.typeOfDonor} &nbsp; &nbsp;<span className="font-weight-bold">{translate("patient")}</span>  : {modalData.patient}</p>
+            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData.mobile} </p>
+            <p><span className="font-weight-bold">{translate("donorMaritalStatus")}</span> : {modalData.maritalStatus}</p>  
             <p><span className="font-weight-bold">{translate("donorPresentAddress")}</span> : {modalData.presentAddress}</p>
             <p><span className="font-weight-bold">{translate("donorPermanentAddress")}</span> : {modalData.permanentAddress}</p>
-            <p><span className="font-weight-bold">{translate("donorLastDonatedDate")}</span> : {this.formatDate(modalData.lastDonatedDate)}</p>
+            <p><span className="font-weight-bold">{translate("donorLastDonatedDate")}</span> : {this.formatDate(modalData.lastDonatedDate)}  </p>
             <p><span className="font-weight-bold">{translate("donorLastDonatedPlace")}</span> : {modalData.lastDonatedPlace}</p>
+
+            <h3 className="text-info font-weight-bold">{translate("donorQues")}:</h3>
+            <ol type="a">
+              {modalData.concernSet.map((k: any, i: any)=>(
+                <li key={i}>{k.concernName} ({k.concernStatus})</li>
+              ))}
+            </ol>
           </Modal.Body>
         </div>
 
