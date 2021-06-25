@@ -85,9 +85,9 @@ class DonorModal extends React.Component<TableModalProps, any> {
           <Modal.Footer>
             <a
               className="btn btn-info"
-              href={`/donorPhysicalSuitability/test/add/${title}`}
+              href={`/donorPhysicalSuitability/test/add/${donorId}`}
               onClick={() => {
-                sessionStorage.setItem("donorId", title);
+                sessionStorage.setItem("donorId", donorId);
               }}
             >
               {translate("testPhysicalSuitability")}
