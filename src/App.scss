@@ -1,3 +1,9 @@
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+// Override default variables before the import
+$body-bg: rgb(240, 240, 240);
 .App {
   text-align: center;
 }

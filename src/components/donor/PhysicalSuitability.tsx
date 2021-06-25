@@ -63,7 +63,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
           "donorBloodGroup",
           "donorBloodGroupRhesus",
           "donorSelection",
-          "bloodDonorId",
+          "bloodDonor",
           "uuid",
           "status",
           "dateCreated",
@@ -117,7 +117,17 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     const columns: any = [
       {
         name: `${translate("donorId")}`,
-        selector: "bloodDonorId",
+        selector: "bloodDonor.donorId",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorName")}`,
+        selector: "bloodDonor.donorName",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorMobileNo")}`,
+        selector: "bloodDonor.donorMobileNo",
         sortable: true,
       },
       {
@@ -170,11 +180,10 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
           return (
             <Fragment>
               <Link
-                to={`/donorPhysicalSuitability/test/${record.bloodDonorId}/${record.donorPhysicalSuitabilityId}`}
+                to={`/donorPhysicalSuitability/test/${record.bloodDonor.donorId}/${record.donorPhysicalSuitabilityId}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
                   sessionStorage.setItem("donorPhysicalSuitabilityId", record.donorPhysicalSuitabilityId);
-                  sessionStorage.setItem("bloodId", record.bloodDonorId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
@@ -207,7 +216,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
           <div className="container bg-light p-2">
             <div className="form-inline">
               <a
-                className="btn btn-primary text-left float-left m-1"
+                className="btn btn-info text-left float-left m-1 font-weight-bold"
                 href="/donor/list"
               >
                 {translate("commonDonors")}

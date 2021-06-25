@@ -137,7 +137,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     this.submitDonorInfo(this.dataConfig);
   };
 
-
   getQuestionList() {
     DonorService.getAllQuestionnaire().then((res) => {
       const questionList = res.data;
@@ -271,7 +270,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                   </div>
                   <div className="col-8">
                     <input
-                      className="form-control"
+                      className="form-control text-uppercase"
                       type="text"
                       required
                       name="donorName"
@@ -318,23 +317,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       </label>
                     </div>
                     <div className="col-8">
-                      {/* <select
-                        className="form-control"
-                        name="patientId"
-                        value={this.state.patientId}
-                        onChange={this.handleChange}
-                      >
-                        <option value="" disabled>
-                          {translate("commonSelect")}
-                        </option>
-                        {this.state.selectOptions.map((e: any, key: any) => {
-                          return (
-                            <option key={key} value={e.value}>
-                              {e.label}
-                            </option>
-                          );
-                        })}
-                      </select> */}
                       <Select
                         className="text-left"
                         name="patientId"

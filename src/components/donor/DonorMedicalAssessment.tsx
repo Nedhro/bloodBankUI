@@ -172,13 +172,13 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
           <div className="container bg-light p-2">
             <div className="form-inline">
               <a
-                className="btn btn-primary text-left float-left m-1"
+                className="btn btn-info text-left float-left m-1 font-weight-bold"
                 href="/donor/add"
               >
                 {translate("addDonor")}
               </a>
               <a
-                className="btn btn-primary text-left float-left m-1"
+                className="btn btn-info text-left float-left m-1 font-weight-bold"
                 href="/questionnaire/list"
               >
                 {translate("donorQues")}

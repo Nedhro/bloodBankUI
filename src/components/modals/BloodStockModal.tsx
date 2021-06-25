@@ -50,7 +50,9 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
           <div className="page-break" />
           <Modal.Body>
             <h4 className="font-weight-bold">{translate("bloodSample")} ({modalData.bloodBagId})</h4>
-            <p><span className="font-weight-bold">{translate("bloodDonorId")}</span> : {modalData.bloodDonorId}</p>
+            <p><span className="font-weight-bold">{translate("bloodDonorId")}</span> : {modalData?.bloodDonorId || "N/A"}</p>
+            <p><span className="font-weight-bold">{translate("donorName")}</span> : {modalData?.donorName || "N/A"}</p>
+            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData?.donorMobile || "N/A"}</p>
             <p><span className="font-weight-bold">{translate("bloodGroup")}</span> : {modalData.bloodGroup}</p>
             <p><span className="font-weight-bold">{translate("sourceOfBlood")}</span> : {modalData.sourceOfBlood}</p>
             <p><span className="font-weight-bold">{translate("bloodBagId")}</span> : {modalData.bloodBagId}</p>
