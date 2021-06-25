@@ -176,7 +176,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="bloodBagId">{translate("bloodBagId")}<span className="text-danger">*</span>:</label>
+                <label className="font-weight-bold" htmlFor="bloodBagId">{translate("bloodBagId")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 <input
@@ -193,7 +193,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="patient">{translate("patient")}</label>
+                <label className="font-weight-bold" htmlFor="patient">{translate("patient")}<span className="text-danger">*</span></label>
               </div>
               <div className="col-8">
                 {this.state?.patient &&<Select

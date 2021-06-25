@@ -53,7 +53,7 @@
   "donorId": "Donor ID",
   "hemoglobin": "Hemoglobin (g/dl)",
   "weight": "Weight (kg)",
-  "bloodPressure": "Blood Pressure (low/high mmHg)",
+  "bloodPressure": "Blood Pressure (high/low mmHg)",
   "pulse": "Pulse Rate (b/m)",
   "temp": "Temperature",
   "cel": "F",
