@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const urlPrefix = process.env.REACT_APP_API_URL+"/openmrs/ws/rest/v1/bloodbank/";
-console.log(process.env.APIURL);
+
 class DonorService {
   //patients
   getAllActivePatients(){

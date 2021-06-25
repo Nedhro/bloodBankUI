@@ -37,6 +37,8 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
           id: data.donorId,
           name: data.donorName,
           age: data.donorAge,
+          typeOfDonor: data.typeOfDonor,
+          patient: data.patient || "N/A",
           guardian: data.donorGuardian,
           gender: data.donorGender,
           maritalStatus: data.donorMaritalStatus,
@@ -46,6 +48,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
           mobile: data.donorMobileNo,
           lastDonatedDate: data.donorLastDonatedDate,
           lastDonatedPlace: data.donorLastDonatedPlace,
+          concernSet: data.concernSet,
           status: data.status === 1 ? "Active" : "Inactive",
         };
         return config;
@@ -111,6 +114,17 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
         selector: "age",
         sortable: true,
       },
+      {
+        name: `${translate("typeOfDonor")}`,
+        selector: "typeOfDonor",
+        sortable: true,
+      },
+      {
+        name: `${translate("patient")}`,
+        selector: "patient",
+        sortable: true,
+      },
+     
       {
         name: `${translate("donorPresentAddress")}`,
         selector: "presentAddress",
