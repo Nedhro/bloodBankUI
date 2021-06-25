@@ -196,24 +196,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 <label className="font-weight-bold" htmlFor="patient">{translate("patient")}</label>
               </div>
               <div className="col-8">
-                {/* <select
-                  className="form-control"
-                  name="patient"
-                  id="patient"
-                  value={this.state.patient}
-                  onChange={this.handleChange}
-                >
-                  <option value="" disabled>
-                    {translate("commonSelect")}
-                  </option>
-                  {this.state.selectOptions.map((e: any, key: any) => {
-                    return (
-                      <option key={key} value={e.value}>
-                        {e.label}
-                      </option>
-                    );
-                  })}
-                </select> */}
                 <Select
                         className="text-left"
                         name="patient"

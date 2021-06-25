@@ -79,14 +79,15 @@ const App: FC = () => {
             <AddBloodStock translate={translate} />
           </Route>
          
-          <Route exact path="/blood/compatibility/:bloodBagId/test/add">
-            <AddCompatibilityTest translate={translate} />
-          </Route>
+          
           <Route exact path="/blood/compatibility/:bloodBagId/test/:id">
             <AddCompatibilityTest translate={translate} />
           </Route>
           <Route exact path="/blood/compatibility/test/list">
             <CompatibilityList translate={translate}  />
+          </Route>
+          <Route exact path="/blood/compatibility/:bloodBagId/test/add">
+            <AddCompatibilityTest translate={translate} />
           </Route>
         </Switch>
       </Router>

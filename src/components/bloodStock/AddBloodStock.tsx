@@ -29,11 +29,17 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
   componentDidMount() {
     const id = sessionStorage.getItem("bloodStockTracingId");
     const bloodGroup = sessionStorage.getItem("bloodGroup");
+    const donorId = sessionStorage.getItem("bloodDonorId");
     this.setState({
       bloodGroup: bloodGroup,
     });
     if (id) {
       this.getBloodStockById(id);
+    }
+    if(donorId){
+      this.setState({
+        bloodDonorId: donorId
+      })
     }
   }
 
@@ -47,7 +53,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       if (event.target.value === "NITOR") {
         if (donorId) {
           this.setState({
-            bloodBagId: "NITOR-" + randomBin + "/" + donorId,
+            bloodBagId: "NITOR" + randomBin + "-" + donorId,
             stockStatus: "Available",
             allowSave: true,
           });
@@ -61,13 +67,13 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         }
       } else if (event.target.value === "OutdoorCampaign") {
         this.setState({
-          bloodBagId: "Cam-" + randomstring,
+          bloodBagId: "Cam" + randomstring,
           stockStatus: "Available",
           allowSave: true,
         });
       } else if (event.target.value === "Outsource") {
         this.setState({
-          bloodBagId: "Out-" + randomstring,
+          bloodBagId: "Out" + randomstring,
           stockStatus: "Available",
           allowSave: true,
         });

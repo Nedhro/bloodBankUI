@@ -22,7 +22,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
       this.dataConfig = {
         donorPhysicalSuitabilityId: id,
         bloodDonor: {
-          donorId: this.state.bloodDonorId
+          donorId: this.state.bloodDonorId,
         },
         donorHemoglobin: this.state.donorHemoglobin,
         donorWeight: this.state.donorWeight,
@@ -36,7 +36,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
     } else {
       this.dataConfig = {
         bloodDonor: {
-          donorId: this.state.bloodDonorId
+          donorId: this.state.bloodDonorId,
         },
         donorHemoglobin: this.state.donorHemoglobin,
         donorWeight: this.state.donorWeight,
@@ -73,10 +73,19 @@ class AddPhysicalSuitabilityTest extends React.Component<
 
   componentDidMount() {
     const id = sessionStorage.getItem("donorPhysicalSuitabilityId");
-    this.getPhysicalTestInfoById(id);
+    const donorId = sessionStorage.getItem("donorId");
+    if (id) {
+      this.getPhysicalTestInfoById(id);
+    }
+    if(donorId){
+      this.setState({
+        bloodDonorId: donorId
+      })
+    }
   }
   getPhysicalTestInfoById(id: any) {
-    DonorService.getPhysicalTestInfoById(id).then((res) => {
+    DonorService.getPhysicalTestInfoById(parseInt(id)).then((res) => {
+      console.log(res);
       this.setState({
         bloodDonorId: res.data.bloodDonor.donorId,
         donorHemoglobin: res.data.donorHemoglobin,
@@ -86,7 +95,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
         donorTemperature: res.data.donorTemperature,
         donorBloodGroup: res.data.donorBloodGroup,
         donorBloodGroupRhesus: res.data.donorBloodGroupRhesus,
-        donorSelection:  res.data.donorSelection,
+        donorSelection: res.data.donorSelection,
       });
     });
   }
@@ -118,26 +127,31 @@ class AddPhysicalSuitabilityTest extends React.Component<
   }
 
   render() {
-    const { notification, bloodDonorId } = this.state;
+    const { notification } = this.state;
     const { translate } = this.props;
     return (
       <div className="mainlayout m-1 p-1">
-        {
-          sessionStorage.getItem("donorPhysicalSuitabilityId") ? <> <h2 className="text-info text-center">
-            {translate("editPhysicalTestHeader")}
-          </h2>
+        {sessionStorage.getItem("donorPhysicalSuitabilityId") ? (
+          <>
+            {" "}
+            <h2 className="text-info text-center">
+              {translate("editPhysicalTestHeader")}
+            </h2>
           </>
-            : <>
-              <h2 className="text-info text-center">
-                {translate("physicalTest")}
-              </h2>
-            </>
-        }
+        ) : (
+          <>
+            <h2 className="text-info text-center">
+              {translate("physicalTest")}
+            </h2>
+          </>
+        )}
         <div className="container p-1 m-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="bloodDonorId">{translate("donorId")}</label>
+                <label className="font-weight-bold" htmlFor="bloodDonorId">
+                  {translate("donorId")}
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -146,14 +160,15 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   name="bloodDonorId"
                   id="bloodDonorId"
                   readOnly
-                  defaultValue={bloodDonorId}
+                  defaultValue={this.state.bloodDonorId}
                 />
               </div>
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorHemoglobin">
-                  {translate("hemoglobin")}{" "}<span className="text-danger">*</span>
+                  {translate("hemoglobin")}{" "}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -171,7 +186,10 @@ class AddPhysicalSuitabilityTest extends React.Component<
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorWeight">{translate("weight")}<span className="text-danger">*</span> </label>
+                <label className="font-weight-bold" htmlFor="donorWeight">
+                  {translate("weight")}
+                  <span className="text-danger">*</span>{" "}
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -188,8 +206,12 @@ class AddPhysicalSuitabilityTest extends React.Component<
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorBloodPressure">
-                  {translate("bloodPressure")}<span className="text-danger">*</span>
+                <label
+                  className="font-weight-bold"
+                  htmlFor="donorBloodPressure"
+                >
+                  {translate("bloodPressure")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -207,7 +229,10 @@ class AddPhysicalSuitabilityTest extends React.Component<
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorPulseRate">{translate("pulse")}<span className="text-danger">*</span> </label>
+                <label className="font-weight-bold" htmlFor="donorPulseRate">
+                  {translate("pulse")}
+                  <span className="text-danger">*</span>{" "}
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -245,7 +270,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorBloodGroup">
-                  {translate("bloodGroup")}<span className="text-danger">*</span>
+                  {translate("bloodGroup")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -272,8 +298,12 @@ class AddPhysicalSuitabilityTest extends React.Component<
 
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorBloodGroupRhesus">
-                  {translate("bloodGroup")} {translate("rhesus")}<span className="text-danger">*</span>
+                <label
+                  className="font-weight-bold"
+                  htmlFor="donorBloodGroupRhesus"
+                >
+                  {translate("bloodGroup")} {translate("rhesus")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -295,7 +325,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorSelection">
-                  {translate("permission")}<span className="text-danger">*</span>
+                  {translate("permission")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -313,50 +344,49 @@ class AddPhysicalSuitabilityTest extends React.Component<
                 </select>
               </div>
             </div>
-            {
-              sessionStorage.getItem("donorPhysicalSuitabilityId") ?
-               
-                <div className="row form-group">
-                  <div className="col-4"></div>
-                  <div className="col-3 m-1 p-1 float-right text-right">
-                    <input
-                      type="submit"
-                      className="form-control btn btn-success m-1 p-1"
-                      value={translate("commonUpdate")}
-                    />
-                  </div>
-                  <div className="col-3 m-1 p-1 float-right text-right">
-                    <input
-                      type="cancel"
-                      className="form-control btn btn-danger m-1"
-                      onClick={() => {
-                        history.push("/donorPhysicalSuitability/test/list");
-                        window.location.reload();
-                        sessionStorage.removeItem("bloodId");
-                        sessionStorage.removeItem("donorPhysicalSuitabilityId");          
-                      }}
-                      value={translate("commonCancel")}
-                    />
-                  </div>
+            {sessionStorage.getItem("donorPhysicalSuitabilityId") ? (
+              <div className="row form-group">
+                <div className="col-4"></div>
+                <div className="col-3 m-1 p-1 float-right text-right">
+                  <input
+                    type="submit"
+                    className="form-control btn btn-success m-1 p-1"
+                    value={translate("commonUpdate")}
+                  />
                 </div>
-                : <div className="row form-group">
-                  <div className="col-4"></div>
-                  <div className="col-3 m-1 p-1 float-right text-right">
-                    <input
-                      type="submit"
-                      className="form-control btn btn-success m-1 p-1"
-                      value={translate("commonSave")}
-                    />
-                  </div>
-                  <div className="col-3 m-1 p-1 float-right text-right">
-                    <input
-                      type="reset"
-                      className="form-control btn btn-danger m-1 p-1"
-                      value={translate("commonReset")}
-                    />
-                  </div>
+                <div className="col-3 m-1 p-1 float-right text-right">
+                  <input
+                    type="cancel"
+                    className="form-control btn btn-danger m-1"
+                    onClick={() => {
+                      history.push("/donorPhysicalSuitability/test/list");
+                      window.location.reload();
+                      sessionStorage.removeItem("bloodId");
+                      sessionStorage.removeItem("donorPhysicalSuitabilityId");
+                    }}
+                    value={translate("commonCancel")}
+                  />
                 </div>
-            }
+              </div>
+            ) : (
+              <div className="row form-group">
+                <div className="col-4"></div>
+                <div className="col-3 m-1 p-1 float-right text-right">
+                  <input
+                    type="submit"
+                    className="form-control btn btn-success m-1 p-1"
+                    value={translate("commonSave")}
+                  />
+                </div>
+                <div className="col-3 m-1 p-1 float-right text-right">
+                  <input
+                    type="reset"
+                    className="form-control btn btn-danger m-1 p-1"
+                    value={translate("commonReset")}
+                  />
+                </div>
+              </div>
+            )}
           </form>
           <div className="text-danger m-1 p-1">
             <p className="text-center bg-info font-weight-bold">
