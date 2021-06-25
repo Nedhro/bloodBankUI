@@ -10,7 +10,7 @@
   "test":"Suitability Test",
 
   "addDonorPageHeader": "Add Donor Info",
-  "donorName": "Full Name",
+  "donorName": "Donor Name",
   "patientId": "Blood For (Patient)",
   "donorGuardian": "Guardian / Relative",
   "donorProfession": "Profession",

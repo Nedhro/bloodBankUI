@@ -15,6 +15,62 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   dataConfig: any = {};
   questionList: any = [];
 
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      donorName: "",
+      typeOfDonor: "",
+      donorGuardian: "",
+      donorProfession: "",
+      donorAge: "",
+      donorMobileNo: "",
+      donorGender: "",
+      donorMaritalStatus: "",
+      donorPresentAddress: "",
+      donorPermanentAddress: "",
+      donorLastDonatedDate: "",
+      donorLastDonatedPlace: "",
+      concernName: "",
+      concernStatus: "",
+      notification: "",
+      selectOptions: [],
+      patientId: null,
+      questionList: [],
+      showPatient: false,
+    };
+    this.submitHandler = this.submitHandler.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
+    this.submitDonorInfo = this.submitDonorInfo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  removeHandler = (event: any) => {
+    this.setState({
+      donorName: "",
+      typeOfDonor: "",
+      donorGuardian: "",
+      donorProfession: "",
+      donorAge: "",
+      donorMobileNo: "",
+      donorGender: "",
+      donorMaritalStatus: "",
+      donorPresentAddress: "",
+      donorPermanentAddress: "",
+      donorLastDonatedDate: "",
+      donorLastDonatedPlace: "",
+      concernName: "",
+      concernStatus: "",
+    });
+  };
+
+  componentDidMount() {
+    this.getQuestionList();
+    this.getPatientList();
+    const id = sessionStorage.getItem("donorId");
+    if (id !== null) {
+      this.getDonorInfoById(id);
+    }
+  }
+
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "concernName") {
@@ -32,7 +88,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       } else {
         this.setState({
           showPatient: false,
-          patienId: "",
+          patientId: "",
         });
       }
     }
@@ -80,44 +136,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     console.log(this.dataConfig);
     this.submitDonorInfo(this.dataConfig);
   };
-
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      donorName: "",
-      typeOfDonor: "",
-      donorGuardian: "",
-      donorProfession: "",
-      donorAge: "",
-      donorMobileNo: "",
-      donorGender: "",
-      donorMaritalStatus: "",
-      donorPresentAddress: "",
-      donorPermanentAddress: "",
-      donorLastDonatedDate: "",
-      donorLastDonatedPlace: "",
-      concernName: "",
-      concernStatus: "",
-      notification: "",
-      selectOptions: [],
-      patientId: null,
-      questionList: [],
-      showPatient: false,
-    };
-    this.submitHandler = this.submitHandler.bind(this);
-    this.changeHandler = this.changeHandler.bind(this);
-    this.submitDonorInfo = this.submitDonorInfo.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.getQuestionList();
-    this.getPatientList();
-    const id = sessionStorage.getItem("donorId");
-    if (id !== null) {
-      this.getDonorInfoById(id);
-    }
-  }
 
   getQuestionList() {
     DonorService.getAllQuestionnaire().then((res) => {
@@ -252,7 +270,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                   </div>
                   <div className="col-8">
                     <input
-                      className="form-control"
+                      className="form-control text-uppercase"
                       type="text"
                       required
                       name="donorName"
@@ -299,23 +317,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       </label>
                     </div>
                     <div className="col-8">
-                      {/* <select
-                        className="form-control"
-                        name="patientId"
-                        value={this.state.patientId}
-                        onChange={this.handleChange}
-                      >
-                        <option value="" disabled>
-                          {translate("commonSelect")}
-                        </option>
-                        {this.state.selectOptions.map((e: any, key: any) => {
-                          return (
-                            <option key={key} value={e.value}>
-                              {e.label}
-                            </option>
-                          );
-                        })}
-                      </select> */}
                       <Select
                         className="text-left"
                         name="patientId"
@@ -645,6 +646,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 <div className="col-2 float-right text-right">
                   <input
                     type="reset"
+                    onClick={this.removeHandler}
                     className="form-control btn btn-danger"
                     value={translate("commonReset")}
                   />

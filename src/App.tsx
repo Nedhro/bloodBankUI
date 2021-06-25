@@ -21,7 +21,7 @@ const App: FC = () => {
   const { dispatch: { translate } } = useContext(LangContext);
   return (
     <div className="App">
-      <div className="row App-header p-2">
+      <div className="d-flex App-header p-2">
         <div className="col-1 float-left">
           <img src={appLogo} className="App-logo" alt="logo" />
         </div>
@@ -69,15 +69,16 @@ const App: FC = () => {
           <Route exact path="/blood/:donorId/stock/add">
             <AddBloodStock translate={translate} />
           </Route>
-          <Route exact path="/blood/:donorId/stock/:id">
+          <Route exact path="/blood/stock/list">
+            <BloodStock translate={translate} />
+          </Route>
+          <Route exact path="/blood/stock/:id">
             <AddBloodStock translate={translate} />
           </Route>
           <Route exact path="/blood/stock/add">
             <AddBloodStock translate={translate} />
           </Route>
-          <Route exact path="/blood/stock/list">
-            <BloodStock translate={translate} />
-          </Route>
+         
           <Route exact path="/blood/compatibility/:bloodBagId/test/add">
             <AddCompatibilityTest translate={translate} />
           </Route>

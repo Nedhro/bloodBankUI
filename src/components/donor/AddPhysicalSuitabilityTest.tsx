@@ -21,7 +21,9 @@ class AddPhysicalSuitabilityTest extends React.Component<
     if (id) {
       this.dataConfig = {
         donorPhysicalSuitabilityId: id,
-        bloodDonorId: this.state.bloodDonorId,
+        bloodDonor: {
+          donorId: this.state.bloodDonorId
+        },
         donorHemoglobin: this.state.donorHemoglobin,
         donorWeight: this.state.donorWeight,
         donorBloodPressure: this.state.donorBloodPressure,
@@ -33,7 +35,9 @@ class AddPhysicalSuitabilityTest extends React.Component<
       };
     } else {
       this.dataConfig = {
-        bloodDonorId: this.state.bloodDonorId,
+        bloodDonor: {
+          donorId: this.state.bloodDonorId
+        },
         donorHemoglobin: this.state.donorHemoglobin,
         donorWeight: this.state.donorWeight,
         donorBloodPressure: this.state.donorBloodPressure,
@@ -68,32 +72,21 @@ class AddPhysicalSuitabilityTest extends React.Component<
   }
 
   componentDidMount() {
-    const donorId = sessionStorage.getItem("donorId");
-    this.setState({
-      bloodDonorId: donorId,
-    });
     const id = sessionStorage.getItem("donorPhysicalSuitabilityId");
     this.getPhysicalTestInfoById(id);
   }
   getPhysicalTestInfoById(id: any) {
     DonorService.getPhysicalTestInfoById(id).then((res) => {
-      const donorHemoglobin = res.data.donorHemoglobin;
-      const donorWeight = res.data.donorWeight;
-      const donorBloodPressure = res.data.donorBloodPressure;
-      const donorPulseRate = res.data.donorPulseRate;
-      const donorTemperature = res.data.donorTemperature;
-      const donorBloodGroup = res.data.donorBloodGroup;
-      const donorBloodGroupRhesus = res.data.donorBloodGroupRhesus;
-      const donorSelection = res.data.donorSelection;
       this.setState({
-        donorHemoglobin: donorHemoglobin,
-        donorWeight: donorWeight,
-        donorBloodPressure: donorBloodPressure,
-        donorPulseRate: donorPulseRate,
-        donorTemperature: donorTemperature,
-        donorBloodGroup: donorBloodGroup,
-        donorBloodGroupRhesus: donorBloodGroupRhesus,
-        donorSelection: donorSelection,
+        bloodDonorId: res.data.bloodDonor.donorId,
+        donorHemoglobin: res.data.donorHemoglobin,
+        donorWeight: res.data.donorWeight,
+        donorBloodPressure: res.data.donorBloodPressure,
+        donorPulseRate: res.data.donorPulseRate,
+        donorTemperature: res.data.donorTemperature,
+        donorBloodGroup: res.data.donorBloodGroup,
+        donorBloodGroupRhesus: res.data.donorBloodGroupRhesus,
+        donorSelection:  res.data.donorSelection,
       });
     });
   }
@@ -128,7 +121,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
     const { notification, bloodDonorId } = this.state;
     const { translate } = this.props;
     return (
-      <div className="container-fluid m-1 p-1">
+      <div className="mainlayout m-1 p-1">
         {
           sessionStorage.getItem("donorPhysicalSuitabilityId") ? <> <h2 className="text-info text-center">
             {translate("editPhysicalTestHeader")}
@@ -152,9 +145,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   type="number"
                   name="bloodDonorId"
                   id="bloodDonorId"
-                  defaultValue={bloodDonorId}
                   readOnly
-                  onChange={this.changeHandler}
+                  defaultValue={bloodDonorId}
                 />
               </div>
             </div>

@@ -1,9 +1,3 @@
-// Override default variables before the import
-$body-bg: rgb(240, 240, 240);
-
-// Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

@@ -50,46 +50,28 @@ class BloodStock extends React.Component<BloodStockProps, any> {
   loadBloodStockList() {
     BloodStockService.getBloodStockList()
       .then((res: any) => {
-        console.log(res);
-        let keys = [
-          "bloodStockTracingId",
-          "bloodDonorId",
-          "bloodStorage",
-          "sourceOfBlood",
-          "bloodGroup",
-          "stockStatus",
-          "bloodBagId",
-          "uuid",
-          "status",
-          "dateCreated",
-          "dateChanged",
-          "voided",
-          "createdBy",
-          "updatedBy",
-        ];
         let dataFinal: any = [];
-        let entries = this.filterData(res.data, keys);
-        //rows
-        entries.map((entry: any) => dataFinal.push(entry));
+        res.data.filter((entry: any) => {
+          let dataObj = {
+            bloodStockTracingId: entry.bloodStockTracingId,
+            bloodDonorId: entry?.bloodDonor?.donorId || "N/A",
+            donorName: entry?.bloodDonor?.donorName || "N/A",
+            donorMobile: entry?.bloodDonor?.donorMobileNo || "N/A",
+            bloodStorage: entry.bloodStorage,
+            sourceOfBlood: entry.sourceOfBlood,
+            bloodGroup: entry.bloodGroup,
+            stockStatus: entry.stockStatus,
+            bloodBagId: entry.bloodBagId,
+          };
+          dataFinal.push(dataObj);
+          return entry;
+        });
         this.setState({
           isLoaded: true,
           items: dataFinal,
         });
       })
       .catch((err: any) => console.log(err));
-  }
-
-  filterData(dataArr: any, keys: any) {
-    let data = dataArr.map((entry: any) => {
-      let filteredEntry: any = {};
-      keys.forEach((key: any) => {
-        if (key in entry) {
-          filteredEntry[key] = entry[key];
-        }
-      });
-      return filteredEntry;
-    });
-    return data;
   }
 
   search = (rows: any) => {
@@ -116,27 +98,37 @@ class BloodStock extends React.Component<BloodStockProps, any> {
         sortable: true,
       },
       {
+        name: `${translate("donorName")}`,
+        selector: "donorName",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorMobileNo")}`,
+        selector: "donorMobile",
+        sortable: true,
+      },
+      {
         name: `${translate("bloodGroup")}`,
         selector: "bloodGroup",
         sortable: true,
       },
       {
-          name: `${translate("sourceOfBlood")}`,
+        name: `${translate("sourceOfBlood")}`,
         selector: "sourceOfBlood",
         sortable: true,
       },
       {
-          name: `${translate("bloodBagId")}`,
+        name: `${translate("bloodBagId")}`,
         selector: "bloodBagId",
         sortable: true,
       },
       {
-          name: `${translate("stockStatus")}`,
+        name: `${translate("stockStatus")}`,
         selector: "stockStatus",
         sortable: true,
       },
       {
-          name: `${translate("bloodStorage")}`,
+        name: `${translate("bloodStorage")}`,
         selector: "bloodStorage",
         sortable: true,
       },
@@ -150,12 +142,14 @@ class BloodStock extends React.Component<BloodStockProps, any> {
           return (
             <Fragment>
               <Link
-                to={`/blood/${record.bloodDonorId}/stock/${record.bloodStockTracingId}`}
+                to={`/blood/stock/${record.bloodStockTracingId}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("bloodStockTracingId", record.bloodStockTracingId);
+                  sessionStorage.setItem(
+                    "bloodStockTracingId",
+                    record.bloodStockTracingId
+                  );
                   sessionStorage.setItem("bloodGroup", record.bloodGroup);
-                  sessionStorage.setItem("bloodDonorId", record.bloodDonorId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
@@ -188,7 +182,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
           <div className="container bg-light p-2">
             <div className="form-inline">
               <a
-                className="btn btn-info text-left float-left m-1"
+                className="btn btn-info text-left float-left m-1 font-weight-bold"
                 href="/blood/stock/add"
               >
                 {translate("stockBlood")}

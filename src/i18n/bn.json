@@ -10,7 +10,7 @@
   "test": "রক্তদাতার শারীরিক পরীক্ষা",
 
   "addDonorPageHeader": "রক্তদাতার তথ্য",
-  "donorName": "নাম",
+  "donorName": "রক্তদাতার নাম",
   "patientId": "রোগীর নাম",
   "donorGuardian": "অভিভাবক / আত্মীয়",
   "donorProfession": "পেশা",

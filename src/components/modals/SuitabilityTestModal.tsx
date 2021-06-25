@@ -47,7 +47,9 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
         <div className="page-break" />
           <Modal.Body>
             <h4><span className="font-weight-bold">{translate("testResult")} ({translate("id")}</span>: {title})</h4>
-            <p><span className="font-weight-bold">{translate("donorId")}</span> : {modalData.bloodDonorId}</p>
+            <p><span className="font-weight-bold">{translate("donorId")}</span> : {modalData.bloodDonor.donorId}</p>
+            <p><span className="font-weight-bold">{translate("donorName")}</span> : {modalData.bloodDonor.donorName}</p>
+            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData.bloodDonor.donorMobileNo}</p>
             <p><span className="font-weight-bold">{translate("hemoglobin")}</span> : {modalData.donorHemoglobin}</p>
             <p><span className="font-weight-bold">{translate("weight")}</span> : {modalData.donorWeight}</p>
             <p><span className="font-weight-bold">{translate("bloodPressure")}</span> : {modalData.donorBloodPressure}</p>
@@ -55,7 +57,8 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
             <p><span className="font-weight-bold">{translate("temp")} (<sup>o</sup>{translate("cel")})</span> : {modalData.donorTemperature}</p>
             <p><span className="font-weight-bold">{translate("bloodGroup")}</span> : {modalData.donorBloodGroup}</p>
             <p><span className="font-weight-bold">{translate("rh")}</span>  : {modalData.donorBloodGroupRhesus}</p>
-            <p><span className="font-weight-bold">{translate("permission")}</span> : {modalData.donorSelection}</p>
+            {/* <p><span className="font-weight-bold">{translate("permission")}</span> : {modalData.donorSelection}</p> */}
+            <p><span className="font-weight-bold">{translate("permission")}</span> : {(modalData.donorSelection) === "Selected" ? <span className="text-success">{translate("selected")}</span> : <span className="text-danger">{translate("rejected")}</span> }</p>
           </Modal.Body>
         </div>
 
@@ -66,7 +69,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
             </Button>
             <Button variant="info" onClick={()=>{
               if(modalData.donorSelection === 'Selected'){
-                const donorId = modalData.bloodDonorId;
+                const donorId = modalData.bloodDonor.donorId;
                 const bloodGroup = modalData.donorBloodGroup;
                 sessionStorage.setItem("donorId", donorId);
                 sessionStorage.setItem("bloodGroup", bloodGroup);

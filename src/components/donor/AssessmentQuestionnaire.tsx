@@ -145,17 +145,17 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
       return <div className="text-center font-weight-bold">Loading...</div>;
     } else {
       return (
-        <div className="container-fluid m-1">
+        <div className="mainlayout m-1">
           <div className="container bg-light p-2">
             <div className="form-inline">
               <a
-                className="btn btn-primary text-left float-left m-1"
+                className="btn btn-info text-left float-left m-1 font-weight-bold"
                 href="/questionnaire/add"
               >
                 {translate("addNewQues")}
               </a>
               <a
-                className="btn btn-primary text-left float-left m-1"
+                className="btn btn-info text-left float-left m-1 font-weight-bold"
                 href="/donor/list"
               >
                 {translate("commonDonors")}
