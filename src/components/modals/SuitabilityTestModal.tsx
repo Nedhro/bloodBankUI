@@ -3,7 +3,6 @@ import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
 
-
 export interface TableModalProps {
   data: Object;
   title: any;
@@ -43,42 +42,117 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
             {translate("testId")} : {title}
           </Modal.Title>
         </Modal.Header>
-        <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
-        <div className="page-break" />
+        <div
+          id="printSection"
+          className="print-container"
+          style={{ margin: "0", padding: "0" }}
+        >
+          <div className="page-break" />
           <Modal.Body>
-            <h4><span className="font-weight-bold">{translate("testResult")} ({translate("id")}</span>: {title})</h4>
-            <p><span className="font-weight-bold">{translate("donorId")}</span> : {modalData.bloodDonor.donorId}</p>
-            <p><span className="font-weight-bold">{translate("donorName")}</span> : {modalData.bloodDonor.donorName}</p>
-            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData.bloodDonor.donorMobileNo}</p>
-            <p><span className="font-weight-bold">{translate("hemoglobin")}</span> : {modalData.donorHemoglobin}</p>
-            <p><span className="font-weight-bold">{translate("weight")}</span> : {modalData.donorWeight}</p>
-            <p><span className="font-weight-bold">{translate("bloodPressure")}</span> : {modalData.donorBloodPressure}</p>
-            <p><span className="font-weight-bold">{translate("pulse")}</span> : {modalData.donorPulseRate}</p>
-            <p><span className="font-weight-bold">{translate("temp")} (<sup>o</sup>{translate("cel")})</span> : {modalData.donorTemperature}</p>
-            <p><span className="font-weight-bold">{translate("bloodGroup")}</span> : {modalData.donorBloodGroup}</p>
-            <p><span className="font-weight-bold">{translate("rh")}</span>  : {modalData.donorBloodGroupRhesus}</p>
+            <h4>
+              <span className="font-weight-bold">
+                {translate("testResult")} ({translate("id")}
+              </span>
+              : {title})
+            </h4>
+            <p>
+              <span className="font-weight-bold">{translate("donorId")}</span> :{" "}
+              {modalData.bloodDonor.donorId}
+            </p>
+            <p>
+              <span className="font-weight-bold">{translate("donorName")}</span>{" "}
+              : {modalData.bloodDonor.donorName}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("donorMobileNo")}
+              </span>{" "}
+              : {modalData.bloodDonor.donorMobileNo}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("hemoglobin")}
+              </span>{" "}
+              : {modalData.donorHemoglobin}
+            </p>
+            <p>
+              <span className="font-weight-bold">{translate("weight")}</span> :{" "}
+              {modalData.donorWeight}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("bloodPressure")}
+              </span>{" "}
+              : {modalData.donorBloodPressure}
+            </p>
+            <p>
+              <span className="font-weight-bold">{translate("pulse")}</span> :{" "}
+              {modalData.donorPulseRate}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("temp")} (<sup>o</sup>
+                {translate("cel")})
+              </span>{" "}
+              : {modalData.donorTemperature}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("bloodGroup")}
+              </span>{" "}
+              : {modalData.donorBloodGroup}
+            </p>
+            <p>
+              <span className="font-weight-bold">{translate("rh")}</span> :{" "}
+              {modalData.donorBloodGroupRhesus}
+            </p>
             {/* <p><span className="font-weight-bold">{translate("permission")}</span> : {modalData.donorSelection}</p> */}
-            <p><span className="font-weight-bold">{translate("permission")}</span> : {(modalData.donorSelection) === "Selected" ? <span className="text-success">{translate("selected")}</span> : <span className="text-danger">{translate("rejected")}</span> }</p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("permission")}
+              </span>{" "}
+              :{" "}
+              {modalData.donorSelection === "Selected" ? (
+                <span className="text-success">{translate("selected")}</span>
+              ) : (
+                <span className="text-danger">{translate("rejected")}</span>
+              )}
+            </p>
           </Modal.Body>
         </div>
 
         <div className="no-printme">
           <Modal.Footer>
+            <Button
+              variant="info"
+              onClick={() => {
+                const donorId = modalData.bloodDonor.donorId;
+                history.push(`/donor/${donorId}/consentForm`);
+                window.location.reload();
+              }}
+            >
+              {translate("donorConsentForm")}
+            </Button>
             <Button variant="success" onClick={this.printDiv}>
               {translate("commonPrint")}
             </Button>
-            <Button variant="info" onClick={()=>{
-              if(modalData.donorSelection === 'Selected'){
-                const donorId = modalData.bloodDonor.donorId;
-                const bloodGroup = modalData.donorBloodGroup;
-                sessionStorage.setItem("bloodDonorId", donorId);
-                sessionStorage.setItem("bloodGroup", bloodGroup);
-                history.push(`/blood/${donorId}/stock/add`);
-                window.location.reload();
-              }else{
-                alert('Donor is not fit for donating blood');
-              }
-            }}>{translate("stockBlood")}</Button>
+            <Button
+              variant="info"
+              onClick={() => {
+                if (modalData.donorSelection === "Selected") {
+                  const donorId = modalData.bloodDonor.donorId;
+                  const bloodGroup = modalData.donorBloodGroup;
+                  sessionStorage.setItem("bloodDonorId", donorId);
+                  sessionStorage.setItem("bloodGroup", bloodGroup);
+                  history.push(`/blood/${donorId}/stock/add`);
+                  window.location.reload();
+                } else {
+                  alert("Donor is not fit for donating blood");
+                }
+              }}
+            >
+              {translate("stockBlood")}
+            </Button>
           </Modal.Footer>
         </div>
       </div>

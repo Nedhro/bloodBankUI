@@ -16,6 +16,7 @@ import AddBloodStock from "./components/bloodStock/AddBloodStock";
 import BloodStock from "./components/bloodStock/BloodStockList";
 import AddCompatibilityTest from "./components/bloodStock/AddCompatibilityTest";
 import CompatibilityList from "./components/bloodStock/CompatibilityList";
+import DonorConsentForm from "./components/forms/DonorConsentForm";
 
 const App: FC = () => {
   const { dispatch: { translate } } = useContext(LangContext);
@@ -78,8 +79,6 @@ const App: FC = () => {
           <Route exact path="/blood/stock/add">
             <AddBloodStock translate={translate} />
           </Route>
-         
-          
           <Route exact path="/blood/compatibility/:bloodBagId/test/:id">
             <AddCompatibilityTest translate={translate} />
           </Route>
@@ -88,6 +87,9 @@ const App: FC = () => {
           </Route>
           <Route exact path="/blood/compatibility/:bloodBagId/test/add">
             <AddCompatibilityTest translate={translate} />
+          </Route>
+          <Route exact path="/donor/:donorId/consentForm">
+            <DonorConsentForm translate={translate} />
           </Route>
         </Switch>
       </Router>
