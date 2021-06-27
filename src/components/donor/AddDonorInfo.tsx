@@ -65,26 +65,25 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   };
 
   componentDidMount() {
-    this.getQuestionList();
-    this.getPatientList();
     const id = sessionStorage.getItem("donorId");
     if (id) {
       this.getDonorInfoById(id);
     }
+    this.getQuestionList();
+    this.getPatientList();
   }
 
   handleCheckChange = (event: any) => {
     if (event.target.name === "concernName") {
       if (event.target.checked && event.target.id) {
         const concernSet = {
-          donorConcernId: event.target.id,
           concernName: event.target.value,
           concernStatus: "Yes",
         };
         this.questionList.push(concernSet);
       } else {
         for (let i = this.questionList.length - 1; i >= 0; i--) {
-          if (this.questionList[i].donorConcernId === event.target.id) {
+          if (this.questionList[i].concernName === event.target.value) {
             this.questionList.splice(i, 1);
           }
         }
@@ -223,11 +222,11 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       );
       const donorLastDonatedPlace = res.data.donorLastDonatedPlace;
       const concernSet = res.data.concernSet;
-      concernSet.filter((key: any) => {
+      const concern = concernSet.filter((key: any) => {
         this.concernList.push(key.concernName);
         return key;
       });
-
+      console.log(concern);
       this.setState({
         donorName: donorName,
         patientId: patientId,
