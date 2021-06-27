@@ -133,11 +133,6 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
         sortable: true,
       },
       {
-        name: `${translate("bloodScreening")}`,
-        selector: "bloodScreening",
-        sortable: true,
-      },
-      {
         name: `${translate("bloodGrouping")}`,
         selector: "bloodGrouping",
         sortable: true,

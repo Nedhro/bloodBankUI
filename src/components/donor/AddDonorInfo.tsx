@@ -105,7 +105,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "typeOfDonor") {
-      if (event.target.value === "Directory") {
+      if (event.target.value === "Directed") {
         this.setState({
           showPatient: true,
         });
@@ -193,7 +193,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     return formattedDate;
   }
 
-  async getPatientList() {
+  getPatientList() {
     DonorService.getAllActivePatients().then((res) => {
       const result = res.data;
       const options = result.map((d: any) => ({
@@ -242,7 +242,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         donorLastDonatedDate: donorLastDonatedDate,
         donorLastDonatedPlace: donorLastDonatedPlace,
       });
-      if (typeOfDonor === "Directory") {
+      if (typeOfDonor === "Directed") {
         this.setState({
           showPatient: true,
         });
@@ -275,7 +275,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   render() {
     const { translate } = this.props;
-    const { notification, questionList, showPatient } = this.state;
+    const { notification, questionList, showPatient, patientId } = this.state;
     return (
       <div className="container-fluid">
         <h2 className="text-info text-center">
@@ -338,7 +338,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                     >
                       <option value="">{translate("commonSelect")}</option>
                       <option value="Voluntary">Voluntary</option>
-                      <option value="Directory">Directory</option>
+                      <option value="Directed">Directed</option>
                       <option value="Others">Others</option>
                     </select>
                   </div>
@@ -356,9 +356,9 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                     <div className="col-8">
                       <Select
                         className="text-left"
-                        name="patientId"
-                        defaultInputValue={this.state.patientId}
-                        onChange={this.handleChange}
+                        name="patient"
+                        inputValue={patientId}
+                        onInputChange={this.handleChange}
                         options={this.state.selectOptions}
                       />
                     </div>
@@ -446,9 +446,11 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                   <div className="col-8">
                     <input
                       className="form-control"
-                      type="text"
+                      type="tel"
+                      pattern="^(((\+|00)?880)|0)(\d){10}$"
                       name="donorMobileNo"
                       id="donorMobileNo"
+                      placeholder="880xxxxxxxxxx"
                       value={this.state.donorMobileNo}
                       required
                       onChange={this.changeHandler}
@@ -581,6 +583,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       pattern="yyyy-MM-dd"
                       name="donorLastDonatedDate"
                       id="donorLastDonatedDate"
+                      required={false}
                       value={this.state.donorLastDonatedDate}
                       onChange={this.changeHandler}
                     />
@@ -635,7 +638,11 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                         value={item.value}
                         id={item.id}
                         name="concernName"
-                        defaultChecked={this.concernList?.includes(item.value)}
+                        defaultChecked={
+                          this.concernList?.includes(item.value) === true
+                            ? true
+                            : false
+                        }
                         onChange={this.handleCheckChange}
                       />
                     </div>
