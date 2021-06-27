@@ -15,7 +15,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodCompatibilityId: "",
       bloodBagId: "",
       patient: "",
-      bloodScreening: "",
       bloodGrouping: "",
       bloodCrossMatching: "",
       bloodHivTest: "",
@@ -24,6 +23,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodSyphilisTest: "",
       bloodMalariaTest: "",
       notification: "",
+      patientId: "",
       selectOptions: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -35,7 +35,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     const bloodBagId = sessionStorage.getItem("bloodBagId");
     const donorId = sessionStorage.getItem("donorId");
     if (donorId) {
-      this.getPatientFromDonorId(donorId);
+      DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
+        this.setState({ patientId: res?.data?.patient });
+      });
     }
     const id = sessionStorage.getItem("bloodCompatibilityId");
     if (id) {
@@ -58,18 +60,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     });
   }
 
-  getPatientFromDonorId(id: any) {
-    DonorService.getBloodDonorById(parseInt(id)).then((res) => {
-      if (res.data.patient !== "") {
-        this.setState({ patient: res.data.patient });
-      } else {
-        this.setState({ patient: this.state.patient });
-      }
-    });
-  }
-
   handleChange = (selectedOption: any) => {
-    this.setState({ patient: selectedOption.value });
+    this.setState({ patientId: selectedOption });
   };
 
   changeHandler = (event: any) => {
@@ -83,8 +75,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       this.dataConfig = {
         bloodCompatibilityId: id,
         bloodBagId: this.state.bloodBagId,
-        patient: this.state.patient,
-        bloodScreening: this.state.bloodScreening,
+        patient: this.state.patientId.value,
         bloodGrouping: this.state.bloodGrouping,
         bloodCrossMatching: this.state.bloodCrossMatching,
         bloodHivTest: this.state.bloodHivTest,
@@ -96,8 +87,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     } else {
       this.dataConfig = {
         bloodBagId: this.state.bloodBagId,
-        patient: this.state.patient,
-        bloodScreening: this.state.bloodScreening,
+        patient: this.state.patientId.value,
         bloodGrouping: this.state.bloodGrouping,
         bloodCrossMatching: this.state.bloodCrossMatching,
         bloodHivTest: this.state.bloodHivTest,
@@ -143,7 +133,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       this.setState({
         bloodBagId: res.data.bloodBagId,
         patient: res.data.patient,
-        bloodScreening: res.data.bloodScreening,
         bloodGrouping: res.data.bloodGrouping,
         bloodCrossMatching: res.data.bloodCrossMatching,
         bloodHivTest: res.data.bloodHivTest,
@@ -151,32 +140,39 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         bloodHcvTest: res.data.bloodHcvTest,
         bloodSyphilisTest: res.data.bloodSyphilisTest,
         bloodMalariaTest: res.data.bloodMalariaTest,
+        patientId: res.data.patient,
       });
     });
   }
   render() {
     const { translate } = this.props;
-    const { notification } = this.state;
+    const { notification, patientId } = this.state;
     return (
       <div className="mainlayout m-1 p-1">
         <h2 className="text-info text-center">
-          {
-            sessionStorage.getItem("bloodCompatibilityId") ? <> <h2 className="text-info text-center">
-              {translate("editCompatibilityHeader")}
-            </h2>
+          {sessionStorage.getItem("bloodCompatibilityId") ? (
+            <>
+              {" "}
+              <h2 className="text-info text-center">
+                {translate("editCompatibilityHeader")}
+              </h2>
             </>
-              : <>
-                <h2 className="text-info text-center">
-                  {translate("compatibilityTest")}
-                </h2>
-              </>
-          }
+          ) : (
+            <>
+              <h2 className="text-info text-center">
+                {translate("compatibilityTest")}
+              </h2>
+            </>
+          )}
         </h2>
         <div className="container p-1">
           <form className="form" onSubmit={this.submitHandler}>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="bloodBagId">{translate("bloodBagId")}<span className="text-danger">*</span></label>
+                <label className="font-weight-bold" htmlFor="bloodBagId">
+                  {translate("bloodBagId")}
+                  <span className="text-danger">*</span>
+                </label>
               </div>
               <div className="col-8">
                 <input
@@ -193,28 +189,23 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="patient">{translate("patient")}<span className="text-danger">*</span></label>
+                <label className="font-weight-bold" htmlFor="patient">
+                  {translate("patient")}
+                  <span className="text-danger">*</span>
+                </label>
               </div>
               <div className="col-8">
-                {this.state?.patient &&<Select
-                        className="text-left"
-                        name="patient"
-                        inputValue={this.state.patient}
-                        onChange={this.handleChange}
-                        options={this.state.selectOptions}
-                />}
-                {!this.state?.patient &&<Select
-                        className="text-left"
-                        name="patient"
-                        defaultInputValue={this.state.patient}
-                        onChange={this.handleChange}
-                        options={this.state.selectOptions}
-                />}
-                
+                <Select
+                  className="text-left"
+                  name="patient"
+                  inputValue={patientId}
+                  onInputChange={this.handleChange}
+                  options={this.state.selectOptions}
+                />
               </div>
             </div>
 
-            <div className="row form-group">
+            {/* <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodScreening">
                   {translate("bloodScreening")}<span className="text-danger">*</span>
@@ -236,11 +227,12 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   </option>
                 </select>
               </div>
-            </div>
+            </div> */}
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodGrouping">
-                  {translate("bloodGrouping")}<span className="text-danger">*</span>
+                  {translate("bloodGrouping")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -262,8 +254,12 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             </div>
             <div className="row form-group">
               <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="bloodCrossMatching">
-                  {translate("bloodCrossMatching")}<span className="text-danger">*</span>
+                <label
+                  className="font-weight-bold"
+                  htmlFor="bloodCrossMatching"
+                >
+                  {translate("bloodCrossMatching")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -283,11 +279,23 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 </select>
               </div>
             </div>
+            <div className="row form-group">
+              <div className="col-4 text-right">
+                <label className="font-weight-bold" htmlFor="bloodScreening">
+                  {translate("bloodScreening")}
+                  <span className="text-danger">*</span>
+                </label>
+              </div>
+              <div className="col-8 text-left">
+                <p>(Combined result of the following tests)</p>
+              </div>
+            </div>
 
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodHivTest">
-                  {translate("bloodHivTest")}<span className="text-danger">*</span>
+                  {translate("bloodHivTest")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -300,8 +308,10 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Positive">{translate("positive")}</option>
-                  <option value="Negative">{translate("negative")}</option>
+                  <option value="Reactive">{translate("reactive")}</option>
+                  <option value="NonReactive">
+                    {translate("nonreactive")}
+                  </option>
                 </select>
               </div>
             </div>
@@ -309,7 +319,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodHbvTest">
-                  {translate("bloodHbvTest")}<span className="text-danger">*</span>
+                  {translate("bloodHbvTest")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -322,8 +333,10 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Positive">{translate("positive")}</option>
-                  <option value="Negative">{translate("negative")}</option>
+                  <option value="Reactive">{translate("reactive")}</option>
+                  <option value="NonReactive">
+                    {translate("nonreactive")}
+                  </option>
                 </select>
               </div>
             </div>
@@ -331,7 +344,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodHcvTest">
-                  {translate("bloodHcvTest")}<span className="text-danger">*</span>
+                  {translate("bloodHcvTest")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -344,8 +358,10 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Positive">{translate("positive")}</option>
-                  <option value="Negative">{translate("negative")}</option>
+                  <option value="Reactive">{translate("reactive")}</option>
+                  <option value="NonReactive">
+                    {translate("nonreactive")}
+                  </option>
                 </select>
               </div>
             </div>
@@ -353,7 +369,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodSyphilisTest">
-                  {translate("bloodSyphilisTest")}<span className="text-danger">*</span>
+                  {translate("bloodSyphilisTest")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -366,8 +383,10 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Positive">{translate("positive")}</option>
-                  <option value="Negative">{translate("negative")}</option>
+                  <option value="Reactive">{translate("reactive")}</option>
+                  <option value="NonReactive">
+                    {translate("nonreactive")}
+                  </option>
                 </select>
               </div>
             </div>
@@ -375,7 +394,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodMalariaTest">
-                  {translate("bloodMalariaTest")}<span className="text-danger">*</span>
+                  {translate("bloodMalariaTest")}
+                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -388,8 +408,10 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Positive">{translate("positive")}</option>
-                  <option value="Negative">{translate("negative")}</option>
+                  <option value="Reactive">{translate("reactive")}</option>
+                  <option value="NonReactive">
+                    {translate("nonreactive")}
+                  </option>
                 </select>
               </div>
             </div>
@@ -397,12 +419,14 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
             <div className="row pb-5 form-group">
               <div className="col-4 text-right"></div>
               <div className="col-8 float-right text-right ">
-                {
-                  sessionStorage.getItem("bloodCompatibilityId") ? <> <input
-                    type="submit"
-                    className="btn btn-success m-1"
-                    value={translate("commonUpdate")}
-                  />
+                {sessionStorage.getItem("bloodCompatibilityId") ? (
+                  <>
+                    {" "}
+                    <input
+                      type="submit"
+                      className="btn btn-success m-1"
+                      value={translate("commonUpdate")}
+                    />
                     <input
                       type="cancel"
                       className="btn btn-danger m-1"
@@ -415,19 +439,20 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                       value={translate("commonCancel")}
                     />
                   </>
-                    : <>
-                      <input
-                        type="submit"
-                        className="btn btn-success m-1"
-                        value={translate("commonSave")}
-                      />
-                      <input
-                        type="reset"
-                        className="btn btn-danger m-1"
-                        value={translate("commonReset")}
-                      />
-                    </>
-                }
+                ) : (
+                  <>
+                    <input
+                      type="submit"
+                      className="btn btn-success m-1"
+                      value={translate("commonSave")}
+                    />
+                    <input
+                      type="reset"
+                      className="btn btn-danger m-1"
+                      value={translate("commonReset")}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </form>
