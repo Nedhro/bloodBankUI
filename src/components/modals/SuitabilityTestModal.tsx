@@ -127,6 +127,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
               variant="info"
               onClick={() => {
                 const donorId = modalData.bloodDonor.donorId;
+                sessionStorage.setItem("bloodDonorId", donorId);
                 history.push(`/donor/${donorId}/consentForm`);
                 window.location.reload();
               }}
