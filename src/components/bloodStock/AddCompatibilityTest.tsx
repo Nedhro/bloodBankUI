@@ -32,6 +32,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   }
 
   componentDidMount() {
+    this.getPatientList();
     const bloodBagId = sessionStorage.getItem("bloodBagId");
     const donorId = sessionStorage.getItem("donorId");
     if (donorId) {
@@ -46,10 +47,10 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     this.setState({
       bloodBagId: bloodBagId,
     });
-    this.getPatientList();
+    
   }
 
-  async getPatientList() {
+ getPatientList() {
     DonorService.getAllActivePatients().then((res) => {
       const result = res.data;
       const options = result.map((d: any) => ({
@@ -62,6 +63,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   handleChange = (selectedOption: any) => {
     this.setState({ patientId: selectedOption });
+    console.log(selectedOption);
   };
 
   changeHandler = (event: any) => {
@@ -97,6 +99,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         bloodMalariaTest: this.state.bloodMalariaTest,
       };
     }
+    console.log(this.dataConfig);
     this.saveCompatiabilityTest(this.dataConfig);
     sessionStorage.removeItem("bloodCompatibilityId");
     sessionStorage.removeItem("bloodBagId");
@@ -198,8 +201,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 <Select
                   className="text-left"
                   name="patient"
-                  inputValue={patientId}
-                  onInputChange={this.handleChange}
+                  defaultInputValue={patientId ? patientId : this.state.patient}
+                  blurInputOnSelect={true}
+                  onChange={this.handleChange}
                   options={this.state.selectOptions}
                 />
               </div>

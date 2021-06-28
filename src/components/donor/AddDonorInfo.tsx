@@ -49,6 +49,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       donorName: "",
       typeOfDonor: "",
       donorGuardian: "",
+      patient: "",
       donorProfession: "",
       donorAge: "",
       donorMobileNo: "",
@@ -112,7 +113,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       } else {
         this.setState({
           showPatient: false,
-          patientId: "",
+          patientId: ""
         });
       }
     }
@@ -357,8 +358,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       <Select
                         className="text-left"
                         name="patient"
-                        inputValue={patientId}
-                        onInputChange={this.handleChange}
+                        defaultInputValue={patientId}
+                        onChange={this.handleChange}
                         options={this.state.selectOptions}
                       />
                     </div>

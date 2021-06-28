@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DonorService from "../../services/DonorService";
 import FormBanner from "../../static/images/hospitalBanner.png";
 import "../../static/scss/print.scss";
 
@@ -8,14 +9,35 @@ interface consentFormProps {
 class DonorConsentForm extends Component<consentFormProps, any> {
   constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = {
+      formData: []
+    };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    const donorId = sessionStorage.getItem("bloodDonorId");
+    if (donorId) {
+      this.getTestData(donorId);
+    }
+    console.log(this.state.formData);
+  }
+
+  getTestData(id: any) {
+    DonorService.getPhysicalTestInfoById(parseInt(id)).then((res) => {
+      console.log(res);
+      const testData = [];
+      testData.push(res.data);
+      this.setState({
+        formData: testData,
+      });
+    });
+  }
+
   printDiv() {
     window.print();
   }
   render() {
     const { translate } = this.props;
+    const { formData } = this.state;
     return (
       <div className="container p-1">
         <div className="row float-right">
@@ -23,7 +45,10 @@ class DonorConsentForm extends Component<consentFormProps, any> {
             {translate("commonPrint")}
           </button>
         </div>
-        <div className="container-fluid print-container p-1" id="printSectionConsentForm">
+        <div
+          className="container-fluid print-container p-1"
+          id="printSectionConsentForm"
+        >
           <div className="formBanner">
             <img
               src={FormBanner}
@@ -37,6 +62,11 @@ class DonorConsentForm extends Component<consentFormProps, any> {
             <h3 className="text-info font-weight-bold text-center">
               Medical Assessment of Blood Donor
             </h3>
+            <div className="formData">
+              {formData.map((item: any, i: any) => (
+                <div key={i}>{item.bloodDonor.donorName}</div>
+              ))}
+            </div>
           </div>
           <div className="formFooter">
             <h2 className="text-center font-weight-bold">
