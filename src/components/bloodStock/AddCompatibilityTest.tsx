@@ -47,10 +47,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     this.setState({
       bloodBagId: bloodBagId,
     });
-    
   }
 
- getPatientList() {
+  getPatientList() {
     DonorService.getAllActivePatients().then((res) => {
       const result = res.data;
       const options = result.map((d: any) => ({
@@ -77,7 +76,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       this.dataConfig = {
         bloodCompatibilityId: id,
         bloodBagId: this.state.bloodBagId,
-        patient: this.state.patientId.value,
+        patient: this.state.patientId.value? this.state.patientId.value : this.state.patientId,
         bloodGrouping: this.state.bloodGrouping,
         bloodCrossMatching: this.state.bloodCrossMatching,
         bloodHivTest: this.state.bloodHivTest,
@@ -198,14 +197,28 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 </label>
               </div>
               <div className="col-8">
-                <Select
-                  className="text-left"
-                  name="patient"
-                  defaultInputValue={patientId ? patientId : this.state.patient}
-                  blurInputOnSelect={true}
-                  onChange={this.handleChange}
-                  options={this.state.selectOptions}
-                />
+                {patientId && (
+                  <Select
+                    className="text-left"
+                    name="patient"
+                    defaultInputValue={patientId
+                    }
+                    value={patientId}
+                    blurInputOnSelect={true}
+                    onChange={this.handleChange}
+                    options={this.state.selectOptions}
+                  />
+                )}
+                {!patientId && (
+                  <Select
+                    className="text-left"
+                    name="patient"
+                    value={patientId}
+                    blurInputOnSelect={true}
+                    onChange={this.handleChange}
+                    options={this.state.selectOptions}
+                  />
+                )}
               </div>
             </div>
 
