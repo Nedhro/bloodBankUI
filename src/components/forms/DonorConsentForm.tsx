@@ -102,8 +102,20 @@ class DonorConsentForm extends Component<consentFormProps, any> {
 
                   </div>
                 </div>
+                <div className="">
+                 <div className="text-left">
+                    <h4 className="mt-1">{translate("questionnaire")} </h4>
+                 </div>
+                  <div className="row">
+                    {item.bloodDonor.concernSet.map((data: any, j: any) => (
+                      <div className="col-4 form-inline" key={j}>
+                        <li >{data.concernName}{" "}({data.concernStatus})</li>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-                <div className="row mt-3">
+                <div className="row mt-4">
                   <div className="col-6 text-left ">
                     <h3 className="text-info">{translate("physicalTestResult")}</h3>
                     <p className="font-weight-bold mt-3" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item.donorBloodGroup}</span></p>
