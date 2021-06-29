@@ -7,7 +7,7 @@
   "home": "Home",
   "donor": "Donor",
   "ques": "Questionnaires",
-  "test":"Suitability Test",
+  "test":"Donor Selection",
 
   "addDonorPageHeader": "Add Donor Info",
   "donorName": "Donor Name",
@@ -33,6 +33,7 @@
   "bloodManagement":"Blood Stock Management",
   "bloodManagementInfo":"Blood Stock, Blood Availability Check, Compatibility Test",
   "bloodStock": "Blood Stock",
+  "bloodCollection": "Blood Collections",
 
   "addDonor": "Add Donor Info",
   "donorQues": "Questionnaire",
@@ -49,6 +50,7 @@
 
   "suitabilityTest": "Donor Physical Suitability Tests",
   "donorConsentForm": "Donor Consent Letter",
+  "donorConsentNote": "I am willing to donate blood consciously and voluntarily after reading the form. I am giving permission for other necessary tests including AIDS in my blood. I volunteered for the National Blood Transfusion Services' blood donation program after learning all about blood donation. If any complication arises after blood donation, the person or organization in charge of this organization will not be responsible. This blood can be used for any patient at any time in need.",
 
   "physicalTest": "Physical Suitability Test",
   "donorId": "Donor ID",
@@ -74,7 +76,7 @@
 
   "name": "Name",
 
-  "testPhysicalSuitability": "Test Physical Suitability",
+  "testPhysicalSuitability": "Donor Selection Test",
 
   "quesId": "Question Id",
   "questionnaire": "Questionnaire",
@@ -83,6 +85,8 @@
   "testResult": "Test Result",
   "rh": "Rh",
   "stockBlood": "Add Blood to Stock",
+  "collectBlood": "Collect blood",
+  "returnBloodToStock": "Return blood bag",
 
   "addBloodStock": "Add Blood to Stock",
   "sourceOfBlood": "Source of Blood",
@@ -95,10 +99,12 @@
   "fridge2": "Fridge-2",
   "fridge3": "Fridge-3",
   "fridge4": "Fridge-4",
-
+  "discardFridge": "Discard-Fridge",
 
   "compatibilityTest": "Compatibility Test",
   "patient": "Patient",
+  "patientBloodGroup": "Patient Blood Group",
+  "bloodBagGroup": "Blood Group",
   "bloodScreening": "Blood Screening",
   "compatible": "Compatible",
   "nonCompatible": "Non-Compatible",
@@ -135,6 +141,18 @@
   "editPhysicalTestHeader": "Edit Physical Suitability Test",
 
   "editQuesHeader": "Edit Questionnaire",
+
+  "medicalAssessment": "Medical Assessment of Blood Donor",
+
+  "patientIdNo": "Patient Id",
+  "physicalTestResult": "Physical Suitability Test Result",
+  "selection": "Selection",
+  "date": "Date",
+  "code": "Code",
+  "signatureOfDoctor": "Signature of the Doctor",
+  "signatureOfDonor": "Signature of the Blood Donor",
+  "MOSignature": "Medical Officer's Signature",
+  "MTSignature": "Lab Incharge/MT Signature",
 
   "commonSave": "Save",
   "commonUpdate": "Update",

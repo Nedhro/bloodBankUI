@@ -31,7 +31,6 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
   getComtibilityList() {
     BloodStockService.getCompatibilityTestList()
       .then((res) => {
-        console.log(res);
         let keys = [
           "bloodCompatibilityId",
           "bloodScreening",
@@ -44,6 +43,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           "bloodMalariaTest",
           "bloodBagId",
           "patient",
+          "patientBloodGroup",
           "uuid",
           "status",
           "dateCreated",
@@ -57,11 +57,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
         //   res.data = "c";
         // }
         let entries = this.filterData(res.data, keys);
-        //rows
-        console.log(keys);
-
         entries.map((entry: any) => {
-          console.log(entry);
           return dataFinal.push(entry)
         });
         this.setState({
@@ -130,11 +126,6 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       {
         name: `${translate("patient")}`,
         selector: "patient",
-        sortable: true,
-      },
-      {
-        name: `${translate("bloodGrouping")}`,
-        selector: "bloodGrouping",
         sortable: true,
       },
       {
@@ -209,7 +200,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       return <div className="text-center font-weight-bold">Loading...</div>;
     } else {
       return (
-        <div className="mainlayout m-1">
+        <div className="m-1">
           <div className="container bg-light p-2">
             {/* <div className="form-inline">
               <a

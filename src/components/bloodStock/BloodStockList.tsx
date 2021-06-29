@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import BloodStockService from "../../services/BloodStockService";
 import { Modal } from "react-bootstrap";
 import BloodStockModal from "../modals/BloodStockModal";
+import { history } from "../custom/history";
 
 interface BloodStockProps {
   translate: (key: string) => string;
@@ -21,8 +22,39 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       show: false,
       modalData: "",
       query: "",
+      showReturnField: false,
+      bloodBagId: "",
     };
   }
+
+  changeHandler = (event: any) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  submitHandler = (event: any) => {
+    event.preventDefault();
+    const bloodBagId = this.state.bloodBagId;
+    BloodStockService.getStockByBloodBagId(bloodBagId).then((res) => {
+      if (res.data.stockStatus === "Available") {
+        alert("Blood bag is already available in the list");
+      } else {
+        BloodStockService.updateStockStatus(bloodBagId)
+          .then((res) => {
+            console.log(res);
+            if (res.status === 202) {
+              this.setState({
+                notification: "Blood bag has been restored",
+              });
+              history.push("/blood/stock/list");
+              window.location.reload();
+            } else {
+              alert("Invalid Input");
+            }
+          })
+          .catch((err: any) => console.log(err));
+      }
+    });
+  };
 
   deleteBloodStock(id: any) {
     BloodStockService.deleteBloodStock(id).then((res) => {
@@ -88,8 +120,16 @@ class BloodStock extends React.Component<BloodStockProps, any> {
   };
 
   render() {
-    const { error, isLoaded, items, show, modalData, query, notification } =
-      this.state;
+    const {
+      error,
+      isLoaded,
+      items,
+      show,
+      modalData,
+      query,
+      notification,
+      showReturnField,
+    } = this.state;
     const { translate } = this.props;
     const columns: any = [
       {
@@ -123,13 +163,15 @@ class BloodStock extends React.Component<BloodStockProps, any> {
         sortable: true,
       },
       {
-        name: `${translate("stockStatus")}`,
+        name: `${translate("status")}`,
         selector: "stockStatus",
         sortable: true,
       },
       {
         name: `${translate("bloodStorage")}`,
-        selector: "bloodStorage",
+        selector: (row: any) => {
+          return row.bloodStorage ? row.bloodStorage : "Not in Stock";
+        },
         sortable: true,
       },
       {
@@ -187,10 +229,36 @@ class BloodStock extends React.Component<BloodStockProps, any> {
               >
                 {translate("stockBlood")}
               </a>
+              <button
+                className="btn btn-info text-left float-left m-1 font-weight-bold"
+                onClick={() => {
+                  this.setState({
+                    showReturnField: !this.state.showReturnField,
+                  });
+                }}
+              >
+                {translate("returnBloodToStock")}
+              </button>
+              {showReturnField && (
+                <form onSubmit={this.submitHandler}>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="bloodBagId"
+                    id="bloodBagId"
+                    onChange={this.changeHandler}
+                  />
+                  <button className="btn btn-secondary" type="submit">
+                    Submit
+                  </button>
+                </form>
+              )}
             </div>
             <div className="row no-printme">
               <div className="col-12 p-1 m-1">
-                <h2>{translate("bloodStock")}</h2>
+                <h2 className="text-info font-weight-bold">
+                  {translate("bloodCollection")}
+                </h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">

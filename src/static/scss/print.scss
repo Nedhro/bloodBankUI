@@ -12,8 +12,11 @@
   }
   #printSection {
     position: relative;
-    width: 400px;
-    height: 1500px;
+    top:-10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
 
   #printSectionConsentForm,
@@ -24,13 +27,19 @@
 
   #printSectionConsentForm {
     position: absolute;
+    top:-10px;
     margin: 0 !important;
     padding: 0 !important;
     width: 100%;
     height: 100%;
   }
+  #printSectionConsentForm p {
+    margin-left: 100px !important;
+  }
 }
-
+p {
+  margin-left: 50px !important;
+}
 @media all {
   .page-break {
     display: none;

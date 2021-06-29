@@ -125,6 +125,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
           <Modal.Footer>
             <Button
               variant="info"
+              disabled={modalData.donorSelection === "Selected" ? false : true}
               onClick={() => {
                 const donorId = modalData.bloodDonor.donorId;
                 sessionStorage.setItem("bloodDonorId", donorId);
@@ -152,7 +153,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
                 }
               }}
             >
-              {translate("stockBlood")}
+              {translate("collectBlood")}
             </Button>
           </Modal.Footer>
         </div>

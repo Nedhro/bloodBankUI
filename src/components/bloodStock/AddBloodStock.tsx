@@ -36,10 +36,28 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     if (id) {
       this.getBloodStockById(id);
     }
-    if(donorId){
+    if (donorId) {
       this.setState({
-        bloodDonorId: donorId
-      })
+        bloodDonorId: donorId,
+      });
+    }
+    const bloodBagID = sessionStorage.getItem("bloodBagID");
+    if (bloodBagID) {
+      sessionStorage.removeItem("bloodGroup");
+      sessionStorage.removeItem("bloodDonorId");
+      BloodStockService.getStockByBloodBagId(bloodBagID).then(res=>{
+        console.log(res);
+       this.setState({
+        bloodStockTracingId: res.data.bloodStockTracingId,
+        bloodDonorId: res?.data?.bloodDonor?.donorId,
+        bloodStorage: res.data.bloodStorage,
+        sourceOfBlood: res.data.sourceOfBlood,
+        bloodGroup: res.data.bloodGroup,
+        stockStatus: res.data.stockStatus,
+        bloodBagId: res.data.bloodBagId,
+        allowSave: true,
+       })
+      });
     }
   }
 
@@ -89,8 +107,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem("bloodStockTracingId");
-    const donorId = parseInt(this.state.bloodDonorId)
+    const id = sessionStorage.getItem("bloodStockTracingId") || this.state.bloodStockTracingId;
+    const donorId = parseInt(this.state.bloodDonorId);
     if (id) {
       this.dataConfig = {
         bloodStockTracingId: id,
@@ -103,7 +121,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
       };
-    } else if(donorId){
+    } else if (donorId) {
       this.dataConfig = {
         bloodDonor: {
           donorId: donorId,
@@ -114,7 +132,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
       };
-    }else{
+    } else {
       this.dataConfig = {
         bloodStorage: this.state.bloodStorage,
         sourceOfBlood: this.state.sourceOfBlood,
@@ -126,6 +144,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     this.saveBloodStock(this.dataConfig);
     sessionStorage.removeItem("bloodStockTracingId");
     sessionStorage.removeItem("bloodGroup");
+    sessionStorage.removeItem("bloodDonorId");
+    sessionStorage.removeItem("bloodBagID");
   };
 
   saveBloodStock(data: any) {
@@ -155,6 +175,11 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
 
   getBloodStockById(id: any) {
     BloodStockService.getBloodStockById(parseInt(id)).then((res) => {
+      if (res.data.stockStatus === "Available") {
+        this.setState({
+          allowSave: true,
+        });
+      }
       this.setState({
         bloodDonorId: res?.data?.bloodDonor?.donorId,
         bloodStorage: res.data.bloodStorage,
@@ -170,7 +195,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     const { notification, allowSave } = this.state;
     const { translate } = this.props;
     return (
-      <div className="mainlayout m-1 p-1">
+      <div className="container-fluid m-1 p-1">
         {sessionStorage.getItem("bloodStockTracingId") ? (
           <>
             {" "}
@@ -180,7 +205,9 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
           </>
         ) : (
           <>
-            <h2 className="text-info text-center">{translate("stockBlood")}</h2>
+            <h2 className="text-info text-center">
+              {translate("collectBlood")}
+            </h2>
           </>
         )}
         <div className="container p-1">
@@ -303,7 +330,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodStorage">
                   {translate("bloodStorage")}
-                  <span className="text-danger">*</span>
                 </label>
               </div>
               <div className="col-8">
@@ -312,7 +338,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   name="bloodStorage"
                   id="bloodStorage"
                   value={this.state.bloodStorage}
-                  required
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
@@ -320,6 +345,9 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   <option value="Fridge-2">{translate("fridge2")}</option>
                   <option value="Fridge-3">{translate("fridge3")}</option>
                   <option value="Fridge-4">{translate("fridge4")}</option>
+                  <option value="Discard-Fridge">
+                    {translate("discardFridge")}
+                  </option>
                 </select>
               </div>
             </div>

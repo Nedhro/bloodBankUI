@@ -113,7 +113,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       } else {
         this.setState({
           showPatient: false,
-          patientId: ""
+          patientId: "",
         });
       }
     }
@@ -129,10 +129,12 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     if (id) {
       this.dataConfig = {
         donorId: id,
-        donorName: this.state.donorName,
+        donorName: this.state.donorName.toUpperCase(),
         donorAge: this.state.donorAge,
         typeOfDonor: this.state.typeOfDonor,
-        patient: this.state?.patientId?.value,
+        patient: this.state.patientId?.value
+          ? this.state.patientId.value
+          : this.state.patientId,
         donorGuardian: this.state.donorGuardian,
         donorGender: this.state.donorGender,
         donorMaritalStatus: this.state.donorMaritalStatus,
@@ -146,7 +148,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       };
     } else {
       this.dataConfig = {
-        donorName: this.state.donorName,
+        donorName: this.state.donorName.toUpperCase(),
         typeOfDonor: this.state.typeOfDonor,
         patient: this.state?.patientId?.value,
         donorAge: this.state.donorAge,
@@ -355,13 +357,13 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       </label>
                     </div>
                     <div className="col-8">
-                      <Select
-                        className="text-left"
-                        name="patient"
-                        defaultInputValue={patientId}
-                        onChange={this.handleChange}
-                        options={this.state.selectOptions}
-                      />
+                        <Select
+                          className="text-left"
+                          name="patient"
+                          defaultInputValue={patientId}
+                          onChange={this.handleChange}
+                          options={this.state.selectOptions}
+                        />
                     </div>
                   </div>
                 </div>
@@ -584,7 +586,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       pattern="yyyy-MM-dd"
                       name="donorLastDonatedDate"
                       id="donorLastDonatedDate"
-                      required={false}
+                      defaultValue=""
                       value={this.state.donorLastDonatedDate}
                       onChange={this.changeHandler}
                     />
