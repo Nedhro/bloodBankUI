@@ -138,6 +138,14 @@
 
   "medicalAssessment": "রক্তদাতার নিবন্ধন পত্র",
 
+  "patientIdNo": "রোগীর আইডি",
+  "physicalTestResult": "রক্তদাতার শারীরিক উপযুক্ততা",
+  "selection": "রক্তদানের জন্য",
+  "date": "তারিখ",
+  "code": "কোড নং",
+  "signatureOfDoctor": "ডাক্তারের স্বাক্ষর",
+  "signatureOfDonor": "রক্তদাতার স্বাক্ষর",
+
   "commonSave": "সংরক্ষণ করুন",
   "commonUpdate": "আপডেট করুন",
   "commonReset": "নতুন করে বসান",
