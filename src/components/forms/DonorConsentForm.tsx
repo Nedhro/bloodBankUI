@@ -10,7 +10,8 @@ class DonorConsentForm extends Component<consentFormProps, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      formData: []
+      formData: [],
+      currentDateTime: Date().toLocaleString()
     };
   }
   componentDidMount() {
@@ -20,7 +21,14 @@ class DonorConsentForm extends Component<consentFormProps, any> {
     }
     console.log(this.state.formData);
   }
-
+  formatDate(data: any) {
+    let date = new Date(data);
+    let year = date.getFullYear().toString();
+    let month = (date.getMonth() + 101).toString().substring(1);
+    let day = (date.getDate() + 100).toString().substring(1);
+    let formattedDate = year + "-" + month + "-" + day;
+    return formattedDate;
+  }
   getTestData(id: any) {
     DonorService.getPhysicalTestInfoById(parseInt(id)).then((res) => {
       console.log(res);
@@ -38,6 +46,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
   render() {
     const { translate } = this.props;
     const { formData } = this.state;
+    console.log(formData);
     return (
       <div className="container p-1">
         <div className="row float-right">
@@ -59,31 +68,111 @@ class DonorConsentForm extends Component<consentFormProps, any> {
             />
           </div>
           <div className="formBody">
-            <h3 className="text-info font-weight-bold text-center">
-              Medical Assessment of Blood Donor
+            <h3 className="text-info py-3 font-weight-bold text-center">
+              {translate("medicalAssessment")}
             </h3>
-            <div className="formData">
-              {formData.map((item: any, i: any) => (
-                <div key={i}>{item.bloodDonor.donorName}</div>
-              ))}
-            </div>
+            {formData.map((item: any, i: any) => (
+              <div key={i}>
+                <div className="row form-group">
+                  <div className="col-6 text-left">
+                    <p className="font-weight-bold" >Blood Donor's Name: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorName}</span></p>
+                    <p className="font-weight-bold" >Blood Donor's Gender: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorGender}</span></p>
+
+
+                    <p className="font-weight-bold" >Blood Donor's Mobile No: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorMobileNo}</span></p>
+                    <p className="font-weight-bold">Blood Donor's Guardian: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorGuardian}</span></p>
+                    <p className="font-weight-bold">Present Address: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorPresentAddress}</span></p>
+                    <p className="font-weight-bold">Permanent Address: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorPermanentAddress}</span></p>
+                    <h4 className="mt-5">Questionnaire</h4>
+                    <ol type="a" >
+                      <div className="row">
+                        {item.bloodDonor.concernSet.map((data: any, j: any) => (
+                          <div className="col-4 form-inline" key={j}>
+                            <li >{data.concernName}{" "}({data.concernStatus})</li>
+                          </div>
+                        ))}
+                      </div>
+                    </ol>
+
+                  </div>
+
+                  <div className="col-6 text-left">
+                    <p className="font-weight-bold" >Blood Donor's Age: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorAge}</span></p>
+                    <p className="font-weight-bold" >Blood Donor's Martial Status: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorMaritalStatus}</span></p>
+                    <p className="font-weight-bold" >Blood Donor's Profession: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorProfession}</span></p>
+                    <p className="font-weight-bold" >Type of Donor: {" "} <span className="font-weight-normal" >{item.bloodDonor.typeOfDonor}</span></p>
+                    <p className="font-weight-bold" >Donor Last Donated date: {" "} <span className="font-weight-normal" >{this.formatDate(item.bloodDonor.donorLastDonatedDate)}</span></p>
+                    <p className="font-weight-bold" >Patient Id: {" "}  <span className="font-weight-normal" >{item.bloodDonor.patient}</span></p>
+                  </div>
+                  <div >
+                    <div >
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-6 text-left ">
+                    <h3 className="text-info">Physical Suitability Test Result</h3>
+                    <p className="font-weight-bold mt-3" >Donor Blood Group: {" "}  <span className="font-weight-normal" >{item.donorBloodGroup}</span></p>
+                    <p className="font-weight-bold mt-3" >Donor Blood Pressure(high/low mmHg): {" "}  <span className="font-weight-normal" >{item.donorBloodPressure}</span></p>
+                    <p className="font-weight-bold mt-3" >Donor Hemoglobin (g/dl): {" "}  <span className="font-weight-normal" >{item.donorHemoglobin}</span></p>
+                    <p className="font-weight-bold mt-3" >Donor Pulse Rate (b/m): {" "}  <span className="font-weight-normal" >{item.donorPulseRate}</span></p>
+                  </div>
+                  <div className="col-6 text-left mt-4">
+                    <p className="font-weight-bold mt-3" >Donor Rh: {" "}  <span className="font-weight-normal" >{item.donorBloodGroupRhesus}</span></p>
+                    <p className="font-weight-bold mt-3" >Donor Weight (kg): {" "}  <span className="font-weight-normal" >{item.donorWeight}</span></p>
+                    <p className="font-weight-bold mt-3" >Donor Temperature (oF): {" "}  <span className="font-weight-normal" >{item.donorTemperature}</span></p>
+                    <p className="font-weight-bold mt-3" >Selection: {" "}  <span className="font-weight-normal" >{item.donorSelection}</span></p>
+                  </div>
+                </div>
+                <div className="row mt-3">
+                  <div className="col-6 text-left ">
+                    <p className="pt-2 pb-2 mt-2 mb-2">
+                      Date : {this.formatDate(this.state.currentDateTime)}
+                    </p>
+                  </div>
+                  <div className="col-6 text-right ">
+                    <p className="pt-2 pb-2 mt-2 mb-2">
+                      Signature of the Doctor :
+                      ....................................
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            ))}
           </div>
-          <div className="formFooter">
+          <div className="formFooter mt-2">
             <h2 className="text-center font-weight-bold">
               {translate("donorConsentForm")}
             </h2>
-            <div className="consentNote"></div>
-            <div className="row">
+            <div className="consentNote">
+
+              <p>আমি ফরমটি পড়ার পর স্বজ্ঞানে ও স্বেচ্ছায় রক্ত দানে ইচ্ছুক ।
+                আমার রক্তের AIDS সহ প্রয়োজনীয় অন্যান্য পরীক্ষা-নিরীক্ষা করার জন্য অনুমতি প্রদান করছি । আমি ন্যাশনাল ব্লাড ট্রান্সফিউশন সার্ভিসেস এর রক্তদান কর্মসূচীতে  রক্তদান সম্পর্কিত যাবতীয় বিষয়ে জ্ঞাত হয়ে স্বেচ্ছায় রক্ত দান করলাম ।
+                রক্ত দান পরবর্তী কোনো জটিলতার উদ্ভব হলে অত্র প্রতিষ্ঠানের  কর্তব্যরত ব্যাক্তি বা প্রতিষ্ঠান দায়ী থাকবে না।
+                এই রক্ত প্রয়োজনে যে কোনো সময়ে যে কোনো রোগীর জন্য ব্যবহার করা যাবে  ।</p>
+            </div>
+
+            <div className="row mt-5">
               <div className=" col-6 float-left text-left">
-                <p>Blood Donor's Name: </p>
-                <p>Code: </p>
+
+                {formData.map((item: any, i: any) => (
+                 <div>
+                    <p className="font-weight-bold">Code: {" "}  <span className="font-weight-normal" key={i}>{item.bloodDonor.donorId}</span></p>
+                    <p className="font-weight-bold">Name: {" "}  <span className="font-weight-normal" key={i}>{item.bloodDonor.donorName}</span></p>
+                 </div>
+                ))}
               </div>
               <div className="col-6 float-right text-right">
                 <p className="pt-2 pb-2 mt-2 mb-2">
                   Signature of the Blood Donor :
                   ....................................
                 </p>
-                <p>Date: </p>
               </div>
             </div>
           </div>
