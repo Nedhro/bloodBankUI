@@ -117,7 +117,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
 
                 <div className="row mt-4">
                   <div className="col-6 text-left ">
-                    <h3 className="font-weight-bold text-dark">{translate("physicalTestResult")}</h3>
+                    <h3 className="font-weight-bold text-dark py-3">{translate("physicalTestResult")}</h3>
                     <p className="font-weight-bold mt-3" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item.donorBloodGroup}</span></p>
                     <p className="font-weight-bold mt-3" >{translate("bloodPressure")}: {" "}  <span className="font-weight-normal" >{item.donorBloodPressure}</span></p>
                     <p className="font-weight-bold mt-3" >{translate("hemoglobin")}: {" "}  <span className="font-weight-normal" >{item.donorHemoglobin}</span></p>
@@ -125,9 +125,9 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                   </div>
                   <div className="col-6 text-left ">
                     <br />
-                    <p className="font-weight-bold mt-4 pt-1" >{translate("rh")}: {" "}  <span className="font-weight-normal" >{item.donorBloodGroupRhesus}</span></p>
+                    <p style={{paddingTop:'60px'}} className="font-weight-bold " >{translate("rh")}: {" "}  <span className="font-weight-normal" >{item.donorBloodGroupRhesus}</span></p>
                     <p className="font-weight-bold mt-3" >{translate("weight")}: {" "}  <span className="font-weight-normal" >{item.donorWeight}</span></p>
-                    <p className="font-weight-bold mt-3" >{translate("temp")} (o{translate("cel")}): {" "}  <span className="font-weight-normal" >{item.donorTemperature}</span></p>
+                    <p className="font-weight-bold mt-3" >{translate("temp")} (<sup>o</sup>{translate("cel")}): {" "}  <span className="font-weight-normal" >{item.donorTemperature}</span></p>
                     <p className="font-weight-bold mt-3" >{translate("selection")}: {" "}  <span className="font-weight-normal" >{item.donorSelection}</span></p>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
               {translate("donorConsentForm")}
             </h2>
             <div className="consentNote text-justify">
-              <p>{translate("donorConsentNote")}</p>
+              <p className="p-2">{translate("donorConsentNote")}</p>
             </div>
 
             <div className="row mt-5">
