@@ -83,26 +83,15 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                     <p className="font-weight-bold">Blood Donor's Guardian: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorGuardian}</span></p>
                     <p className="font-weight-bold">Present Address: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorPresentAddress}</span></p>
                     <p className="font-weight-bold">Permanent Address: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorPermanentAddress}</span></p>
-                    <h4 className="mt-5">Questionnaire</h4>
-                    <ol type="a" >
-                      <div className="row">
-                        {item.bloodDonor.concernSet.map((data: any, j: any) => (
-                          <div className="col-4 form-inline" key={j}>
-                            <li >{data.concernName}{" "}({data.concernStatus})</li>
-                          </div>
-                        ))}
-                      </div>
-                    </ol>
-
                   </div>
 
                   <div className="col-6 text-left">
                     <p className="font-weight-bold" >Blood Donor's Age: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorAge}</span></p>
                     <p className="font-weight-bold" >Blood Donor's Martial Status: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorMaritalStatus}</span></p>
                     <p className="font-weight-bold" >Blood Donor's Profession: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorProfession}</span></p>
-                    <p className="font-weight-bold" >Type of Donor: {" "} <span className="font-weight-normal" >{item.bloodDonor.typeOfDonor}</span></p>
                     <p className="font-weight-bold" >Donor Last Donated date: {" "} <span className="font-weight-normal" >{this.formatDate(item.bloodDonor.donorLastDonatedDate)}</span></p>
-                    <p className="font-weight-bold" >Patient Id: {" "}  <span className="font-weight-normal" >{item.bloodDonor.patient}</span></p>
+                    <p className="font-weight-bold" >Donor Last Donated place: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorLastDonatedPlace}</span></p>
+                    <p ><span className="font-weight-bold">Type of Donor: {" "} </span><span className="font-weight-normal" >{item.bloodDonor.typeOfDonor}</span>&nbsp; &nbsp;<span className="font-weight-bold">Patient Id: {" "}  </span><span className="font-weight-normal" >{item.bloodDonor.patient}</span></p>
                   </div>
                   <div >
                     <div >
@@ -151,11 +140,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
               {translate("donorConsentForm")}
             </h2>
             <div className="consentNote">
-
-              <p>আমি ফরমটি পড়ার পর স্বজ্ঞানে ও স্বেচ্ছায় রক্ত দানে ইচ্ছুক ।
-                আমার রক্তের AIDS সহ প্রয়োজনীয় অন্যান্য পরীক্ষা-নিরীক্ষা করার জন্য অনুমতি প্রদান করছি । আমি ন্যাশনাল ব্লাড ট্রান্সফিউশন সার্ভিসেস এর রক্তদান কর্মসূচীতে  রক্তদান সম্পর্কিত যাবতীয় বিষয়ে জ্ঞাত হয়ে স্বেচ্ছায় রক্ত দান করলাম ।
-                রক্ত দান পরবর্তী কোনো জটিলতার উদ্ভব হলে অত্র প্রতিষ্ঠানের  কর্তব্যরত ব্যাক্তি বা প্রতিষ্ঠান দায়ী থাকবে না।
-                এই রক্ত প্রয়োজনে যে কোনো সময়ে যে কোনো রোগীর জন্য ব্যবহার করা যাবে  ।</p>
+              <p>{translate("donorConsentNote")}</p>
             </div>
 
             <div className="row mt-5">
