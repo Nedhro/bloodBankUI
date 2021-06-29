@@ -55,20 +55,20 @@ class DonorConsentForm extends Component<consentFormProps, any> {
           </button>
         </div>
         <div
-          className="container-fluid print-container p-1"
+          className="container-fluid print-container "
           id="printSectionConsentForm"
-        >
+         >
           <div className="formBanner">
             <img
               src={FormBanner}
               width="100%"
-              height="220px"
+              height="250px"
               className="Form-Banner header"
               alt="Banner"
             />
           </div>
           <div className="formBody">
-            <h3 className="text-info py-3 font-weight-bold text-center">
+            <h3 className="text-dark py-3 font-weight-bold text-center">
               {translate("medicalAssessment")}
             </h3>
             {formData.map((item: any, i: any) => (
@@ -104,7 +104,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                 </div>
                 <div className="">
                  <div className="text-left">
-                    <h4 className="mt-1">{translate("questionnaire")} </h4>
+                    <h4 className="mt-1 font-weight-bold text-dark">{translate("questionnaire")} </h4>
                  </div>
                   <div className="row">
                     {item.bloodDonor.concernSet.map((data: any, j: any) => (
@@ -117,7 +117,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
 
                 <div className="row mt-4">
                   <div className="col-6 text-left ">
-                    <h3 className="text-info">{translate("physicalTestResult")}</h3>
+                    <h3 className="font-weight-bold text-dark">{translate("physicalTestResult")}</h3>
                     <p className="font-weight-bold mt-3" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item.donorBloodGroup}</span></p>
                     <p className="font-weight-bold mt-3" >{translate("bloodPressure")}: {" "}  <span className="font-weight-normal" >{item.donorBloodPressure}</span></p>
                     <p className="font-weight-bold mt-3" >{translate("hemoglobin")}: {" "}  <span className="font-weight-normal" >{item.donorHemoglobin}</span></p>
@@ -134,13 +134,13 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                 <div className="row mt-3">
                   <div className="col-6 text-left ">
                     <p className="pt-2 pb-2 mt-2 mb-2">
-                      {translate("date")} : {this.formatDate(this.state.currentDateTime)}
+                      <span className="font-weight-bold">{translate("date")}</span> : {this.formatDate(this.state.currentDateTime)}
                     </p>
                   </div>
                   <div className="col-6 text-right ">
-                    <p className="pt-2 pb-2 mt-2 mb-2">
-                      {translate("signatureOfDoctor")} :
-                      ....................................
+                    <p className="pt-2 pb-2 mt-2 mb-2 font-weight-bold">
+                      {translate("signatureOfDoctor")} : {" "}
+                      <span className="font-weight-normal">....................................</span>
                     </p>
                   </div>
                 </div>
@@ -148,7 +148,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
 
             ))}
           </div>
-          <div className="formFooter mt-2">
+          <div style={{marginTop:'70px'}} className="formFooter ">
             <h2 className="text-center font-weight-bold">
               {translate("donorConsentForm")}
             </h2>
@@ -157,7 +157,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
             </div>
 
             <div className="row mt-5">
-              <div className=" col-6 float-left text-left">
+              <div className=" col-7 float-left text-left">
 
                 {formData.map((item: any, i: any) => (
                  <div>
@@ -166,14 +166,18 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                  </div>
                 ))}
               </div>
-              <div className="col-6 float-right text-right">
-                <p className="pt-2 pb-2 mt-2 mb-2">
-                  {translate("signatureOfDonor")} :
-                  ....................................
-                </p>
-                <p className="pt-2 pb-2 mt-2 mb-2">
-                  {translate("date")} : {this.formatDate(this.state.currentDateTime)}
-                </p>
+              <div className="col-5 d-flex justify-content-end">
+                
+                <div className="text-left">
+                  <p className="pt-2 pb-2 mt-2 mb-2 font-weight-bold">
+                    {translate("signatureOfDonor")} :
+                    {" "}
+                    <span className="font-weight-normal">....................................</span>
+                  </p>
+                  <p className="pt-1 pb-2 mt-2 mb-2">
+                    <span className="font-weight-bold">{translate("date")}</span> : {this.formatDate(this.state.currentDateTime)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
