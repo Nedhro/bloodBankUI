@@ -139,6 +139,14 @@
 
   "medicalAssessment": "Medical Assessment of Blood Donor",
 
+  "patientIdNo": "Patient Id",
+  "physicalTestResult": "Physical Suitability Test Result",
+  "selection": "Selection",
+  "date": "Date",
+  "code": "Code",
+  "signatureOfDoctor": "Signature of the Doctor",
+  "signatureOfDonor": "Signature of the Blood Donor",
+
   "commonSave": "Save",
   "commonUpdate": "Update",
   "commonReset": "Reset",
