@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
+import FormBanner from "../../static/images/hospitalBanner.png";
 
 export interface TableModalProps {
   data: Object;
@@ -19,39 +20,19 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
       modalData: {},
       notification: "",
       disallowApprove: false,
-      message: ""
+      message: "",
+      bloodBagGroup: "",
+      currentDateTime: Date().toLocaleString(),
     };
   }
 
-  updateBloodStockStatus(bloodBagId: any) {
-    const testId = this.state.modalData.bloodCompatibilityId;
-    BloodStockService.updateCompatibilityTestStatus(bloodBagId).then((res) => {
-      console.log(res);
-      if (res.status === 202) {
-        this.setState({
-          notification:
-            "Blood has been approved for the patient and made unavailable from the stock",
-        });
-        BloodStockService.deleteCompatibilityTest(testId).then((res) => {
-          if (res.status === 202) {
-            this.setState({
-              notification: "Compatibility test has been deleted",
-            });
-          }
-        });
-        history.push("/blood/stock/list");
-        window.location.reload();
-      }
-      if (res.status === 226) {
-        console.log(res);
-        this.setState({
-          notification: `Blood bag : ${res.data} is not availablle in the stock`,
-        });
-      }
-    });
-  }
-
   componentDidMount() {
+    const bloodBagId = this.state.modalData.bloodBagId;
+    BloodStockService.getStockByBloodBagId(bloodBagId).then((res) => {
+      this.setState({
+        bloodBagGroup: res.data.bloodGroup,
+      });
+    });
     if (
       this.state.modalData.bloodGrouping === "NonCompatible" ||
       this.state.modalData.bloodCrossMatching === "NonCompatible" ||
@@ -63,12 +44,12 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
     ) {
       this.setState({
         disallowApprove: true,
-        message: "The blood sample is not compatible for the patient"
+        message: "This blood bag is incompatible for the patient",
       });
-    }else{
+    } else {
       this.setState({
         disallowApprove: false,
-        message: "The blood sample is compatible for the patient"
+        message: "This blood bag is compatible for the patient",
       });
     }
   }
@@ -84,8 +65,22 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
     return state;
   }
 
+  formatDate(data: any) {
+    console.log(data);
+    if (data === -21600000) {
+      return null;
+    }
+    let date = new Date(data);
+    let year = date.getFullYear().toString();
+    let month = (date.getMonth() + 101).toString().substring(1);
+    let day = (date.getDate() + 100).toString().substring(1);
+    let formattedDate = day + "-" + month + "-" + year;
+    return formattedDate;
+  }
+
   render() {
-    const { title, modalData, notification, disallowApprove, message } = this.state;
+    const { title, modalData, notification, disallowApprove, message } =
+      this.state;
     const { translate } = this.props;
     return (
       <div>
@@ -99,75 +94,168 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
           className="print-container"
           style={{ margin: "0", padding: "0" }}
         >
-          <div className="page-break" />
           <Modal.Body>
-            <h4 className="font-weight-bold">
-              {translate("compatibilityTest")} ({modalData.bloodCompatibilityId}
-              )
-            </h4>
-            <p>
-              <span className="font-weight-bold">
-                {translate("bloodBagId")}
-              </span>{" "}
-              : {modalData.bloodBagId}
-            </p>
-            <p>
-              <span className="font-weight-bold">{translate("patient")}</span> :{" "}
-              {modalData.patient}
-            </p>
-            <p>
-              <span className="font-weight-bold">
-                {translate("bloodGrouping")}
-              </span>{" "}
-              : <span className={modalData.bloodGrouping==="NonCompatible"?"text-danger":"text-success"}>{modalData.bloodGrouping}</span>
-            </p>
-            <p>
-              <span className="font-weight-bold">
-                {translate("crossMatching")}
-              </span>{" "}
-              : <span className={modalData.bloodCrossMatching==="NonCompatible"?"text-danger":"text-success"}>{modalData.bloodCrossMatching}</span>
-            </p>
-            <p>
-              <span className="font-weight-bolder text-info">
-                {translate("bloodScreening")}
-              </span>{" "}
-            </p>
-            <p>
-              <span className="font-weight-bold">
-                {translate("bloodHivTest")}
-              </span>{" "}
-              : <span className={modalData.bloodHivTest==="Reactive"?"text-danger":"text-success"}>{modalData.bloodHivTest}</span>
-            </p>
-            <p>
-              <span className="font-weight-bold">
-                {translate("bloodHbvTest")}
-              </span>{" "}
-              : <span className={modalData.bloodHbvTest==="Reactive"?"text-danger":"text-success"}>{modalData.bloodHbvTest}</span>
-            </p>
-            <p>
-              <span className="font-weight-bold">
-                {translate("bloodHcvTest")}
-              </span>{" "}
-              : <span className={modalData.bloodHcvTest==="Reactive"?"text-danger":"text-success"}>{modalData.bloodHcvTest}</span>
-            </p>
-            <p>
-              <span className="font-weight-bold">
-                {translate("bloodSyphilisTest")}
-              </span>{" "}
-              : <span className={modalData.bloodSyphilisTest==="Reactive"?"text-danger":"text-success"}>{modalData.bloodSyphilisTest}</span>
-            </p>
-            <p>
-              <span className="font-weight-bold">
-                {translate("bloodMalariaTest")}
-              </span>{" "}
-              : <span className={modalData.bloodMalariaTest==="Reactive"?"text-danger":"text-success"}>{modalData.bloodMalariaTest}</span>
-            </p>
-            <p>
-            <span className="font-weight-bold">
-                {translate("compatibilityTestDecision")}
-              </span>{" "}
-              : <span className={disallowApprove?"text-danger":"text-success"}>{message}</span>
-            </p>
+            <div className="formBanner">
+              <img
+                src={FormBanner}
+                width="100%"
+                height="200px"
+                className="Form-Banner header"
+                alt="Banner"
+              />
+            </div>
+            <div className="text-left ml-1 pl-1">
+              {" "}
+              <h4 className="font-weight-bold text-center">
+                {translate("compatibilityTest")} ({translate("id")} :
+                {modalData.bloodCompatibilityId})
+              </h4>
+              <p className="pr-1">
+                <span className="font-weight-bold">{translate("date")}</span> :{" "}
+                {this.formatDate(this.state.currentDateTime)}
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("bloodBagId")}
+                </span>{" "}
+                : {modalData.bloodBagId} &nbsp; &nbsp;{" "}
+                <span className="font-weight-bold">
+                  {translate("bloodBagGroup")} 
+                </span>:{" "}
+                {this.state.bloodBagGroup}
+              </p>
+              <p>
+                <span className="font-weight-bold">{translate("patient")}</span>{" "}
+                : {modalData.patient}  &nbsp;{" "}
+                <span className="font-weight-bold" style={{marginLeft:"50px"}}>
+                  {translate("patientBloodGroup")} 
+                </span>:{" "}
+                <span>{modalData.patientBloodGroup}</span>
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("crossMatching")}
+                </span>{" "}
+                :{" "}
+                <span
+                  className={
+                    modalData.bloodCrossMatching === "NonCompatible"
+                      ? "text-danger"
+                      : "text-success"
+                  }
+                >
+                  {modalData.bloodCrossMatching}
+                </span>
+              </p>
+              <p>
+                <span className="font-weight-bolder text-info">
+                  {translate("bloodScreening")}
+                </span>{" "}
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("bloodHivTest")}
+                </span>{" "}
+                :{" "}
+                <span
+                  className={
+                    modalData.bloodHivTest === "Reactive"
+                      ? "text-danger"
+                      : "text-success"
+                  }
+                >
+                  {modalData.bloodHivTest}
+                </span>
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("bloodHbvTest")}
+                </span>{" "}
+                :{" "}
+                <span
+                  className={
+                    modalData.bloodHbvTest === "Reactive"
+                      ? "text-danger"
+                      : "text-success"
+                  }
+                >
+                  {modalData.bloodHbvTest}
+                </span>
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("bloodHcvTest")}
+                </span>{" "}
+                :{" "}
+                <span
+                  className={
+                    modalData.bloodHcvTest === "Reactive"
+                      ? "text-danger"
+                      : "text-success"
+                  }
+                >
+                  {modalData.bloodHcvTest}
+                </span>
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("bloodSyphilisTest")}
+                </span>{" "}
+                :{" "}
+                <span
+                  className={
+                    modalData.bloodSyphilisTest === "Reactive"
+                      ? "text-danger"
+                      : "text-success"
+                  }
+                >
+                  {modalData.bloodSyphilisTest}
+                </span>
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("bloodMalariaTest")}
+                </span>{" "}
+                :{" "}
+                <span
+                  className={
+                    modalData.bloodMalariaTest === "Reactive"
+                      ? "text-danger"
+                      : "text-success"
+                  }
+                >
+                  {modalData.bloodMalariaTest}
+                </span>
+              </p>
+              <p>
+                <span className="font-weight-bold">
+                  {translate("compatibilityTestDecision")}
+                </span>{" "}
+                :{" "}
+                <span
+                  className={disallowApprove ? "text-danger" : "text-success"}
+                >
+                  {message}
+                </span>
+              </p>
+              <div className="row signature" id="signature">
+                <div className="col-4 mt-5 pt-5"></div>
+                <div className="col-4 mt-5 pt-5 pr-1">
+                  <p>
+                    ........................................................
+                  </p>
+                  <p className="text-dark" style={{ width: "200px" }}>
+                    {translate("MOSignature")}
+                  </p>
+                </div>
+                <div className="col-4 mt-5 pt-5 pr-2">
+                  <p>....................................................</p>
+                  <p className="text-dark" style={{ width: "200px" }}>
+                    {translate("MTSignature")}
+                  </p>
+                </div>
+              </div>
+            </div>
           </Modal.Body>
         </div>
 
@@ -178,13 +266,14 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
             </Button>
             <Button
               variant="info"
-              disabled={disallowApprove}
               onClick={() => {
-                const bloodBagId = modalData.bloodBagId;
-                this.updateBloodStockStatus(bloodBagId);
+                const bloodBagID= modalData.bloodBagId;
+                sessionStorage.setItem("bloodBagID",bloodBagID);
+                history.push(`/blood/stock/add`);
+                window.location.reload();
               }}
             >
-              {translate("approveBlood")}
+              {translate("stockBlood")}
             </Button>
           </Modal.Footer>
 

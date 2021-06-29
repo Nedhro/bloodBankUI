@@ -34,6 +34,10 @@ class DonorModal extends React.Component<TableModalProps, any> {
     return state;
   }
   formatDate(data: any) {
+    console.log(data);
+    if(data === -21600000 || data === null){
+      return null;
+    }
     let date = new Date(data);
     let year = date.getFullYear().toString();
     let month = (date.getMonth() + 101).toString().substring(1);

@@ -7,7 +7,7 @@
   "home": "Home",
   "donor": "Donor",
   "ques": "Questionnaires",
-  "test":"Suitability Test",
+  "test":"Donor Selection",
 
   "addDonorPageHeader": "Add Donor Info",
   "donorName": "Donor Name",
@@ -33,6 +33,7 @@
   "bloodManagement":"Blood Stock Management",
   "bloodManagementInfo":"Blood Stock, Blood Availability Check, Compatibility Test",
   "bloodStock": "Blood Stock",
+  "bloodCollection": "Blood Collections",
 
   "addDonor": "Add Donor Info",
   "donorQues": "Questionnaire",
@@ -75,7 +76,7 @@
 
   "name": "Name",
 
-  "testPhysicalSuitability": "Test Physical Suitability",
+  "testPhysicalSuitability": "Donor Selection Test",
 
   "quesId": "Question Id",
   "questionnaire": "Questionnaire",
@@ -84,6 +85,8 @@
   "testResult": "Test Result",
   "rh": "Rh",
   "stockBlood": "Add Blood to Stock",
+  "collectBlood": "Collect blood",
+  "returnBloodToStock": "Return blood bag",
 
   "addBloodStock": "Add Blood to Stock",
   "sourceOfBlood": "Source of Blood",
@@ -96,10 +99,12 @@
   "fridge2": "Fridge-2",
   "fridge3": "Fridge-3",
   "fridge4": "Fridge-4",
-
+  "discardFridge": "Discard-Fridge",
 
   "compatibilityTest": "Compatibility Test",
   "patient": "Patient",
+  "patientBloodGroup": "Patient Blood Group",
+  "bloodBagGroup": "Blood Group",
   "bloodScreening": "Blood Screening",
   "compatible": "Compatible",
   "nonCompatible": "Non-Compatible",
@@ -146,6 +151,8 @@
   "code": "Code",
   "signatureOfDoctor": "Signature of the Doctor",
   "signatureOfDonor": "Signature of the Blood Donor",
+  "MOSignature": "Medical Officer's Signature",
+  "MTSignature": "Lab Incharge/MT Signature",
 
   "commonSave": "Save",
   "commonUpdate": "Update",

@@ -22,6 +22,10 @@ class DonorConsentForm extends Component<consentFormProps, any> {
     console.log(this.state.formData);
   }
   formatDate(data: any) {
+    console.log(data);
+    if(data === -21600000){
+      return null;
+    }
     let date = new Date(data);
     let year = date.getFullYear().toString();
     let month = (date.getMonth() + 101).toString().substring(1);

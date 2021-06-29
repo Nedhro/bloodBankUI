@@ -129,7 +129,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     if (id) {
       this.dataConfig = {
         donorId: id,
-        donorName: this.state.donorName,
+        donorName: this.state.donorName.toUpperCase(),
         donorAge: this.state.donorAge,
         typeOfDonor: this.state.typeOfDonor,
         patient: this.state.patientId?.value
@@ -148,7 +148,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       };
     } else {
       this.dataConfig = {
-        donorName: this.state.donorName,
+        donorName: this.state.donorName.toUpperCase(),
         typeOfDonor: this.state.typeOfDonor,
         patient: this.state?.patientId?.value,
         donorAge: this.state.donorAge,
@@ -586,6 +586,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       pattern="yyyy-MM-dd"
                       name="donorLastDonatedDate"
                       id="donorLastDonatedDate"
+                      defaultValue=""
                       value={this.state.donorLastDonatedDate}
                       onChange={this.changeHandler}
                     />

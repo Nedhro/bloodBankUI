@@ -1,5 +1,6 @@
 import axios from "axios";
-const urlPrefix = process.env.REACT_APP_API_URL + "/openmrs/ws/rest/v1/bloodbank/";
+const urlPrefix =
+  process.env.REACT_APP_API_URL + "/openmrs/ws/rest/v1/bloodbank/";
 class BloodStockService {
   //Blood Stock
   saveBloodStock(data: Object) {
@@ -28,10 +29,14 @@ class BloodStockService {
   deleteCompatibilityTest(id: any) {
     return axios.put(urlPrefix + "bloodCompatibilityTest/delete/" + id);
   }
-  updateCompatibilityTestStatus(bloodBagId: any) {
+  updateStockStatus(bloodBagId: any) {
     return axios.put(
       urlPrefix + "bloodStockTracing/updateStatus/" + bloodBagId
     );
+  }
+
+  getStockByBloodBagId(bloodBagId: any) {
+    return axios.get(urlPrefix + "bloodStockTracing/bloodBag/" + bloodBagId);
   }
 }
 

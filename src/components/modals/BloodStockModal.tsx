@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
 
@@ -32,6 +33,25 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
     return state;
   }
 
+  updateBloodStockStatus(bloodBagId: any) {
+    BloodStockService.updateStockStatus(bloodBagId).then((res) => {
+      if (res.status === 202) {
+        this.setState({
+          notification:
+            "Blood bag has been approved for the patient and made unavailable from the stock",
+        });
+        history.push("/blood/stock/list");
+        window.location.reload();
+      }
+      if (res.status === 226) {
+        console.log(res);
+        this.setState({
+          notification: `Blood bag : ${res.data} is not availablle in the stock`,
+        });
+      }
+    });
+  }
+
   render() {
     const { title, modalData } = this.state;
     const { translate } = this.props;
@@ -49,15 +69,69 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4 className="font-weight-bold">{translate("bloodSample")} ({modalData.bloodBagId})</h4>
-            <p><span className="font-weight-bold">{translate("bloodDonorId")}</span> : {modalData?.bloodDonorId || "N/A"}</p>
-            <p><span className="font-weight-bold">{translate("donorName")}</span> : {modalData?.donorName || "N/A"}</p>
-            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData?.donorMobile || "N/A"}</p>
-            <p><span className="font-weight-bold">{translate("bloodGroup")}</span> : {modalData.bloodGroup}</p>
-            <p><span className="font-weight-bold">{translate("sourceOfBlood")}</span> : {modalData.sourceOfBlood}</p>
-            <p><span className="font-weight-bold">{translate("bloodBagId")}</span> : {modalData.bloodBagId}</p>
-            <p><span className="font-weight-bold">{translate("bloodStorage")}</span> : {modalData.bloodStorage}</p>
-            <p><span className="font-weight-bold">{translate("stockStatus")}</span> : {modalData.stockStatus}</p>
+            <h4 className="font-weight-bold">
+              {translate("bloodSample")} ({modalData.bloodBagId})
+            </h4>
+            <p>
+              <span className="font-weight-bold">
+                {translate("bloodDonorId")}
+              </span>{" "}
+              : {modalData?.bloodDonorId || "N/A"}
+            </p>
+            <p>
+              <span className="font-weight-bold">{translate("donorName")}</span>{" "}
+              : {modalData?.donorName || "N/A"}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("donorMobileNo")}
+              </span>{" "}
+              : {modalData?.donorMobile || "N/A"}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("bloodGroup")}
+              </span>{" "}
+              : {modalData.bloodGroup}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("sourceOfBlood")}
+              </span>{" "}
+              : {modalData.sourceOfBlood}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("bloodBagId")}
+              </span>{" "}
+              : {modalData.bloodBagId}
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("stockStatus")}
+              </span>{" "}
+              :{" "}
+              <span
+                className={
+                  !modalData.stockStatus ? "text-danger" : "text-success"
+                }
+              >
+                {modalData.stockStatus}
+              </span>
+            </p>
+            <p>
+              <span className="font-weight-bold">
+                {translate("bloodStorage")}
+              </span>{" "}
+              :{" "}
+              <span
+                className={
+                  !modalData.bloodStorage ? "text-danger" : "text-normal"
+                }
+              >
+                {modalData.bloodStorage || "Not in Stock"}
+              </span>
+            </p>
           </Modal.Body>
         </div>
 
@@ -66,19 +140,32 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
             <Button variant="success" onClick={this.printDiv}>
               {translate("commonPrint")}
             </Button>
-            <Button variant="info" onClick={()=>{
-              if(modalData.stockStatus === 'Available'){
-                const bloodBagId = modalData.bloodBagId;
-                const donorId = modalData.bloodDonorId;
-                sessionStorage.setItem("bloodBagId", bloodBagId);
-                sessionStorage.setItem("donorId", donorId);
-                history.push(`/blood/compatibility/${bloodBagId}/test/add`);
-                window.location.reload();
-              }else{
-                alert('Blood is not available');
-              }
-            }}>
+            <Button
+              variant="info"
+              onClick={() => {
+                if (modalData.stockStatus === "Available") {
+                  const bloodBagId = modalData.bloodBagId;
+                  const donorId = modalData.bloodDonorId;
+                  sessionStorage.setItem("bloodBagId", bloodBagId);
+                  sessionStorage.setItem("donorId", donorId);
+                  history.push(`/blood/compatibility/${bloodBagId}/test/add`);
+                  window.location.reload();
+                } else {
+                  alert("Blood is not available");
+                }
+              }}
+            >
               {translate("compatibilityWithPatient")}
+            </Button>
+            <Button
+              variant="success"
+              disabled={!modalData.bloodStorage ? true : false}
+              onClick={()=>{
+                const bloodBagId = modalData.bloodBagId;
+                this.updateBloodStockStatus(bloodBagId);
+              }}
+            >
+              {translate("approveBlood")}
             </Button>
           </Modal.Footer>
         </div>

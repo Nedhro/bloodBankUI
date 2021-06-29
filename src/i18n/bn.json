@@ -7,7 +7,7 @@
   "home": "হোম",
   "donor": "রক্তদাতা",
   "ques": "জ্ঞাতব্য প্রশ্নাবলী",
-  "test": "রক্তদাতার শারীরিক পরীক্ষা",
+  "test": "রক্তদাতা নির্বাচন",
 
   "addDonorPageHeader": "রক্তদাতার তথ্য",
   "donorName": "রক্তদাতার নাম",
@@ -33,6 +33,7 @@
   "bloodManagement": "রক্ত সংরক্ষণ ও ব্যবস্থাপনা",
   "bloodManagementInfo": "রক্ত সংরক্ষণ, পর্যবেক্ষণ, উপযুক্ততা পরীক্ষা",
   "bloodStock": "রক্ত সংরক্ষণ",
+  "bloodCollection": "সংগ্রহীত রক্তের তালিকা",
 
   "addDonor": "রক্তদাতার তথ্য সংরক্ষণ",
   "donorQues": "জ্ঞাতব্য প্রশ্নাবলী",
@@ -74,7 +75,7 @@
   "typeOfDonor": "রক্তদাতার ধরণ",
   "name": "নাম",
 
-  "testPhysicalSuitability": "শারীরিক উপযুক্ততা যাচাই করুন",
+  "testPhysicalSuitability": "রক্তদাতা নির্বাচন",
 
   "quesId": "প্রশ্ন আইডি",
   "questionnaire": "জ্ঞাতব্য প্রশ্ন",
@@ -84,6 +85,8 @@
   "rh": "আর এইচ",
 
   "stockBlood": "রক্ত সংরক্ষণ করুন",
+  "collectBlood": "রক্ত সংগ্রহ করুন",
+  "returnBloodToStock": "রিটার্ন ব্লাড ব্যাগ",
 
   "addBloodStock": "রক্ত সংরক্ষণ তথ্য",
   "sourceOfBlood": "রক্তের উৎস",
@@ -96,9 +99,12 @@
   "fridge2": "ফ্রিজ-২",
   "fridge3": "ফ্রিজ-৩",
   "fridge4": "ফ্রিজ-৪",
+  "discardFridge": "ডিসকার্ড ফ্রিজ",
 
   "compatibilityTest": "সামঞ্জস্যতা পরীক্ষা",
   "patient": "রোগী",
+  "patientBloodGroup": "রোগীর রক্তের গ্রুপ",
+  "bloodBagGroup": "রক্তের গ্রুপ",
   "bloodScreening": "রক্তের স্ক্রিনিং",
   "compatible": "উপযুক্ত",
   "nonCompatible": "অনুপযুক্ত",
@@ -145,6 +151,8 @@
   "code": "কোড নং",
   "signatureOfDoctor": "ডাক্তারের স্বাক্ষর",
   "signatureOfDonor": "রক্তদাতার স্বাক্ষর",
+  "MOSignature": "মেডিকেল অফিসারের স্বাক্ষর",
+  "MTSignature": "ল্যাব ইনচার্জ/এম.টি. স্বাক্ষর",
 
   "commonSave": "সংরক্ষণ করুন",
   "commonUpdate": "আপডেট করুন",
