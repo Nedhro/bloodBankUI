@@ -114,7 +114,26 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                 <span className="font-weight-bold">{translate("date")}</span> :{" "}
                 {this.formatDate(this.state.currentDateTime)}
               </p>
-              <p>
+              <div className="row">
+                <div className="col-6">
+                  <p className="font-weight-bold">
+                    {translate("bloodBagId")}<span className="font-weight-normal">{" "}:{" "}{modalData.bloodBagId}</span>
+                  </p>
+                  <p className="font-weight-bold">{translate("patient")} <span className="font-weight-normal">{" "}:{" "} {modalData.patient}</span> </p>
+                  
+                </div>
+                <div className="col-6">
+                  <p className="font-weight-bold">
+                    {translate("bloodBagGroup")} <span className="font-weight-normal">{" "}:{" "}
+                      {this.state.bloodBagGroup}</span>
+                  </p>
+                  <p className="font-weight-bold" style={{ marginLeft: "50px" }}>
+                    {translate("patientBloodGroup")}
+                    <span className="font-weight-normal">{" "}:{" "}{modalData.patientBloodGroup}</span>
+                  </p>
+                </div>
+              </div>
+              {/* <p>
                 <span className="font-weight-bold">
                   {translate("bloodBagId")}
                 </span>{" "}
@@ -131,7 +150,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                   {translate("patientBloodGroup")} 
                 </span>:{" "}
                 <span>{modalData.patientBloodGroup}</span>
-              </p>
+              </p> */}
               <p>
                 <span className="font-weight-bold">
                   {translate("crossMatching")}
@@ -240,7 +259,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
               </p>
               <div className="row signature" id="signature">
                 <div className="col-4 mt-5 pt-5"></div>
-                <div className="col-4 mt-5 pt-5 pr-1">
+                <div className="col-4 mt-5 pt-5 p-1">
                   <p>
                     ........................................................
                   </p>
@@ -248,8 +267,8 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                     {translate("MOSignature")}
                   </p>
                 </div>
-                <div className="col-4 mt-5 pt-5 pr-2">
-                  <p>....................................................</p>
+                <div className="col-4 mt-5 pt-5 pl-1" style={{marginLeft:"-10px"}}>
+                  <p>.........................................................</p>
                   <p className="text-dark" style={{ width: "200px" }}>
                     {translate("MTSignature")}
                   </p>
