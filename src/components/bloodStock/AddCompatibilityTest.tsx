@@ -108,9 +108,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     } else {
       this.dataConfig = {
         bloodBagId: this.state.bloodBagId,
-        patient: this.state.patientId
-          ? this.state.patientId
-          : this.state.patientId.value,
+        patient: this.state.patientId.value
+          ? this.state.patientId.value
+          : this.state.patientId,
         patientBloodGroup: this.state.patientBloodGroup,
         bloodGrouping: this.state.bloodGrouping,
         bloodCrossMatching: this.state.bloodCrossMatching,
