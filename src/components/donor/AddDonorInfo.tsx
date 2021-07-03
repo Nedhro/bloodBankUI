@@ -15,9 +15,13 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   dataConfig: any = {};
   questionList: any = [];
   concernList: any = [];
+  concernListToShow: any = [];
+  concernArr: any = [];
+  concernObj: any = {};
   constructor(props: any) {
     super(props);
     this.state = {
+      donorId: "",
       donorName: "",
       typeOfDonor: "",
       donorGuardian: "",
@@ -35,6 +39,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       notification: "",
       selectOptions: [],
       patientId: null,
+      consernSet: [],
       questionList: [],
       showPatient: false,
     };
@@ -77,21 +82,47 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   handleCheckChange = (event: any) => {
     if (event.target.name === "concernName") {
       if (event.target.checked && event.target.id) {
-        const concernSet = {
-          concernName: event.target.value,
-          concernStatus: "Yes",
-        };
-        this.questionList.push(concernSet);
+        if (this.concernList.includes(event.target.value)) {
+          this.concernArr.filter((key: any) => {
+            if (event.target.value === key.concernName) {
+              this.concernObj = {
+                donorConcernId: key.donorConcernId,
+                concernName: key.concernName,
+                concernStatus: "Yes",
+              };
+              return this.concernObj;
+            }
+            return null;
+          });
+        } else {
+          this.concernObj = {
+            concernName: event.target.value,
+            concernStatus: "Yes",
+          };
+        }
+        this.questionList.push(this.concernObj);
       } else {
-        for (let i = this.questionList.length - 1; i >= 0; i--) {
-          if (this.questionList[i].concernName === event.target.value) {
-            this.questionList.splice(i, 1);
+        if (this.concernList.includes(event.target.value)) {
+          this.concernArr.filter((key: any) => {
+            if (event.target.value === key.concernName) {
+              this.concernObj = {
+                donorConcernId: key.donorConcernId,
+                concernName: key.concernName,
+                concernStatus: "No",
+              };
+              return this.concernObj;
+            }
+            return null;
+          });
+          this.questionList.push(this.concernObj);
+        } else {
+          for (let i = this.questionList.length - 1; i >= 0; i--) {
+            if (this.questionList[i].concernName === event.target.value) {
+              this.questionList.splice(i, 1);
+            }
           }
         }
       }
-      // this.setState({
-      //   questionList: this.questionList
-      // });
     }
   };
 
@@ -125,54 +156,54 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem("donorId");
-    if (id) {
-      this.dataConfig = {
-        donorId: id,
-        donorName: this.state.donorName.toUpperCase(),
-        donorAge: this.state.donorAge,
-        typeOfDonor: this.state.typeOfDonor,
-        patient: this.state.patientId?.value
-          ? this.state.patientId.value
-          : this.state.patientId,
-        donorGuardian: this.state.donorGuardian,
-        donorGender: this.state.donorGender,
-        donorMaritalStatus: this.state.donorMaritalStatus,
-        donorProfession: this.state.donorProfession,
-        donorPresentAddress: this.state.donorPresentAddress,
-        donorPermanentAddress: this.state.donorPermanentAddress,
-        donorMobileNo: this.state.donorMobileNo,
-        donorLastDonatedDate: this.state.donorLastDonatedDate,
-        donorLastDonatedPlace: this.state.donorLastDonatedPlace,
-        concernSet: this.questionList,
-      };
-    } else {
-      this.dataConfig = {
-        donorName: this.state.donorName.toUpperCase(),
-        typeOfDonor: this.state.typeOfDonor,
-        patient: this.state?.patientId?.value,
-        donorAge: this.state.donorAge,
-        donorGuardian: this.state.donorGuardian,
-        donorGender: this.state.donorGender,
-        donorMaritalStatus: this.state.donorMaritalStatus,
-        donorProfession: this.state.donorProfession,
-        donorPresentAddress: this.state.donorPresentAddress,
-        donorPermanentAddress: this.state.donorPermanentAddress,
-        donorMobileNo: this.state.donorMobileNo,
-        donorLastDonatedDate: this.state.donorLastDonatedDate,
-        donorLastDonatedPlace: this.state.donorLastDonatedPlace,
-        concernSet: this.questionList,
-      };
-    }
+    this.dataConfig = {
+      donorId: this.state?.donorId,
+      donorName: this.state.donorName.toUpperCase(),
+      donorAge: this.state.donorAge,
+      typeOfDonor: this.state.typeOfDonor,
+      patient: this.state.patientId?.value
+        ? this.state.patientId.value
+        : this.state.patientId,
+      donorGuardian: this.state.donorGuardian,
+      donorGender: this.state.donorGender,
+      donorMaritalStatus: this.state.donorMaritalStatus,
+      donorProfession: this.state.donorProfession,
+      donorPresentAddress: this.state.donorPresentAddress,
+      donorPermanentAddress: this.state.donorPermanentAddress,
+      donorMobileNo: this.state.donorMobileNo,
+      donorLastDonatedDate: this.state.donorLastDonatedDate,
+      donorLastDonatedPlace: this.state.donorLastDonatedPlace,
+      concernSet: this.questionList,
+    };
     console.log(this.dataConfig);
     this.submitDonorInfo(this.dataConfig);
   };
+
+  submitDonorInfo(dataConfig: any) {
+    DonorService.saveDonorInfo(dataConfig).then((res) => {
+      console.log(res);
+      if (res.status === 201) {
+        this.setState({ notification: "Donor Info Added Successfully" });
+        history.push("/donor/list");
+        window.location.reload();
+      } else if (res.status === 202) {
+        this.setState({ notification: "Donor Info Updated Successfully" });
+        history.push("/donor/list");
+        sessionStorage.removeItem("donorId");
+        window.location.reload();
+      } else {
+        this.setState({
+          notification: "Please add valid and non duplicate values",
+        });
+      }
+    });
+  }
 
   getQuestionList() {
     DonorService.getAllQuestionnaire().then((res) => {
       const questionList = res.data;
       const questionArr: any = [];
-      questionList.filter((key: any) => {
+      questionList?.filter((key: any) => {
         let questionObj = {
           id: key.qid,
           value: key.question,
@@ -199,7 +230,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   getPatientList() {
     DonorService.getAllActivePatients().then((res) => {
       const result = res.data;
-      const options = result.map((d: any) => ({
+      const options = result?.map((d: any) => ({
         value: d.identifier,
         label: d.name + " (" + d.identifier + ")",
       }));
@@ -209,68 +240,44 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   getDonorInfoById(id: any) {
     DonorService.getBloodDonorById(id).then((res) => {
-      const donorName = res.data.donorName;
-      const patientId = res?.data?.patient;
-      const typeOfDonor = res.data.typeOfDonor;
-      const donorGuardian = res.data.donorGuardian;
-      const donorProfession = res.data.donorProfession;
-      const donorAge = res.data.donorAge;
-      const donorMobileNo = res.data.donorMobileNo;
-      const donorGender = res.data.donorGender;
-      const donorMaritalStatus = res.data.donorMaritalStatus;
-      const donorPresentAddress = res.data.donorPresentAddress;
-      const donorPermanentAddress = res.data.donorPermanentAddress;
-      const donorLastDonatedDate = this.formatDate(
-        res.data.donorLastDonatedDate
-      );
-      const donorLastDonatedPlace = res.data.donorLastDonatedPlace;
-      const concernSet = res.data.concernSet;
+      const concernSet = res?.data?.concernSet;
       const concern = concernSet.filter((key: any) => {
-        this.concernList.push(key.concernName);
+        let concernObj = {
+          donorConcernId: key?.donorConcernId,
+          concernName: key?.concernName,
+        };
+        this.concernArr.push(concernObj);
+        this.concernList.push(key?.concernName);
+        if (key?.concernStatus === "Yes") {
+          this.concernListToShow.push(key?.concernName);
+        }
         return key;
       });
       console.log(concern);
       this.setState({
-        donorName: donorName,
-        patientId: patientId,
-        typeOfDonor: typeOfDonor,
-        donorGuardian: donorGuardian,
-        donorProfession: donorProfession,
-        donorAge: donorAge,
-        donorMobileNo: donorMobileNo,
-        donorGender: donorGender,
-        donorMaritalStatus: donorMaritalStatus,
-        donorPresentAddress: donorPresentAddress,
-        donorPermanentAddress: donorPermanentAddress,
-        donorLastDonatedDate: donorLastDonatedDate,
-        donorLastDonatedPlace: donorLastDonatedPlace,
+        donorId: res?.data?.donorId,
+        donorName: res?.data?.donorName,
+        patientId: res?.data?.patient,
+        typeOfDonor: res?.data?.typeOfDonor,
+        donorGuardian: res?.data?.donorGuardian,
+        donorProfession: res?.data?.donorProfession,
+        donorAge: res?.data?.donorAge,
+        donorMobileNo: res?.data?.donorMobileNo,
+        donorGender: res?.data?.donorGender,
+        donorMaritalStatus: res?.data?.donorMaritalStatus,
+        donorPresentAddress: res?.data?.donorPresentAddress,
+        donorPermanentAddress: res?.data?.donorPermanentAddress,
+        donorLastDonatedDate: this.formatDate(res?.data?.donorLastDonatedDate),
+        donorLastDonatedPlace: res?.data?.donorLastDonatedPlace,
+        concernSet: res?.data?.concernSet,
       });
-      if (typeOfDonor === "Directed") {
+      if (res?.data?.typeOfDonor === "Directed") {
         this.setState({
           showPatient: true,
         });
       } else {
         this.setState({
           showPatient: false,
-        });
-      }
-    });
-  }
-  submitDonorInfo(dataConfig: any) {
-    DonorService.saveDonorInfo(dataConfig).then((res) => {
-      console.log(res);
-      if (res.status === 201) {
-        this.setState({ notification: "Donor Info Added Successfully" });
-        history.push("/donor/list");
-        window.location.reload();
-      } else if (res.status === 202) {
-        this.setState({ notification: "Donor Info Updated Successfully" });
-        history.push("/donor/list");
-        sessionStorage.removeItem("donorId");
-        window.location.reload();
-      } else {
-        this.setState({
-          notification: "Please add valid and non duplicate values",
         });
       }
     });
@@ -357,13 +364,13 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       </label>
                     </div>
                     <div className="col-8">
-                        <Select
-                          className="text-left"
-                          name="patient"
-                          defaultInputValue={patientId}
-                          onChange={this.handleChange}
-                          options={this.state.selectOptions}
-                        />
+                      <Select
+                        className="text-left"
+                        name="patient"
+                        defaultInputValue={patientId}
+                        onChange={this.handleChange}
+                        options={this.state.selectOptions}
+                      />
                     </div>
                   </div>
                 </div>
@@ -642,7 +649,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                         id={item.id}
                         name="concernName"
                         defaultChecked={
-                          this.concernList?.includes(item.value) === true
+                          this.concernListToShow.includes(item.value) === true
                             ? true
                             : false
                         }
