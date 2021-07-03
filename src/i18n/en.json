@@ -48,11 +48,11 @@
   "addNewQues": "Add Questionnaire",
   "donorQuesList": "Donor Medical Assessment Questionnaire",
 
-  "suitabilityTest": "Donor Physical Suitability Tests",
+  "suitabilityTest": "Donor Selection Tests",
   "donorConsentForm": "Donor Consent Letter",
   "donorConsentNote": "I am willing to donate blood consciously and voluntarily after reading the form. I am giving permission for other necessary tests including AIDS in my blood. I volunteered for the National Blood Transfusion Services' blood donation program after learning all about blood donation. If any complication arises after blood donation, the person or organization in charge of this organization will not be responsible. This blood can be used for any patient at any time in need.",
 
-  "physicalTest": "Physical Suitability Test",
+  "physicalTest": "Donor Selection Test",
   "donorId": "Donor ID",
   "hemoglobin": "Hemoglobin (g/dl)",
   "weight": "Weight (kg)",
@@ -138,21 +138,21 @@
 
   "editDonorPageHeader": "Edit Donor Info",
 
-  "editPhysicalTestHeader": "Edit Physical Suitability Test",
+  "editPhysicalTestHeader": "Edit Donor Selection Test",
 
   "editQuesHeader": "Edit Questionnaire",
 
   "medicalAssessment": "Medical Assessment of Blood Donor",
 
   "patientIdNo": "Patient Id",
-  "physicalTestResult": "Physical Suitability Test Result",
+  "physicalTestResult": "Donor Selection Test Result",
   "selection": "Selection",
   "date": "Date",
   "code": "Code",
   "signatureOfDoctor": "Signature of the Doctor",
   "signatureOfDonor": "Signature of the Blood Donor",
   "MOSignature": "Medical Officer's Signature",
-  "MTSignature": "Lab Incharge/MT Signature",
+  "MTSignature": "Lab In-Charge/MT Signature",
 
   "commonSave": "Save",
   "commonUpdate": "Update",

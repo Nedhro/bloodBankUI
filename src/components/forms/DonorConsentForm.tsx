@@ -15,10 +15,10 @@ class DonorConsentForm extends Component<consentFormProps, any> {
     };
   }
   componentDidMount() {
-    const donorId = sessionStorage.getItem("bloodDonorId");
-    if (donorId) {
-      this.getTestData(donorId);
-      sessionStorage.removeItem("bloodDonorId");
+    const donorPhysicalSuitabilityId = sessionStorage.getItem("donorPhysicalSuitabilityId");
+    if (donorPhysicalSuitabilityId) {
+      this.getTestData(donorPhysicalSuitabilityId);
+      sessionStorage.removeItem("donorPhysicalSuitabilityId");
     }
     console.log(this.state.formData);
   }
@@ -138,8 +138,8 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                   </div>
                 </div>
 
-                <div className="d-flex justify-content-center">
-                  <p style={{ border: "1px solid black", width: '300px' }} className="font-weight-bold mt-3 p-4" >{translate("selection")}{" "}: {" "}  <span className="font-weight-normal" >{
+                <div style={{fontSize: "20px"}} className="d-flex justify-content-center mt-4">
+                  <p style={{ border: "4px solid red", width: '300px', backgroundColor:'#fff3e6' }} className="font-weight-bold mt-3 p-4" >{translate("selection")}{" "}: {" "}  <span className="font-weight-normal" >{
                     item.donorSelection === "Selected" && <span className="text-success font-weight-bold">{translate("selected")}</span> 
                   }</span></p>
                 </div>
@@ -160,7 +160,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
 
             ))}
           </div>
-          <div style={{marginTop:'70px'}} className="formFooter ">
+          <div style={{}} className="formFooter ">
             <h2 className="text-center font-weight-bold">
               {translate("donorConsentForm")}
             </h2>
@@ -168,8 +168,8 @@ class DonorConsentForm extends Component<consentFormProps, any> {
               <p className="p-2">{translate("donorConsentNote")}</p>
             </div>
 
-            <div className="row mt-5">
-              <div className=" col-7 float-left text-left">
+            <div className="row ">
+              <div className=" col-6 float-left text-left">
 
                 {formData.map((item: any, i: any) => (
                  <div>
@@ -178,10 +178,10 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                  </div>
                 ))}
               </div>
-              <div className="col-5 d-flex justify-content-end">
+              <div className="col-6 d-flex justify-content-end">
                 
-                <div className="text-left">
-                  <p className="pt-2 pb-2 mt-2 mb-2 font-weight-bold">
+                <div  className="text-left">
+                  <p  className="pt-2 pb-2 mt-2 mb-2 font-weight-bold">
                     {translate("signatureOfDonor")} :
                     {" "}
                     <span className="font-weight-normal">....................................</span>
