@@ -127,7 +127,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
               variant="info"
               disabled={modalData.donorSelection === "Selected" ? false : true}
               onClick={() => {
-                const donorId = modalData.bloodDonor.donorId;
+                const donorId = modalData?.bloodDonor?.donorId;
                 sessionStorage.setItem("bloodDonorId", donorId);
                 history.push(`/donor/${donorId}/consentForm`);
                 window.location.reload();
