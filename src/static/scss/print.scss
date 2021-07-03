@@ -39,7 +39,17 @@
   #printSectionConsentForm p {
     margin-left: 100px !important;
   }
+  // #printSection #signature{
+  //   visibility: visible;
+  //   white-space: normal;
+  //   margin: 0 !important;
+  //   padding: 0 !important;
+  // }
 }
+// #printSection #signature{
+//   visibility: hidden;
+//   white-space: pre-wrap;
+// }
 p {
   margin-left: 50px !important;
 }
