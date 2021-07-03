@@ -257,7 +257,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                   {message}
                 </span>
               </p>
-              <div className="row signature" id="signature">
+              <div className="row signature d-flex justify-content-end" id="signature">
                 <div className="col-4 mt-5 pt-5"></div>
                 <div className="col-4 mt-5 pt-5 p-1">
                   <p>
@@ -269,7 +269,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                 </div>
                 <div className="col-4 mt-5 pt-5 pl-1" style={{marginLeft:"-10px"}}>
                   <p>.........................................................</p>
-                  <p className="text-dark" style={{ width: "200px" }}>
+                  <p className="text-dark" style={{ width: "220px" }}>
                     {translate("MTSignature")}
                   </p>
                 </div>
