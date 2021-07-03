@@ -21,6 +21,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodBagId: "",
       notification: "",
       allowSave: false,
+      inputReadOnly: true
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -45,18 +46,18 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     if (bloodBagID) {
       sessionStorage.removeItem("bloodGroup");
       sessionStorage.removeItem("bloodDonorId");
-      BloodStockService.getStockByBloodBagId(bloodBagID).then(res=>{
+      BloodStockService.getStockByBloodBagId(bloodBagID).then(res => {
         console.log(res);
-       this.setState({
-        bloodStockTracingId: res.data.bloodStockTracingId,
-        bloodDonorId: res?.data?.bloodDonor?.donorId,
-        bloodStorage: res.data.bloodStorage,
-        sourceOfBlood: res.data.sourceOfBlood,
-        bloodGroup: res.data.bloodGroup,
-        stockStatus: res.data.stockStatus,
-        bloodBagId: res.data.bloodBagId,
-        allowSave: true,
-       })
+        this.setState({
+          bloodStockTracingId: res.data.bloodStockTracingId,
+          bloodDonorId: res?.data?.bloodDonor?.donorId,
+          bloodStorage: res.data.bloodStorage,
+          sourceOfBlood: res.data.sourceOfBlood,
+          bloodGroup: res.data.bloodGroup,
+          stockStatus: res.data.stockStatus,
+          bloodBagId: res.data.bloodBagId,
+          allowSave: true,
+        })
       });
     }
   }
@@ -74,6 +75,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             bloodBagId: "NITOR" + randomBin + "-" + donorId,
             stockStatus: "Available",
             allowSave: true,
+            inputReadOnly: true
           });
         } else {
           alert("Donor Id is not available. Blood Source is not valid");
@@ -88,12 +90,14 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
           bloodBagId: "Cam" + randomstring,
           stockStatus: "Available",
           allowSave: true,
+          inputReadOnly: true
         });
       } else if (event.target.value === "Outsource") {
         this.setState({
-          bloodBagId: "Out" + randomstring,
+          bloodBagId: "",
           stockStatus: "Available",
           allowSave: true,
+          inputReadOnly: false
         });
       } else {
         this.setState({
@@ -297,7 +301,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   id="bloodBagId"
                   value={this.state.bloodBagId}
                   required
-                  readOnly
+                  readOnly={this.state.inputReadOnly}
                   onChange={this.changeHandler}
                 />
               </div>
