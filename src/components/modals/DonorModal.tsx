@@ -117,7 +117,7 @@ class DonorModal extends React.Component<TableModalProps, any> {
             <p><span className="font-weight-bold">{translate("donorLastDonatedDate")}</span> : {this.formatDate(modalData.lastDonatedDate)}  </p>
             <p><span className="font-weight-bold">{translate("donorLastDonatedPlace")}</span> : {modalData.lastDonatedPlace}</p>
 
-            <div className="container px-5">
+            <div className=" px-5">
               <h3 className="text-dark font-weight-bold">{translate("donorQues")}:</h3>
               <div className="row">
                 {modalData.concernSet.map((k: any, i: any) => (
