@@ -34,8 +34,8 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
       });
     });
     if (
-      this.state.modalData.bloodGrouping === "NonCompatible" ||
-      this.state.modalData.bloodCrossMatching === "NonCompatible" ||
+      this.state.modalData.bloodGrouping === "Incompatible" ||
+      this.state.modalData.bloodCrossMatching === "Incompatible" ||
       this.state.modalData.bloodHivTest === "Reactive" ||
       this.state.modalData.bloodHbvTest === "Reactive" ||
       this.state.modalData.bloodHcvTest === "Reactive" ||
@@ -176,7 +176,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                 :{" "}
                 <span
                   className={
-                    modalData.bloodCrossMatching === "NonCompatible"
+                    modalData.bloodCrossMatching === "Incompatible"
                       ? "text-danger"
                       : "text-success"
                   }

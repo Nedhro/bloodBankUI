@@ -27,7 +27,7 @@
   "welcome": "Welcome",
 
   "donorAssessment":"Donor Medical Assessment",
-  "donorInformation":"Donor Informations, Donor Suitability Tests, Questionnaires",
+  "donorInformation":"Donor Informations, Donor Selection Tests, Questionnaires",
   "donorList":"Donor List",
 
   "bloodManagement":"Blood Stock Management",
@@ -107,7 +107,7 @@
   "bloodBagGroup": "Blood Group",
   "bloodScreening": "Blood Screening",
   "compatible": "Compatible",
-  "nonCompatible": "Non-Compatible",
+  "incompatible": "Incompatible",
   "bloodGrouping": "Blood Grouping",
   "bloodCrossMatching": "Cross Matching",
   "bloodHivTest": "HIV",

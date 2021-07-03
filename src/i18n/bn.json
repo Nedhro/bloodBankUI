@@ -107,7 +107,7 @@
   "bloodBagGroup": "রক্তের গ্রুপ",
   "bloodScreening": "রক্তের স্ক্রিনিং",
   "compatible": "উপযুক্ত",
-  "nonCompatible": "অনুপযুক্ত",
+  "incompatible": "অনুপযুক্ত",
   "bloodGrouping": "রক্তের গ্রুপিং",
   "bloodCrossMatching": "রক্তের ক্রস ম্যাচিং",
   "bloodHivTest": "এইচ আই ভি",

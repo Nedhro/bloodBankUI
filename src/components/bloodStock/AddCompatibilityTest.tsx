@@ -35,7 +35,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   componentDidMount() {
     this.getPatientList();
-
+    
     const donorId = sessionStorage.getItem("donorId");
     if (donorId) {
       DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
@@ -88,7 +88,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         });
       } else {
         this.setState({
-          bloodGrouping: "NonCompatible",
+          bloodGrouping: "Incompatible",
         });
       }
     }
@@ -96,21 +96,21 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    this.dataConfig = {
-      bloodCompatibilityId: this.state.bloodCompatibilityId,
-      bloodBagId: this.state.bloodBagId,
-      patient: this.state.patientId.value
-        ? this.state.patientId.value
-        : this.state.patientId,
-      patientBloodGroup: this.state.patientBloodGroup,
-      bloodGrouping: this.state.bloodGrouping,
-      bloodCrossMatching: this.state.bloodCrossMatching,
-      bloodHivTest: this.state.bloodHivTest,
-      bloodHbvTest: this.state.bloodHbvTest,
-      bloodHcvTest: this.state.bloodHcvTest,
-      bloodSyphilisTest: this.state.bloodSyphilisTest,
-      bloodMalariaTest: this.state.bloodMalariaTest,
-    };
+      this.dataConfig = {
+        bloodCompatibilityId: this.state.bloodCompatibilityId,
+        bloodBagId: this.state.bloodBagId,
+        patient: this.state.patientId.value
+          ? this.state.patientId.value
+          : this.state.patientId,
+        patientBloodGroup: this.state.patientBloodGroup,
+        bloodGrouping: this.state.bloodGrouping,
+        bloodCrossMatching: this.state.bloodCrossMatching,
+        bloodHivTest: this.state.bloodHivTest,
+        bloodHbvTest: this.state.bloodHbvTest,
+        bloodHcvTest: this.state.bloodHcvTest,
+        bloodSyphilisTest: this.state.bloodSyphilisTest,
+        bloodMalariaTest: this.state.bloodMalariaTest,
+      };
     console.log(this.dataConfig);
     this.saveCompatiabilityTest(this.dataConfig);
     sessionStorage.removeItem("bloodCompatibilityId");
@@ -458,8 +458,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 >
                   <option value="">{translate("commonSelect")}</option>
                   <option value="Compatible">{translate("compatible")}</option>
-                  <option value="NonCompatible">
-                    {translate("nonCompatible")}
+                  <option value="Incompatible">
+                    {translate("incompatible")}
                   </option>
                 </select>
               </div>
