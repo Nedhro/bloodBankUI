@@ -117,19 +117,37 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
               <div className="row">
                 <div className="col-6">
                   <p className="font-weight-bold">
-                    {translate("bloodBagId")}<span className="font-weight-normal">{" "}:{" "}{modalData.bloodBagId}</span>
+                    {translate("bloodBagId")}
+                    <span className="font-weight-normal">
+                      {" "}
+                      : {modalData.bloodBagId}
+                    </span>
                   </p>
-                  <p className="font-weight-bold">{translate("patient")} <span className="font-weight-normal">{" "}:{" "} {modalData.patient}</span> </p>
-                  
+                  <p className="font-weight-bold">
+                    {translate("patient")}{" "}
+                    <span className="font-weight-normal">
+                      {" "}
+                      : {modalData.patient}
+                    </span>{" "}
+                  </p>
                 </div>
                 <div className="col-6">
                   <p className="font-weight-bold">
-                    {translate("bloodBagGroup")} <span className="font-weight-normal">{" "}:{" "}
-                      {this.state.bloodBagGroup}</span>
+                    {translate("bloodBagGroup")}{" "}
+                    <span className="font-weight-normal">
+                      {" "}
+                      : {this.state.bloodBagGroup}
+                    </span>
                   </p>
-                  <p className="font-weight-bold" style={{ marginLeft: "50px" }}>
+                  <p
+                    className="font-weight-bold"
+                    style={{ marginLeft: "50px" }}
+                  >
                     {translate("patientBloodGroup")}
-                    <span className="font-weight-normal">{" "}:{" "}{modalData.patientBloodGroup}</span>
+                    <span className="font-weight-normal">
+                      {" "}
+                      : {modalData.patientBloodGroup}
+                    </span>
                   </p>
                 </div>
               </div>
@@ -257,22 +275,22 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                   {message}
                 </span>
               </p>
-              <div className="row signature d-flex justify-content-end" id="signature">
-                <div className="col-4 mt-5 pt-5"></div>
-                <div className="col-4 mt-5 pt-5 p-1">
-                  <p>
-                    ........................................................
-                  </p>
-                  <p className="text-dark" style={{ width: "200px" }}>
-                    {translate("MOSignature")}
-                  </p>
-                </div>
-                <div className="col-4 mt-5 pt-5 pl-1" style={{marginLeft:"-10px"}}>
-                  <p>.........................................................</p>
-                  <p className="text-dark" style={{ width: "220px" }}>
-                    {translate("MTSignature")}
-                  </p>
-                </div>
+            </div>
+            <div className="row signature d-flex justify-content-end" id="signature">
+              <div className="col-4 mt-5 pt-5"></div>
+              <div className="col-4 mt-5 pt-5 p-1" >
+                <p>
+                  ........................................................
+                </p>
+                <p className="text-dark" style={{ width: "200px" }}>
+                  {translate("MOSignature")}
+                </p>
+              </div>
+              <div className="col-4 mt-5 pt-5 pl-1" style={{ marginLeft: "-10px" }}>
+                <p>.........................................................</p>
+                <p className="text-dark" style={{ width: "220px" }}>
+                  {translate("MTSignature")}
+                </p>
               </div>
             </div>
           </Modal.Body>
@@ -286,8 +304,8 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
             <Button
               variant="info"
               onClick={() => {
-                const bloodBagID= modalData.bloodBagId;
-                sessionStorage.setItem("bloodBagID",bloodBagID);
+                const bloodBagID = modalData.bloodBagId;
+                sessionStorage.setItem("bloodBagID", bloodBagID);
                 history.push(`/blood/stock/add`);
                 window.location.reload();
               }}
