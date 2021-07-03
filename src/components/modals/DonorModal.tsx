@@ -121,7 +121,7 @@ class DonorModal extends React.Component<TableModalProps, any> {
               <h3 className="text-dark font-weight-bold">{translate("donorQues")}:</h3>
               <div className="row">
                 {modalData.concernSet.map((k: any, i: any) => (
-                  <div className="col-4 form-inline" key={i}>
+                  <div className="col-6 form-inline pb-3" key={i}>
                     <li >{k.concernName} ({k.concernStatus})</li>
                   </div>
                   
