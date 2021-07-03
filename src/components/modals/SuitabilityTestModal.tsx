@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
+import FormBanner from "../../static/images/hospitalBanner.png";
 
 export interface TableModalProps {
   data: Object;
@@ -16,6 +17,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
     this.state = {
       title: "",
       modalData: {},
+      currentDateTime: Date().toLocaleString(),
     };
   }
 
@@ -30,6 +32,18 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
     state.modalData = props.data;
     console.log(state);
     return state;
+  }
+  formatDate(data: any) {
+    console.log(data);
+    if (data === -21600000 || data === null) {
+      return null;
+    }
+    let date = new Date(data);
+    let year = date.getFullYear().toString();
+    let month = (date.getMonth() + 101).toString().substring(1);
+    let day = (date.getDate() + 100).toString().substring(1);
+    let formattedDate = day + "-" + month + "-" + year;
+    return formattedDate;
   }
 
   render() {
@@ -49,12 +63,23 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4>
+            <div className="formBanner">
+              <img
+                src={FormBanner}
+                width="100%"
+                height="200px"
+                className="Form-Banner header"
+                alt="Banner"
+              />
+            </div>
+            <h4 className="text-center mb-3">
               <span className="font-weight-bold">
-                {translate("testResult")} ({translate("id")}
+                {translate("physicalTestResult")} ({translate("id")}
               </span>
               : {title})
             </h4>
+            <p><span className="font-weight-bold">{translate("date")}</span> :{" "}
+              {this.formatDate(this.state.currentDateTime)} </p>
             <p>
               <span className="font-weight-bold">{translate("donorId")}</span> :{" "}
               {modalData.bloodDonor.donorId}
@@ -107,7 +132,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
               {modalData.donorBloodGroupRhesus}
             </p>
             {/* <p><span className="font-weight-bold">{translate("permission")}</span> : {modalData.donorSelection}</p> */}
-            <p>
+            {/* <p>
               <span className="font-weight-bold">
                 {translate("permission")}
               </span>{" "}
@@ -117,7 +142,34 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
               ) : (
                 <span className="text-danger">{translate("rejected")}</span>
               )}
-            </p>
+            </p> */}
+            <div style={{ fontSize: "18px" }} className="d-flex justify-content-center text-center">
+              <p style={{ border: "4px solid red", width: '300px', backgroundColor: '#fff3e6' }} className="font-weight-bold mt-3 p-4" >{translate("permission")}{" "}: {" "}  <span className="font-weight-normal" >
+                {modalData.donorSelection === "Selected" ? (
+                  <span className="text-success font-weight-bold">{translate("selected")}</span>
+                ) : (
+                    <span className="text-danger font-weight-bold">{translate("rejected")}</span>
+                )}
+              </span></p>
+            </div>
+
+            <div className="row signature d-flex justify-content-end" id="signature">
+              <div className="col-4 mt-5 pt-5"></div>
+              <div className="col-4 mt-5 pt-5 p-1" >
+                <p>
+                  ........................................................
+                </p>
+                <p className="text-dark" style={{ width: "200px" }}>
+                  {translate("MOSignature")}
+                </p>
+              </div>
+              <div className="col-4 mt-5 pt-5 pl-1" style={{ marginLeft: "-10px" }}>
+                <p>.........................................................</p>
+                <p className="text-dark" style={{ width: "220px" }}>
+                  {translate("MTSignature")}
+                </p>
+              </div>
+            </div>
           </Modal.Body>
         </div>
 

@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
+import FormBanner from "../../static/images/hospitalBanner.png";
 
 export interface TableModalProps {
   data: Object;
@@ -17,6 +18,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
     this.state = {
       title: "",
       modalData: {},
+      currentDateTime: Date().toLocaleString(),
     };
   }
 
@@ -51,10 +53,23 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
       }
     });
   }
+  formatDate(data: any) {
+    console.log(data);
+    if (data === -21600000) {
+      return null;
+    }
+    let date = new Date(data);
+    let year = date.getFullYear().toString();
+    let month = (date.getMonth() + 101).toString().substring(1);
+    let day = (date.getDate() + 100).toString().substring(1);
+    let formattedDate = day + "-" + month + "-" + year;
+    return formattedDate;
+  }
 
   render() {
     const { title, modalData } = this.state;
     const { translate } = this.props;
+    console.log(this.props.data);
     return (
       <div>
         <Modal.Header closeButton>
@@ -69,9 +84,20 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4 className="font-weight-bold">
-              {translate("bloodSample")} ({modalData.bloodBagId})
+            <div className="formBanner">
+              <img
+                src={FormBanner}
+                width="100%"
+                height="200px"
+                className="Form-Banner header"
+                alt="Banner"
+              />
+            </div>
+            <h4 className="font-weight-bold text-center pb-4">
+              {translate("collection")} ({translate("bagID")}: {modalData.bloodBagId})
             </h4>
+            <p><span className="font-weight-bold">{translate("date")}</span> :{" "}
+              {this.formatDate(this.state.currentDateTime)} </p>
             <p>
               <span className="font-weight-bold">
                 {translate("bloodDonorId")}
@@ -132,6 +158,23 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
                 {modalData.bloodStorage || "Not in Stock"}
               </span>
             </p>
+            <div className="row signature d-flex justify-content-end" id="signature">
+              <div className="col-4 mt-5 pt-5"></div>
+              <div className="col-4 mt-5 pt-5 p-1" >
+                <p>
+                  ........................................................
+                </p>
+                <p className="text-dark" style={{ width: "200px" }}>
+                  {translate("MOSignature")}
+                </p>
+              </div>
+              <div className="col-4 mt-5 pt-5 pl-1" style={{ marginLeft: "-10px" }}>
+                <p>.........................................................</p>
+                <p className="text-dark" style={{ width: "220px" }}>
+                  {translate("MTSignature")}
+                </p>
+              </div>
+            </div>
           </Modal.Body>
         </div>
 
