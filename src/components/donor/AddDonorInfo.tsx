@@ -219,6 +219,9 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   }
 
   formatDate(data: any) {
+    if(data === -21600000 || data === null){
+      return "00000000";
+    }
     let date = new Date(data);
     let year = date.getFullYear().toString();
     let month = (date.getMonth() + 101).toString().substring(1);
@@ -240,6 +243,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   getDonorInfoById(id: any) {
     DonorService.getBloodDonorById(id).then((res) => {
+      console.log(res);
       const concernSet = res?.data?.concernSet;
       const concern = concernSet.filter((key: any) => {
         let concernObj = {
