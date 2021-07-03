@@ -154,6 +154,10 @@
   "MOSignature": "মেডিকেল অফিসারের স্বাক্ষর",
   "MTSignature": "ল্যাব ইনচার্জ/এম.টি. স্বাক্ষর",
 
+  "donorInfoHeading": "রক্তদাতার তথ্য",
+  "collection": "ব্লাড কালেকশন",
+  "bagID": "ব্যাগ আইডি",
+
   "commonSave": "সংরক্ষণ করুন",
   "commonUpdate": "আপডেট করুন",
   "commonReset": "নতুন করে বসান",

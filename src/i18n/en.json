@@ -48,7 +48,7 @@
   "addNewQues": "Add Questionnaire",
   "donorQuesList": "Donor Medical Assessment Questionnaire",
 
-  "suitabilityTest": "Donor Selection Tests",
+  "suitabilityTest": "Donor Selection Test",
   "donorConsentForm": "Donor Consent Letter",
   "donorConsentNote": "I am willing to donate blood consciously and voluntarily after reading the form. I am giving permission for other necessary tests including AIDS in my blood. I volunteered for the National Blood Transfusion Services' blood donation program after learning all about blood donation. If any complication arises after blood donation, the person or organization in charge of this organization will not be responsible. This blood can be used for any patient at any time in need.",
 
@@ -153,6 +153,10 @@
   "signatureOfDonor": "Signature of the Blood Donor",
   "MOSignature": "Medical Officer's Signature",
   "MTSignature": "Lab In-Charge/MT Signature",
+
+  "donorInfoHeading": "Donor Information",
+  "collection": "Blood Collection",
+  "bagID": "Bag ID",
 
   "commonSave": "Save",
   "commonUpdate": "Update",
