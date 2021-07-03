@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
+import FormBanner from "../../static/images/hospitalBanner.png";
 
 
 export interface TableModalProps {
@@ -16,7 +17,8 @@ class DonorModal extends React.Component<TableModalProps, any> {
     this.state = {
       title: "",
       modalData: {},
-      donorId: ''
+      donorId: '',
+      currentDateTime: Date().toLocaleString(),
     };
   }
 
@@ -42,7 +44,7 @@ class DonorModal extends React.Component<TableModalProps, any> {
     let year = date.getFullYear().toString();
     let month = (date.getMonth() + 101).toString().substring(1);
     let day = (date.getDate() + 100).toString().substring(1);
-    let formattedDate = year + "-" + month + "-" + day;
+    let formattedDate = day + "-" + month + "-" +  year;
     return formattedDate;
   }
 
@@ -64,24 +66,86 @@ class DonorModal extends React.Component<TableModalProps, any> {
         >
           <div className="page-break" />
           <Modal.Body>
-            <h4><span className="font-weight-bold">{translate("donorId")}</span> : {donorId}</h4>
-            <p><span className="font-weight-bold">{translate("name")}</span>  : {modalData.name} </p>
+            <div className="formBanner">
+              <img
+                src={FormBanner}
+                width="100%"
+                height="200px"
+                className="Form-Banner header"
+                alt="Banner"
+              />
+            </div>
+            <h4 className="text-center"><span className="font-weight-bold">{translate("donorInfoHeading")}
+            </span> ({translate("id")}: {donorId}) </h4>
+            <p><span className="font-weight-bold">{translate("date")}</span> :{" "}
+              {this.formatDate(this.state.currentDateTime)} </p>
+            
+            <div className="row">
+              <div className="col-6">
+                <p><span className="font-weight-bold">{translate("name")}</span>  : {modalData.name} </p>
+                <p className="font-weight-bold">
+                  {translate("donorGender")}<span className="font-weight-normal">{" "}:{" "}{modalData.gender}</span>
+                </p>
+
+                <p className="font-weight-bold">{translate("typeOfDonor")} <span className="font-weight-normal">{" "}:{" "} {modalData.typeOfDonor}</span>
+                </p>
+
+                
+              </div>
+              <div className="col-6">
+                <p className="font-weight-bold">
+                  {translate("donorAge")}<span className="font-weight-normal">{" "}:{" "}{modalData.age}</span>
+                </p>
+
+                <p className="font-weight-bold">{translate("patient")} <span className="font-weight-normal">{" "}:{" "} {modalData.patient}</span>
+                </p>
+
+                <p className="font-weight-bold">{translate("donorProfession")} <span className="font-weight-normal">{" "}:{" "} {modalData.profession}</span>
+                </p>
+              </div>
+            </div>
+            <p className="font-weight-bold">{translate("donorMobileNo")} <span className="font-weight-normal">{" "}:{" "} {modalData.mobile}</span>
+            </p>
             <p><span className="font-weight-bold">{translate("donorGuardian")}</span> : {modalData.guardian}</p>
-            <p><span className="font-weight-bold">{translate("donorGender")}</span> : {modalData.gender} &nbsp; &nbsp; <span className="font-weight-bold">{translate("donorAge")}</span> : {modalData.age} &nbsp; &nbsp; <span className="font-weight-bold">{translate("donorProfession")}</span> : {modalData.profession}</p>
+            {/* <p><span className="font-weight-bold">{translate("donorGender")}</span> : {modalData.gender} &nbsp; &nbsp; <span className="font-weight-bold">{translate("donorAge")}</span> : {modalData.age} </p>
             <p><span className="font-weight-bold">{translate("typeOfDonor")}</span>  : {modalData.typeOfDonor} &nbsp; &nbsp;<span className="font-weight-bold">{translate("patient")}</span>  : {modalData.patient}</p>
-            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData.mobile} </p>
+            <p><span className="font-weight-bold">{translate("donorMobileNo")}</span> : {modalData.mobile} &nbsp; &nbsp; <span className="font-weight-bold">{translate("donorProfession")}</span> : {modalData.profession}</p> */}
+
             <p><span className="font-weight-bold">{translate("donorMaritalStatus")}</span> : {modalData.maritalStatus}</p>  
             <p><span className="font-weight-bold">{translate("donorPresentAddress")}</span> : {modalData.presentAddress}</p>
             <p><span className="font-weight-bold">{translate("donorPermanentAddress")}</span> : {modalData.permanentAddress}</p>
             <p><span className="font-weight-bold">{translate("donorLastDonatedDate")}</span> : {this.formatDate(modalData.lastDonatedDate)}  </p>
             <p><span className="font-weight-bold">{translate("donorLastDonatedPlace")}</span> : {modalData.lastDonatedPlace}</p>
 
-            <h3 className="text-info font-weight-bold">{translate("donorQues")}:</h3>
-            <ol type="a">
-              {modalData.concernSet.map((k: any, i: any)=>(
-                <li key={i}>{k.concernName} ({k.concernStatus})</li>
-              ))}
-            </ol>
+            <div className=" px-5">
+              <h3 className="text-dark font-weight-bold">{translate("donorQues")}:</h3>
+              <div className="row">
+                {modalData.concernSet.map((k: any, i: any) => (
+                  <div className="col-6 form-inline pb-3" key={i}>
+                    <li >{k.concernName} ({k.concernStatus})</li>
+                  </div>
+                  
+                ))}
+              </div>
+              
+            </div>
+            <div className="row signature d-flex justify-content-end" id="signature">
+              <div className="col-4 mt-5 pt-5"></div>
+              <div className="col-4 mt-5 pt-5 p-1" >
+                <p>
+                  ........................................................
+                </p>
+                <p className="text-dark" style={{ width: "200px" }}>
+                  {translate("MOSignature")}
+                </p>
+              </div>
+              <div className="col-4 mt-5 pt-5 pl-1" style={{ marginLeft: "-10px" }}>
+                <p>.........................................................</p>
+                <p className="text-dark" style={{ width: "220px" }}>
+                  {translate("MTSignature")}
+                </p>
+              </div>
+            </div>
           </Modal.Body>
         </div>
 

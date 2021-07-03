@@ -130,7 +130,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
     const { notification } = this.state;
     const { translate } = this.props;
     return (
-      <div className="mainlayout m-1 p-1">
+      <div className="container-fluid m-1 p-1">
         {sessionStorage.getItem("donorPhysicalSuitabilityId") ? (
           <>
             {" "}

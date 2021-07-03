@@ -15,12 +15,14 @@ class DonorConsentForm extends Component<consentFormProps, any> {
     };
   }
   componentDidMount() {
-    const donorId = sessionStorage.getItem("bloodDonorId");
-    if (donorId) {
-      this.getTestData(donorId);
+    const donorPhysicalSuitabilityId = sessionStorage.getItem("donorPhysicalSuitabilityId");
+    if (donorPhysicalSuitabilityId) {
+      this.getTestData(donorPhysicalSuitabilityId);
+      sessionStorage.removeItem("donorPhysicalSuitabilityId");
     }
     console.log(this.state.formData);
   }
+  
   formatDate(data: any) {
     console.log(data);
     if(data === -21600000){
@@ -75,27 +77,27 @@ class DonorConsentForm extends Component<consentFormProps, any> {
             <h3 className="text-dark py-3 font-weight-bold text-center">
               {translate("medicalAssessment")}
             </h3>
-            {formData.map((item: any, i: any) => (
+            {formData?.map((item: any, i: any) => (
               <div key={i}>
                 <div className="row form-group">
                   <div className="col-6 text-left">
-                    <p className="font-weight-bold" >{translate("donorName")}: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorName}</span></p>
-                    <p className="font-weight-bold" >{translate("donorGender")}: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorGender}</span></p>
+                    <p className="font-weight-bold" >{translate("donorName")}: {" "} <span className="font-weight-normal" >{item.bloodDonor?.donorName}</span></p>
+                    <p className="font-weight-bold" >{translate("donorGender")}: {" "}  <span className="font-weight-normal" >{item.bloodDonor?.donorGender}</span></p>
 
 
-                    <p className="font-weight-bold" >{translate("donorMobileNo")}: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorMobileNo}</span></p>
-                    <p className="font-weight-bold">{translate("donorGuardian")}: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorGuardian}</span></p>
-                    <p className="font-weight-bold">{translate("donorPresentAddress")}: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorPresentAddress}</span></p>
-                    <p className="font-weight-bold">{translate("donorPermanentAddress")}: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorPermanentAddress}</span></p>
+                    <p className="font-weight-bold" >{translate("donorMobileNo")}: {" "} <span className="font-weight-normal" >{item.bloodDonor?.donorMobileNo}</span></p>
+                    <p className="font-weight-bold">{translate("donorGuardian")}: {" "}  <span className="font-weight-normal" >{item.bloodDonor?.donorGuardian}</span></p>
+                    <p className="font-weight-bold">{translate("donorPresentAddress")}: {" "} <span className="font-weight-normal" >{item.bloodDonor?.donorPresentAddress}</span></p>
+                    <p className="font-weight-bold">{translate("donorPermanentAddress")}: {" "} <span className="font-weight-normal" >{item.bloodDonor?.donorPermanentAddress}</span></p>
                   </div>
 
                   <div className="col-6 text-left">
-                    <p className="font-weight-bold" >{translate("donorAge")}: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorAge}</span></p>
-                    <p className="font-weight-bold" >{translate("donorMaritalStatus")}: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorMaritalStatus}</span></p>
-                    <p className="font-weight-bold" >{translate("donorProfession")}: {" "}  <span className="font-weight-normal" >{item.bloodDonor.donorProfession}</span></p>
-                    <p className="font-weight-bold" >{translate("donorLastDonatedDate")}: {" "} <span className="font-weight-normal" >{this.formatDate(item.bloodDonor.donorLastDonatedDate)}</span></p>
-                    <p className="font-weight-bold" >{translate("donorLastDonatedPlace")}: {" "} <span className="font-weight-normal" >{item.bloodDonor.donorLastDonatedPlace}</span></p>
-                    <p ><span className="font-weight-bold">{translate("typeOfDonor")}: {" "} </span><span className="font-weight-normal" >{item.bloodDonor.typeOfDonor}</span>&nbsp; &nbsp;<span className="font-weight-bold">{translate("patientIdNo")}: {" "}  </span><span className="font-weight-normal" >{item.bloodDonor.patient}</span></p>
+                    <p className="font-weight-bold" >{translate("donorAge")}: {" "} <span className="font-weight-normal" >{item.bloodDonor?.donorAge}</span></p>
+                    <p className="font-weight-bold" >{translate("donorMaritalStatus")}: {" "} <span className="font-weight-normal" >{item.bloodDonor?.donorMaritalStatus}</span></p>
+                    <p className="font-weight-bold" >{translate("donorProfession")}: {" "}  <span className="font-weight-normal" >{item.bloodDonor?.donorProfession}</span></p>
+                    <p className="font-weight-bold" >{translate("donorLastDonatedDate")}: {" "} <span className="font-weight-normal" >{this.formatDate(item.bloodDonor?.donorLastDonatedDate)}</span></p>
+                    <p className="font-weight-bold" >{translate("donorLastDonatedPlace")}: {" "} <span className="font-weight-normal" >{item.bloodDonor?.donorLastDonatedPlace}</span></p>
+                    <p ><span className="font-weight-bold">{translate("typeOfDonor")}: {" "} </span><span className="font-weight-normal" >{item.bloodDonor?.typeOfDonor}</span>&nbsp; &nbsp;<span className="font-weight-bold">{translate("patientIdNo")}: {" "}  </span><span className="font-weight-normal" >{item.bloodDonor?.patient}</span></p>
                   </div>
                   <div >
                     <div >
@@ -111,9 +113,9 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                     <h4 className="mt-1 font-weight-bold text-dark">{translate("questionnaire")} </h4>
                  </div>
                   <div className="row">
-                    {item.bloodDonor.concernSet.map((data: any, j: any) => (
+                    {item.bloodDonor?.concernSet.map((data: any, j: any) => (
                       <div className="col-4 form-inline" key={j}>
-                        <li >{data.concernName}{" "}({data.concernStatus})</li>
+                        <li >{data?.concernName}{" "}({data?.concernStatus})</li>
                       </div>
                     ))}
                   </div>
@@ -122,18 +124,24 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                 <div className="row mt-4">
                   <div className="col-6 text-left ">
                     <h3 className="font-weight-bold text-dark py-3">{translate("physicalTestResult")}</h3>
-                    <p className="font-weight-bold mt-3" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item.donorBloodGroup}</span></p>
-                    <p className="font-weight-bold mt-3" >{translate("bloodPressure")}: {" "}  <span className="font-weight-normal" >{item.donorBloodPressure}</span></p>
-                    <p className="font-weight-bold mt-3" >{translate("hemoglobin")}: {" "}  <span className="font-weight-normal" >{item.donorHemoglobin}</span></p>
-                    <p className="font-weight-bold mt-3" >{translate("pulse")}: {" "}  <span className="font-weight-normal" >{item.donorPulseRate}</span></p>
+                    <p className="font-weight-bold mt-3" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodGroup}</span></p>
+                    <p className="font-weight-bold mt-3" >{translate("bloodPressure")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodPressure}</span></p>
+                    <p className="font-weight-bold mt-3" >{translate("hemoglobin")}: {" "}  <span className="font-weight-normal" >{item?.donorHemoglobin}</span></p>
+                    <p className="font-weight-bold mt-3" >{translate("pulse")}: {" "}  <span className="font-weight-normal" >{item?.donorPulseRate}</span></p>
                   </div>
                   <div className="col-6 text-left ">
                     <br />
-                    <p style={{paddingTop:'60px'}} className="font-weight-bold " >{translate("rh")}: {" "}  <span className="font-weight-normal" >{item.donorBloodGroupRhesus}</span></p>
-                    <p className="font-weight-bold mt-3" >{translate("weight")}: {" "}  <span className="font-weight-normal" >{item.donorWeight}</span></p>
-                    <p className="font-weight-bold mt-3" >{translate("temp")} (<sup>o</sup>{translate("cel")}): {" "}  <span className="font-weight-normal" >{item.donorTemperature}</span></p>
-                    <p className="font-weight-bold mt-3" >{translate("selection")}: {" "}  <span className="font-weight-normal" >{item.donorSelection}</span></p>
+                    <p style={{paddingTop:'60px'}} className="font-weight-bold " >{translate("rh")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodGroupRhesus}</span></p>
+                    <p className="font-weight-bold mt-3" >{translate("weight")}: {" "}  <span className="font-weight-normal" >{item?.donorWeight}</span></p>
+                    <p className="font-weight-bold mt-3" >{translate("temp")} (<sup>o</sup>{translate("cel")}): {" "}  <span className="font-weight-normal" >{item?.donorTemperature}</span></p>
+                  
                   </div>
+                </div>
+
+                <div style={{fontSize: "20px"}} className="d-flex justify-content-center mt-4">
+                  <p style={{ border: "4px solid red", width: '300px', backgroundColor:'#fff3e6' }} className="font-weight-bold mt-3 p-4" >{translate("selection")}{" "}: {" "}  <span className="font-weight-normal" >{
+                    item.donorSelection === "Selected" && <span className="text-success font-weight-bold">{translate("selected")}</span> 
+                  }</span></p>
                 </div>
                 <div className="row mt-3">
                   <div className="col-6 text-left ">
@@ -152,7 +160,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
 
             ))}
           </div>
-          <div style={{marginTop:'70px'}} className="formFooter ">
+          <div style={{}} className="formFooter ">
             <h2 className="text-center font-weight-bold">
               {translate("donorConsentForm")}
             </h2>
@@ -160,20 +168,20 @@ class DonorConsentForm extends Component<consentFormProps, any> {
               <p className="p-2">{translate("donorConsentNote")}</p>
             </div>
 
-            <div className="row mt-5">
-              <div className=" col-7 float-left text-left">
+            <div className="row ">
+              <div className=" col-6 float-left text-left">
 
                 {formData.map((item: any, i: any) => (
                  <div>
-                    <p className="font-weight-bold mt-3 pt-1">{translate("code")}: {" "}  <span className="font-weight-normal" key={i}>{item.bloodDonor.donorId}</span></p>
-                    <p className="font-weight-bold">{translate("name")}: {" "}  <span className="font-weight-normal" key={i}>{item.bloodDonor.donorName}</span></p>
+                    <p className="font-weight-bold mt-3 pt-1">{translate("code")}: {" "}  <span className="font-weight-normal" key={i}>{item.bloodDonor?.donorId}</span></p>
+                    <p className="font-weight-bold">{translate("name")}: {" "}  <span className="font-weight-normal" key={i}>{item.bloodDonor?.donorName}</span></p>
                  </div>
                 ))}
               </div>
-              <div className="col-5 d-flex justify-content-end">
+              <div className="col-6 d-flex justify-content-end">
                 
-                <div className="text-left">
-                  <p className="pt-2 pb-2 mt-2 mb-2 font-weight-bold">
+                <div  className="text-left">
+                  <p  className="pt-2 pb-2 mt-2 mb-2 font-weight-bold">
                     {translate("signatureOfDonor")} :
                     {" "}
                     <span className="font-weight-normal">....................................</span>

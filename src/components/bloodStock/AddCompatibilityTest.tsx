@@ -25,7 +25,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodSyphilisTest: "",
       bloodMalariaTest: "",
       notification: "",
-      patientId: "",
+      patientId: null,
       selectOptions: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -35,23 +35,31 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   componentDidMount() {
     this.getPatientList();
-    const bloodBagId = sessionStorage.getItem("bloodBagId");
+    
     const donorId = sessionStorage.getItem("donorId");
     if (donorId) {
       DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
-        this.setState({ patientId: res?.data?.patient });
+        if (res?.data?.patient) {
+          console.log(res.data.patient);
+          this.setState({ patientId: res.data.patient });
+        }
       });
     }
+
     const id = sessionStorage.getItem("bloodCompatibilityId");
     if (id) {
       this.getCompatibilityTestById(id);
     }
-    BloodStockService.getStockByBloodBagId(bloodBagId).then((res: any) => {
-      this.setState({
-        bloodBagGroup: res.data.bloodGroup,
-        bloodBagId: bloodBagId,
+
+    const bloodBagId = sessionStorage.getItem("bloodBagId");
+    if (bloodBagId) {
+      BloodStockService.getStockByBloodBagId(bloodBagId).then((res: any) => {
+        this.setState({
+          bloodBagGroup: res.data.bloodGroup,
+          bloodBagId: bloodBagId,
+        });
       });
-    });
+    }
   }
 
   getPatientList() {
@@ -65,10 +73,10 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     });
   }
 
-  handleChange = (selectedOption: any) => {
+  handleChange(selectedOption: any) {
     this.setState({ patientId: selectedOption });
     console.log(selectedOption);
-  };
+  }
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -80,7 +88,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         });
       } else {
         this.setState({
-          bloodGrouping: "NonCompatible",
+          bloodGrouping: "Incompatible",
         });
       }
     }
@@ -88,10 +96,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
-    const id = sessionStorage.getItem("bloodCompatibilityId");
-    if (id) {
       this.dataConfig = {
-        bloodCompatibilityId: id,
+        bloodCompatibilityId: this.state.bloodCompatibilityId,
         bloodBagId: this.state.bloodBagId,
         patient: this.state.patientId.value
           ? this.state.patientId.value
@@ -105,22 +111,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         bloodSyphilisTest: this.state.bloodSyphilisTest,
         bloodMalariaTest: this.state.bloodMalariaTest,
       };
-    } else {
-      this.dataConfig = {
-        bloodBagId: this.state.bloodBagId,
-        patient: this.state.patientId.value
-          ? this.state.patientId.value
-          : this.state.patientId,
-        patientBloodGroup: this.state.patientBloodGroup,
-        bloodGrouping: this.state.bloodGrouping,
-        bloodCrossMatching: this.state.bloodCrossMatching,
-        bloodHivTest: this.state.bloodHivTest,
-        bloodHbvTest: this.state.bloodHbvTest,
-        bloodHcvTest: this.state.bloodHcvTest,
-        bloodSyphilisTest: this.state.bloodSyphilisTest,
-        bloodMalariaTest: this.state.bloodMalariaTest,
-      };
-    }
     console.log(this.dataConfig);
     this.saveCompatiabilityTest(this.dataConfig);
     sessionStorage.removeItem("bloodCompatibilityId");
@@ -164,6 +154,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         }
       );
       this.setState({
+        bloodCompatibilityId: res.data.bloodCompatibilityId,
         bloodBagId: res.data.bloodBagId,
         patient: res.data.patient,
         patientBloodGroup: res.data.patientBloodGroup,
@@ -251,15 +242,27 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 </label>
               </div>
               <div className="col-4">
+                {patientId === "" && (
                   <Select
                     className="text-left"
                     name="patient"
-                    defaultInputValue={patientId}
-                    value={patientId}
                     isSearchable={true}
+                    isClearable={true}
+                    value={patientId}
                     onChange={this.handleChange}
                     options={this.state.selectOptions}
                   />
+                )}
+                {patientId !== "" && (
+                  <Select
+                    className="text-left"
+                    name="patient"
+                    isSearchable={true}
+                    defaultInputValue={patientId}
+                    onChange={this.handleChange}
+                    options={this.state.selectOptions}
+                  />
+                )}
               </div>
               <div className="col-4">
                 <div className="row form-group">
@@ -455,8 +458,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 >
                   <option value="">{translate("commonSelect")}</option>
                   <option value="Compatible">{translate("compatible")}</option>
-                  <option value="NonCompatible">
-                    {translate("nonCompatible")}
+                  <option value="Incompatible">
+                    {translate("incompatible")}
                   </option>
                 </select>
               </div>
