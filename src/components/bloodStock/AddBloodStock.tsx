@@ -78,11 +78,13 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             inputReadOnly: true
           });
         } else {
-          alert("Donor Id is not available. Blood Source is not valid");
+          alert("Donor Id is not available. Blood Source is not valid");         
           this.setState({
+            sourceOfBlood: "",
             stockStatus: "NotAvailable",
             bloodBagId: "",
             allowSave: false,
+            inputReadOnly: true
           });
         }
       } else if (event.target.value === "OutdoorCampaign") {

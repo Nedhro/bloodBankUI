@@ -202,7 +202,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
             </Button>
             <Button
               variant="success"
-              disabled={!modalData.bloodStorage ? true : false}
+              disabled={!modalData.bloodStorage || modalData.bloodStorage === "Discard-Fridge"? true : false}
               onClick={()=>{
                 const bloodBagId = modalData.bloodBagId;
                 this.updateBloodStockStatus(bloodBagId);
