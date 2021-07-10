@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import appLogo from "./govtlogo.png";
 import "./App.scss";
 import MainLayout from "./components/layout/MainLayout";
@@ -17,9 +17,16 @@ import BloodStock from "./components/bloodStock/BloodStockList";
 import AddCompatibilityTest from "./components/bloodStock/AddCompatibilityTest";
 import CompatibilityList from "./components/bloodStock/CompatibilityList";
 import DonorConsentForm from "./components/forms/DonorConsentForm";
-
+import Cookies from 'universal-cookie';
 const App: FC = () => {
+  const cookies = new Cookies();
   const { dispatch: { translate } } = useContext(LangContext);
+  const [state] = useState({
+    username: cookies.get('bahmni.user'),
+    sessionId: cookies.get('session_id')
+  });
+  localStorage.setItem('currentUser', state.username);
+  localStorage.setItem('sessionId', state.sessionId);
   return (
     <div className="App">
       <div className="d-flex App-header p-2">
@@ -52,7 +59,7 @@ const App: FC = () => {
             <AddQuestionnaire translate={translate} />
           </Route>
           <Route exact path="/questionnaire/list">
-            <AssessmentQuestionnaire translate={translate}/>
+            <AssessmentQuestionnaire translate={translate} />
           </Route>
           <Route exact path="/questionnaire/:id">
             <AddQuestionnaire translate={translate} />
@@ -83,7 +90,7 @@ const App: FC = () => {
             <AddCompatibilityTest translate={translate} />
           </Route>
           <Route exact path="/blood/compatibility/test/list">
-            <CompatibilityList translate={translate}  />
+            <CompatibilityList translate={translate} />
           </Route>
           <Route exact path="/blood/compatibility/:bloodBagId/test/add">
             <AddCompatibilityTest translate={translate} />
@@ -101,3 +108,4 @@ const App: FC = () => {
 }
 
 export default App;
+
