@@ -23,9 +23,10 @@ const App: FC = () => {
   const { dispatch: { translate } } = useContext(LangContext);
   const [state] = useState({
     username: cookies.get('bahmni.user'),
-    session: cookies.get('session_id')
+    sessionId: cookies.get('session_id')
   });
-  console.log(state);
+  localStorage.setItem('currentUser', state.username);
+  localStorage.setItem('sessionId', state.sessionId);
   return (
     <div className="App">
       <div className="d-flex App-header p-2">
