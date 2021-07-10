@@ -101,18 +101,19 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                       {item?.bloodDonor?.patient && <><span className="font-weight-bold">{translate("patientIdNo")}: {" "}  </span>
                         <span className="font-weight-normal" >{item.bloodDonor?.patient}</span></>}</p>
                   </div>
-                  <div className="container ml-5">
+
+                  {item.bloodDonor.concernSet.length > 0 && <div className="container ml-5">
                     <div className="text-left">
                       <h4 className="mt-1 font-weight-bold text-dark">{translate("questionnaire")} </h4>
                     </div>
                     <div className="row">
                       {item?.bloodDonor?.concernSet.map((data: any, j: any) => (
                         <div className="col-4 form-inline" key={j}>
-                          <li >{data?.concernName}{" "}({data?.concernStatus})</li>
+                          <li >{data?.concernName}{" "}<span className="font-weight-bold">({data?.concernStatus})</span></li>
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </div>}
                 </div>
                 <div className="row">
                   <div className="col-6 text-left">
