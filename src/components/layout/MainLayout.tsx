@@ -31,11 +31,11 @@ class MainLayout extends React.Component<MainLayoutProps, any> {
                 className="card-img-top"
                 alt="logo"
               />
-              <div className="card-body">
-                <h6 className="card-title font-weight-bold text-info">
+              <div className="card-body ">
+                <h6 className="card-title  font-weight-bold text-info">
                   {translate("donorAssessment")}
                 </h6>
-                <p className="card-text">
+                <p style={{position: "relative",right:"25px"}} className="card-text ">
                   <FontAwesomeIcon
                     color="black"
                     size="sm"
@@ -64,7 +64,7 @@ class MainLayout extends React.Component<MainLayoutProps, any> {
                 <h6 className="card-title font-weight-bold text-info">
                   {translate("bloodManagement")}
                 </h6>
-                <p className="card-text">
+                <p style={{ position: "relative", right: "25px" }} className="card-text">
                   <FontAwesomeIcon
                     color="black"
                     size="sm"
