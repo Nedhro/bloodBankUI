@@ -25,6 +25,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
+    this.resetFormFields = this.resetFormFields.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +48,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       sessionStorage.removeItem("bloodGroup");
       sessionStorage.removeItem("bloodDonorId");
       BloodStockService.getStockByBloodBagId(bloodBagID).then(res => {
-        console.log(res);
         this.setState({
           bloodStockTracingId: res.data.bloodStockTracingId,
           bloodDonorId: res?.data?.bloodDonor?.donorId,
@@ -66,55 +66,56 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "sourceOfBlood") {
       const donorId = parseInt(this.state.bloodDonorId);
-      const randomstring = Math.random().toString(10).slice(-4);
-      const randomBin = Math.random().toString(10).slice(-2);
-      console.log(randomstring);
-      if (event.target.value === "NITOR") {
-        if (donorId) {
+      let bloodSource = event.target.value;
+      BloodStockService.getNextBloodBagId(bloodSource).then(res => {
+        const nextBloodBagId = res.data;
+        if (event.target.value === "NITOR") {
+          if (donorId) {
+            this.setState({
+              bloodBagId: nextBloodBagId,
+              stockStatus: "Available",
+              allowSave: true,
+              inputReadOnly: true
+            });
+          } else {
+            alert("Donor Id is not available. Blood Source is not valid");
+            this.setState({
+              sourceOfBlood: "",
+              stockStatus: "NotAvailable",
+              bloodBagId: "",
+              allowSave: false,
+              inputReadOnly: true
+            });
+          }
+        } else if (event.target.value === "OutdoorCampaign") {
           this.setState({
-            bloodBagId: "NITOR" + randomBin + "-" + donorId,
+            bloodBagId: nextBloodBagId,
             stockStatus: "Available",
             allowSave: true,
             inputReadOnly: true
           });
-        } else {
-          alert("Donor Id is not available. Blood Source is not valid");         
+        } else if (event.target.value === "Outsource") {
           this.setState({
-            sourceOfBlood: "",
-            stockStatus: "NotAvailable",
             bloodBagId: "",
+            stockStatus: "Available",
+            allowSave: true,
+            inputReadOnly: false
+          });
+        } else {
+          this.setState({
+            bloodBagId: "",
+            stockStatus: "NotAvailable",
             allowSave: false,
-            inputReadOnly: true
           });
         }
-      } else if (event.target.value === "OutdoorCampaign") {
-        this.setState({
-          bloodBagId: "Cam" + randomstring,
-          stockStatus: "Available",
-          allowSave: true,
-          inputReadOnly: true
-        });
-      } else if (event.target.value === "Outsource") {
-        this.setState({
-          bloodBagId: "",
-          stockStatus: "Available",
-          allowSave: true,
-          inputReadOnly: false
-        });
-      } else {
-        this.setState({
-          bloodBagId: "",
-          stockStatus: "NotAvailable",
-          allowSave: false,
-        });
-      }
+      });
     }
   };
 
   submitHandler = (event: any) => {
     event.preventDefault();
     const id = sessionStorage.getItem("bloodStockTracingId") || this.state.bloodStockTracingId;
-    const donorId = parseInt(this.state.bloodDonorId);
+    const donorId = parseInt(this.state?.bloodDonorId);
     if (id) {
       this.dataConfig = {
         bloodStockTracingId: id,
@@ -152,11 +153,27 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     sessionStorage.removeItem("bloodGroup");
     sessionStorage.removeItem("bloodDonorId");
     sessionStorage.removeItem("bloodBagID");
+    //target value reset
+    event.target.reset();
   };
+
+  resetFormFields = () => {
+    this.setState({
+      bloodStockTracingId: "",
+      bloodDonorId: "",
+      bloodStorage: "",
+      sourceOfBlood: "",
+      bloodGroup: "",
+      stockStatus: "",
+      bloodBagId: "",
+      notification: "",
+      allowSave: false,
+      inputReadOnly: true
+    });
+  }
 
   saveBloodStock(data: any) {
     BloodStockService.saveBloodStock(data).then((res) => {
-      console.log(res);
       if (res.status === 201) {
         this.setState({
           notification: "Blood Stock has been saved successfully",
@@ -175,8 +192,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         });
       }
     });
-    sessionStorage.removeItem("bloodStockTracingId");
-    sessionStorage.removeItem("bloodGroup");
   }
 
   getBloodStockById(id: any) {
@@ -202,22 +217,11 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
-        {sessionStorage.getItem("bloodStockTracingId") ? (
-          <>
-            {" "}
-            <h2 className="text-info text-center">
-              {translate("editBloodHeader")}
-            </h2>
-          </>
-        ) : (
-          <>
-            <h2 className="text-info text-center">
-              {translate("collectBlood")}
-            </h2>
-          </>
-        )}
+        <h2 className="text-info text-center">
+          {sessionStorage.getItem("bloodStockTracingId") ? translate("editBloodHeader") : translate("collectBlood")}
+        </h2>
         <div className="container p-1">
-          <form className="form" onSubmit={this.submitHandler}>
+          <form className="form" onSubmit={this.submitHandler} onReset={this.resetFormFields}>
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodDonorId">
@@ -230,7 +234,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   type="text"
                   name="bloodDonorId"
                   id="bloodDonorId"
-                  value={this.state.bloodDonorId}
+                  value={this.state?.bloodDonorId}
                   readOnly
                   onChange={this.changeHandler}
                 />
@@ -249,7 +253,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   className="form-control"
                   name="bloodGroup"
                   id="bloodGroup"
-                  value={this.state.bloodGroup}
+                  value={this.state.bloodGroup || ""}
                   required
                   onChange={this.changeHandler}
                 >
@@ -272,7 +276,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   <span className="text-danger">*</span>
                 </label>
               </div>
-              <div className="col-8">
+              <div className="col-4">
                 <select
                   className="form-control"
                   name="sourceOfBlood"
@@ -287,8 +291,22 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   <option value="Outsource">Outsource</option>
                 </select>
               </div>
+              <div className="col-4">
+                <input
+                  className="form-control"
+                  type="text"
+                  name="bloodBagId"
+                  id="bloodBagId"
+                  placeholder={translate("bloodBagId")}
+                  value={this.state?.bloodBagId}
+                  required
+                  readOnly={this.state.inputReadOnly}
+                  onChange={this.changeHandler}
+                />
+              </div>
             </div>
-            <div className="row form-group">
+
+            {/* <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodBagId">
                   {translate("bloodBagId")}
@@ -308,6 +326,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                 />
               </div>
             </div>
+             */}
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="stockStatus">

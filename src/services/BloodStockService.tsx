@@ -12,6 +12,9 @@ class BloodStockService {
   getBloodStockById(id: any) {
     return axios.get(urlPrefix + "bloodStockTracing/" + id);
   }
+  getNextBloodBagId(bloodsource: any) {
+    return axios.get(urlPrefix + "bloodStockTracing/nextBloodBagId/" + bloodsource);
+  }
   deleteBloodStock(id: any) {
     return axios.put(urlPrefix + "bloodStockTracing/delete/" + id);
   }
