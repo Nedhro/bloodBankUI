@@ -104,7 +104,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       BloodStockService.deleteCompatibilityTest(id, user).then((res) => {
         if (res.status === 202) {
           toast.success("Blood Compatibility Test has been deleted successfully", 
-          { position: toast.POSITION.BOTTOM_RIGHT });
+          { position: toast.POSITION.BOTTOM_RIGHT, autoClose:5000});
           window.location.reload();
         }
       },
@@ -112,7 +112,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           toast.error("Deletion is not possible", { position: toast.POSITION.BOTTOM_RIGHT });
         });
     } else {
-      toast.error("User doesn't have the privilege to delete", { position: toast.POSITION.BOTTOM_RIGHT });
+      toast.warn("User doesn't have the privilege to delete", { position: toast.POSITION.BOTTOM_RIGHT });
     }
   };
 
