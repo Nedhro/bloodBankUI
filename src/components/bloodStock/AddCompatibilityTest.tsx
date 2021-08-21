@@ -17,7 +17,7 @@ interface CompatibilityProps {
 }
 class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   dataConfig: any = {};
-  currentUser: any = "";
+  currentUser: any;
 
   constructor(props: any) {
     super(props);
@@ -34,8 +34,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodHcvTest: "",
       bloodSyphilisTest: "",
       bloodMalariaTest: "",
-      createdBy: this.currentUser,
-      updatedBy: this.currentUser,
+      createdBy: "",
+      updatedBy: "",
       patientId: null,
       selectOptions: [],
     };
@@ -66,6 +66,13 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     const id = sessionStorage.getItem("bloodCompatibilityId");
     if (id) {
       this.getCompatibilityTestById(id);
+      this.setState({
+        updatedBy: this.currentUser
+      });
+    } else {
+      this.setState({
+        createdBy: this.currentUser
+      });
     }
 
     const bloodBagId = sessionStorage.getItem("bloodBagId");
@@ -111,6 +118,36 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   submitHandler = (event: any) => {
     event.preventDefault();
+    if (this.state.bloodCompatibilityId) {
+      this.dataConfig = {
+        bloodCompatibilityId: this.state.bloodCompatibilityId,
+        bloodBagId: this.state.bloodBagId,
+        patient: this.state.patientId,
+        patientBloodGroup: this.state.patientBloodGroup,
+        bloodGrouping: this.state.bloodGrouping,
+        bloodCrossMatching: this.state.bloodCrossMatching,
+        bloodHivTest: this.state.bloodHivTest,
+        bloodHbvTest: this.state.bloodHbvTest,
+        bloodHcvTest: this.state.bloodHcvTest,
+        bloodSyphilisTest: this.state.bloodSyphilisTest,
+        bloodMalariaTest: this.state.bloodMalariaTest,
+        updatedBy: this.state.updatedBy
+      }
+    } else {
+      this.dataConfig = {
+        bloodBagId: this.state.bloodBagId,
+        patient: this.state.patientId,
+        patientBloodGroup: this.state.patientBloodGroup,
+        bloodGrouping: this.state.bloodGrouping,
+        bloodCrossMatching: this.state.bloodCrossMatching,
+        bloodHivTest: this.state.bloodHivTest,
+        bloodHbvTest: this.state.bloodHbvTest,
+        bloodHcvTest: this.state.bloodHcvTest,
+        bloodSyphilisTest: this.state.bloodSyphilisTest,
+        bloodMalariaTest: this.state.bloodMalariaTest,
+        createdBy: this.state.createdBy
+      }
+    }
     this.dataConfig = {
       bloodCompatibilityId: this.state.bloodCompatibilityId,
       bloodBagId: this.state.bloodBagId,
@@ -126,6 +163,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       createdBy: this.state.createdBy,
       updatedBy: this.state.updatedBy
     };
+    console.log(this.dataConfig);
     this.saveCompatiabilityTest(this.dataConfig);
     sessionStorage.removeItem("bloodCompatibilityId");
     sessionStorage.removeItem("bloodBagId");
@@ -133,19 +171,19 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   };
 
   saveCompatiabilityTest(data: any) {
-      BloodStockService.saveCompatibilityTest(data).then((res) => {
-        if (res.status === 201) {
-          toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-          history.push("/blood/compatibility/test/list");
-          window.location.reload();
-        } else if (res.status === 202) {
-          toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-          history.push("/blood/compatibility/test/list");
-          window.location.reload();
-        } else {
-          toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
-        }
-      });
+    BloodStockService.saveCompatibilityTest(data).then((res) => {
+      if (res.status === 201) {
+        toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+        history.push("/blood/compatibility/test/list");
+        window.location.reload();
+      } else if (res.status === 202) {
+        toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+        history.push("/blood/compatibility/test/list");
+        window.location.reload();
+      } else {
+        toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
+      }
+    });
   }
 
   getCompatibilityTestById(id: any) {
