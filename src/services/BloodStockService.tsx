@@ -29,8 +29,8 @@ class BloodStockService {
   getCompatibilityTestById(id: any) {
     return axios.get(urlPrefix + "bloodCompatibilityTest/" + id);
   }
-  deleteCompatibilityTest(id: any) {
-    return axios.put(urlPrefix + "bloodCompatibilityTest/delete/" + id);
+  deleteCompatibilityTest(id: any, user: any) {
+    return axios.put(urlPrefix + "bloodCompatibilityTest/delete/" + id + "/by/" + user);
   }
   updateStockStatus(bloodBagId: any) {
     return axios.put(
