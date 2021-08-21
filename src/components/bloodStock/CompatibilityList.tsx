@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticationService } from "../../services/AuthenticationService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -98,15 +99,21 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
   };
 
   deleteComtibilityTest(id: any) {
-    BloodStockService.deleteCompatibilityTest(id).then((res) => {
-      if (res.status === 202) {
-        toast.success("Blood Compatibility Test has been deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        window.location.reload();
-      }
-    },
-      (err) => {
-        toast.error("User doesn't have the privilege to delete", { position: toast.POSITION.BOTTOM_RIGHT });
-      });
+    const user = authenticationService.currentUserValue;
+    if (user !== null || user !== undefined) {
+      BloodStockService.deleteCompatibilityTest(id, user).then((res) => {
+        if (res.status === 202) {
+          toast.success("Blood Compatibility Test has been deleted successfully", 
+          { position: toast.POSITION.BOTTOM_RIGHT });
+          window.location.reload();
+        }
+      },
+        (err) => {
+          toast.error("Deletion is not possible", { position: toast.POSITION.BOTTOM_RIGHT });
+        });
+    } else {
+      toast.error("User doesn't have the privilege to delete", { position: toast.POSITION.BOTTOM_RIGHT });
+    }
   };
 
   closeModal = () => {
