@@ -1,14 +1,24 @@
 import React from "react";
 import Select from "react-select";
+import { authenticationService } from "../../services/AuthenticationService";
 import BloodStockService from "../../services/BloodStockService";
 import DonorService from "../../services/DonorService";
 import { history } from "../custom/history";
+// Importing toastify module
+import {toast} from 'react-toastify'; 
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css'; 
+ // toast-configuration method, 
+ // it is compulsory method.
+toast.configure();
 
 interface CompatibilityProps {
   translate: (key: string) => string;
 }
 class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   dataConfig: any = {};
+  currentUser: any = "";
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -24,7 +34,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodHcvTest: "",
       bloodSyphilisTest: "",
       bloodMalariaTest: "",
-      notification: "",
+      createdBy: this.currentUser,
+      updatedBy: this.currentUser,
       patientId: null,
       selectOptions: [],
     };
@@ -35,12 +46,18 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   componentDidMount() {
     this.getPatientList();
+    /*
+    for tracking users who is creating or updating
+    */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
 
     const donorId = sessionStorage.getItem("donorId");
     if (donorId) {
       DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
         if (res?.data?.patient) {
-          console.log(res.data.patient);
           this.setState({ patientId: res.data.patient });
         }
       });
@@ -108,8 +125,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodHcvTest: this.state.bloodHcvTest,
       bloodSyphilisTest: this.state.bloodSyphilisTest,
       bloodMalariaTest: this.state.bloodMalariaTest,
+      createdBy: this.state.createdBy,
+      updatedBy: this.state.updatedBy
     };
-    console.log(this.dataConfig);
     this.saveCompatiabilityTest(this.dataConfig);
     sessionStorage.removeItem("bloodCompatibilityId");
     sessionStorage.removeItem("bloodBagId");
@@ -120,29 +138,21 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     BloodStockService.saveCompatibilityTest(data).then((res) => {
       console.log(res);
       if (res.status === 201) {
-        this.setState({
-          notification: "Blood Compatibility Test has been saved successfully",
-        });
+        toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/compatibility/test/list");
         window.location.reload();
       } else if (res.status === 202) {
-        this.setState({
-          notification:
-            "Blood Compatibility Test has been updated successfully",
-        });
+        toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/compatibility/test/list");
         window.location.reload();
       } else {
-        this.setState({
-          notification: "Please enter valid data",
-        });
+        toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
       }
     });
   }
 
   getCompatibilityTestById(id: any) {
     BloodStockService.getCompatibilityTestById(parseInt(id)).then((res) => {
-      console.log(res);
       BloodStockService.getStockByBloodBagId(res.data.bloodBagId).then(
         (res: any) => {
           this.setState({
@@ -173,7 +183,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   }
   render() {
     const { translate } = this.props;
-    const { notification, patientId } = this.state;
+    const { patientId } = this.state;
     return (
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">
@@ -507,11 +517,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
               </div>
             </div>
           </form>
-          <div className="text-danger">
-            <p className="text-center bg-info font-weight-bold">
-              {notification}
-            </p>
-          </div>
         </div>
       </div>
     );

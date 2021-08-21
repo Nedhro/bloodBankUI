@@ -12,6 +12,15 @@ package-lock.json
 # production
 /build
 
+### VS Code ###
+.vscode/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
 # misc
 .DS_Store
 .env.local

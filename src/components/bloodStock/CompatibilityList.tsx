@@ -6,7 +6,14 @@ import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BloodStockService from "../../services/BloodStockService";
 import CompatiabilityTestModal from "../modals/CompatiabilityTestModal";
+// Importing toastify module
+import { toast } from 'react-toastify';
 
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 interface CompatibilityListProps {
   translate: (key: string) => string;
 }
@@ -17,7 +24,6 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       isLoaded: true,
       error: null,
       items: [],
-      notification: "",
       show: false,
       modalData: "",
       query: "",
@@ -93,15 +99,14 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
 
   deleteComtibilityTest(id: any) {
     BloodStockService.deleteCompatibilityTest(id).then((res) => {
-      console.log(res);
       if (res.status === 202) {
-        this.setState({
-          notification:
-            "Blood Compatibility Test has been deleted successfully",
-        });
+        toast.success("Blood Compatibility Test has been deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         window.location.reload();
       }
-    });
+    },
+      (err) => {
+        toast.error("User doesn't have the privilege to delete", { position: toast.POSITION.BOTTOM_RIGHT });
+      });
   };
 
   closeModal = () => {
@@ -111,7 +116,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
     window.location.reload();
   };
   render() {
-    const { error, isLoaded, items, show, modalData, query, notification } =
+    const { error, isLoaded, items, show, modalData, query } =
       this.state;
     const { translate } = this.props;
     const columns: any = [
@@ -266,11 +271,6 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
                     ""
                   )}
                 </Modal>
-              </div>
-              <div className="text-danger m-1 p-1">
-                <p className="text-center bg-info font-weight-bold">
-                  {notification}
-                </p>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>
