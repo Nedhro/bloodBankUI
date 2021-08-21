@@ -133,7 +133,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   };
 
   saveCompatiabilityTest(data: any) {
-    if (data.createdBy !== "" || data.updatedBy !== "") {
       BloodStockService.saveCompatibilityTest(data).then((res) => {
         if (res.status === 201) {
           toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
@@ -147,8 +146,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
           toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
         }
       });
-    }
-    toast.warn("No Valid user found", { position: toast.POSITION.BOTTOM_RIGHT });
   }
 
   getCompatibilityTestById(id: any) {
