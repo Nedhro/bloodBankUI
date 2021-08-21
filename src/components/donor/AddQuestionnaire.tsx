@@ -1,13 +1,21 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
 import { history } from "../custom/history";
-
+import { authenticationService } from "../../services/AuthenticationService";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 interface QuestionnaireProps {
   translate: (key: string) => string;
 }
 class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
   dataConfig: any = {};
+  currentUser: any = "";
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -18,7 +26,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
       qid: "",
       question: "",
       concernFor: "",
-     });
+    });
   };
 
   submitHandler = (event: any) => {
@@ -29,14 +37,17 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
         qid: id,
         question: this.state.question,
         concernFor: this.state.concernFor,
+        createdBy: this.state.createdBy,
+        updatedBy: this.state.updatedBy
       };
     } else {
       this.dataConfig = {
         question: this.state.question,
         concernFor: this.state.concernFor,
+        createdBy: this.state.createdBy,
+        updatedBy: this.state.updatedBy
       };
     }
-    console.log(this.dataConfig);
     this.submitQuestionnaire(this.dataConfig);
   };
 
@@ -48,7 +59,8 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
       qid: "",
       question: "",
       concernFor: "",
-      notification: "",
+      createdBy: this.currentUser,
+      updatedBy: this.currentUser,
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -56,6 +68,13 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
   }
 
   componentDidMount() {
+    /*
+    for tracking users who is creating or updating
+    */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
     const id = sessionStorage.getItem('quesId');
     this.getQuestionnaireById(id);
   }
@@ -73,30 +92,24 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
 
   submitQuestionnaire(dataConfig: any) {
     DonorService.saveQuestionnaire(dataConfig).then((res) => {
-      console.log(res);
       if (res.status === 201) {
-        this.setState({ notification: "Questionnaire Created Successfully" });
+        toast.success("Questionnaire Created Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/questionnaire/list");
         window.location.reload();
       }
       else if (res.status === 202) {
-        this.setState({
-          notification: "Questionnaire Updated successfully",
-        });
+        toast.success("Questionnaire Updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/questionnaire/list");
         sessionStorage.removeItem('quesId');
         window.location.reload();
       }
-      else{
-        this.setState({
-          notification: "Please add valid and non duplicate question",
-        });
+      else {
+        toast.error("Please add valid and non duplicate question", { position: toast.POSITION.BOTTOM_RIGHT });
       }
     });
   }
 
   render() {
-    const { notification } = this.state;
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
@@ -191,11 +204,6 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
                 </div>
             }
           </form>
-          <div className="text-danger">
-            <p className="text-center bg-info font-weight-bold">
-              {notification}
-            </p>
-          </div>
         </div>
       </div>
     );

@@ -6,7 +6,13 @@ import DonorService from "../../services/DonorService";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 interface DonorMedicalAssessmentProps {
   translate: (key: string) => string;
@@ -18,7 +24,6 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
       isLoaded: true,
       error: null,
       items: [],
-      notification: "",
       show: false,
       modalData: "",
       query: "",
@@ -67,20 +72,6 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
     window.location.reload();
   };
 
- 
-
- /* deleteDonorInfo(id: any) {
-    DonorService.deleteBloodDonor(id).then((res) => {
-      console.log(res);
-      if (res.status === 202) {
-        this.setState({
-          notification: "The Donor Info is deleted successfully",
-        });
-        window.location.reload();
-      }
-    });
-  }*/
-
   search = (rows: any) => {
     const columns = rows[0] && Object.keys(rows[0]);
     return rows?.filter((row: any) =>
@@ -95,7 +86,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
   };
 
   render() {
-    const { error, isLoaded, items, show, modalData, query, notification } =
+    const { error, isLoaded, items, show, modalData, query } =
       this.state;
     const { translate } = this.props;
     const columns = [
@@ -124,7 +115,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
         selector: "patient",
         sortable: true,
       },
-     
+
       {
         name: `${translate("donorPresentAddress")}`,
         selector: "presentAddress",
@@ -158,15 +149,6 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
               </Link>
-              {/* <button
-                className="btn btn-danger btn-sm m-1"
-                onClick={() => {
-                  console.log(record);
-                  this.deleteDonorInfo(record.id);
-                }}
-              >
-                <FontAwesomeIcon size="sm" icon={faTrash} />
-              </button> */}
             </Fragment>
           );
         },
@@ -231,7 +213,6 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
                   responsive
                   noHeader
                   onRowClicked={(dataFinal: any) => {
-                    console.log(dataFinal.uuid);
                     const modalData = dataFinal;
                     this.setState({
                       modalData: modalData,
@@ -252,11 +233,6 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
                     ""
                   )}
                 </Modal>
-              </div>
-              <div className="text-danger m-1 p-1">
-                <p className="text-center bg-info font-weight-bold">
-                  {notification}
-                </p>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>

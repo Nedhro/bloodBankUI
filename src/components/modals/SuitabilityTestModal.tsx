@@ -3,6 +3,13 @@ import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
 import FormBanner from "../../static/images/hospitalBanner.png";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 export interface TableModalProps {
   data: Object;
@@ -21,7 +28,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   printDiv() {
     window.print();
@@ -30,11 +37,9 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
   static getDerivedStateFromProps(props: any, state: any) {
     state.title = props.title;
     state.modalData = props.data;
-    console.log(state);
     return state;
   }
   formatDate(data: any) {
-    console.log(data);
     if (data === -21600000 || data === null) {
       return null;
     }
@@ -148,7 +153,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
                 {modalData.donorSelection === "Selected" ? (
                   <span className="text-success font-weight-bold">{translate("selected")}</span>
                 ) : (
-                    <span className="text-danger font-weight-bold">{translate("rejected")}</span>
+                  <span className="text-danger font-weight-bold">{translate("rejected")}</span>
                 )}
               </span></p>
             </div>
@@ -201,7 +206,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
                   history.push(`/blood/${donorId}/stock/add`);
                   window.location.reload();
                 } else {
-                  alert("Donor is not fit for donating blood");
+                  toast.warn("Donor is not fit for donating blood", { position: toast.POSITION.BOTTOM_RIGHT });
                 }
               }}
             >
