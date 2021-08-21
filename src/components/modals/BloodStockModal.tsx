@@ -192,7 +192,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
                   history.push(`/blood/compatibility/${bloodBagId}/test/add`);
                   window.location.reload();
                 } else {
-                  toast.warn("Blood is not available", { position: toast.POSITION.BOTTOM_RIGHT });
+                  toast.warn("Blood Bag is not available", { position: toast.POSITION.BOTTOM_RIGHT });
                 }
               }}
             >

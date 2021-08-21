@@ -19,6 +19,7 @@ interface CompatibilityListProps {
   translate: (key: string) => string;
 }
 class CompatibilityList extends React.Component<CompatibilityListProps, any> {
+  currentUser: any = "";
   constructor(props: any) {
     super(props);
     this.state = {
@@ -32,6 +33,13 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
   }
 
   componentDidMount() {
+    /*
+    for tracking users who is creating or updating
+    */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
     this.getComtibilityList();
   }
 
@@ -99,17 +107,16 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
   };
 
   deleteComtibilityTest(id: any) {
-    const user = authenticationService.currentUserValue;
-    if (user !== null || user !== undefined) {
-      BloodStockService.deleteCompatibilityTest(id, user).then((res) => {
+    if (this.currentUser !== "undefined" && this.currentUser !== "") {
+      BloodStockService.deleteCompatibilityTest(id, this.currentUser).then((res) => {
         if (res.status === 202) {
-          toast.success("Blood Compatibility Test has been deleted successfully", 
-          { position: toast.POSITION.BOTTOM_RIGHT, autoClose:5000});
+          toast.success("Blood Compatibility Test has been deleted successfully",
+            { position: toast.POSITION.BOTTOM_RIGHT, autoClose: 10000 });
           window.location.reload();
         }
-      },
-        (err) => {
-          toast.error("Deletion is not possible", { position: toast.POSITION.BOTTOM_RIGHT });
+      })
+        .catch((err) => {
+          toast.warn("Deletion is not possible :: " + err.message, { position: toast.POSITION.BOTTOM_RIGHT });
         });
     } else {
       toast.warn("User doesn't have the privilege to delete", { position: toast.POSITION.BOTTOM_RIGHT });
@@ -289,3 +296,4 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
 }
 
 export default CompatibilityList;
+
