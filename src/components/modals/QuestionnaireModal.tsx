@@ -2,7 +2,13 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
 import FormBanner from "../../static/images/hospitalBanner.png";
-
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 export interface TableModalProps {
   data: Object;
@@ -20,7 +26,7 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   printDiv() {
     window.print();
@@ -29,7 +35,6 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
   static getDerivedStateFromProps(props: any, state: any) {
     state.title = props.title;
     state.modalData = props.data;
-    console.log(state);
     return state;
   }
 
@@ -44,7 +49,7 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
           </Modal.Title>
         </Modal.Header>
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>
-        <div className="page-break" />
+          <div className="page-break" />
           <Modal.Body>
             <div className="formBanner">
               <img

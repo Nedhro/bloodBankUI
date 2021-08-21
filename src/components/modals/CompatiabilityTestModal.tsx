@@ -4,6 +4,13 @@ import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
 import FormBanner from "../../static/images/hospitalBanner.png";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 export interface TableModalProps {
   data: Object;
@@ -18,7 +25,6 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
     this.state = {
       title: "",
       modalData: {},
-      notification: "",
       disallowApprove: false,
       message: "",
       bloodBagGroup: "",
@@ -61,12 +67,10 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
   static getDerivedStateFromProps(props: any, state: any) {
     state.title = props.title;
     state.modalData = props.data;
-    console.log(state);
     return state;
   }
 
   formatDate(data: any) {
-    console.log(data);
     if (data === -21600000) {
       return null;
     }
@@ -79,7 +83,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
   }
 
   render() {
-    const { title, modalData, notification, disallowApprove, message } =
+    const { title, modalData, disallowApprove, message } =
       this.state;
     const { translate } = this.props;
     return (
@@ -151,24 +155,6 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                   </p>
                 </div>
               </div>
-              {/* <p>
-                <span className="font-weight-bold">
-                  {translate("bloodBagId")}
-                </span>{" "}
-                : {modalData.bloodBagId} &nbsp; &nbsp;{" "}
-                <span className="font-weight-bold">
-                  {translate("bloodBagGroup")} 
-                </span>:{" "}
-                {this.state.bloodBagGroup}
-              </p>
-              <p>
-                <span className="font-weight-bold">{translate("patient")}</span>{" "}
-                : {modalData.patient}  &nbsp;{" "}
-                <span className="font-weight-bold" style={{marginLeft:"50px"}}>
-                  {translate("patientBloodGroup")} 
-                </span>:{" "}
-                <span>{modalData.patientBloodGroup}</span>
-              </p> */}
               <p>
                 <span className="font-weight-bold">
                   {translate("crossMatching")}
@@ -313,12 +299,6 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
               {translate("stockBlood")}
             </Button>
           </Modal.Footer>
-
-          <div className="text-danger">
-            <p className="text-center bg-info font-weight-bold">
-              {notification}
-            </p>
-          </div>
         </div>
       </div>
     );

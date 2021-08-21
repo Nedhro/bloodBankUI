@@ -4,6 +4,13 @@ import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
 import { history } from "../custom/history";
 import FormBanner from "../../static/images/hospitalBanner.png";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 export interface TableModalProps {
   data: Object;
@@ -22,7 +29,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   printDiv() {
     window.print();
@@ -31,30 +38,22 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
   static getDerivedStateFromProps(props: any, state: any) {
     state.title = props.title;
     state.modalData = props.data;
-    console.log(state);
     return state;
   }
 
   updateBloodStockStatus(bloodBagId: any) {
     BloodStockService.updateStockStatus(bloodBagId).then((res) => {
       if (res.status === 202) {
-        this.setState({
-          notification:
-            "Blood bag has been approved for the patient and made unavailable from the stock",
-        });
+        toast.success("Blood bag has been approved for the patient and made unavailable from the stock", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
         window.location.reload();
       }
       if (res.status === 226) {
-        console.log(res);
-        this.setState({
-          notification: `Blood bag : ${res.data} is not availablle in the stock`,
-        });
+        toast.error(`Blood bag : ${res.data} is not availablle in the stock`, { position: toast.POSITION.BOTTOM_RIGHT });
       }
     });
   }
   formatDate(data: any) {
-    console.log(data);
     if (data === -21600000) {
       return null;
     }
@@ -69,7 +68,6 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
   render() {
     const { title, modalData } = this.state;
     const { translate } = this.props;
-    console.log(this.props.data);
     return (
       <div>
         <Modal.Header closeButton>
@@ -194,7 +192,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
                   history.push(`/blood/compatibility/${bloodBagId}/test/add`);
                   window.location.reload();
                 } else {
-                  alert("Blood is not available");
+                  toast.warn("Blood Bag is not available", { position: toast.POSITION.BOTTOM_RIGHT });
                 }
               }}
             >
@@ -202,8 +200,8 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
             </Button>
             <Button
               variant="success"
-              disabled={!modalData.bloodStorage || modalData.bloodStorage === "Discard-Fridge"? true : false}
-              onClick={()=>{
+              disabled={!modalData.bloodStorage || modalData.bloodStorage === "Discard-Fridge" ? true : false}
+              onClick={() => {
                 const bloodBagId = modalData.bloodBagId;
                 this.updateBloodStockStatus(bloodBagId);
               }}

@@ -5,11 +5,11 @@ import BloodStockService from "../../services/BloodStockService";
 import DonorService from "../../services/DonorService";
 import { history } from "../custom/history";
 // Importing toastify module
-import {toast} from 'react-toastify'; 
+import { toast } from 'react-toastify';
 // Import toastify css file
-import 'react-toastify/dist/ReactToastify.css'; 
- // toast-configuration method, 
- // it is compulsory method.
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
 toast.configure();
 
 interface CompatibilityProps {
@@ -92,14 +92,12 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
   handleChange(selectedOption: any) {
     this.setState({ patientId: selectedOption.value });
-    console.log(selectedOption);
   }
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "patientBloodGroup") {
       if (this.state.bloodBagGroup === event.target.value) {
-        console.log(this.state.bloodBagGroup, event.target.value);
         this.setState({
           bloodGrouping: "Compatible",
         });
@@ -135,20 +133,22 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   };
 
   saveCompatiabilityTest(data: any) {
-    BloodStockService.saveCompatibilityTest(data).then((res) => {
-      console.log(res);
-      if (res.status === 201) {
-        toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        history.push("/blood/compatibility/test/list");
-        window.location.reload();
-      } else if (res.status === 202) {
-        toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        history.push("/blood/compatibility/test/list");
-        window.location.reload();
-      } else {
-        toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
-      }
-    });
+    if (data.createdBy !== "" || data.updatedBy !== "") {
+      BloodStockService.saveCompatibilityTest(data).then((res) => {
+        if (res.status === 201) {
+          toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+          history.push("/blood/compatibility/test/list");
+          window.location.reload();
+        } else if (res.status === 202) {
+          toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+          history.push("/blood/compatibility/test/list");
+          window.location.reload();
+        } else {
+          toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
+        }
+      });
+    }
+    toast.warn("No Valid user found", { position: toast.POSITION.BOTTOM_RIGHT });
   }
 
   getCompatibilityTestById(id: any) {

@@ -6,25 +6,31 @@ import QuestionnaireModal from "../modals/QuestionnaireModal";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 interface AssessmentQuestionnaireProps {
   translate: (key: string) => string;
 }
 class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnaireProps, any> {
-  
-  
+
+
   constructor(props: any) {
     super(props);
     this.state = {
       isLoaded: true,
       error: null,
       items: [],
-      notification: "",
       show: false,
       modalData: "",
       query: "",
     };
-    
+
   }
   componentDidMount() {
     this.getQuestionnaireList();
@@ -32,11 +38,8 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
 
   deleteQuestionnaire(id: any) {
     DonorService.deleteQuestionnaire(id).then((res) => {
-      console.log(res);
       if (res.status === 202) {
-        this.setState({
-          notification: "The Questionnaire is deleted successfully",
-        });
+        toast.success("The Questionnaire is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         window.location.reload();
       }
     });
@@ -83,7 +86,7 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
   };
 
   render() {
-    const { error, isLoaded, items, show, modalData, query, notification } = this.state;
+    const { error, isLoaded, items, show, modalData, query } = this.state;
     const data = this.search(items);
     const { translate } = this.props;
 
@@ -192,7 +195,6 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
                   striped
                   paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
                   onRowClicked={(dataFinal: any) => {
-                    console.log(dataFinal);
                     const modalData = dataFinal;
                     this.setState({
                       modalData: modalData,
@@ -213,11 +215,6 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
                     ""
                   )}
                 </Modal>
-              </div>
-              <div className="text-danger m-1 p-1">
-                <p className="text-center bg-info font-weight-bold">
-                  {notification}
-                </p>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>
