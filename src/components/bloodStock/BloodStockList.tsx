@@ -7,6 +7,14 @@ import BloodStockService from "../../services/BloodStockService";
 import { Modal } from "react-bootstrap";
 import BloodStockModal from "../modals/BloodStockModal";
 import { history } from "../custom/history";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
+
 
 interface BloodStockProps {
   translate: (key: string) => string;
@@ -18,7 +26,6 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       isLoaded: true,
       error: null,
       items: [],
-      notification: "",
       show: false,
       modalData: "",
       query: "",
@@ -36,33 +43,29 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     const bloodBagId = this.state.bloodBagId;
     BloodStockService.getStockByBloodBagId(bloodBagId).then((res) => {
       if (res.data.stockStatus === "Available") {
-        alert("Blood bag is already available in the list");
+        toast.warn("Blood bag is already available in the list", { position: toast.POSITION.BOTTOM_RIGHT });
       } else {
         BloodStockService.updateStockStatus(bloodBagId)
           .then((res) => {
-            console.log(res);
             if (res.status === 202) {
-              this.setState({
-                notification: "Blood bag has been restored",
-              });
+              toast.success("Blood bag has been restored", { position: toast.POSITION.BOTTOM_RIGHT });
               history.push("/blood/stock/list");
               window.location.reload();
             } else {
-              alert("Invalid Input");
+              toast.warn("Invalid Input", { position: toast.POSITION.BOTTOM_RIGHT });
             }
           })
-          .catch((err: any) => console.log(err));
+          .catch((err: any) => {
+            toast.error(err.message, { position: toast.POSITION.BOTTOM_RIGHT });
+          });
       }
     });
   };
 
   deleteBloodStock(id: any) {
     BloodStockService.deleteBloodStock(id).then((res) => {
-      console.log(res);
       if (res.status === 202) {
-        this.setState({
-          notification: "The blood stock has been deleted successfully",
-        });
+        toast.success("The blood stock has been deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         window.location.reload();
       }
     });
@@ -127,7 +130,6 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       show,
       modalData,
       query,
-      notification,
       showReturnField,
     } = this.state;
     const { translate } = this.props;
@@ -290,7 +292,6 @@ class BloodStock extends React.Component<BloodStockProps, any> {
                   responsive
                   noHeader
                   onRowClicked={(dataFinal: any) => {
-                    console.log(dataFinal);
                     const modalData = dataFinal;
                     this.setState({
                       modalData: modalData,
@@ -315,11 +316,6 @@ class BloodStock extends React.Component<BloodStockProps, any> {
                     ""
                   )}
                 </Modal>
-              </div>
-              <div className="text-danger m-1 p-1">
-                <p className="text-center bg-info font-weight-bold">
-                  {notification}
-                </p>
               </div>
               <div className="p-2 m-2" aria-readonly></div>
             </div>

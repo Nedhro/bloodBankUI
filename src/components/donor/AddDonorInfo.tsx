@@ -6,13 +6,21 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../static/scss/donor.scss";
 import { history } from "../custom/history";
 import Select from "react-select";
-
+import { authenticationService } from "../../services/AuthenticationService";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 interface DonorInfoProps {
   translate: (key: string) => string;
 }
 
 class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   dataConfig: any = {};
+  currentUser: any = "";
   questionList: any = [];
   concernList: any = [];
   concernListToShow: any = [];
@@ -36,7 +44,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       donorLastDonatedPlace: "",
       concernName: "",
       concernStatus: "",
-      notification: "",
+      createdBy: this.currentUser,
+      updatedBy: this.currentUser,
       selectOptions: [],
       patientId: null,
       consernSet: [],
@@ -66,11 +75,20 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       donorLastDonatedPlace: "",
       concernName: "",
       concernStatus: "",
+      createdBy: this.currentUser,
+      updatedBy: this.currentUser,
       questionList: [],
     });
   };
 
   componentDidMount() {
+    /*
+   for tracking users who is creating or updating
+   */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
     const id = sessionStorage.getItem("donorId");
     if (id) {
       this.getDonorInfoById(id);
@@ -174,27 +192,25 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       donorLastDonatedDate: this.state.donorLastDonatedDate,
       donorLastDonatedPlace: this.state.donorLastDonatedPlace,
       concernSet: this.questionList,
+      createdBy: this.state.createdBy,
+      updatedBy: this.state.updatedBy
     };
-    console.log(this.dataConfig);
     this.submitDonorInfo(this.dataConfig);
   };
 
   submitDonorInfo(dataConfig: any) {
     DonorService.saveDonorInfo(dataConfig).then((res) => {
-      console.log(res);
       if (res.status === 201) {
-        this.setState({ notification: "Donor Info Added Successfully" });
+        toast.success("Donor Info Added Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
         window.location.reload();
       } else if (res.status === 202) {
-        this.setState({ notification: "Donor Info Updated Successfully" });
+        toast.success("Donor Info Updated Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
         sessionStorage.removeItem("donorId");
         window.location.reload();
       } else {
-        this.setState({
-          notification: "Please add valid and non duplicate values",
-        });
+        toast.error("Please add valid and non duplicate values", { position: toast.POSITION.BOTTOM_RIGHT });
       }
     });
   }
@@ -219,7 +235,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   }
 
   formatDate(data: any) {
-    if(data === -21600000 || data === null){
+    if (data === -21600000 || data === null) {
       return "00000000";
     }
     let date = new Date(data);
@@ -243,7 +259,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   getDonorInfoById(id: any) {
     DonorService.getBloodDonorById(id).then((res) => {
-      console.log(res);
       const concernSet = res?.data?.concernSet;
       const concern = concernSet.filter((key: any) => {
         let concernObj = {
@@ -289,7 +304,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   render() {
     const { translate } = this.props;
-    const { notification, questionList, showPatient, patientId } = this.state;
+    const { questionList, showPatient, patientId } = this.state;
     return (
       <div className="container-fluid">
         <h2 className="text-info text-center">
@@ -712,11 +727,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
               </div>
             )}
           </form>
-          <div className="text-danger m-1 p-1">
-            <p className="text-center bg-info font-weight-bold">
-              {notification}
-            </p>
-          </div>
         </div>
       </div>
     );

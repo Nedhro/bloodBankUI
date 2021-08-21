@@ -1,6 +1,14 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
 import { history } from "../custom/history";
+import { authenticationService } from "../../services/AuthenticationService";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 interface PhysicalSuitabilityProps {
   translate: (key: string) => string;
@@ -10,9 +18,9 @@ class AddPhysicalSuitabilityTest extends React.Component<
   any
 > {
   dataConfig: any = {};
+  currentUser: any = "";
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);
   };
 
   submitHandler = (event: any) => {
@@ -32,6 +40,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
         donorBloodGroup: this.state.donorBloodGroup,
         donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
         donorSelection: this.state.donorSelection,
+        createdBy: this.state.createdBy,
+        updatedBy: this.state.updatedBy
       };
     } else {
       this.dataConfig = {
@@ -46,9 +56,10 @@ class AddPhysicalSuitabilityTest extends React.Component<
         donorBloodGroup: this.state.donorBloodGroup,
         donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
         donorSelection: this.state.donorSelection,
+        createdBy: this.state.createdBy,
+        updatedBy: this.state.updatedBy
       };
     }
-    console.log(this.dataConfig);
     this.submitPhysicalTestInfo(this.dataConfig);
   };
   constructor(props: any) {
@@ -64,7 +75,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
       donorBloodGroupRhesus: "",
       donorSelection: "",
       error: null,
-      notification: "",
+      createdBy: this.currentUser,
+      updatedBy: this.currentUser,
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -72,12 +84,19 @@ class AddPhysicalSuitabilityTest extends React.Component<
   }
 
   componentDidMount() {
+    /*
+   for tracking users who is creating or updating
+   */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
     const id = sessionStorage.getItem("donorPhysicalSuitabilityId");
     const donorId = sessionStorage.getItem("donorId");
     if (id) {
       this.getPhysicalTestInfoById(id);
     }
-    if(donorId){
+    if (donorId) {
       this.setState({
         bloodDonorId: donorId
       })
@@ -85,7 +104,6 @@ class AddPhysicalSuitabilityTest extends React.Component<
   }
   getPhysicalTestInfoById(id: any) {
     DonorService.getPhysicalTestInfoById(parseInt(id)).then((res) => {
-      console.log(res);
       this.setState({
         bloodDonorId: res.data.bloodDonor.donorId,
         donorHemoglobin: res.data.donorHemoglobin,
@@ -102,32 +120,24 @@ class AddPhysicalSuitabilityTest extends React.Component<
 
   submitPhysicalTestInfo(dataConfig: any) {
     DonorService.savePhysicalSuitability(dataConfig).then((res) => {
-      console.log(res);
       if (res.status === 201) {
-        this.setState({
-          notification: "Physical Suitability Test is added successfully",
-        });
+        toast.success("Physical Suitability Test is added successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         sessionStorage.removeItem("donorId");
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
       } else if (res.status === 202) {
-        this.setState({
-          notification: "Physical Suitability Test is Updated successfully",
-        });
+        toast.success("Physical Suitability Test is Updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         sessionStorage.removeItem("bloodId");
         sessionStorage.removeItem("donorPhysicalSuitabilityId");
         history.push("/donorPhysicalSuitability/test/list");
         window.location.reload();
       } else {
-        this.setState({
-          notification: "Please add valid and non duplicate values",
-        });
+        toast.error("Please add valid and non duplicate values", { position: toast.POSITION.BOTTOM_RIGHT });
       }
     });
   }
 
   render() {
-    const { notification } = this.state;
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
@@ -389,11 +399,6 @@ class AddPhysicalSuitabilityTest extends React.Component<
               </div>
             )}
           </form>
-          <div className="text-danger m-1 p-1">
-            <p className="text-center bg-info font-weight-bold">
-              {notification}
-            </p>
-          </div>
         </div>
       </div>
     );

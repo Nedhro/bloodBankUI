@@ -1,6 +1,14 @@
 import React from "react";
 import BloodStockService from "../../services/BloodStockService";
 import { history } from "../custom/history";
+import { authenticationService } from "../../services/AuthenticationService";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
 
 interface BloodStockProps {
   translate: (key: string) => string;
@@ -8,6 +16,7 @@ interface BloodStockProps {
 
 class AddBloodStock extends React.Component<BloodStockProps, any> {
   dataConfig: any = {};
+  currentUser: any = "";
 
   constructor(props: any) {
     super(props);
@@ -19,8 +28,9 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodGroup: "",
       stockStatus: "",
       bloodBagId: "",
-      notification: "",
       allowSave: false,
+      createdBy: this.currentUser,
+      updatedBy: this.currentUser,
       inputReadOnly: true
     };
     this.submitHandler = this.submitHandler.bind(this);
@@ -29,6 +39,13 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
   }
 
   componentDidMount() {
+    /*
+    for tracking users who is creating or updating
+    */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
     const id = sessionStorage.getItem("bloodStockTracingId");
     const bloodGroup = sessionStorage.getItem("bloodGroup");
     const donorId = sessionStorage.getItem("bloodDonorId");
@@ -78,7 +95,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
               inputReadOnly: true
             });
           } else {
-            alert("Donor Id is not available. Blood Source is not valid");
+            toast.warn("Donor Id is not available. Blood Source is not valid", { position: toast.POSITION.BOTTOM_RIGHT });
             this.setState({
               sourceOfBlood: "",
               stockStatus: "NotAvailable",
@@ -127,6 +144,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
+        createdBy: this.state.createdBy,
+        updatedBy: this.state.updatedBy
       };
     } else if (donorId) {
       this.dataConfig = {
@@ -138,6 +157,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
+        createdBy: this.state.createdBy,
+        updatedBy: this.state.updatedBy
       };
     } else {
       this.dataConfig = {
@@ -146,6 +167,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
+        createdBy: this.state.createdBy,
+        updatedBy: this.state.updatedBy
       };
     }
     this.saveBloodStock(this.dataConfig);
@@ -166,7 +189,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodGroup: "",
       stockStatus: "",
       bloodBagId: "",
-      notification: "",
       allowSave: false,
       inputReadOnly: true
     });
@@ -175,21 +197,15 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
   saveBloodStock(data: any) {
     BloodStockService.saveBloodStock(data).then((res) => {
       if (res.status === 201) {
-        this.setState({
-          notification: "Blood Stock has been saved successfully",
-        });
+        toast.success("Blood Stock has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
         window.location.reload();
       } else if (res.status === 202) {
-        this.setState({
-          notification: "Blood Stock has been updated successfully",
-        });
+        toast.success("Blood Stock has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
         window.location.reload();
       } else {
-        this.setState({
-          notification: "Please enter valid data",
-        });
+        toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
       }
     });
   }
@@ -213,7 +229,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
   }
 
   render() {
-    const { notification, allowSave } = this.state;
+    const { allowSave } = this.state;
     const { translate } = this.props;
     return (
       <div className="container-fluid m-1 p-1">
@@ -306,27 +322,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
               </div>
             </div>
 
-            {/* <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="bloodBagId">
-                  {translate("bloodBagId")}
-                  <span className="text-danger">*</span>
-                </label>
-              </div>
-              <div className="col-8">
-                <input
-                  className="form-control"
-                  type="text"
-                  name="bloodBagId"
-                  id="bloodBagId"
-                  value={this.state.bloodBagId}
-                  required
-                  readOnly={this.state.inputReadOnly}
-                  onChange={this.changeHandler}
-                />
-              </div>
-            </div>
-             */}
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="stockStatus">
@@ -419,11 +414,6 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
               </div>
             </div>
           </form>
-          <div className="text-danger">
-            <p className="text-center bg-info font-weight-bold">
-              {notification}
-            </p>
-          </div>
         </div>
       </div>
     );
