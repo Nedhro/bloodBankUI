@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import BloodStockService from "../../services/BloodStockService";
 import { Modal } from "react-bootstrap";
 import BloodStockModal from "../modals/BloodStockModal";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 // Importing toastify module
 import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticationService } from "../../services/AuthenticationService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -20,6 +21,7 @@ interface BloodStockProps {
   translate: (key: string) => string;
 }
 class BloodStock extends React.Component<BloodStockProps, any> {
+  currentUser: any = "";
   constructor(props: any) {
     super(props);
     this.state = {
@@ -33,6 +35,17 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       bloodBagId: "",
     };
   }
+
+  componentDidMount() {
+    /*
+  for tracking users who is creating or updating
+  */
+  if (authenticationService.currentUserValue !== undefined
+    || authenticationService.currentUserValue !== null) {
+    this.currentUser = authenticationService.currentUserValue
+  }
+  this.loadBloodStockList();
+}
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -50,7 +63,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
             if (res.status === 202) {
               toast.success("Blood bag has been restored", { position: toast.POSITION.BOTTOM_RIGHT });
               history.push("/blood/stock/list");
-              window.location.reload();
+              
             } else {
               toast.warn("Invalid Input", { position: toast.POSITION.BOTTOM_RIGHT });
             }
@@ -62,12 +75,13 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     });
   };
 
-  deleteBloodStock(id: any) {
-    BloodStockService.deleteBloodStock(id).then((res) => {
+  deleteBloodStock(id: number) {
+    BloodStockService.deleteBloodStock(id, this.currentUser).then((res) => {
       if (res.status === 202) {
         toast.success("The blood stock has been deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        window.location.reload();
       }
+    }).catch((err: any) => {
+      toast.error(err.message, { position: toast.POSITION.BOTTOM_RIGHT });
     });
   }
 
@@ -75,12 +89,8 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     this.setState({
       show: false,
     });
-    window.location.reload();
+    
   };
-
-  componentDidMount() {
-    this.loadBloodStockList();
-  }
 
   loadBloodStockList() {
     BloodStockService.getBloodStockList()

@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 import FormBanner from "../../static/images/hospitalBanner.png";
 // Importing toastify module
 import { toast } from 'react-toastify';
@@ -46,7 +46,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
       if (res.status === 202) {
         toast.success("Blood bag has been approved for the patient and made unavailable from the stock", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
-        window.location.reload();
+        
       }
       if (res.status === 226) {
         toast.error(`Blood bag : ${res.data} is not availablle in the stock`, { position: toast.POSITION.BOTTOM_RIGHT });
@@ -190,7 +190,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
                   sessionStorage.setItem("bloodBagId", bloodBagId);
                   sessionStorage.setItem("donorId", donorId);
                   history.push(`/blood/compatibility/${bloodBagId}/test/add`);
-                  window.location.reload();
+                  
                 } else {
                   toast.warn("Blood Bag is not available", { position: toast.POSITION.BOTTOM_RIGHT });
                 }

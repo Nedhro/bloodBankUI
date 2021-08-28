@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 import FormBanner from "../../static/images/hospitalBanner.png";
 // Importing toastify module
 import { toast } from 'react-toastify';
@@ -293,7 +293,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                 const bloodBagID = modalData.bloodBagId;
                 sessionStorage.setItem("bloodBagID", bloodBagID);
                 history.push(`/blood/stock/add`);
-                window.location.reload();
+                
               }}
             >
               {translate("stockBlood")}

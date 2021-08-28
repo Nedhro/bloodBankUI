@@ -4,7 +4,7 @@ import { Checkbox } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import "../../static/scss/donor.scss";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 import Select from "react-select";
 import { authenticationService } from "../../services/AuthenticationService";
 // Importing toastify module
@@ -91,7 +91,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     }
     const id = sessionStorage.getItem("donorId");
     if (id) {
-      this.getDonorInfoById(id);
+      this.getDonorInfoById(parseInt(id));
     }
     this.getQuestionList();
     this.getPatientList();
@@ -203,12 +203,12 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       if (res.status === 201) {
         toast.success("Donor Info Added Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
-        window.location.reload();
+        
       } else if (res.status === 202) {
         toast.success("Donor Info Updated Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
         sessionStorage.removeItem("donorId");
-        window.location.reload();
+        
       } else {
         toast.error("Please add valid and non duplicate values", { position: toast.POSITION.BOTTOM_RIGHT });
       }
@@ -257,7 +257,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     });
   }
 
-  getDonorInfoById(id: any) {
+  getDonorInfoById(id: number) {
     DonorService.getBloodDonorById(id).then((res) => {
       const concernSet = res?.data?.concernSet;
       const concern = concernSet.filter((key: any) => {
@@ -699,7 +699,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                     className="btn btn-danger m-1"
                     onClick={() => {
                       history.push("/donor/list");
-                      window.location.reload();
+                      
                       sessionStorage.removeItem("donorId");
                     }}
                     value={translate("commonCancel")}

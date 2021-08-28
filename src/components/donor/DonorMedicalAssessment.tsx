@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticationService } from "../../services/AuthenticationService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -18,6 +19,7 @@ interface DonorMedicalAssessmentProps {
   translate: (key: string) => string;
 }
 class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps, any> {
+  currentUser: any = "";
   constructor(props: any) {
     super(props);
     this.state = {
@@ -30,6 +32,13 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
     };
   }
   componentDidMount() {
+    /*
+for tracking users who is creating or updating
+*/
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
     this.getDonorList();
   }
 
@@ -69,7 +78,7 @@ class DonorMedicalAssessment extends React.Component<DonorMedicalAssessmentProps
     this.setState({
       show: false,
     });
-    window.location.reload();
+
   };
 
   search = (rows: any) => {

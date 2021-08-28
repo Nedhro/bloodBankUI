@@ -1,6 +1,6 @@
 import React from "react";
 import DonorService from "../../services/DonorService";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 import { authenticationService } from "../../services/AuthenticationService";
 // Importing toastify module
 import { toast } from 'react-toastify';
@@ -94,7 +94,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
     const id = sessionStorage.getItem("donorPhysicalSuitabilityId");
     const donorId = sessionStorage.getItem("donorId");
     if (id) {
-      this.getPhysicalTestInfoById(id);
+      this.getPhysicalTestInfoById(parseInt(id));
     }
     if (donorId) {
       this.setState({
@@ -102,8 +102,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
       })
     }
   }
-  getPhysicalTestInfoById(id: any) {
-    DonorService.getPhysicalTestInfoById(parseInt(id)).then((res) => {
+  getPhysicalTestInfoById(id: number) {
+    DonorService.getPhysicalTestInfoById(id).then((res) => {
       this.setState({
         bloodDonorId: res.data.bloodDonor.donorId,
         donorHemoglobin: res.data.donorHemoglobin,
@@ -124,13 +124,13 @@ class AddPhysicalSuitabilityTest extends React.Component<
         toast.success("Physical Suitability Test is added successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         sessionStorage.removeItem("donorId");
         history.push("/donorPhysicalSuitability/test/list");
-        window.location.reload();
+        
       } else if (res.status === 202) {
         toast.success("Physical Suitability Test is Updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         sessionStorage.removeItem("bloodId");
         sessionStorage.removeItem("donorPhysicalSuitabilityId");
         history.push("/donorPhysicalSuitability/test/list");
-        window.location.reload();
+        
       } else {
         toast.error("Please add valid and non duplicate values", { position: toast.POSITION.BOTTOM_RIGHT });
       }
@@ -371,7 +371,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                     className="form-control btn btn-danger m-1"
                     onClick={() => {
                       history.push("/donorPhysicalSuitability/test/list");
-                      window.location.reload();
+                      
                       sessionStorage.removeItem("bloodId");
                       sessionStorage.removeItem("donorPhysicalSuitabilityId");
                     }}

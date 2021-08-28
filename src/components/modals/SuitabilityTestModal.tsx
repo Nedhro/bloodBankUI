@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/scss/print.scss";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 import FormBanner from "../../static/images/hospitalBanner.png";
 // Importing toastify module
 import { toast } from 'react-toastify';
@@ -187,7 +187,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
                 const donorPhysicalSuitabilityId = modalData?.donorPhysicalSuitabilityId;
                 sessionStorage.setItem("donorPhysicalSuitabilityId", donorPhysicalSuitabilityId);
                 history.push(`/donor/${donorPhysicalSuitabilityId}/consentForm`);
-                window.location.reload();
+                
               }}
             >
               {translate("donorConsentForm")}
@@ -204,7 +204,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
                   sessionStorage.setItem("bloodDonorId", donorId);
                   sessionStorage.setItem("bloodGroup", bloodGroup);
                   history.push(`/blood/${donorId}/stock/add`);
-                  window.location.reload();
+                  
                 } else {
                   toast.warn("Donor is not fit for donating blood", { position: toast.POSITION.BOTTOM_RIGHT });
                 }

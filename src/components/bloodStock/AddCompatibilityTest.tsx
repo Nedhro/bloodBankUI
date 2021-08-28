@@ -3,7 +3,7 @@ import Select from "react-select";
 import { authenticationService } from "../../services/AuthenticationService";
 import BloodStockService from "../../services/BloodStockService";
 import DonorService from "../../services/DonorService";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 // Importing toastify module
 import { toast } from 'react-toastify';
 // Import toastify css file
@@ -65,7 +65,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
     const id = sessionStorage.getItem("bloodCompatibilityId");
     if (id) {
-      this.getCompatibilityTestById(id);
+      this.getCompatibilityTestById(parseInt(id));
       this.setState({
         updatedBy: this.currentUser
       });
@@ -175,19 +175,19 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       if (res.status === 201) {
         toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/compatibility/test/list");
-        window.location.reload();
+        
       } else if (res.status === 202) {
         toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/compatibility/test/list");
-        window.location.reload();
+        
       } else {
         toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
       }
     });
   }
 
-  getCompatibilityTestById(id: any) {
-    BloodStockService.getCompatibilityTestById(parseInt(id)).then((res) => {
+  getCompatibilityTestById(id: number) {
+    BloodStockService.getCompatibilityTestById(id).then((res) => {
       BloodStockService.getStockByBloodBagId(res.data.bloodBagId).then(
         (res: any) => {
           this.setState({
@@ -528,7 +528,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                       className="btn btn-danger m-1"
                       onClick={() => {
                         history.push("/blood/compatibility/test/list");
-                        window.location.reload();
+                        
                         sessionStorage.removeItem("bloodCompatibilityId");
                         sessionStorage.removeItem("bloodBagId");
                       }}
