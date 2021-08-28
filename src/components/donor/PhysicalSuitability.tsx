@@ -36,7 +36,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     DonorService.deletePhysicalTest(id).then((res) => {
       if (res.status === 202) {
         toast.success("The test is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        window.location.reload();
+        
       }
     });
   }
@@ -45,7 +45,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     this.setState({
       show: false,
     });
-    window.location.reload();
+    
   };
 
   componentDidMount() {

@@ -111,8 +111,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       BloodStockService.deleteCompatibilityTest(id, this.currentUser).then((res) => {
         if (res.status === 202) {
           toast.success("Blood Compatibility Test has been deleted successfully",
-            { position: toast.POSITION.BOTTOM_RIGHT, autoClose: 10000 });
-          window.location.reload();
+            { position: toast.POSITION.BOTTOM_RIGHT });
         }
       })
         .catch((err) => {
@@ -127,7 +126,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
     this.setState({
       show: false,
     });
-    window.location.reload();
+    
   };
   render() {
     const { error, isLoaded, items, show, modalData, query } =

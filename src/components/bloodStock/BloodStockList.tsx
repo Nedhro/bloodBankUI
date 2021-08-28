@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import BloodStockService from "../../services/BloodStockService";
 import { Modal } from "react-bootstrap";
 import BloodStockModal from "../modals/BloodStockModal";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 // Importing toastify module
 import { toast } from 'react-toastify';
 // Import toastify css file
@@ -50,7 +50,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
             if (res.status === 202) {
               toast.success("Blood bag has been restored", { position: toast.POSITION.BOTTOM_RIGHT });
               history.push("/blood/stock/list");
-              window.location.reload();
+              
             } else {
               toast.warn("Invalid Input", { position: toast.POSITION.BOTTOM_RIGHT });
             }
@@ -66,8 +66,9 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     BloodStockService.deleteBloodStock(id).then((res) => {
       if (res.status === 202) {
         toast.success("The blood stock has been deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        window.location.reload();
       }
+    }).catch((err: any) => {
+      toast.error(err.message, { position: toast.POSITION.BOTTOM_RIGHT });
     });
   }
 
@@ -75,7 +76,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     this.setState({
       show: false,
     });
-    window.location.reload();
+    
   };
 
   componentDidMount() {

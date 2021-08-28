@@ -40,7 +40,7 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
     DonorService.deleteQuestionnaire(id).then((res) => {
       if (res.status === 202) {
         toast.success("The Questionnaire is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        window.location.reload();
+        
       }
     });
   }
@@ -82,7 +82,7 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
     this.setState({
       show: false,
     });
-    window.location.reload();
+    
   };
 
   render() {

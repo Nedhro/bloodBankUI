@@ -1,6 +1,6 @@
 import React from "react";
 import BloodStockService from "../../services/BloodStockService";
-import { history } from "../custom/history";
+import { history } from "../helper/history";
 import { authenticationService } from "../../services/AuthenticationService";
 // Importing toastify module
 import { toast } from 'react-toastify';
@@ -199,11 +199,11 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       if (res.status === 201) {
         toast.success("Blood Stock has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
-        window.location.reload();
+        
       } else if (res.status === 202) {
         toast.success("Blood Stock has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
-        window.location.reload();
+        
       } else {
         toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
       }
@@ -388,7 +388,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                       className="btn btn-danger m-1"
                       onClick={() => {
                         history.push("/blood/stock/list");
-                        window.location.reload();
+                        
                         sessionStorage.removeItem("bloodStockTracingId");
                         sessionStorage.removeItem("bloodDonorId");
                         sessionStorage.removeItem("bloodGroup");
