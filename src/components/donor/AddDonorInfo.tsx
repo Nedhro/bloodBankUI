@@ -91,7 +91,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     }
     const id = sessionStorage.getItem("donorId");
     if (id) {
-      this.getDonorInfoById(id);
+      this.getDonorInfoById(parseInt(id));
     }
     this.getQuestionList();
     this.getPatientList();
@@ -257,7 +257,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     });
   }
 
-  getDonorInfoById(id: any) {
+  getDonorInfoById(id: number) {
     DonorService.getBloodDonorById(id).then((res) => {
       const concernSet = res?.data?.concernSet;
       const concern = concernSet.filter((key: any) => {

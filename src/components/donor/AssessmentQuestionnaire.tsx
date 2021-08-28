@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticationService } from "../../services/AuthenticationService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -18,8 +19,7 @@ interface AssessmentQuestionnaireProps {
   translate: (key: string) => string;
 }
 class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnaireProps, any> {
-
-
+  currentUser: any = "";
   constructor(props: any) {
     super(props);
     this.state = {
@@ -33,11 +33,18 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
 
   }
   componentDidMount() {
+      /*
+    for tracking users who is creating or updating
+    */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
     this.getQuestionnaireList();
   }
 
-  deleteQuestionnaire(id: any) {
-    DonorService.deleteQuestionnaire(id).then((res) => {
+  deleteQuestionnaire(id: number) {
+    DonorService.deleteQuestionnaire(id, this.currentUser).then((res) => {
       if (res.status === 202) {
         toast.success("The Questionnaire is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         

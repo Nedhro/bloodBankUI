@@ -17,10 +17,9 @@ class DonorConsentForm extends Component<consentFormProps, any> {
   componentDidMount() {
     const donorPhysicalSuitabilityId = sessionStorage.getItem("donorPhysicalSuitabilityId");
     if (donorPhysicalSuitabilityId) {
-      this.getTestData(donorPhysicalSuitabilityId);
+      this.getTestData(parseInt(donorPhysicalSuitabilityId));
       sessionStorage.removeItem("donorPhysicalSuitabilityId");
     }
-    console.log(this.state.formData);
   }
 
   formatDate(data: any) {
@@ -35,8 +34,8 @@ class DonorConsentForm extends Component<consentFormProps, any> {
     let formattedDate = day + "-" + month + "-" + year;
     return formattedDate;
   }
-  getTestData(id: any) {
-    DonorService.getPhysicalTestInfoById(parseInt(id)).then((res) => {
+  getTestData(id: number) {
+    DonorService.getPhysicalTestInfoById(id).then((res) => {
       console.log(res);
       const testData = [];
       testData.push(res.data);

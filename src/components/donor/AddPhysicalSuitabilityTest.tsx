@@ -94,7 +94,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
     const id = sessionStorage.getItem("donorPhysicalSuitabilityId");
     const donorId = sessionStorage.getItem("donorId");
     if (id) {
-      this.getPhysicalTestInfoById(id);
+      this.getPhysicalTestInfoById(parseInt(id));
     }
     if (donorId) {
       this.setState({
@@ -102,8 +102,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
       })
     }
   }
-  getPhysicalTestInfoById(id: any) {
-    DonorService.getPhysicalTestInfoById(parseInt(id)).then((res) => {
+  getPhysicalTestInfoById(id: number) {
+    DonorService.getPhysicalTestInfoById(id).then((res) => {
       this.setState({
         bloodDonorId: res.data.bloodDonor.donorId,
         donorHemoglobin: res.data.donorHemoglobin,

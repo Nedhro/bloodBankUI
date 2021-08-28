@@ -65,7 +65,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
 
     const id = sessionStorage.getItem("bloodCompatibilityId");
     if (id) {
-      this.getCompatibilityTestById(id);
+      this.getCompatibilityTestById(parseInt(id));
       this.setState({
         updatedBy: this.currentUser
       });
@@ -186,8 +186,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     });
   }
 
-  getCompatibilityTestById(id: any) {
-    BloodStockService.getCompatibilityTestById(parseInt(id)).then((res) => {
+  getCompatibilityTestById(id: number) {
+    BloodStockService.getCompatibilityTestById(id).then((res) => {
       BloodStockService.getStockByBloodBagId(res.data.bloodBagId).then(
         (res: any) => {
           this.setState({

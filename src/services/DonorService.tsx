@@ -1,11 +1,11 @@
 import axios from "axios";
 import { handleResponse } from "../components/helper/handleResponse";
 
-const urlPrefix = process.env.REACT_APP_API_URL+"/openmrs/ws/rest/v1/bloodbank/";
+const urlPrefix = process.env.REACT_APP_API_URL + "/openmrs/ws/rest/v1/bloodbank/";
 
 class DonorService {
   //patients
-  getAllActivePatients(){
+  getAllActivePatients() {
     return axios.get(urlPrefix + "patients").then((response) => handleResponse(response));;
   }
   //DonorForm
@@ -17,12 +17,12 @@ class DonorService {
     return axios.get(urlPrefix + "donor/list").then((response) => handleResponse(response));;
   }
 
-  getBloodDonorById(id: any) {
+  getBloodDonorById(id: number) {
     return axios.get(urlPrefix + "donor/" + id).then((response) => handleResponse(response));;
   }
 
-  deleteBloodDonor(id: any) {
-    return axios.put(urlPrefix + "donor/delete/" + id).then((response) => handleResponse(response));;
+  deleteBloodDonor(id: number, user: any) {
+    return axios.put(urlPrefix + "donor/delete/" + id + "/by/" + user).then((response) => handleResponse(response));;
   }
   //Questionnaire
   saveQuestionnaire(data: Object) {
@@ -33,12 +33,12 @@ class DonorService {
     return axios.get(urlPrefix + "questionnaire/list").then((response) => handleResponse(response));;
   }
 
-  getQuestionnaireById(id: any) {
+  getQuestionnaireById(id: number) {
     return axios.get(urlPrefix + "questionnaire/" + id).then((response) => handleResponse(response));;
   }
 
-  deleteQuestionnaire(id: any) {
-    return axios.put(urlPrefix + "questionnaire/delete/" + id).then((response) => handleResponse(response));;
+  deleteQuestionnaire(id: number, user: any) {
+    return axios.put(urlPrefix + "questionnaire/delete/" + id + "/by/" + user).then((response) => handleResponse(response));;
   }
 
   //Physical Suitability
@@ -48,11 +48,11 @@ class DonorService {
   getPhysicalSuitabilityResults() {
     return axios.get(urlPrefix + "bloodDonorPhysicalSuitability/list").then((response) => handleResponse(response));;
   }
-  getPhysicalTestInfoById(id: any) {
+  getPhysicalTestInfoById(id: number) {
     return axios.get(urlPrefix + "bloodDonorPhysicalSuitability/" + id).then((response) => handleResponse(response));;
   }
-  deletePhysicalTest(id: any) {
-    return axios.put(urlPrefix + "bloodDonorPhysicalSuitability/delete/" + id).then((response) => handleResponse(response));;
+  deletePhysicalTest(id: number, user: any) {
+    return axios.put(urlPrefix + "bloodDonorPhysicalSuitability/delete/" + id + "/by/" + user).then((response) => handleResponse(response));;
   }
 }
 

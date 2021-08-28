@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticationService } from "../../services/AuthenticationService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -18,8 +19,7 @@ interface PhysicalSuitabilityProps {
   translate: (key: string) => string;
 }
 class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any> {
-
-
+  currentUser: any = "";
   constructor(props: any) {
     super(props);
     this.state = {
@@ -32,11 +32,22 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     };
   }
 
-  deleteSuitabilityTest(id: any) {
-    DonorService.deletePhysicalTest(id).then((res) => {
+  componentDidMount() {
+    /*
+  for tracking users who is creating or updating
+  */
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
+    this.loadTests();
+  }
+
+  deleteSuitabilityTest(id: number) {
+    DonorService.deletePhysicalTest(id, this.currentUser).then((res) => {
       if (res.status === 202) {
         toast.success("The test is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        
+
       }
     });
   }
@@ -45,12 +56,8 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     this.setState({
       show: false,
     });
-    
-  };
 
-  componentDidMount() {
-    this.loadTests();
-  }
+  };
 
   loadTests() {
     DonorService.getPhysicalSuitabilityResults()

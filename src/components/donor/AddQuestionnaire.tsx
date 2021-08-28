@@ -76,10 +76,11 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
       this.currentUser = authenticationService.currentUserValue
     }
     const id = sessionStorage.getItem('quesId');
-    this.getQuestionnaireById(id);
+    if (id)
+      this.getQuestionnaireById(parseInt(id));
   }
 
-  getQuestionnaireById(id: any) {
+  getQuestionnaireById(id: number) {
     DonorService.getQuestionnaireById(id).then((res) => {
       const question = res.data.question;
       const concernFor = res.data.concernFor;
@@ -95,13 +96,13 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
       if (res.status === 201) {
         toast.success("Questionnaire Created Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/questionnaire/list");
-        
+
       }
       else if (res.status === 202) {
         toast.success("Questionnaire Updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/questionnaire/list");
         sessionStorage.removeItem('quesId');
-        
+
       }
       else {
         toast.error("Please add valid and non duplicate question", { position: toast.POSITION.BOTTOM_RIGHT });
@@ -179,7 +180,7 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
                       className="btn btn-danger m-1"
                       onClick={() => {
                         history.push("/questionnaire/list");
-                        
+
                         sessionStorage.removeItem('quesId');
                       }}
                       value={translate("commonCancel")}

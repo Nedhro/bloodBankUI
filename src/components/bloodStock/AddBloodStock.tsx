@@ -53,7 +53,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodGroup: bloodGroup,
     });
     if (id) {
-      this.getBloodStockById(id);
+      this.getBloodStockById(parseInt(id));
     }
     if (donorId) {
       this.setState({
@@ -210,8 +210,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     });
   }
 
-  getBloodStockById(id: any) {
-    BloodStockService.getBloodStockById(parseInt(id)).then((res) => {
+  getBloodStockById(id: number) {
+    BloodStockService.getBloodStockById(id).then((res) => {
       if (res.data.stockStatus === "Available") {
         this.setState({
           allowSave: true,

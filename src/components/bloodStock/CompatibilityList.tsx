@@ -106,7 +106,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
     );
   };
 
-  deleteComtibilityTest(id: any) {
+  deleteComtibilityTest(id: number) {
     if (this.currentUser !== "undefined" && this.currentUser !== "") {
       BloodStockService.deleteCompatibilityTest(id, this.currentUser).then((res) => {
         if (res.status === 202) {
