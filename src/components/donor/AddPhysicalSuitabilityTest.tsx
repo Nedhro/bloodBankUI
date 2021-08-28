@@ -40,7 +40,6 @@ class AddPhysicalSuitabilityTest extends React.Component<
         donorBloodGroup: this.state.donorBloodGroup,
         donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
         donorSelection: this.state.donorSelection,
-        createdBy: this.state.createdBy,
         updatedBy: this.state.updatedBy
       };
     } else {
@@ -56,8 +55,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
         donorBloodGroup: this.state.donorBloodGroup,
         donorBloodGroupRhesus: this.state.donorBloodGroupRhesus,
         donorSelection: this.state.donorSelection,
-        createdBy: this.state.createdBy,
-        updatedBy: this.state.updatedBy
+        createdBy: this.state.createdBy
       };
     }
     this.submitPhysicalTestInfo(this.dataConfig);
@@ -75,8 +73,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
       donorBloodGroupRhesus: "",
       donorSelection: "",
       error: null,
-      createdBy: this.currentUser,
-      updatedBy: this.currentUser,
+      createdBy: "",
+      updatedBy: "",
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -95,6 +93,15 @@ class AddPhysicalSuitabilityTest extends React.Component<
     const donorId = sessionStorage.getItem("donorId");
     if (id) {
       this.getPhysicalTestInfoById(parseInt(id));
+      this.setState({
+        createdBy: null,
+        updatedBy: this.currentUser
+      });
+    }else{
+      this.setState({
+        createdBy: this.currentUser,
+        updatedBy: null
+      });
     }
     if (donorId) {
       this.setState({

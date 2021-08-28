@@ -59,8 +59,8 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
       qid: "",
       question: "",
       concernFor: "",
-      createdBy: this.currentUser,
-      updatedBy: this.currentUser,
+      createdBy: "",
+      updatedBy: "",
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -76,8 +76,18 @@ class AddQuestionnaire extends React.Component<QuestionnaireProps, any> {
       this.currentUser = authenticationService.currentUserValue
     }
     const id = sessionStorage.getItem('quesId');
-    if (id)
+    if (id) {
       this.getQuestionnaireById(parseInt(id));
+      this.setState({
+        createdBy: null,
+        updatedBy: this.currentUser
+      });
+    } else {
+      this.setState({
+        createdBy: this.currentUser,
+        updatedBy: null
+      });
+    }
   }
 
   getQuestionnaireById(id: number) {

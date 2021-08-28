@@ -67,11 +67,13 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     if (id) {
       this.getCompatibilityTestById(parseInt(id));
       this.setState({
+        createdBy: null,
         updatedBy: this.currentUser
       });
     } else {
       this.setState({
-        createdBy: this.currentUser
+        createdBy: this.currentUser,
+        updatedBy: null
       });
     }
 
@@ -148,22 +150,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         createdBy: this.state.createdBy
       }
     }
-    this.dataConfig = {
-      bloodCompatibilityId: this.state.bloodCompatibilityId,
-      bloodBagId: this.state.bloodBagId,
-      patient: this.state.patientId,
-      patientBloodGroup: this.state.patientBloodGroup,
-      bloodGrouping: this.state.bloodGrouping,
-      bloodCrossMatching: this.state.bloodCrossMatching,
-      bloodHivTest: this.state.bloodHivTest,
-      bloodHbvTest: this.state.bloodHbvTest,
-      bloodHcvTest: this.state.bloodHcvTest,
-      bloodSyphilisTest: this.state.bloodSyphilisTest,
-      bloodMalariaTest: this.state.bloodMalariaTest,
-      createdBy: this.state.createdBy,
-      updatedBy: this.state.updatedBy
-    };
-    console.log(this.dataConfig);
     this.saveCompatiabilityTest(this.dataConfig);
     sessionStorage.removeItem("bloodCompatibilityId");
     sessionStorage.removeItem("bloodBagId");
