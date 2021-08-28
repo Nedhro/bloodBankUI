@@ -29,8 +29,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       stockStatus: "",
       bloodBagId: "",
       allowSave: false,
-      createdBy: this.currentUser,
-      updatedBy: this.currentUser,
+      createdBy: "",
+      updatedBy: "",
       inputReadOnly: true
     };
     this.submitHandler = this.submitHandler.bind(this);
@@ -54,7 +54,17 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     });
     if (id) {
       this.getBloodStockById(parseInt(id));
+      this.setState({
+        createdBy: null,
+        updatedBy: this.currentUser
+      });
+    } else {
+      this.setState({
+        createdBy: this.currentUser,
+        updatedBy: null
+      });
     }
+    //if gets blood donor
     if (donorId) {
       this.setState({
         bloodDonorId: donorId,
@@ -199,11 +209,11 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       if (res.status === 201) {
         toast.success("Blood Stock has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
-        
+
       } else if (res.status === 202) {
         toast.success("Blood Stock has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
-        
+
       } else {
         toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
       }
@@ -388,7 +398,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                       className="btn btn-danger m-1"
                       onClick={() => {
                         history.push("/blood/stock/list");
-                        
+
                         sessionStorage.removeItem("bloodStockTracingId");
                         sessionStorage.removeItem("bloodDonorId");
                         sessionStorage.removeItem("bloodGroup");

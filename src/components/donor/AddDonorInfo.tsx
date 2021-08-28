@@ -75,8 +75,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       donorLastDonatedPlace: "",
       concernName: "",
       concernStatus: "",
-      createdBy: this.currentUser,
-      updatedBy: this.currentUser,
+      createdBy: "",
+      updatedBy: "",
       questionList: [],
     });
   };
@@ -92,6 +92,15 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     const id = sessionStorage.getItem("donorId");
     if (id) {
       this.getDonorInfoById(parseInt(id));
+      this.setState({
+        createdBy: null,
+        updatedBy: this.currentUser
+      });
+    } else {
+      this.setState({
+        createdBy: this.currentUser,
+        updatedBy: null
+      });
     }
     this.getQuestionList();
     this.getPatientList();
@@ -203,12 +212,12 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       if (res.status === 201) {
         toast.success("Donor Info Added Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
-        
+
       } else if (res.status === 202) {
         toast.success("Donor Info Updated Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
         sessionStorage.removeItem("donorId");
-        
+
       } else {
         toast.error("Please add valid and non duplicate values", { position: toast.POSITION.BOTTOM_RIGHT });
       }
@@ -699,7 +708,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                     className="btn btn-danger m-1"
                     onClick={() => {
                       history.push("/donor/list");
-                      
+
                       sessionStorage.removeItem("donorId");
                     }}
                     value={translate("commonCancel")}
