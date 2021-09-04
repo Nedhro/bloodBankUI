@@ -281,7 +281,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         }
         return key;
       });
-      console.log(concern);
       this.setState({
         donorId: res?.data?.donorId,
         donorName: res?.data?.donorName,

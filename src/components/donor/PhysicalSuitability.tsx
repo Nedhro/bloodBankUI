@@ -62,7 +62,6 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
   loadTests() {
     DonorService.getPhysicalSuitabilityResults()
       .then((res: any) => {
-        console.log(res);
         let keys = [
           "donorPhysicalSuitabilityId",
           "donorHemoglobin",
@@ -264,7 +263,6 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                   responsive
                   noHeader
                   onRowClicked={(dataFinal: any) => {
-                    console.log(dataFinal);
                     const modalData = dataFinal;
                     this.setState({
                       modalData: modalData,

@@ -23,7 +23,6 @@ class DonorConsentForm extends Component<consentFormProps, any> {
   }
 
   formatDate(data: any) {
-    console.log(data);
     if (data === -21600000) {
       return null;
     }
@@ -36,7 +35,6 @@ class DonorConsentForm extends Component<consentFormProps, any> {
   }
   getTestData(id: number) {
     DonorService.getPhysicalTestInfoById(id).then((res) => {
-      console.log(res);
       const testData = [];
       testData.push(res.data);
       this.setState({
@@ -51,7 +49,6 @@ class DonorConsentForm extends Component<consentFormProps, any> {
   render() {
     const { translate } = this.props;
     const { formData } = this.state;
-    console.log(formData);
     return (
       <div className="container p-1">
         <div className="row float-right">
