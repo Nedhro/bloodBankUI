@@ -40,12 +40,12 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     /*
   for tracking users who is creating or updating
   */
-  if (authenticationService.currentUserValue !== undefined
-    || authenticationService.currentUserValue !== null) {
-    this.currentUser = authenticationService.currentUserValue
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
+    this.loadBloodStockList();
   }
-  this.loadBloodStockList();
-}
 
   changeHandler = (event: any) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -58,12 +58,12 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       if (res.data.stockStatus === "Available") {
         toast.warn("Blood bag is already available in the list", { position: toast.POSITION.BOTTOM_RIGHT });
       } else {
-        BloodStockService.updateStockStatus(bloodBagId)
+        BloodStockService.updateStockStatus(bloodBagId, this.currentUser)
           .then((res) => {
             if (res.status === 202) {
               toast.success("Blood bag has been restored", { position: toast.POSITION.BOTTOM_RIGHT });
               history.push("/blood/stock/list");
-              
+
             } else {
               toast.warn("Invalid Input", { position: toast.POSITION.BOTTOM_RIGHT });
             }
@@ -89,7 +89,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     this.setState({
       show: false,
     });
-    
+
   };
 
   loadBloodStockList() {

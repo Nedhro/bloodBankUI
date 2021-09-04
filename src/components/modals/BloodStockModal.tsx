@@ -8,6 +8,7 @@ import FormBanner from "../../static/images/hospitalBanner.png";
 import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
+import { authenticationService } from "../../services/AuthenticationService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -20,6 +21,7 @@ export interface TableModalProps {
 
 class BloodStockModal extends React.Component<TableModalProps, any> {
   tableData: any = [];
+  currentUser: any = "";
   constructor(props: any) {
     super(props);
     this.state = {
@@ -29,7 +31,12 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
     };
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    if (authenticationService.currentUserValue !== undefined
+      || authenticationService.currentUserValue !== null) {
+      this.currentUser = authenticationService.currentUserValue
+    }
+  }
 
   printDiv() {
     window.print();
@@ -41,12 +48,11 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
     return state;
   }
 
-  updateBloodStockStatus(bloodBagId: any) {
-    BloodStockService.updateStockStatus(bloodBagId).then((res) => {
+  updateBloodStockStatus(bloodBagId: string) {
+    BloodStockService.updateStockStatus(bloodBagId, this.currentUser).then((res) => {
       if (res.status === 202) {
         toast.success("Blood bag has been approved for the patient and made unavailable from the stock", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
-        
       }
       if (res.status === 226) {
         toast.error(`Blood bag : ${res.data} is not availablle in the stock`, { position: toast.POSITION.BOTTOM_RIGHT });
@@ -190,7 +196,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
                   sessionStorage.setItem("bloodBagId", bloodBagId);
                   sessionStorage.setItem("donorId", donorId);
                   history.push(`/blood/compatibility/${bloodBagId}/test/add`);
-                  
+
                 } else {
                   toast.warn("Blood Bag is not available", { position: toast.POSITION.BOTTOM_RIGHT });
                 }
