@@ -269,7 +269,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
   getDonorInfoById(id: number) {
     DonorService.getBloodDonorById(id).then((res) => {
       const concernSet = res?.data?.concernSet;
-      const concern = concernSet.filter((key: any) => {
+      concernSet.filter((key: any) => {
         let concernObj = {
           donorConcernId: key?.donorConcernId,
           concernName: key?.concernName,
