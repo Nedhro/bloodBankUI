@@ -161,11 +161,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       if (res.status === 201) {
         toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/compatibility/test/list");
-        
       } else if (res.status === 202) {
         toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/compatibility/test/list");
-        
       } else {
         toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
       }

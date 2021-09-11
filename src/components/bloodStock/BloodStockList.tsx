@@ -79,6 +79,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
     BloodStockService.deleteBloodStock(id, this.currentUser).then((res) => {
       if (res.status === 202) {
         toast.success("The blood stock has been deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+        history.push("/blood/stock/list");
       }
     }).catch((err: any) => {
       toast.error(err.message, { position: toast.POSITION.BOTTOM_RIGHT });

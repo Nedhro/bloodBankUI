@@ -131,13 +131,11 @@ class AddPhysicalSuitabilityTest extends React.Component<
         toast.success("Physical Suitability Test is added successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         sessionStorage.removeItem("donorId");
         history.push("/donorPhysicalSuitability/test/list");
-        
       } else if (res.status === 202) {
         toast.success("Physical Suitability Test is Updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         sessionStorage.removeItem("bloodId");
         sessionStorage.removeItem("donorPhysicalSuitabilityId");
         history.push("/donorPhysicalSuitability/test/list");
-        
       } else {
         toast.error("Please add valid and non duplicate values", { position: toast.POSITION.BOTTOM_RIGHT });
       }

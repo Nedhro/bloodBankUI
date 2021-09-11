@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticationService } from "../../services/AuthenticationService";
+import { history } from "../helper/history";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -47,7 +48,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
     DonorService.deletePhysicalTest(id, this.currentUser).then((res) => {
       if (res.status === 202) {
         toast.success("The test is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-
+        history.push("/donorPhysicalSuitability/test/list");
       }
     });
   }
