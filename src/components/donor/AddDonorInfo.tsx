@@ -96,7 +96,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
         createdBy: null,
         updatedBy: this.currentUser
       });
-    }else{
+    } else {
       this.setState({
         createdBy: this.currentUser,
         updatedBy: null
@@ -212,12 +212,12 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       if (res.status === 201) {
         toast.success("Donor Info Added Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
-        
+
       } else if (res.status === 202) {
         toast.success("Donor Info Updated Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/donor/list");
         sessionStorage.removeItem("donorId");
-        
+
       } else {
         toast.error("Please add valid and non duplicate values", { position: toast.POSITION.BOTTOM_RIGHT });
       }
@@ -314,7 +314,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     const { translate } = this.props;
     const { questionList, showPatient, patientId } = this.state;
     return (
-      <div className="container-fluid">
+      <div className="container-fluid mt-1 pb-4">
         <h2 className="text-info text-center">
           {sessionStorage.getItem("donorId") ? (
             <>
@@ -652,7 +652,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
             </div>
 
             <div className="row questionSection">
-              <div className="col-12 ">
+              <div className="col-12">
                 <h4 className="text-info text-left">
                   <FontAwesomeIcon
                     className="p-1"
@@ -690,50 +690,51 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                 </div>
               ))}
             </div>
+            <div className="col-12 pb-1">
+              {sessionStorage.getItem("donorId") ? (
+                <div className="row form-group">
+                  <div className="col-8"></div>
+                  <div className="col-2 float-right text-right">
+                    <input
+                      type="submit"
+                      className="form-control btn btn-success m-1"
+                      value={translate("commonUpdate")}
+                    />
+                  </div>
+                  <div className="col-2 float-right text-right">
+                    <input
+                      type="cancel"
+                      className="btn btn-danger m-1"
+                      onClick={() => {
+                        history.push("/donor/list");
 
-            {sessionStorage.getItem("donorId") ? (
-              <div className="row form-group mb-1">
-                <div className="col-8"></div>
-                <div className="col-2 float-right text-right">
-                  <input
-                    type="submit"
-                    className="form-control btn btn-success m-1"
-                    value={translate("commonUpdate")}
-                  />
+                        sessionStorage.removeItem("donorId");
+                      }}
+                      value={translate("commonCancel")}
+                    />
+                  </div>
                 </div>
-                <div className="col-2 float-right text-right">
-                  <input
-                    type="cancel"
-                    className="btn btn-danger m-1"
-                    onClick={() => {
-                      history.push("/donor/list");
-                      
-                      sessionStorage.removeItem("donorId");
-                    }}
-                    value={translate("commonCancel")}
-                  />
+              ) : (
+                <div className="row form-group">
+                  <div className="col-8"></div>
+                  <div className="col-2 float-right text-right">
+                    <input
+                      type="submit"
+                      className="form-control btn btn-success"
+                      value={translate("commonSave")}
+                    />
+                  </div>
+                  <div className="col-2 float-right text-right">
+                    <input
+                      type="reset"
+                      onClick={this.removeHandler}
+                      className="form-control btn btn-danger"
+                      value={translate("commonReset")}
+                    />
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="row form-group mb-1">
-                <div className="col-8"></div>
-                <div className="col-2 float-right text-right">
-                  <input
-                    type="submit"
-                    className="form-control btn btn-success"
-                    value={translate("commonSave")}
-                  />
-                </div>
-                <div className="col-2 float-right text-right">
-                  <input
-                    type="reset"
-                    onClick={this.removeHandler}
-                    className="form-control btn btn-danger"
-                    value={translate("commonReset")}
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </form>
         </div>
       </div>
