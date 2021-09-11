@@ -10,7 +10,7 @@ import { FC } from "react";
 import { LangContext } from "../../context/lang";
 import { authenticationService } from "../../services/AuthenticationService";
 import "../../static/scss/custom.scss";
-
+const openmrsUrl = process.env.REACT_APP_API_URL+"/bahmni/home";
 interface HeaderProps {
   fixed?: boolean;
   transparent?: boolean;
@@ -149,8 +149,8 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                 <span className="text-secondary">{username}</span>
               </li>
               <li className="p-1">
-                <a className="text-success" href="/">
-                  Openmrs
+                <a className="text-success" href={openmrsUrl}>
+                  OpenMRS Home
                 </a>
               </li>
             </ul>
