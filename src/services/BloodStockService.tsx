@@ -43,7 +43,7 @@ class BloodStockService {
       .then((response) => handleResponse(response));
   }
   updateStockStatus(bloodBagId: string, user: string) {
-    return axios.put(urlPrefix + "bloodStockTracing/updateStatus/" + bloodBagId + "/by" + user)
+    return axios.put(urlPrefix + "bloodStockTracing/updateStatus/" + bloodBagId + "/by/" + user)
       .then((response) => handleResponse(response));
   }
   getStockByBloodBagId(bloodBagId: string) {

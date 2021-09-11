@@ -259,7 +259,6 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
                   responsive
                   noHeader
                   onRowClicked={(dataFinal: any) => {
-                    console.log(dataFinal);
                     const modalData = dataFinal;
                     this.setState({
                       modalData: modalData,

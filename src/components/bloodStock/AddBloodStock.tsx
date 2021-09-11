@@ -68,6 +68,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     if (donorId) {
       this.setState({
         bloodDonorId: donorId,
+        updatedBy: this.currentUser
       });
     }
     const bloodBagID = sessionStorage.getItem("bloodBagID");
@@ -143,9 +144,10 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     event.preventDefault();
     const id = sessionStorage.getItem("bloodStockTracingId") || this.state.bloodStockTracingId;
     const donorId = parseInt(this.state?.bloodDonorId);
+    const user = this.currentUser;
     if (id) {
       this.dataConfig = {
-        bloodStockTracingId: id,
+        bloodStockTracingId: parseInt(id),
         bloodDonor: {
           donorId: donorId,
         },
@@ -154,8 +156,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
-        createdBy: this.state.createdBy,
-        updatedBy: this.state.updatedBy
+        createdBy: user,
+        updatedBy: user
       };
     } else if (donorId) {
       this.dataConfig = {
@@ -167,8 +169,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
-        createdBy: this.state.createdBy,
-        updatedBy: this.state.updatedBy
+        createdBy: user,
+        updatedBy: user
       };
     } else {
       this.dataConfig = {
@@ -177,8 +179,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
-        createdBy: this.state.createdBy,
-        updatedBy: this.state.updatedBy
+        createdBy: user,
+        updatedBy: user
       };
     }
     this.saveBloodStock(this.dataConfig);
