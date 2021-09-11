@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticationService } from "../../services/AuthenticationService";
+import { history } from "../helper/history";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -112,6 +113,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
         if (res.status === 202) {
           toast.success("Blood Compatibility Test has been deleted successfully",
             { position: toast.POSITION.BOTTOM_RIGHT });
+          history.push("/blood/compatibility/test/list");
         }
       })
         .catch((err) => {
@@ -126,7 +128,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
     this.setState({
       show: false,
     });
-    
+
   };
   render() {
     const { error, isLoaded, items, show, modalData, query } =

@@ -13,13 +13,11 @@ export function handleResponse(response: any) {
     // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
     authenticationService.logout();
     const error = response.statusText;
-    toast.error("You are not authenticated. Please log in.", { position: toast.POSITION.BOTTOM_RIGHT });
+    toast.error("You are not authenticated. Please log in from clinical service.", { position: toast.POSITION.BOTTOM_RIGHT });
     setTimeout(() => {
       window.location.href = bahmniUrl + "/bahmni/home/index.html#/login";
-    }, 5000);
+    }, 3000);
     return Promise.reject(error);
-  } else {
+  } else
     return response;
-  }
-
 }
