@@ -31,6 +31,8 @@ Your app is ready to be deployed!
 
 ### `yarn build:development`
 
+Builds the app for production in `development` phase to the `build` folder.\
+
 ### `yarn build:stage`
 
 Builds the app for production in `stage` or `test` phase to the `build` folder.\
@@ -46,8 +48,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `serve -s build -l <port number/>`
 
 ### If you use screen : `screen serve -s build -l <port number/>` then `ctrl+a+d`
-
-Builds the app for production in `development` phase to the `build` folder.\
 
 ## Learn More
 
