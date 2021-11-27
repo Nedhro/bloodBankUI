@@ -201,14 +201,8 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
               <button
                 className="btn btn-danger btn-sm m-1"
                 onClick={() => {
-                  const confirmBox = window.confirm(
-                    "Are you sure!!! \nDo you really want to delete this test?"
-                  )
-                  if (confirmBox) {
-                    const id = record.donorPhysicalSuitabilityId;
-                    this.deleteSuitabilityTest(parseInt(id));
-                  }
-
+                  const id = record.donorPhysicalSuitabilityId;
+                  this.deleteSuitabilityTest(parseInt(id));
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />
