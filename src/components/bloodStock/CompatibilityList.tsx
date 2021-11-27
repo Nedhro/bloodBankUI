@@ -196,8 +196,13 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
               <button
                 className="btn btn-danger btn-sm m-1"
                 onClick={() => {
-                  const id = record.bloodCompatibilityId;
-                  this.deleteComtibilityTest(parseInt(id));
+                  const confirmBox = window.confirm(
+                    "Are you sure!!! \nDo you really want to delete this test?"
+                  )
+                  if (confirmBox) {
+                    const id = record.bloodCompatibilityId;
+                    this.deleteComtibilityTest(parseInt(id));
+                  }
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />
