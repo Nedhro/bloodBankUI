@@ -212,8 +212,13 @@ class BloodStock extends React.Component<BloodStockProps, any> {
               <button
                 className="btn btn-danger btn-sm m-1"
                 onClick={() => {
-                  const id = record.bloodStockTracingId;
-                  this.deleteBloodStock(parseInt(id));
+                  const confirmBox = window.confirm(
+                    "Are you sure!!! \nDo you really want to delete this blood from stock?"
+                  )
+                  if (confirmBox) {
+                    const id = record.bloodStockTracingId;
+                    this.deleteBloodStock(parseInt(id));
+                  }
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />

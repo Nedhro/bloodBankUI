@@ -34,9 +34,9 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
 
   }
   componentDidMount() {
-      /*
-    for tracking users who is creating or updating
-    */
+    /*
+  for tracking users who is creating or updating
+  */
     if (authenticationService.currentUserValue !== undefined
       || authenticationService.currentUserValue !== null) {
       this.currentUser = authenticationService.currentUserValue
@@ -90,7 +90,7 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
     this.setState({
       show: false,
     });
-    
+
   };
 
   render() {
@@ -135,7 +135,12 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
               <button
                 className="btn btn-danger btn-sm m-1"
                 onClick={() => {
-                  this.deleteQuestionnaire(record.id);
+                  const confirmBox = window.confirm(
+                    "Are you sure!!! \nDo you really want to delete this questionnaire?"
+                  )
+                  if (confirmBox) {
+                    this.deleteQuestionnaire(record.id);
+                  }
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />
