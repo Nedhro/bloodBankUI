@@ -21,7 +21,7 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about running tests for more information.
 
-### `yarn build`
+## `Code Build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -30,12 +30,6 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 ### `yarn build:development`
-
-## `deployment`
-
-### `serve -s build -l <port number/>`
-
-### If you use screen : `screen serve -s build -l <port number/>` then `ctrl+a+d`
 
 Builds the app for production in `development` phase to the `build` folder.\
 
@@ -48,6 +42,12 @@ Builds the app for production in `stage` or `test` phase to the `build` folder.\
 Builds the app for production in `production` phase to the `build` folder.\
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## `Deployment`
+
+### `serve -s build -l <port number/>`
+
+### If you use screen : `screen serve -s build -l <port number/>` then `ctrl+a+d`
 
 ## Learn More
 
