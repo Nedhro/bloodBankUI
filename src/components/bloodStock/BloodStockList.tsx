@@ -108,6 +108,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
             bloodGroup: entry.bloodGroup,
             stockStatus: entry.stockStatus,
             bloodBagId: entry.bloodBagId,
+            bloodComponent: entry.bloodComponent,
           };
           dataFinal.push(dataObj);
           return entry;
@@ -163,6 +164,11 @@ class BloodStock extends React.Component<BloodStockProps, any> {
       {
         name: `${translate("bloodGroup")}`,
         selector: "bloodGroup",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodComponent")}`,
+        selector: "bloodComponent",
         sortable: true,
       },
       {

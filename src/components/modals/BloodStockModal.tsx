@@ -126,6 +126,12 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
             </p>
             <p>
               <span className="font-weight-bold">
+                {translate("bloodComponent")}
+              </span>{" "}
+              : {modalData.bloodComponent}
+            </p>
+            <p>
+              <span className="font-weight-bold">
                 {translate("sourceOfBlood")}
               </span>{" "}
               : {modalData.sourceOfBlood}

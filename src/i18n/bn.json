@@ -1,14 +1,11 @@
 {
-  "en": "ইংরেজি" ,
+  "en": "ইংরেজি",
   "bn": "বাংলা",
-
   "title": "নিটোর ট্রান্সফিউশন মেডিসিন বিভাগ",
-
   "home": "হোম",
   "donor": "রক্তদাতা",
   "ques": "জ্ঞাতব্য প্রশ্নাবলী",
   "test": "রক্তদাতা নির্বাচন",
-
   "addDonorPageHeader": "রক্তদাতার তথ্য",
   "donorName": "রক্তদাতার নাম",
   "patientId": "রোগীর নাম",
@@ -23,35 +20,28 @@
   "donorLastDonatedDate": "সর্বশেষ রক্তদানের তারিখ",
   "donorLastDonatedPlace": "সর্বশেষ রক্তদানের স্থান",
   "infoOfDonor": "রক্তদাতা সম্পর্কে জ্ঞাতব্য (প্রযোজ্য ঘরে টিক চিহ্ন দিন)",
-
   "welcome": "স্বাগতম",
-
   "donorAssessment": "রক্তদাতার নিবন্ধন",
   "donorInformation": "রক্তদাতার তথ্য, রক্তদাতা নির্বাচন, প্রশ্নাবলী",
   "donorList": "রক্তদাতার তালিকা",
-
   "bloodManagement": "রক্ত সংরক্ষণ ও ব্যবস্থাপনা",
   "bloodManagementInfo": "রক্ত সংরক্ষণ, পর্যবেক্ষণ, উপযুক্ততা পরীক্ষা",
   "bloodStock": "রক্ত সংরক্ষণ",
+  "bloodComponent": "রক্তের উপাদান",
   "bloodCollection": "সংগ্রহীত রক্তের তালিকা",
-
   "addDonor": "রক্তদাতার তথ্য সংরক্ষণ",
   "donorQues": "জ্ঞাতব্য প্রশ্নাবলী",
   "donorInfo": "রক্তদাতার তথ্য",
-
   "question": "প্রশ্ন",
   "concernFor": "কাদের জন্য",
   "both": "উভয়",
   "male": "পুরুষ",
   "female": "মহিলা",
-
   "addNewQues": "নতুন প্রশ্ন যোগ",
   "donorQuesList": "রক্তদাতা সম্পর্কিত জ্ঞাতব্য প্রশ্নাবলী",
-
   "suitabilityTest": "রক্তদাতা নির্বাচন পরীক্ষা",
   "donorConsentForm": "রক্তদাতার সম্মতিপত্র",
   "donorConsentNote": "আমি ফরমটি পড়ার পর স্বজ্ঞানে ও স্বেচ্ছায় রক্ত দানে ইচ্ছুক । আমার রক্তের এইডস সহ প্রয়োজনীয় অন্যান্য পরীক্ষা-নিরীক্ষা করার জন্য অনুমতি প্রদান করছি । আমি ন্যাশনাল ব্লাড ট্রান্সফিউশন সার্ভিসেস এর রক্তদান কর্মসূচীতে রক্তদান সম্পর্কিত যাবতীয় বিষয়ে জ্ঞাত হয়ে স্বেচ্ছায় রক্ত দান করলাম । রক্ত দান পরবর্তী কোনো জটিলতার উদ্ভব হলে অত্র প্রতিষ্ঠানের কর্তব্যরত ব্যাক্তি বা প্রতিষ্ঠান দায়ী থাকবে না। এই রক্ত প্রয়োজনে যে কোনো সময়ে যে কোনো রোগীর জন্য ব্যবহার করা যাবে ।",
-  
   "physicalTest": "রক্তদাতা নির্বাচন পরীক্ষা",
   "donorId": "ডোনার আইডি",
   "hemoglobin": "হিমোগ্লোবিন (গ্রাম/ডেসিলিটার)",
@@ -67,83 +57,65 @@
   "permission": "রক্তদানের অনুমতি",
   "selected": "নির্বাচিত",
   "rejected": "প্রত্যাখ্যাত",
-
   "status": "স্ট্যাটাস",
   "action": "করণীয়",
   "id": "আইডি",
-
   "typeOfDonor": "রক্তদাতার ধরণ",
   "name": "নাম",
-
   "testPhysicalSuitability": "রক্তদাতা নির্বাচন",
-
   "quesId": "প্রশ্ন আইডি",
   "questionnaire": "জ্ঞাতব্য প্রশ্ন",
-
   "testId": "টেষ্ট আইডি",
   "testResult": "টেষ্টের ফলাফল",
   "rh": "আর এইচ",
-
   "stockBlood": "রক্ত সংরক্ষণ করুন",
   "collectBlood": "রক্ত সংগ্রহ করুন",
   "returnBloodToStock": "রিটার্ন ব্লাড ব্যাগ",
-
   "addBloodStock": "রক্ত সংরক্ষণ তথ্য",
   "sourceOfBlood": "রক্তের উৎস",
   "bloodBagId": "রক্তের ব্যাগের আইডি",
   "stockStatus": "স্টক স্ট্যাটাস",
   "available": "আছে",
-  "notAvailable": "নেই",
+  "Not Available": "নেই",
   "bloodStorage": "রক্ত সংরক্ষণ",
   "fridge1": "ফ্রিজ-১",
   "fridge2": "ফ্রিজ-২",
   "fridge3": "ফ্রিজ-৩",
   "fridge4": "ফ্রিজ-৪",
   "discardFridge": "ডিসকার্ড ফ্রিজ",
-
   "compatibilityTest": "সামঞ্জস্যতা পরীক্ষা",
   "patient": "রোগী",
   "patientBloodGroup": "রোগীর রক্তের গ্রুপ",
   "bloodBagGroup": "রক্তের গ্রুপ",
   "bloodScreening": "রক্তের স্ক্রিনিং",
+  "Not Done": "হয়নি",
   "compatible": "উপযুক্ত",
-  "incompatible": "অনুপযুক্ত",
+  "Non-Compatible": "অনুপযুক্ত",
   "bloodGrouping": "রক্তের গ্রুপিং",
   "bloodCrossMatching": "রক্তের ক্রস ম্যাচিং",
   "bloodHivTest": "এইচ আই ভি",
   "reactive": "প্রতিক্রিয়াশীল",
-  "nonreactive": "অপ্রতিক্রিয়াশীল",
+  "Non-Reactive": "অপ্রতিক্রিয়াশীল",
   "bloodHbvTest": "এইচ বি ভি",
   "bloodHcvTest": "এইচ সি ভি",
   "bloodSyphilisTest": "সিফিলিস",
   "bloodMalariaTest": "ম্যালেরিয়া",
   "compatibilityTestDecision": "সামঞ্জস্যতা পরীক্ষার ফলাফল",
-
   "bloodStockId": "স্টক আইডি",
   "bloodSample": "স্যাম্পল",
   "bloodDonorId": "ডোনার আইডি",
   "compatibilityWithPatient": "রোগীর সাথে সামঞ্জস্যতা পরীক্ষা",
-
   "bloodCompatibilityId": "সামঞ্জস্যতা পরীক্ষা আইডি",
   "crossMatching": "রক্তের ক্রস ম্যাচিং",
   "approveBlood": "রক্ত ​​অনুমোদন করুন",
-
   "tests": "টেষ্ট",
-
   "bloodStockList": "সংরক্ষিত রক্তের তালিকা",
-
   "editBloodHeader": "রক্ত সংরক্ষণ তথ্য আপডেট করুন",
-
   "editCompatibilityHeader": "সামঞ্জস্যতা পরীক্ষা আপডেট করুন",
-
   "editDonorPageHeader": "রক্তদাতার তথ্য আপডেট করুন",
-
   "editPhysicalTestHeader": "রক্তদাতা নির্বাচন পরীক্ষা আপডেট করুন",
-
   "editQuesHeader": "জ্ঞাতব্য প্রশ্নাবলী আপডেট করুন",
-
   "medicalAssessment": "রক্তদাতার নিবন্ধন পত্র",
-
   "patientIdNo": "রোগীর আইডি",
   "physicalTestResult": "রক্তদাতা নির্বাচন পরীক্ষা",
   "selection": "রক্তদানের জন্য",
@@ -152,12 +124,11 @@
   "signatureOfDoctor": "ডাক্তারের স্বাক্ষর",
   "signatureOfDonor": "রক্তদাতার স্বাক্ষর",
   "MOSignature": "মেডিকেল অফিসারের স্বাক্ষর",
+  "dutyDoctor": "কর্তব্যরত ডাক্তারের স্বাক্ষর",
   "MTSignature": "ল্যাব ইনচার্জ/এম.টি. স্বাক্ষর",
-
   "donorInfoHeading": "রক্তদাতার তথ্য",
   "collection": "ব্লাড কালেকশন",
   "bagID": "ব্যাগ আইডি",
-
   "commonSave": "সংরক্ষণ করুন",
   "commonUpdate": "আপডেট করুন",
   "commonReset": "নতুন করে বসান",
@@ -167,7 +138,12 @@
   "commonAddQues": "জ্ঞাতব্য প্রশ্নাবলী",
   "commonDonors": "রক্তদাতার তালিকা",
   "commonPrint": "প্রিন্ট",
-
+  "resultOfCrossMatching": "ক্রস ম্যাচিং রেসাল্ট",
+  "atRoomTemp": "রুমের তাপমাত্রা",
+  "at37ByICT": "আইসিটি কর্তৃক অনুমোদিত ৩৭°সে. তাপমাত্রা",
+  "coombsTest": "ইন্ডিরেক্ট কুম্ব পরীক্ষার ভিত্তিতে",
+  "crossMatchingReport": "ক্রস ম্যাচিং রিপোর্ট",
+  "patientBloodGroupRhesus": "রোগীর রক্তের গ্রুপ রিসাস্",
   "copyright": "স্বত্বাধিকার || সকল অধিকার সংরক্ষিত || তত্ত্বাবধায়নে :",
   "ctech": "ক্রিস্টাল টেকনোলজি বাংলাদেশ লিমিটেড"
 }

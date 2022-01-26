@@ -4,7 +4,7 @@ const currentUserSubject = new BehaviorSubject(localStorage.getItem('currentUser
 export const authenticationService = {
   logout,
   currentUser: currentUserSubject.asObservable(),
-  get currentUserValue() { return currentUserSubject.value }
+  get currentUserValue() { return "superman" }
 };
 
 function logout() {

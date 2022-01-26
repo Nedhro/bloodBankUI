@@ -58,8 +58,12 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           "bloodSyphilisTest",
           "bloodMalariaTest",
           "bloodBagId",
+          "atRoomTemp",
+          "at37ByICT",
+          "coombsTest",
           "patient",
           "patientBloodGroup",
+          "patientBloodGroupRhesus",
           "uuid",
           "status",
           "dateCreated",
@@ -146,8 +150,8 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
         sortable: true,
       },
       {
-        name: `${translate("bloodCrossMatching")}`,
-        selector: "bloodCrossMatching",
+        name: `${translate("patientBloodGroupRhesus")}`,
+        selector: "patientBloodGroupRhesus",
         sortable: true,
       },
       {
@@ -173,6 +177,21 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       {
         name: `${translate("bloodMalariaTest")}`,
         selector: "bloodMalariaTest",
+        sortable: true,
+      },
+      {
+        name: `${translate("atRoomTemp")}`,
+        selector: "atRoomTemp",
+        sortable: true,
+      },
+      {
+        name: `${translate("at37ByICT")}`,
+        selector: "at37ByICT",
+        sortable: true,
+      },
+      {
+        name: `${translate("coombsTest")}`,
+        selector: "coombsTest",
         sortable: true,
       },
       {

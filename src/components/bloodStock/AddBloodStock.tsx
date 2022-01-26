@@ -24,6 +24,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodStockTracingId: "",
       bloodDonorId: "",
       bloodStorage: "",
+      bloodComponent: "",
       sourceOfBlood: "",
       bloodGroup: "",
       stockStatus: "",
@@ -80,6 +81,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
           bloodStockTracingId: res.data.bloodStockTracingId,
           bloodDonorId: res?.data?.bloodDonor?.donorId,
           bloodStorage: res.data.bloodStorage,
+          bloodComponent: res.data.bloodComponent,
           sourceOfBlood: res.data.sourceOfBlood,
           bloodGroup: res.data.bloodGroup,
           stockStatus: res.data.stockStatus,
@@ -109,13 +111,13 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             toast.warn("Donor Id is not available. Blood Source is not valid", { position: toast.POSITION.BOTTOM_RIGHT });
             this.setState({
               sourceOfBlood: "",
-              stockStatus: "NotAvailable",
+              stockStatus: "Not Available",
               bloodBagId: "",
               allowSave: false,
               inputReadOnly: true
             });
           }
-        } else if (event.target.value === "OutdoorCampaign") {
+        } else if (event.target.value === "Outdoor Campaign") {
           this.setState({
             bloodBagId: nextBloodBagId,
             stockStatus: "Available",
@@ -132,7 +134,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         } else {
           this.setState({
             bloodBagId: "",
-            stockStatus: "NotAvailable",
+            stockStatus: "Not Available",
             allowSave: false,
           });
         }
@@ -152,6 +154,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
           donorId: donorId,
         },
         bloodStorage: this.state.bloodStorage,
+        bloodComponent: this.state.bloodComponent,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
@@ -165,6 +168,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
           donorId: donorId,
         },
         bloodStorage: this.state.bloodStorage,
+        bloodComponent: this.state.bloodComponent,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
@@ -175,6 +179,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     } else {
       this.dataConfig = {
         bloodStorage: this.state.bloodStorage,
+        bloodComponent: this.state.bloodComponent,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
         stockStatus: this.state.stockStatus,
@@ -197,6 +202,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodStockTracingId: "",
       bloodDonorId: "",
       bloodStorage: "",
+      bloodComponent: "",
       sourceOfBlood: "",
       bloodGroup: "",
       stockStatus: "",
@@ -232,6 +238,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       this.setState({
         bloodDonorId: res?.data?.bloodDonor?.donorId,
         bloodStorage: res.data.bloodStorage,
+        bloodComponent: res.data.bloodComponent,
         sourceOfBlood: res.data.sourceOfBlood,
         bloodGroup: res.data.bloodGroup,
         stockStatus: res.data.stockStatus,
@@ -315,7 +322,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                 >
                   <option value="">{translate("commonSelect")}</option>
                   <option value="NITOR">NITOR</option>
-                  <option value="OutdoorCampaign">Outdoor Campaign</option>
+                  <option value="Outdoor Campaign">Outdoor Campaign</option>
                   <option value="Outsource">Outsource</option>
                 </select>
               </div>
@@ -352,8 +359,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                 >
                   <option value="">{translate("commonSelect")}</option>
                   <option value="Available">{translate("available")}</option>
-                  <option value="NotAvailable">
-                    {translate("notAvailable")}
+                  <option value="Not Available">
+                    {translate("Not Available")}
                   </option>
                 </select>
               </div>
@@ -380,6 +387,29 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   <option value="Discard-Fridge">
                     {translate("discardFridge")}
                   </option>
+                </select>
+              </div>
+            </div>
+            <div className="row form-group">
+              <div className="col-4 text-right">
+                <label className="font-weight-bold" htmlFor="bloodComponent">
+                  {translate("bloodComponent")}
+                </label>
+              </div>
+
+              <div className="col-8">
+                <select
+                  className="form-control"
+                  name="bloodComponent"
+                  id="bloodComponent"
+                  value={this.state.bloodComponent}
+                  onChange={this.changeHandler}
+                >
+                  <option value="">{translate("commonSelect")}</option>
+                  <option value="Whole Blood">Whole Blood</option>
+                  <option value="RCC">RCC</option>
+                  <option value="FFP">FFP</option>
+                  <option value="Platelet">Platelet</option>
                 </select>
               </div>
             </div>

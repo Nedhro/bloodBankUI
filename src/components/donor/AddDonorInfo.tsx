@@ -377,6 +377,9 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       <option value="Voluntary">Voluntary</option>
                       <option value="Directed">Directed</option>
                       <option value="Others">Others</option>
+                      <option value="Private Blood Bank">Private Blood Bank</option>
+                      <option value="Voluntary Organization">Voluntary Organization</option>
+                      <option value="Other Govt. Hospital">Other Govt. Hospital</option>
                     </select>
                   </div>
                 </div>

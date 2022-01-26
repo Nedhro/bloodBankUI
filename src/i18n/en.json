@@ -1,14 +1,11 @@
 {
   "en": "English",
   "bn": "Bangla",
-
   "title": "Department of Transfusion Medicine (NITOR)",
-
   "home": "Home",
   "donor": "Donor",
   "ques": "Questionnaires",
-  "test":"Donor Selection",
-
+  "test": "Donor Selection",
   "addDonorPageHeader": "Add Donor Info",
   "donorName": "Donor Name",
   "patientId": "Blood For (Patient)",
@@ -23,35 +20,27 @@
   "donorLastDonatedDate": "Last Donated Date",
   "donorLastDonatedPlace": "Last Donated Place",
   "infoOfDonor": "Notable information about the blood donor (Tick on the applicable box)",
-
   "welcome": "Welcome",
-
-  "donorAssessment":"Donor Medical Assessment",
-  "donorInformation":"Donor Informations, Donor Selection Tests, Questionnaires",
-  "donorList":"Donor List",
-
-  "bloodManagement":"Blood Stock Management",
-  "bloodManagementInfo":"Blood Stock, Blood Availability Check, Compatibility Test",
+  "donorAssessment": "Donor Medical Assessment",
+  "donorInformation": "Donor Informations, Donor Selection Tests, Questionnaires",
+  "donorList": "Donor List",
+  "bloodManagement": "Blood Stock Management",
+  "bloodManagementInfo": "Blood Stock, Blood Availability Check, Compatibility Test",
   "bloodStock": "Blood Stock",
   "bloodCollection": "Blood Collections",
-
   "addDonor": "Add Donor Info",
   "donorQues": "Questionnaire",
   "donorInfo": "Blood Donor Information",
-
   "question": "Question",
   "concernFor": "Concern For",
   "both": "Both",
   "male": "Male",
   "female": "Female",
-
   "addNewQues": "Add Questionnaire",
   "donorQuesList": "Donor Medical Assessment Questionnaire",
-
   "suitabilityTest": "Donor Selection Test",
   "donorConsentForm": "Donor Consent Letter",
   "donorConsentNote": "I am willing to donate blood consciously and voluntarily after reading the form. I am giving permission for other necessary tests including AIDS in my blood. I volunteered for the National Blood Transfusion Services' blood donation program after learning all about blood donation. If any complication arises after blood donation, the person or organization in charge of this organization will not be responsible. This blood can be used for any patient at any time in need.",
-
   "physicalTest": "Donor Selection Test",
   "donorId": "Donor ID",
   "hemoglobin": "Hemoglobin (g/dl)",
@@ -67,83 +56,66 @@
   "permission": "Permission",
   "selected": "Selected",
   "rejected": "Rejected",
-
   "typeOfDonor": "Type of Donor",
-
   "status": "Status",
   "action": "Action",
   "id": "Id",
-
   "name": "Name",
-
   "testPhysicalSuitability": "Donor Selection Test",
-
   "quesId": "Question Id",
   "questionnaire": "Questionnaire",
-
   "testId": "Test Id",
   "testResult": "Test Result",
   "rh": "Rh",
   "stockBlood": "Add Blood to Stock",
   "collectBlood": "Collect blood",
   "returnBloodToStock": "Return blood bag",
-
   "addBloodStock": "Add Blood to Stock",
   "sourceOfBlood": "Source of Blood",
   "bloodBagId": "Blood Bag Id",
   "stockStatus": "Stock Status",
   "available": "Available",
-  "notAvailable": "Not Available",
+  "Not Available": "Not Available",
   "bloodStorage": "Blood Storage",
+  "bloodComponent": "Blood Component",
   "fridge1": "Fridge-1",
   "fridge2": "Fridge-2",
   "fridge3": "Fridge-3",
   "fridge4": "Fridge-4",
   "discardFridge": "Discard-Fridge",
-
   "compatibilityTest": "Compatibility Test",
   "patient": "Patient",
   "patientBloodGroup": "Patient Blood Group",
   "bloodBagGroup": "Blood Group",
   "bloodScreening": "Blood Screening",
+  "Not Done": "Not Done",
   "compatible": "Compatible",
-  "incompatible": "Incompatible",
+  "Non-Compatible": "Non-Compatible",
   "bloodGrouping": "Blood Grouping",
   "bloodCrossMatching": "Cross Matching",
-  "bloodHivTest": "HIV",
+  "bloodHivTest": "HIV 1&2",
   "reactive": "Reactive",
-  "nonreactive": "Non-Reactive",
-  "bloodHbvTest": "HBV",
+  "Non-Reactive": "Non-Reactive",
+  "bloodHbvTest": "HBsAg",
   "bloodHcvTest": "HCV",
   "bloodSyphilisTest": "Syphilis",
-  "bloodMalariaTest": "Malaria",
+  "bloodMalariaTest": "MP",
   "compatibilityTestDecision": "Compatibility Test Result",
-
   "bloodStockId": "Blood Stock Id",
   "bloodSample": "Blood Sample",
   "bloodDonorId": "Blood Donor Id",
   "compatibilityWithPatient": "Compatibility Test with Patient",
-
   "bloodCompatibilityId": "Blood Compatibility Test Id",
   "crossMatching": "Blood Cross Matching",
   "approveBlood": "Approve Blood For Patient",
-
   "tests": "Tests",
-
   "bloodStockList": "Blood Stock List",
-
   "editBloodHeader": "Edit Blood Stock Information",
-
   "editCompatibilityHeader": "Edit Compatibility Test",
-
   "editDonorPageHeader": "Edit Donor Info",
-
   "editPhysicalTestHeader": "Edit Donor Selection Test",
-
   "editQuesHeader": "Edit Questionnaire",
-
   "medicalAssessment": "Medical Assessment of Blood Donor",
-
   "patientIdNo": "Patient Id",
   "physicalTestResult": "Donor Selection Test Result",
   "selection": "Selection",
@@ -152,12 +124,11 @@
   "signatureOfDoctor": "Signature of the Doctor",
   "signatureOfDonor": "Signature of the Blood Donor",
   "MOSignature": "Medical Officer's Signature",
+  "dutyDoctor": "Duty Doctor",
   "MTSignature": "Lab In-Charge/MT Signature",
-
   "donorInfoHeading": "Donor Information",
   "collection": "Blood Collection",
   "bagID": "Bag ID",
-
   "commonSave": "Save",
   "commonUpdate": "Update",
   "commonReset": "Reset",
@@ -167,7 +138,12 @@
   "commonAddQues": "Add Questionnaire",
   "commonDonors": "Donors",
   "commonPrint": "Print",
-
+  "resultOfCrossMatching": "Result of Cross-Matching",
+  "atRoomTemp": "At Room Temperature",
+  "at37ByICT": "At 37°C by ICT",
+  "coombsTest": "BY Indirect Coomb's Test",
+  "crossMatchingReport": "CROSS MATCHING REPORT",
+  "patientBloodGroupRhesus": "Patient Blood Group Rhesus",
   "copyright": "Copyright || All right reserved || Powered By :",
   "ctech": "Crystal Technology Bangladesh Ltd."
 }
