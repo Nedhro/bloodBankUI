@@ -38,7 +38,6 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
   componentDidMount() {
     const bloodBagId = this.state.modalData.bloodBagId;
     BloodStockService.getStockByBloodBagId(bloodBagId).then((res) => {
-      console.log(res);
       this.setState({
         bloodBagGroup: res.data.bloodGroup,
         donorName: res?.data?.bloodDonor?.donorName,
