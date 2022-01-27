@@ -27,6 +27,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodComponent: "",
       sourceOfBlood: "",
       bloodGroup: "",
+      bloodGroupRhesus: "",
       stockStatus: "",
       bloodBagId: "",
       allowSave: false,
@@ -49,9 +50,11 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     }
     const id = sessionStorage.getItem("bloodStockTracingId");
     const bloodGroup = sessionStorage.getItem("bloodGroup");
+    const bloodGroupRhesus = sessionStorage.getItem("bloodGroupRhesus");
     const donorId = sessionStorage.getItem("bloodDonorId");
     this.setState({
       bloodGroup: bloodGroup,
+      bloodGroupRhesus: bloodGroupRhesus
     });
     if (id) {
       this.getBloodStockById(parseInt(id));
@@ -75,6 +78,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     const bloodBagID = sessionStorage.getItem("bloodBagID");
     if (bloodBagID) {
       sessionStorage.removeItem("bloodGroup");
+      sessionStorage.removeItem("bloodGroupRhesus");
       sessionStorage.removeItem("bloodDonorId");
       BloodStockService.getStockByBloodBagId(bloodBagID).then(res => {
         this.setState({
@@ -84,6 +88,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
           bloodComponent: res.data.bloodComponent,
           sourceOfBlood: res.data.sourceOfBlood,
           bloodGroup: res.data.bloodGroup,
+          bloodGroupRhesus: res.data.bloodGroupRhesus,
           stockStatus: res.data.stockStatus,
           bloodBagId: res.data.bloodBagId,
           allowSave: true,
@@ -157,6 +162,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodComponent: this.state.bloodComponent,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
+        bloodGroupRhesus: this.state.bloodGroupRhesus,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
         createdBy: user,
@@ -171,6 +177,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodComponent: this.state.bloodComponent,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
+        bloodGroupRhesus: this.state.bloodGroupRhesus,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
         createdBy: user,
@@ -182,6 +189,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodComponent: this.state.bloodComponent,
         sourceOfBlood: this.state.sourceOfBlood,
         bloodGroup: this.state.bloodGroup,
+        bloodGroupRhesus: this.state.bloodGroupRhesus,
         stockStatus: this.state.stockStatus,
         bloodBagId: this.state.bloodBagId,
         createdBy: user,
@@ -191,6 +199,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     this.saveBloodStock(this.dataConfig);
     sessionStorage.removeItem("bloodStockTracingId");
     sessionStorage.removeItem("bloodGroup");
+    sessionStorage.removeItem("bloodGroupRhesus");
     sessionStorage.removeItem("bloodDonorId");
     sessionStorage.removeItem("bloodBagID");
     //target value reset
@@ -205,6 +214,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodComponent: "",
       sourceOfBlood: "",
       bloodGroup: "",
+      bloodGroupRhesus: "",
       stockStatus: "",
       bloodBagId: "",
       allowSave: false,
@@ -241,6 +251,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         bloodComponent: res.data.bloodComponent,
         sourceOfBlood: res.data.sourceOfBlood,
         bloodGroup: res.data.bloodGroup,
+        bloodGroupRhesus: res.data.bloodGroupRhesus,
         stockStatus: res.data.stockStatus,
         bloodBagId: res.data.bloodBagId,
       });
@@ -293,14 +304,32 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
+                  <option value="A">A</option>
+                  <option value="AB">AB</option>
+                  <option value="B">B</option>
+                  <option value="O">O</option>
+                </select>
+              </div>
+            </div>
+            <div className="row form-group">
+              <div className="col-4 text-right">
+                <label className="font-weight-bold" htmlFor="bloodGroupRhesus">
+                  {translate("bloodGroup")} {translate("rhesus")}
+                  <span className="text-danger">*</span>
+                </label>
+              </div>
+              <div className="col-8">
+                <select
+                  className="form-control"
+                  name="bloodGroupRhesus"
+                  id="bloodGroupRhesus"
+                  value={this.state.bloodGroupRhesus || ""}
+                  required
+                  onChange={this.changeHandler}
+                >
+                  <option value="">{translate("commonSelect")}</option>
+                  <option value="+Ve(Positive)">{translate("rhPositive")}</option>
+                  <option value="-Ve(Negative)">{translate("rhNegative")}</option>
                 </select>
               </div>
             </div>

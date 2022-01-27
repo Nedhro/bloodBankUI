@@ -187,7 +187,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
                 const donorPhysicalSuitabilityId = modalData?.donorPhysicalSuitabilityId;
                 sessionStorage.setItem("donorPhysicalSuitabilityId", donorPhysicalSuitabilityId);
                 history.push(`/donor/${donorPhysicalSuitabilityId}/consentForm`);
-                
+
               }}
             >
               {translate("donorConsentForm")}
@@ -201,10 +201,11 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
                 if (modalData.donorSelection === "Selected") {
                   const donorId = modalData.bloodDonor.donorId;
                   const bloodGroup = modalData.donorBloodGroup;
+                  const bloodGroupRhesus = modalData.donorBloodGroupRhesus;
                   sessionStorage.setItem("bloodDonorId", donorId);
                   sessionStorage.setItem("bloodGroup", bloodGroup);
+                  sessionStorage.setItem("bloodGroupRhesus", bloodGroupRhesus);
                   history.push(`/blood/${donorId}/stock/add`);
-                  
                 } else {
                   toast.warn("Donor is not fit for donating blood", { position: toast.POSITION.BOTTOM_RIGHT });
                 }

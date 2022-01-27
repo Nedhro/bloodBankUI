@@ -97,7 +97,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
         createdBy: null,
         updatedBy: this.currentUser
       });
-    }else{
+    } else {
       this.setState({
         createdBy: this.currentUser,
         updatedBy: null
@@ -300,14 +300,10 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
+                  <option value="A">A</option>
+                  <option value="AB">AB</option>
+                  <option value="B">B</option>
+                  <option value="O">O</option>
                 </select>
               </div>
             </div>
@@ -332,8 +328,8 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="Rh-Positive">{translate("rhPositive")}</option>
-                  <option value="Rh-Negative">{translate("rhNegative")}</option>
+                  <option value="+Ve(Positive)">{translate("rhPositive")}</option>
+                  <option value="-Ve(Negative)">{translate("rhNegative")}</option>
                 </select>
               </div>
             </div>
@@ -376,7 +372,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                     className="form-control btn btn-danger m-1"
                     onClick={() => {
                       history.push("/donorPhysicalSuitability/test/list");
-                      
+
                       sessionStorage.removeItem("bloodId");
                       sessionStorage.removeItem("donorPhysicalSuitabilityId");
                     }}
