@@ -144,7 +144,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
               <div className="compatibility-table">
                 <table >
                   <tr className="compatibility-first-tr">
-                    <td colSpan={3}> <span className="font-weight-bold">Patient Name: </span><span>{this.state.patient?.name}</span></td>
+                    <td colSpan={3}> <span className="font-weight-bold">Patient Name: </span><span>{this.state.patient?.name} ({this.state.patient?.identifier})</span></td>
                     <td colSpan={1}> <span className="font-weight-bold">Age: </span><span>{this.state.patient?.age}</span></td>
                     <td colSpan={1}> <span className="font-weight-bold">Sex: </span><span>{this.state.patient?.gender === "M" ? "Male" :
                       this.state.patient?.gender === "F" ? "Female" : "Other"
