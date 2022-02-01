@@ -171,7 +171,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
         sortable: true,
       },
       {
-        name: `${translate("bloodGroup")} ${translate("rhesus")}`,
+        name: `${translate("bloodGroupRhesus")}`,
         selector: "donorBloodGroupRhesus",
         sortable: true,
       },
@@ -193,7 +193,10 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 to={`/donorPhysicalSuitability/test/${record.bloodDonor.donorId}/${record.donorPhysicalSuitabilityId}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("donorPhysicalSuitabilityId", record.donorPhysicalSuitabilityId);
+                  sessionStorage.setItem(
+                    "donorPhysicalSuitabilityId",
+                    record.donorPhysicalSuitabilityId
+                  );
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
@@ -203,12 +206,11 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 onClick={() => {
                   const confirmBox = window.confirm(
                     "Are you sure!!! \nDo you really want to delete this test?"
-                  )
+                  );
                   if (confirmBox) {
                     const id = record.donorPhysicalSuitabilityId;
                     this.deleteSuitabilityTest(parseInt(id));
                   }
-
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />

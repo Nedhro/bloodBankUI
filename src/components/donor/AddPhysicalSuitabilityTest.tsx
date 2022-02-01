@@ -314,7 +314,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   className="font-weight-bold"
                   htmlFor="donorBloodGroupRhesus"
                 >
-                  {translate("bloodGroup")} {translate("rhesus")}
+                 {translate("bloodGroupRhesus")}
                   <span className="text-danger">*</span>
                 </label>
               </div>
@@ -328,8 +328,12 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="+Ve(Positive)">{translate("rhPositive")}</option>
-                  <option value="-Ve(Negative)">{translate("rhNegative")}</option>
+                  <option value="+Ve(Positive)">
+                    {translate("rhPositive")}
+                  </option>
+                  <option value="-Ve(Negative)">
+                    {translate("rhNegative")}
+                  </option>
                 </select>
               </div>
             </div>

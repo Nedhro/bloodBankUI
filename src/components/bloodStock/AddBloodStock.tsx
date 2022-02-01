@@ -264,10 +264,16 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     return (
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">
-          {sessionStorage.getItem("bloodStockTracingId") ? translate("editBloodHeader") : translate("collectBlood")}
+          {sessionStorage.getItem("bloodStockTracingId")
+            ? translate("editBloodHeader")
+            : translate("collectBlood")}
         </h2>
         <div className="container p-1">
-          <form className="form" onSubmit={this.submitHandler} onReset={this.resetFormFields}>
+          <form
+            className="form"
+            onSubmit={this.submitHandler}
+            onReset={this.resetFormFields}
+          >
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodDonorId">
@@ -314,7 +320,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodGroupRhesus">
-                  {translate("bloodGroup")} {translate("rhesus")}
+                  {translate("bloodGroupRhesus")}
                   <span className="text-danger">*</span>
                 </label>
               </div>
@@ -328,8 +334,12 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
-                  <option value="+Ve(Positive)">{translate("rhPositive")}</option>
-                  <option value="-Ve(Negative)">{translate("rhNegative")}</option>
+                  <option value="+Ve(Positive)">
+                    {translate("rhPositive")}
+                  </option>
+                  <option value="-Ve(Negative)">
+                    {translate("rhNegative")}
+                  </option>
                 </select>
               </div>
             </div>
