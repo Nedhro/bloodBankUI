@@ -23,12 +23,12 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     this.state = {
       bloodStockTracingId: "",
       bloodDonorId: "",
-      bloodStorage: "",
+      bloodStorage: "Fridge-1",
       bloodComponent: "",
       sourceOfBlood: "",
       bloodGroup: "",
       bloodGroupRhesus: "",
-      stockStatus: "",
+      stockStatus: "Available",
       bloodBagId: "",
       allowSave: false,
       createdBy: "",
@@ -396,6 +396,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   required
                   onChange={this.changeHandler}
                 >
+                  <option value="">{translate("commonSelect")}</option>
                   <option value="Available">{translate("available")}</option>
                   <option value="Not Available">
                     {translate("Not Available")}
@@ -417,6 +418,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   value={this.state.bloodStorage}
                   onChange={this.changeHandler}
                 >
+                  <option value="">{translate("commonSelect")}</option>
                   <option value="Fridge-1">{translate("fridge1")}</option>
                   <option value="Fridge-2">{translate("fridge2")}</option>
                   <option value="Fridge-3">{translate("fridge3")}</option>
