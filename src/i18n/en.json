@@ -86,7 +86,7 @@
   "discardFridge": "Discard-Fridge",
   "compatibilityTest": "Compatibility Test",
   "patient": "Patient",
-  "patientBloodGroup": "Patient Blood Group",
+  "patientBloodGroup": "Patient Blood Group (ABO)",
   "bloodBagGroup": "Blood Group (ABO)",
   "bloodScreening": "Blood Screening",
   "Not Done": "Not Done",
@@ -144,7 +144,7 @@
   "at37ByICT": "At 37°C by ICT",
   "coombsTest": "BY Indirect Coomb's Test",
   "crossMatchingReport": "CROSS MATCHING REPORT",
-  "patientBloodGroupRhesus": "Patient Blood Group Rhesus",
+  "patientBloodGroupRhesus": "Patient Blood Group (Rhesus)",
   "copyright": "Copyright || All right reserved || Powered By :",
   "ctech": "Crystal Technology Bangladesh Ltd."
 }
