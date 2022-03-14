@@ -129,7 +129,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             allowSave: true,
             inputReadOnly: true
           });
-        } else if (event.target.value === "Outsource") {
+        } else if (event.target.value === "Outsource" || "Private Blood Bank" || "Voluntary Organization" || "Other Govt. Hospital") {
           this.setState({
             bloodBagId: "",
             stockStatus: "Available",
@@ -363,6 +363,9 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   <option value="NITOR">NITOR</option>
                   <option value="Outdoor Campaign">Outdoor Campaign</option>
                   <option value="Outsource">Outsource</option>
+                  <option value="Private Blood Bank">Private Blood Bank</option>
+                  <option value="Voluntary Organization">Voluntary Organization</option>
+                  <option value="Other Govt. Hospital">Other Govt. Hospital</option>
                 </select>
               </div>
               <div className="col-4">

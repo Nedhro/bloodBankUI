@@ -51,6 +51,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       consernSet: [],
       questionList: [],
       showPatient: false,
+      showOptions: false
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -103,7 +104,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       });
     }
     this.getQuestionList();
-    this.getPatientList();
+    // this.getPatientList();
   }
 
   handleCheckChange = (event: any) => {
@@ -177,10 +178,29 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     }
   };
 
-  handleChange = (selectedOption: any) => {
-    this.setState({ patientId: selectedOption });
-  };
-
+  handleInputChange = (typedOption: any) => {
+    if (typedOption.length > 3) {
+      DonorService.getAllActivePatients(typedOption).then((res) => {
+        const result = res.data;
+        const options = result?.map((d: any) => ({
+          value: d.name,
+          label: d.name ,
+        }));
+        this.setState({ selectOptions: options });
+      });
+      this.setState(
+        { showOptions: true, }
+      )
+    }
+    else {
+      this.setState(
+        { showOptions: false }
+      )
+    }
+  }
+   handleChange(selectedOption: any) {
+    this.setState({ patientId: selectedOption.value });
+  }
   submitHandler = (event: any) => {
     event.preventDefault();
     this.dataConfig = {
@@ -253,17 +273,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     let day = (date.getDate() + 100).toString().substring(1);
     let formattedDate = year + "-" + month + "-" + day;
     return formattedDate;
-  }
-
-  getPatientList() {
-    DonorService.getAllActivePatients().then((res) => {
-      const result = res.data;
-      const options = result?.map((d: any) => ({
-        value: d.identifier,
-        label: d.name + " (" + d.identifier + ")",
-      }));
-      this.setState({ selectOptions: options });
-    });
   }
 
   getDonorInfoById(id: number) {
@@ -399,7 +408,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                         name="patient"
                         defaultInputValue={patientId}
                         onChange={this.handleChange}
-                        options={this.state.selectOptions}
+                        options={this.state.showOptions ? this.state.selectOptions : []}
+                        onInputChange={this.handleInputChange}
                       />
                     </div>
                   </div>

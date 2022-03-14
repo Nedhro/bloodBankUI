@@ -73,10 +73,9 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
 
   }
   getPatientList() {
-    DonorService.getAllActivePatients().then((res) => {
+    DonorService.getAllActivePatients(this.state.modalData.patient).then((res) => {
       const result = res.data;
-      const filter = result.filter((patient: any) => patient.identifier === this.state.modalData.patient);
-      this.setState({ patient: filter[0] });
+      this.setState({ patient: result[0] });
     });
   }
   printDiv() {
@@ -144,7 +143,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
               <div className="compatibility-table">
                 <table >
                   <tr className="compatibility-first-tr">
-                    <td colSpan={3}> <span className="font-weight-bold">Patient Name: </span><span>{this.state.patient?.name} ({this.state.patient?.identifier})</span></td>
+                    <td colSpan={3}> <span className="font-weight-bold">Patient Name: </span><span>{this.state.patient?.name}</span></td>
                     <td colSpan={1}> <span className="font-weight-bold">Age: </span><span>{this.state.patient?.age}</span></td>
                     <td colSpan={1}> <span className="font-weight-bold">Sex: </span><span>{this.state.patient?.gender === "M" ? "Male" :
                       this.state.patient?.gender === "F" ? "Female" : "Other"
@@ -152,10 +151,9 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                   </tr>
                   <tr className="compatibility-first-tr" >
                     <td><b>Patient Lab No:</b> {title}</td>
-                    <td><b>Cabin No:</b></td>
-                    <td><b>Bed No:</b></td>
-                    <td><b>Ward:</b></td>
-                    <td><b>Unit:</b></td>
+                    <td colSpan={2}><b>Cabin/Ward No:</b> <span>{this.state.patient?.ward}</span></td>
+                    <td><b>Bed No:</b> <span>{this.state.patient?.bed}</span></td>
+                    <td><b>Unit:</b> <span>{this.state.patient?.unit}</span></td>
                   </tr>
                   <tr >
                     <td colSpan={1}> <span className="pl-2 font-weight-bold">Patient Blood Group:</span></td>
@@ -319,13 +317,13 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                     ....................................................................................
                   </p>
                   <p className="text-dark compatibility-signature" >
-                    {translate("MTSignature")}
+                    MT Signature
                   </p>
                 </div>
                 <div className="col-6">
                   <p>.........................................................</p>
                   <p className="text-dark compatibility-signature" >
-                    {translate("dutyDoctor")}
+                    Lab In-Charge/Duty Doctor
 
                   </p>
                 </div>
@@ -333,172 +331,6 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
               <div className="text-center mt-4">
                 <span><b>বিঃ দ্রঃ ১০ (দশ) দিনের মধ্যে রক্তের ব্যাগ ব্যবহার/গ্রহণ না করিলে অন্য রোগীকে বরাদ্দ করা হবে।</b></span>
               </div>
-              {/* 
-              <p>
-                <span className="font-weight-bold">
-                  {translate("crossMatching")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.bloodCrossMatching === "Non-Compatible"
-                      ? "text-danger"
-                      : "text-success"
-                  }
-                >
-                  {modalData.bloodCrossMatching}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bolder text-info">
-                  {translate("bloodScreening")}
-                </span>{" "}
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("bloodHivTest")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.bloodHivTest === "Reactive"
-                      ? "text-danger"
-                      : "text-success"
-                  }
-                >
-                  {modalData.bloodHivTest}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("bloodHbvTest")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.bloodHbvTest === "Reactive"
-                      ? "text-danger"
-                      : "text-success"
-                  }
-                >
-                  {modalData.bloodHbvTest}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("bloodHcvTest")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.bloodHcvTest === "Reactive"
-                      ? "text-danger"
-                      : "text-success"
-                  }
-                >
-                  {modalData.bloodHcvTest}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("bloodSyphilisTest")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.bloodSyphilisTest === "Reactive"
-                      ? "text-danger"
-                      : "text-success"
-                  }
-                >
-                  {modalData.bloodSyphilisTest}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("bloodMalariaTest")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.bloodMalariaTest === "Reactive"
-                      ? "text-danger"
-                      : "text-success"
-                  }
-                >
-                  {modalData.bloodMalariaTest}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("atRoomTemp")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.atRoomTemp === "Non-Compatible"
-                      ? "text-danger" : "text-success"
-
-                  }
-                >
-                  {modalData.atRoomTemp}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("at37ByICT")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.at37ByICT === "Compatible"
-                      ? "text-success" : "text-danger"
-
-                  }
-                >
-                  {modalData.at37ByICT}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("coombsTest")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={
-                    modalData.coombsTest === "Compatible"
-                      ? "text-success" : "text-danger"
-
-                  }
-                >
-                  {modalData.coombsTest}
-                </span>
-              </p>
-              <p>
-                <span className="font-weight-bold">
-                  {translate("compatibilityTestDecision")}
-                </span>{" "}
-                :{" "}
-                <span
-                  className={disallowApprove ? "text-danger" : "text-success"}
-                >
-                  {message}
-                </span>
-              </p>
-            </div>
-            <div className="row signature d-flex justify-content-end" id="signature">
-              <div className="col-4 mt-5 pt-5"></div>
-              <div className="col-4 mt-5 pt-5 p-1" >
-                <p>
-                  ........................................................
-                </p>
-                <p className="text-dark" style={{ width: "200px" }}>
-                  {translate("MOSignature")}
-                </p>
-              </div>
-              <div className="col-4 mt-5 pt-5 pl-1" style={{ marginLeft: "-10px" }}>
-
-              </div> */}
             </div>
           </Modal.Body>
         </div>

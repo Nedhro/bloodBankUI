@@ -41,6 +41,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       updatedBy: "",
       patientId: null,
       selectOptions: [],
+      showOptions: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -48,7 +49,6 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   }
 
   componentDidMount() {
-    this.getPatientList();
     /*
     for tracking users who is creating or updating
     */
@@ -91,17 +91,26 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     }
   }
 
-  getPatientList() {
-    DonorService.getAllActivePatients().then((res) => {
-      const result = res.data;
-      const options = result.map((d: any) => ({
-        value: d.identifier,
-        label: d.name + " (" + d.identifier + ")",
-      }));
-      this.setState({ selectOptions: options });
-    });
+  handleInputChange = (typedOption: any) => {
+    if (typedOption.length > 3) {
+      DonorService.getAllActivePatients(typedOption).then((res) => {
+        const result = res.data;
+        const options = result?.map((d: any) => ({
+          value: d.name,
+          label: d.name,
+        }));
+        this.setState({ selectOptions: options });
+      });
+      this.setState(
+        { showOptions: true, }
+      )
+    }
+    else {
+      this.setState(
+        { showOptions: false }
+      )
+    }
   }
-
   handleChange(selectedOption: any) {
     this.setState({ patientId: selectedOption.value });
   }
@@ -293,7 +302,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                     isClearable={true}
                     value={patientId}
                     onChange={this.handleChange}
-                    options={this.state.selectOptions}
+                    // options={this.state.selectOptions}
+                    options={this.state.showOptions ? this.state.selectOptions : []}
+                    onInputChange={this.handleInputChange}
                   />
                 )}
                 {patientId && (
@@ -303,7 +314,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                     isSearchable={true}
                     defaultInputValue={patientId}
                     onChange={this.handleChange}
-                    options={this.state.selectOptions}
+                    // options={this.state.selectOptions}
+                    options={this.state.showOptions ? this.state.selectOptions : []}
+                    onInputChange={this.handleInputChange}
                   />
                 )}
               </div>
