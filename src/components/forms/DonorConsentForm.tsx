@@ -98,7 +98,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                         <span className="font-weight-normal" >{item.bloodDonor?.patient}</span></>}</p>
                   </div>
 
-                  {item.bloodDonor.concernSet.length > 0 && <div className="container ml-5">
+                  {item.bloodDonor.concernSet.length > 0 && <div style={{ display: formData[0]?.donorSelection === 'Selected' ? '' : 'none' }}  className="container ml-5">
                     <div className="text-left">
                       <h4 className="mt-1 font-weight-bold text-dark">{translate("questionnaire")} </h4>
                     </div>
@@ -111,7 +111,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                     </div>
                   </div>}
                 </div>
-                <div className="row">
+                <div style={{ display: formData[0]?.donorSelection === 'Selected' ? '' : 'none' }} className="row">
                   <div className="col-6 text-left">
                     <h3 className="font-weight-bold text-dark py-3 ml-5">{translate("physicalTestResult")}</h3>
                     <p className="font-weight-bold mt-2" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodGroup}</span></p>
@@ -127,10 +127,32 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                   </div>
                 </div>
                 <div style={{ fontSize: "20px" }} className="d-flex justify-content-center mt-2">
-                  <p style={{ border: "4px solid red", width: '300px', backgroundColor: '#fff3e6' }} className="font-weight-bold mt-2 p-4" >{translate("selection")}:<span className="font-weight-normal" >
-                    {item.donorSelection === "Selected" &&
-                      <span className="text-success font-weight-bold">{translate("selected")}</span>}
+                  <p style={{ border: "4px solid red", width: '300px', backgroundColor: '#fff3e6' }} className="font-weight-bold mt-2 p-4" ><span className="font-weight-normal" >
+                    {item.donorSelection === "Selected" ?
+                      <span className="text-success font-weight-bold">{translate("selected")}</span> : <span className="text-danger font-weight-bold">{translate("rejected")}</span> }
                   </span></p>
+                </div>
+                <div>
+                   {formData?.map((item: any, i: any) => (
+              <div key={i}>
+                       {item.bloodDonor.concernSet.length > 0 && <div style={{ display: formData[0]?.donorSelection === 'Rejected' ? '' : 'none' }} className="container ml-5">
+                         <div className="text-left">
+                           <h4 className="mt-1 font-weight-bold text-dark">Reason for rejection</h4>
+                         </div>
+                         <div className="text-left">
+                           {item?.bloodDonor?.concernSet
+                           .filter((item: any)=> item?.concernStatus === 'Yes')
+                           .map((data: any, j: any) => (
+                             <div className="" key={j}>
+                             
+                               <li >{data?.concernName}{" "}<span className="font-weight-bold">({data?.concernStatus})</span></li>
+                               
+                             </div>
+                           ))}
+                         </div>
+                       </div>}
+                 </div>
+                 ))}
                 </div>
                 <div className="row mt-2">
                   <div className="col-6 text-left ">
@@ -148,7 +170,7 @@ class DonorConsentForm extends Component<consentFormProps, any> {
               </div>
             ))}
           </div>
-          <div style={{}} className="formFooter ">
+          <div style={{ display: formData[0]?.donorSelection === 'Selected' ? '' : 'none' }}  className="formFooter ">
             <h2 className="text-center font-weight-bold">
               {translate("donorConsentForm")}
             </h2>

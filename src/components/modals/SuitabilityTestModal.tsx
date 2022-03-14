@@ -182,7 +182,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
           <Modal.Footer>
             <Button
               variant="info"
-              disabled={modalData.donorSelection === "Selected" ? false : true}
+              
               onClick={() => {
                 const donorPhysicalSuitabilityId = modalData?.donorPhysicalSuitabilityId;
                 sessionStorage.setItem("donorPhysicalSuitabilityId", donorPhysicalSuitabilityId);
@@ -190,7 +190,8 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
 
               }}
             >
-              {translate("donorConsentForm")}
+              {modalData.donorSelection === "Selected" ? translate("donorConsentForm") : 'Donor Rejected Form'}
+     
             </Button>
             <Button variant="success" onClick={this.printDiv}>
               {translate("commonPrint")}

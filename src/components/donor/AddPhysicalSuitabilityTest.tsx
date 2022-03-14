@@ -183,7 +183,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorHemoglobin">
                   {translate("hemoglobin")}{" "}
-                  <span className="text-danger">*</span>
+                  
                 </label>
               </div>
               <div className="col-8">
@@ -193,7 +193,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   name="donorHemoglobin"
                   id="donorHemoglobin"
                   value={this.state.donorHemoglobin}
-                  required
+                
                   onChange={this.changeHandler}
                 />
               </div>
@@ -203,7 +203,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorWeight">
                   {translate("weight")}
-                  <span className="text-danger">*</span>{" "}
+                  {" "}
                 </label>
               </div>
               <div className="col-8">
@@ -213,7 +213,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   name="donorWeight"
                   id="donorWeight"
                   value={this.state.donorWeight}
-                  required
+               
                   onChange={this.changeHandler}
                 />
               </div>
@@ -226,7 +226,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   htmlFor="donorBloodPressure"
                 >
                   {translate("bloodPressure")}
-                  <span className="text-danger">*</span>
+                  
                 </label>
               </div>
               <div className="col-8">
@@ -237,7 +237,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   id="donorBloodPressure"
                   placeholder="120/80"
                   value={this.state.donorBloodPressure}
-                  required
+                
                   onChange={this.changeHandler}
                 />
               </div>
@@ -247,7 +247,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorPulseRate">
                   {translate("pulse")}
-                  <span className="text-danger">*</span>{" "}
+                  {" "}
                 </label>
               </div>
               <div className="col-8">
@@ -257,7 +257,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   name="donorPulseRate"
                   id="donorPulseRate"
                   value={this.state.donorPulseRate}
-                  required
+             
                   onChange={this.changeHandler}
                 />
               </div>
@@ -267,7 +267,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorTemperature">
                   {translate("temp")} (<sup>o</sup>
-                  {translate("cel")})<span className="text-danger">*</span>
+                  {translate("cel")})
                 </label>
               </div>
               <div className="col-8">
@@ -277,7 +277,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   name="donorTemperature"
                   id="donorTemperature"
                   value={this.state.donorTemperature}
-                  required
+             
                   onChange={this.changeHandler}
                 />
               </div>
@@ -287,7 +287,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="donorBloodGroup">
                   {translate("bloodGroup")}
-                  <span className="text-danger">*</span>
+                  
                 </label>
               </div>
               <div className="col-8">
@@ -296,7 +296,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   name="donorBloodGroup"
                   id="donorBloodGroup"
                   value={this.state.donorBloodGroup}
-                  required
+                 
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
@@ -315,7 +315,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   htmlFor="donorBloodGroupRhesus"
                 >
                  {translate("bloodGroupRhesus")}
-                  <span className="text-danger">*</span>
+                  
                 </label>
               </div>
               <div className="col-8">
@@ -324,7 +324,7 @@ class AddPhysicalSuitabilityTest extends React.Component<
                   name="donorBloodGroupRhesus"
                   id="donorBloodGroupRhesus"
                   value={this.state.donorBloodGroupRhesus}
-                  required
+              
                   onChange={this.changeHandler}
                 >
                   <option value="">{translate("commonSelect")}</option>
