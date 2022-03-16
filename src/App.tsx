@@ -18,6 +18,8 @@ import AddCompatibilityTest from "./components/bloodStock/AddCompatibilityTest";
 import CompatibilityList from "./components/bloodStock/CompatibilityList";
 import DonorConsentForm from "./components/forms/DonorConsentForm";
 import Cookies from 'universal-cookie';
+import ReportList from "./components/bloodStock/ReportList";
+import AddReport from "./components/bloodStock/AddReport";
 const App: FC = () => {
   const cookies = new Cookies();
   const { dispatch: { translate } } = useContext(LangContext);
@@ -54,7 +56,12 @@ const App: FC = () => {
           <Route exact path="/donor/:id">
             <AddDonorInfo translate={translate} />
           </Route>
-
+          <Route exact path="/report/list">
+            <ReportList translate={translate} />
+          </Route>
+          <Route exact path="/report/add">
+            <AddReport translate={translate} />
+          </Route>
           <Route exact path="/questionnaire/add">
             <AddQuestionnaire translate={translate} />
           </Route>

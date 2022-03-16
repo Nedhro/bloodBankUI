@@ -1,25 +1,25 @@
 import React, { Fragment } from "react";
-import { Modal } from "react-bootstrap";
 import DataTable from "react-data-table-component";
-import DonorService from "../../services/DonorService";
-import QuestionnaireModal from "../modals/QuestionnaireModal";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import BloodStockService from "../../services/BloodStockService";
 // Importing toastify module
 import { toast } from 'react-toastify';
+
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticationService } from "../../services/AuthenticationService";
 import { history } from "../helper/history";
+import ReportModal from "../modals/ReportModal";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
-
-interface AssessmentQuestionnaireProps {
+interface CompatibilityListProps {
   translate: (key: string) => string;
 }
-class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnaireProps, any> {
+class ReportList extends React.Component<CompatibilityListProps, any> {
   currentUser: any = "";
   constructor(props: any) {
     super(props);
@@ -31,46 +31,71 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
       modalData: "",
       query: "",
     };
-
   }
+
   componentDidMount() {
     /*
-  for tracking users who is creating or updating
-  */
+    for tracking users who is creating or updating
+    */
     if (authenticationService.currentUserValue !== undefined
       || authenticationService.currentUserValue !== null) {
       this.currentUser = authenticationService.currentUserValue
     }
-    this.getQuestionnaireList();
+    this.getComtibilityList();
   }
 
-  deleteQuestionnaire(id: number) {
-    DonorService.deleteQuestionnaire(id, this.currentUser).then((res) => {
-      if (res.status === 202) {
-        toast.success("The Questionnaire is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        history.push("/questionnaire/list");
-      }
-    });
+  getComtibilityList() {
+    BloodStockService.getCompatibilityTestList()
+      .then((res) => {
+        let keys = [
+          "bloodCompatibilityId",
+          "bloodScreening",
+          "bloodGrouping",
+          "bloodCrossMatching",
+          "bloodHivTest",
+          "bloodHbvTest",
+          "bloodHcvTest",
+          "bloodSyphilisTest",
+          "bloodMalariaTest",
+          "bloodBagId",
+          "atRoomTemp",
+          "at37ByICT",
+          "coombsTest",
+          "patient",
+          "patientBloodGroup",
+          "patientBloodGroupRhesus",
+          "uuid",
+          "status",
+          "dateCreated",
+          "dateChanged",
+          "voided",
+          "createdBy",
+          "updatedBy",
+        ];
+        let dataFinal: any = [];
+        let entries = this.filterData(res.data, keys);
+        entries.map((entry: any) => {
+          return dataFinal.push(entry)
+        });
+        this.setState({
+          isLoaded: true,
+          items: dataFinal,
+        });
+      })
+      .catch((err: any) => console.log(err));
   }
 
-  getQuestionnaireList() {
-    DonorService.getAllQuestionnaire().then((result) => {
-      const resultData = result.data;
-      const datafinal = resultData?.map((data: any) => {
-        let config = {
-          uuid: data.uuid,
-          id: data.qid,
-          question: data.question,
-          concernFor: data.concernFor,
-          status: data.status === 1 ? "Active" : "Inactive",
-        };
-        return config;
+  filterData(dataArr: any, keys: any) {
+    let data = dataArr.map((entry: any) => {
+      let filteredEntry: any = {};
+      keys.forEach((key: any) => {
+        if (key in entry) {
+          filteredEntry[key] = entry[key];
+        }
       });
-      this.setState({
-        isLoaded: true,
-        items: datafinal,
-      });
+      return filteredEntry;
     });
+    return data;
   }
 
   search = (rows: any) => {
@@ -86,32 +111,67 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
     );
   };
 
+  deleteComtibilityTest(id: number) {
+    if (this.currentUser !== "undefined" && this.currentUser !== "") {
+      BloodStockService.deleteCompatibilityTest(id, this.currentUser).then((res) => {
+        if (res.status === 202) {
+          toast.success("Blood Compatibility Test has been deleted successfully",
+            { position: toast.POSITION.BOTTOM_RIGHT });
+          history.push("/blood/compatibility/test/list");
+        }
+      })
+        .catch((err) => {
+          toast.warn("Deletion is not possible :: " + err.message, { position: toast.POSITION.BOTTOM_RIGHT });
+        });
+    } else {
+      toast.warn("User doesn't have the privilege to delete", { position: toast.POSITION.BOTTOM_RIGHT });
+    }
+  };
+
   closeModal = () => {
     this.setState({
       show: false,
     });
 
   };
-
   render() {
-    const { error, isLoaded, items, show, modalData, query } = this.state;
-    const data = this.search(items);
+    const { error, isLoaded, items, show, modalData, query } =
+      this.state;
     const { translate } = this.props;
-
-    const columns = [
+    const columns: any = [
       {
-        name: `${translate("question")}`,
-        selector: "question",
+        name: `${translate("patient")}`,
+        selector: "patient",
         sortable: true,
       },
       {
-        name: `${translate("concernFor")}`,
-        selector: "concernFor",
+        name: `${translate("patientBloodGroupRhesus")}`,
+        selector: "patientBloodGroupRhesus",
         sortable: true,
       },
       {
-        name: `${translate("status")}`,
-        selector: "status",
+        name: `${translate("bloodHivTest")}`,
+        selector: "bloodHivTest",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodHbvTest")}`,
+        selector: "bloodHbvTest",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodHcvTest")}`,
+        selector: "bloodHcvTest",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodSyphilisTest")}`,
+        selector: "bloodSyphilisTest",
+        sortable: true,
+      },
+      {
+        name: `${translate("bloodMalariaTest")}`,
+        selector: "bloodMalariaTest",
         sortable: true,
       },
       {
@@ -124,10 +184,10 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
           return (
             <Fragment>
               <Link
-                to={`/questionnaire/${record.id}`}
+                to={`/report/add/`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("quesId", record.id);
+                  sessionStorage.setItem("bloodCompatibilityId", record.bloodCompatibilityId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
@@ -136,10 +196,11 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
                 className="btn btn-danger btn-sm m-1"
                 onClick={() => {
                   const confirmBox = window.confirm(
-                    "Are you sure!!! \nDo you really want to delete this questionnaire?"
+                    "Are you sure!!! \nDo you really want to delete this test?"
                   )
                   if (confirmBox) {
-                    this.deleteQuestionnaire(record.id);
+                    const id = record.bloodCompatibilityId;
+                    this.deleteComtibilityTest(parseInt(id));
                   }
                 }}
               >
@@ -150,7 +211,6 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
         },
       },
     ];
-
     if (error) {
       return (
         <div className="text-center font-weight-bold">
@@ -161,33 +221,29 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
       return <div className="text-center font-weight-bold">Loading...</div>;
     } else {
       return (
-        <div className="container-fluid m-1">
+        <div className="m-1">
           <div className="container bg-light p-2">
             <div className="form-inline">
               <a
                 className="btn btn-info text-left float-left m-1 font-weight-bold"
+                href="/report/add"
                 onClick={() => {
                   sessionStorage.clear()
                 }}
-                href="/questionnaire/add"
               >
-                {translate("addNewQues")}
-              </a>
-              <a
-                className="btn btn-info text-left float-left m-1 font-weight-bold"
-                href="/donor/list"
-              >
-                {translate("commonDonors")}
+                Add Report
               </a>
             </div>
-            <div className="row">
+            <div className="row no-printme">
               <div className="col-12 p-1 m-1">
-                <h2>{translate("donorQuesList")}</h2>
+                <h2>Report List</h2>
                 <div className="container">
                   <form className="form-group">
                     <div className="row">
                       <div className="col-3 form-inline">
-                        <label htmlFor="filter m-2 p-2">{translate("commonFilter")}</label>
+                        <label htmlFor="filter m-2 p-2">
+                          {translate("commonFilter")}
+                        </label>
                         <input
                           className="form-control m-1 p-1"
                           type="text"
@@ -201,15 +257,16 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
                   </form>
                 </div>
                 <DataTable
-                  className="table table-hover table-sm"
+                  className="table table-stripped table-hover"
                   columns={columns}
-                  data={data}
-                  noHeader
-                  defaultSortAsc={true}
+                  data={this.search(items)}
                   pagination
+                  pointerOnHover
                   highlightOnHover
-                  striped
                   paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
+                  striped={true}
+                  responsive
+                  noHeader
                   onRowClicked={(dataFinal: any) => {
                     const modalData = dataFinal;
                     this.setState({
@@ -226,7 +283,11 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
                   centered
                 >
                   {show ? (
-                    <QuestionnaireModal translate={translate} data={modalData} title={modalData.id} />
+                    <ReportModal
+                      data={modalData}
+                      title={modalData.bloodCompatibilityId}
+                      translate={translate}
+                    />
                   ) : (
                     ""
                   )}
@@ -241,4 +302,5 @@ class AssessmentQuestionnaire extends React.Component<AssessmentQuestionnairePro
   }
 }
 
-export default AssessmentQuestionnaire;
+export default ReportList;
+

@@ -250,6 +250,9 @@ class BloodStock extends React.Component<BloodStockProps, any> {
               <a
                 className="btn btn-info text-left float-left m-1 font-weight-bold"
                 href="/blood/stock/add"
+                onClick={() => {
+                  sessionStorage.clear()
+                }}
               >
                 {translate("stockBlood")}
               </a>

@@ -101,49 +101,52 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "sourceOfBlood") {
       const donorId = parseInt(this.state.bloodDonorId);
-      let bloodSource = event.target.value;
-      BloodStockService.getNextBloodBagId(bloodSource).then(res => {
-        const nextBloodBagId = res.data;
-        if (event.target.value === "NITOR") {
-          if (donorId) {
+      if (event.target.value === "NITOR") {
+        if (donorId) {
+          BloodStockService.getNextBloodBagId(event.target.value).then(res => {
+            const nextBloodBagId = res.data;
             this.setState({
               bloodBagId: nextBloodBagId,
               stockStatus: "Available",
               allowSave: true,
               inputReadOnly: true
             });
-          } else {
-            toast.warn("Donor Id is not available. Blood Source is not valid", { position: toast.POSITION.BOTTOM_RIGHT });
-            this.setState({
-              sourceOfBlood: "",
-              stockStatus: "Not Available",
-              bloodBagId: "",
-              allowSave: false,
-              inputReadOnly: true
-            });
-          }
-        } else if (event.target.value === "Outdoor Campaign") {
+          });
+        } else {
+          toast.warn("Donor Id is not available. Blood Source is not valid", { position: toast.POSITION.BOTTOM_RIGHT });
+          this.setState({
+            sourceOfBlood: "",
+            stockStatus: "Not Available",
+            bloodBagId: "",
+            allowSave: false,
+            inputReadOnly: true
+          });
+        }
+      } else if (event.target.value === "Outdoor Campaign") {
+        BloodStockService.getNextBloodBagId(event.target.value).then(res => {
+          const nextBloodBagId = res.data;
           this.setState({
             bloodBagId: nextBloodBagId,
             stockStatus: "Available",
             allowSave: true,
             inputReadOnly: true
           });
-        } else if (event.target.value === "Outsource" || "Private Blood Bank" || "Voluntary Organization" || "Other Govt. Hospital") {
-          this.setState({
-            bloodBagId: "",
-            stockStatus: "Available",
-            allowSave: true,
-            inputReadOnly: false
-          });
-        } else {
-          this.setState({
-            bloodBagId: "",
-            stockStatus: "Not Available",
-            allowSave: false,
-          });
-        }
-      });
+        });
+      } else if (event.target.value === "Outsource" || "Private Blood Bank" || "Voluntary Organization" || "Other Govt. Hospital") {
+        this.setState({
+          bloodBagId: "",
+          stockStatus: "Available",
+          allowSave: true,
+          inputReadOnly: false
+        });
+      } else {
+        this.setState({
+          bloodBagId: "",
+          stockStatus: "Not Available",
+          allowSave: false,
+        });
+      }
+
     }
   };
 

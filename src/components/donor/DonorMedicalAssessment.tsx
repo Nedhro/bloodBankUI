@@ -178,6 +178,9 @@ for tracking users who is creating or updating
             <div className="form-inline">
               <a
                 className="btn btn-info text-left float-left m-1 font-weight-bold"
+                onClick={() => {
+                  sessionStorage.clear()
+                }}
                 href="/donor/add"
               >
                 {translate("addDonor")}
