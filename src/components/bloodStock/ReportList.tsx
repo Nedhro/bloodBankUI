@@ -117,7 +117,7 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
         if (res.status === 202) {
           toast.success("Blood Compatibility Test has been deleted successfully",
             { position: toast.POSITION.BOTTOM_RIGHT });
-          history.push("/blood/compatibility/test/list");
+          history.push("/report/list");
         }
       })
         .catch((err) => {

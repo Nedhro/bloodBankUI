@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import BloodStockService from "../../services/BloodStockService";
+// import BloodStockService from "../../services/BloodStockService";
 import "../../static/scss/print.scss";
 import FormBanner from "../../static/images/hospitalBanner.png";
 // Importing toastify module
@@ -38,36 +38,36 @@ class ReportModal extends React.Component<TableModalProps, any> {
     }
 
     componentDidMount() {
-        const bloodBagId = this.state.modalData.bloodBagId;
-        BloodStockService.getStockByBloodBagId(bloodBagId).then((res) => {
-            this.setState({
-                bloodGroupRhesus: res.data.bloodGroupRhesus,
-                bloodBagGroup: res.data.bloodGroup,
-                donorName: res?.data?.bloodDonor?.donorName,
-                bloodComponent: res.data.bloodComponent,
-                typeOfDonor: res?.data?.bloodDonor?.typeOfDonor,
-            });
+        // const bloodBagId = this.state.modalData.bloodBagId;
+        // BloodStockService.getStockByBloodBagId(bloodBagId).then((res) => {
+        //     this.setState({
+        //         bloodGroupRhesus: res.data.bloodGroupRhesus,
+        //         bloodBagGroup: res.data.bloodGroup,
+        //         donorName: res?.data?.bloodDonor?.donorName,
+        //         bloodComponent: res.data.bloodComponent,
+        //         typeOfDonor: res?.data?.bloodDonor?.typeOfDonor,
+        //     });
 
-        });
-        if (
-            this.state.modalData.bloodGrouping === "Non-Compatible" ||
-            this.state.modalData.bloodCrossMatching === "Non-Compatible" ||
-            this.state.modalData.bloodHivTest === "Reactive" ||
-            this.state.modalData.bloodHbvTest === "Reactive" ||
-            this.state.modalData.bloodHcvTest === "Reactive" ||
-            this.state.modalData.bloodSyphilisTest === "Reactive" ||
-            this.state.modalData.bloodMalariaTest === "Reactive"
-        ) {
-            this.setState({
-                disallowApprove: true,
-                message: "This blood bag is non-compatible for the patient",
-            });
-        } else {
-            this.setState({
-                disallowApprove: false,
-                message: "This blood bag is compatible for the patient",
-            });
-        }
+        // });
+        // if (
+        //     this.state.modalData.bloodGrouping === "Non-Compatible" ||
+        //     this.state.modalData.bloodCrossMatching === "Non-Compatible" ||
+        //     this.state.modalData.bloodHivTest === "Reactive" ||
+        //     this.state.modalData.bloodHbvTest === "Reactive" ||
+        //     this.state.modalData.bloodHcvTest === "Reactive" ||
+        //     this.state.modalData.bloodSyphilisTest === "Reactive" ||
+        //     this.state.modalData.bloodMalariaTest === "Reactive"
+        // ) {
+        //     this.setState({
+        //         disallowApprove: true,
+        //         message: "This blood bag is non-compatible for the patient",
+        //     });
+        // } else {
+        //     this.setState({
+        //         disallowApprove: false,
+        //         message: "This blood bag is compatible for the patient",
+        //     });
+        // }
         this.getPatientList();
 
     }
@@ -157,7 +157,7 @@ class ReportModal extends React.Component<TableModalProps, any> {
                          
                                 </table>
                             </div>
-                            <div className="row mx-2 mt-5 ">
+                            {modalData.patientBloodGroup && <div className="row mx-2 mt-5 ">
                                 <div className="col-3 extra-label font-weight-bold">
                                     <span>Result of Blood Grouping Test:</span>
                                 </div>
@@ -166,7 +166,7 @@ class ReportModal extends React.Component<TableModalProps, any> {
                                         <tr>
                                             <td className="font-weight-bold">ABO:</td>
                                             <td><span
-                                                className="font-weight-bold"  
+                                                className="font-weight-bold"
                                             >
                                                 {modalData.patientBloodGroup}
                                             </span></td>
@@ -174,84 +174,97 @@ class ReportModal extends React.Component<TableModalProps, any> {
                                         <tr>
                                             <td className="font-weight-bold">Rh(D):</td>
                                             <td>   <span
-                                                className="font-weight-bold" 
+                                                className="font-weight-bold"
                                             >
                                                 {modalData.patientBloodGroupRhesus}
                                             </span></td>
                                         </tr>
-                                   
+
                                     </table>
                                 </div>
-                            </div>
-                            <div className="row mx-2 mt-5 ">
-                                <div className="col-3 extra-label font-weight-bold">
-                                    <span>Result of Screening Test:</span>
+                            </div>}
+                           
+                            {
+                                modalData.bloodHbvTest || modalData.bloodHivTest || modalData.bloodHcvTest || modalData.bloodSyphilisTest || modalData.bloodMalariaTest ? <div className="row mx-2 mt-5 ">
+                                    <div className="col-3 extra-label font-weight-bold">
+                                        <span>Result of Screening Test:</span>
+                                    </div>
+                                    <div className="col-9 compatibility-table-two">
+                                        <table>
+                                            {
+                                                modalData.bloodHbvTest && <tr>
+                                                    <td className="font-weight-bold">HBsAg:</td>
+                                                    <td><span
+                                                        className={
+                                                            modalData.bloodHbvTest === "Reactive"
+                                                                ? "text-danger"
+                                                                : "text-success"
+                                                        }
+                                                    >
+                                                        {modalData.bloodHbvTest}
+                                                    </span></td>
+                                                </tr>
+                                            }
+                                          {
+                                                modalData.bloodHivTest && <tr>
+                                                    <td className="font-weight-bold">HIV 1&2:</td>
+                                                    <td>   <span
+                                                        className={
+                                                            modalData.bloodHivTest === "Reactive"
+                                                                ? "text-danger"
+                                                                : "text-success"
+                                                        }
+                                                    >
+                                                        {modalData.bloodHivTest}
+                                                    </span></td>
+                                                </tr>
+                                          }
+                                            
+                                            {
+                                                modalData.bloodHcvTest && <tr>
+                                                    <td className="font-weight-bold">HCV:</td>
+                                                    <td>  <span
+                                                        className={
+                                                            modalData.bloodHcvTest === "Reactive"
+                                                                ? "text-danger"
+                                                                : "text-success"
+                                                        }
+                                                    >
+                                                        {modalData.bloodHcvTest}
+                                                    </span></td>
+                                                </tr>
+                                            }
+                                            {modalData.bloodSyphilisTest && <tr>
+                                                <td className="font-weight-bold">SYPHILIS:</td>
+                                                <td>    <span
+                                                    className={
+                                                        modalData.bloodSyphilisTest === "Reactive"
+                                                            ? "text-danger"
+                                                            : "text-success"
+                                                    }
+                                                >
+                                                    {modalData.bloodSyphilisTest}
+                                                </span></td>
+                                            </tr>}
+                                            {modalData.bloodMalariaTest && <tr>
+                                                <td className="font-weight-bold">MP:</td>
+                                                <td><span
+                                                    className={
+                                                        modalData.bloodMalariaTest === "Reactive"
+                                                            ? "text-danger"
+                                                            : "text-success"
+                                                    }
+                                                >
+                                                    {modalData.bloodMalariaTest}
+                                                </span></td>
+                                            </tr>}
+                                           
+                                        </table>
+                                    </div>
                                 </div>
-                                <div className="col-9 compatibility-table-two">
-                                    <table>
-                                        <tr>
-                                            <td className="font-weight-bold">HBsAg:</td>
-                                            <td><span
-                                                className={
-                                                    modalData.bloodHbvTest === "Reactive"
-                                                        ? "text-danger"
-                                                        : "text-success"
-                                                }
-                                            >
-                                                {modalData.bloodHbvTest}
-                                            </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td className="font-weight-bold">HIV 1&2:</td>
-                                            <td>   <span
-                                                className={
-                                                    modalData.bloodHivTest === "Reactive"
-                                                        ? "text-danger"
-                                                        : "text-success"
-                                                }
-                                            >
-                                                {modalData.bloodHivTest}
-                                            </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td className="font-weight-bold">HCV:</td>
-                                            <td>  <span
-                                                className={
-                                                    modalData.bloodHcvTest === "Reactive"
-                                                        ? "text-danger"
-                                                        : "text-success"
-                                                }
-                                            >
-                                                {modalData.bloodHcvTest}
-                                            </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td className="font-weight-bold">SYPHILIS:</td>
-                                            <td>    <span
-                                                className={
-                                                    modalData.bloodSyphilisTest === "Reactive"
-                                                        ? "text-danger"
-                                                        : "text-success"
-                                                }
-                                            >
-                                                {modalData.bloodSyphilisTest}
-                                            </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td className="font-weight-bold">MP:</td>
-                                            <td><span
-                                                className={
-                                                    modalData.bloodMalariaTest === "Reactive"
-                                                        ? "text-danger"
-                                                        : "text-success"
-                                                }
-                                            >
-                                                {modalData.bloodMalariaTest}
-                                            </span></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
+                                : <></>
+                            }
+                           
                      
                            
                        

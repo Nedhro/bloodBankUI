@@ -25,6 +25,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodCompatibilityId: "",
       bloodBagId: "",
       bloodBagGroup: "",
+      bloodGroupRhesus: "",
       patient: "",
       patientBloodGroup: "",
       patientBloodGroupRhesus: "",
@@ -85,6 +86,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       BloodStockService.getStockByBloodBagId(bloodBagId).then((res: any) => {
         this.setState({
           bloodBagGroup: res.data.bloodGroup,
+          bloodGroupRhesus: res.data.bloodGroupRhesus,
           bloodBagId: bloodBagId,
         });
       });
@@ -194,6 +196,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         (res: any) => {
           this.setState({
             bloodBagGroup: res.data.bloodGroup,
+            bloodGroupRhesus: res.data.bloodGroupRhesus,
             bloodBagId: res.data.bloodBagId,
           });
         }
@@ -244,7 +247,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         </h2>
         <div className="container">
           <form className="form" onSubmit={this.submitHandler}>
-            <div className="row form-group mb-0">
+            <div className="row form-group mb-3">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodBagId">
                   {translate("bloodBagId")}
@@ -263,24 +266,48 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   onChange={this.changeHandler}
                 />
               </div>
+        
+             
+            </div>
+
+            <div className="row form-group mt-0 mb-0 pb-0">
+              <div className="col-4 text-right">
+                <label className="font-weight-bold" htmlFor="bloodBagGroup">
+                  {translate("bloodBagGroup")}
+                  <span className="text-danger">*</span>
+                </label>
+              </div>
+              <div className="col-4">
+                <input
+                  type="text"
+                  style={{ width: "200px" }}
+                  className="form-control"
+                  name="bloodBagGroup"
+                  id="bloodBagGroup"
+                  readOnly
+                  required
+                  defaultValue={this.state.bloodBagGroup}
+                />
+              </div>
+
               <div className="col-4">
                 <div className="row form-group">
-                  <div className="col-4">
-                    <label className="font-weight-bold" htmlFor="bloodBagGroup">
-                      {translate("bloodBagGroup")}
+                  <div className="col-4 pl-2 pr-1">
+                    <label className="font-weight-bold" htmlFor="bloodGroupRhesus">
+                      {translate("bloodGroupRhesus")}
                       <span className="text-danger">*</span>
                     </label>
                   </div>
-                  <div className="col-8">
+                  <div className="col-8 pl-3 pr-3 mt-0">
                     <input
                       type="text"
                       style={{ width: "200px" }}
                       className="form-control"
-                      name="bloodBagGroup"
-                      id="bloodBagGroup"
+                      name="bloodGroupRhesus"
+                      id="bloodGroupRhesus"
                       readOnly
                       required
-                      defaultValue={this.state.bloodBagGroup}
+                      defaultValue={this.state.bloodGroupRhesus}
                     />
                   </div>
                 </div>
