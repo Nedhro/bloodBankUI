@@ -22,16 +22,9 @@ class AddReport extends React.Component<CompatibilityProps, any> {
     constructor(props: any) {
         super(props);
         this.state = {
-            bloodCompatibilityId: "",
-            bloodBagId: "",
-            bloodBagGroup: "",
-            patient: "",
+            bloodSerologyId: "",
             patientBloodGroup: "",
             patientBloodGroupRhesus: "",
-            bloodGrouping: "",
-            atRoomTemp: "",
-            at37ByICT: "Not Done",
-            coombsTest: "Not Done",
             bloodHivTest: "",
             bloodHbvTest: "",
             bloodHcvTest: "",
@@ -40,6 +33,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
             createdBy: "",
             updatedBy: "",
             patientId: null,
+            patientName: null,
             selectOptions: [],
             showOptions: false
         };
@@ -57,18 +51,9 @@ class AddReport extends React.Component<CompatibilityProps, any> {
             this.currentUser = authenticationService.currentUserValue
         }
 
-        const donorId = sessionStorage.getItem("donorId");
-        if (donorId) {
-            DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
-                if (res?.data?.patient) {
-                    this.setState({ patientId: res.data.patient });
-                }
-            });
-        }
-
-        const id = sessionStorage.getItem("bloodCompatibilityId");
+        const id = sessionStorage.getItem("bloodSerologyId");
         if (id) {
-            this.getCompatibilityTestById(parseInt(id));
+            this.getSerologyTestById(parseInt(id));
             this.setState({
                 createdBy: null,
                 updatedBy: this.currentUser
@@ -80,15 +65,6 @@ class AddReport extends React.Component<CompatibilityProps, any> {
             });
         }
 
-        const bloodBagId = sessionStorage.getItem("bloodBagId");
-        if (bloodBagId) {
-            BloodStockService.getStockByBloodBagId(bloodBagId).then((res: any) => {
-                this.setState({
-                    bloodBagGroup: res.data.bloodGroup,
-                    bloodBagId: bloodBagId,
-                });
-            });
-        }
     }
 
     handleInputChange = (typedOption: any) => {
@@ -96,7 +72,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
             DonorService.getAllActivePatients(typedOption).then((res) => {
                 const result = res.data;
                 const options = result?.map((d: any) => ({
-                    value: d.name,
+                    value: d.patient_id,
                     label: d.name,
                 }));
                 this.setState({ selectOptions: options });
@@ -113,39 +89,28 @@ class AddReport extends React.Component<CompatibilityProps, any> {
     }
     handleChange(selectedOption: any) {
         if(selectedOption !== null){
-            this.setState({ patientId: selectedOption.value });
+            this.setState({ 
+                patientName: selectedOption.label,
+                patientId: selectedOption.value });
         }
         
     }
 
     changeHandler = (event: any) => {
         this.setState({ [event.target.name]: event.target.value });
-        if (event.target.name === "patientBloodGroup") {
-            if (this.state.bloodBagGroup === event.target.value) {
-                this.setState({
-                    bloodGrouping: "Compatible",
-                });
-            } else {
-                this.setState({
-                    bloodGrouping: "Non-Compatible",
-                });
-            }
-        }
     };
 
     submitHandler = (event: any) => {
         event.preventDefault();
-        if (this.state.bloodCompatibilityId) {
+        if (this.state.bloodSerologyId) {
             this.dataConfig = {
-                bloodCompatibilityId: this.state.bloodCompatibilityId,
-                bloodBagId: this.state.bloodBagId,
-                patient: this.state.patientId,
+                bloodSerologyId: this.state.bloodSerologyId,
+                patientName: this.state.patientName,
+                patientId: this.state.patientId,
                 patientBloodGroup: this.state.patientBloodGroup,
                 patientBloodGroupRhesus: this.state.patientBloodGroupRhesus,
-                bloodGrouping: this.state.bloodGrouping,
-                atRoomTemp: this.state.atRoomTemp,
-                at37ByICT: this.state.at37ByICT,
-                coombsTest: this.state.coombsTest,
+
+               
                 bloodHivTest: this.state.bloodHivTest,
                 bloodHbvTest: this.state.bloodHbvTest,
                 bloodHcvTest: this.state.bloodHcvTest,
@@ -155,14 +120,12 @@ class AddReport extends React.Component<CompatibilityProps, any> {
             }
         } else {
             this.dataConfig = {
-                bloodBagId: this.state.bloodBagId,
-                patient: this.state.patientId,
+                patientName: this.state.patientName,
+                patientId: this.state.patientId,
                 patientBloodGroup: this.state.patientBloodGroup,
                 patientBloodGroupRhesus: this.state.patientBloodGroupRhesus,
-                bloodGrouping: this.state.bloodGrouping,
-                atRoomTemp: this.state.atRoomTemp,
-                at37ByICT: this.state.at37ByICT,
-                coombsTest: this.state.coombsTest,
+
+               
                 bloodHivTest: this.state.bloodHivTest,
                 bloodHbvTest: this.state.bloodHbvTest,
                 bloodHcvTest: this.state.bloodHcvTest,
@@ -171,19 +134,17 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                 createdBy: this.state.createdBy
             }
         }
-        this.saveCompatiabilityTest(this.dataConfig);
-        sessionStorage.removeItem("bloodCompatibilityId");
-        sessionStorage.removeItem("bloodBagId");
-        sessionStorage.removeItem("donorId");
+        this.saveSerologyTest(this.dataConfig);
+     
     };
 
-    saveCompatiabilityTest(data: any) {
-        BloodStockService.saveCompatibilityTest(data).then((res) => {
+    saveSerologyTest(data: any) {
+        BloodStockService.saveReport(data).then((res) => {
             if (res.status === 201) {
-                toast.success("Blood Compatibility Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+                toast.success("Blood Serology Test has been saved successfully", { position: toast.POSITION.BOTTOM_RIGHT });
                 history.push("/report/list");
             } else if (res.status === 202) {
-                toast.success("Blood Compatibility Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+                toast.success("Blood Serology Test has been updated successfully", { position: toast.POSITION.BOTTOM_RIGHT });
                 history.push("/report/list");
             } else {
                 toast.error("Please enter valid data", { position: toast.POSITION.BOTTOM_RIGHT });
@@ -191,26 +152,17 @@ class AddReport extends React.Component<CompatibilityProps, any> {
         });
     }
 
-    getCompatibilityTestById(id: number) {
-        BloodStockService.getCompatibilityTestById(id).then((res) => {
-            BloodStockService.getStockByBloodBagId(res.data.bloodBagId).then(
-                (res: any) => {
-                    this.setState({
-                        bloodBagGroup: res.data.bloodGroup,
-                        bloodBagId: res.data.bloodBagId,
-                    });
-                }
-            );
+    getSerologyTestById(id: number) {
+        BloodStockService.getReportById(id).then((res) => {
             this.setState({
-                bloodCompatibilityId: res.data.bloodCompatibilityId,
-                bloodBagId: res.data.bloodBagId,
-                patient: res.data.patient,
+                bloodSerologyId: res.data.bloodSerologyId,
+              
+                patientName: res.data.patientName,
+                patientId: res.data.patientId,
                 patientBloodGroup: res.data.patientBloodGroup,
                 patientBloodGroupRhesus: res.data.patientBloodGroupRhesus,
-                bloodGrouping: res.data.bloodGrouping,
-                atRoomTemp: res.data.atRoomTemp,
-                at37ByICT: res.data.at37ByICT,
-                coombsTest: res.data.coombsTest,
+              
+               
                 bloodHivTest: res.data.bloodHivTest,
                 bloodHbvTest: res.data.bloodHbvTest,
                 bloodHcvTest: res.data.bloodHcvTest,
@@ -226,11 +178,11 @@ class AddReport extends React.Component<CompatibilityProps, any> {
     }
     render() {
         const { translate } = this.props;
-        const { patientId } = this.state;
+        const { patientId, patientName } = this.state;
         return (
             <div className="container-fluid m-1 p-1">
                 <h2 className="text-info text-center">
-                    {sessionStorage.getItem("bloodCompatibilityId") ? (
+                    {sessionStorage.getItem("bloodSerologyId") ? (
                         <>
                             {" "}
                             <h2 className="text-info text-center">
@@ -261,7 +213,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                         name="patient"
                                         isSearchable={true}
                                         isClearable={true}
-                                        value={patientId}
+                                        value={patientName}
                                         onChange={this.handleChange}
                                         // options={this.state.selectOptions}
                                         options={this.state.showOptions ? this.state.selectOptions : []}
@@ -273,7 +225,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                         className="text-left"
                                         name="patient"
                                         isSearchable={true}
-                                        defaultInputValue={patientId}
+                                        defaultInputValue={patientName}
                                         onChange={this.handleChange}
                                         // options={this.state.selectOptions}
                                         options={this.state.showOptions ? this.state.selectOptions : []}
@@ -486,7 +438,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                         <div className="row pb-5 form-group">
                             <div className="col-4 text-right"></div>
                             <div className="col-8 float-right text-right ">
-                                {sessionStorage.getItem("bloodCompatibilityId") ? (
+                                {sessionStorage.getItem("bloodSerologyId") ? (
                                     <>
                                         {" "}
                                         <input
@@ -500,7 +452,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                             onClick={() => {
                                                 history.push("/report/list");
 
-                                                sessionStorage.removeItem("bloodCompatibilityId");
+                                                sessionStorage.removeItem("bloodSerologyId");
                                                 sessionStorage.removeItem("bloodBagId");
                                             }}
                                             value={translate("commonCancel")}

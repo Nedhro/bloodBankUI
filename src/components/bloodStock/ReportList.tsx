@@ -45,23 +45,18 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
   }
 
   getComtibilityList() {
-    BloodStockService.getCompatibilityTestList()
+    BloodStockService.getReportList()
       .then((res) => {
         let keys = [
-          "bloodCompatibilityId",
-          "bloodScreening",
-          "bloodGrouping",
-          "bloodCrossMatching",
+          "bloodSerologyId",
+    
           "bloodHivTest",
           "bloodHbvTest",
           "bloodHcvTest",
           "bloodSyphilisTest",
           "bloodMalariaTest",
-          "bloodBagId",
-          "atRoomTemp",
-          "at37ByICT",
-          "coombsTest",
-          "patient",
+          "patientName",
+          "patientId",
           "patientBloodGroup",
           "patientBloodGroupRhesus",
           "uuid",
@@ -111,11 +106,11 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
     );
   };
 
-  deleteComtibilityTest(id: number) {
+  deleteSerologyTest(id: number) {
     if (this.currentUser !== "undefined" && this.currentUser !== "") {
-      BloodStockService.deleteCompatibilityTest(id, this.currentUser).then((res) => {
+      BloodStockService.deleteReport(id, this.currentUser).then((res) => {
         if (res.status === 202) {
-          toast.success("Blood Compatibility Test has been deleted successfully",
+          toast.success("Blood Serology Test has been deleted successfully",
             { position: toast.POSITION.BOTTOM_RIGHT });
           history.push("/report/list");
         }
@@ -141,7 +136,12 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
     const columns: any = [
       {
         name: `${translate("patient")}`,
-        selector: "patient",
+        selector: "patientName",
+        sortable: true,
+      },
+      {
+        name: `${translate("patientBloodGroup")}`,
+        selector: "patientBloodGroup",
         sortable: true,
       },
       {
@@ -187,7 +187,7 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
                 to={`/report/add/`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("bloodCompatibilityId", record.bloodCompatibilityId);
+                  sessionStorage.setItem("bloodSerologyId", record.bloodSerologyId);
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
@@ -199,8 +199,8 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
                     "Are you sure!!! \nDo you really want to delete this test?"
                   )
                   if (confirmBox) {
-                    const id = record.bloodCompatibilityId;
-                    this.deleteComtibilityTest(parseInt(id));
+                    const id = record.bloodSerologyId;
+                    this.deleteSerologyTest(parseInt(id));
                   }
                 }}
               >
@@ -285,7 +285,6 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
                   {show ? (
                     <ReportModal
                       data={modalData}
-                      title={modalData.bloodCompatibilityId}
                       translate={translate}
                     />
                   ) : (

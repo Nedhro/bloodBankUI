@@ -62,6 +62,16 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     if (donorId) {
       DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
         if (res?.data?.patient) {
+          DonorService.getAllActivePatients(res.data.patient).then((res) => {
+            const result = res.data;
+            BloodStockService.getPatientBloodGroupById(result[0].patient_id).then((res) => {
+              const result = res.data;
+              this.setState({
+                patientBloodGroup: result.patientBloodGroup,
+                patientBloodGroupRhesus: result.patientBloodGroupRhesus,
+              })
+            });
+          });
           this.setState({ patientId: res.data.patient });
         }
       });
@@ -114,6 +124,24 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     }
   }
   handleChange(selectedOption: any) {
+    DonorService.getAllActivePatients(selectedOption.value).then((res) => {
+      const result = res.data;
+      BloodStockService.getPatientBloodGroupById(result[0].patient_id).then((res) => {
+        const result = res.data;
+        if(res.data !== "") {
+          this.setState({
+            patientBloodGroup: result.patientBloodGroup,
+            patientBloodGroupRhesus: result.patientBloodGroupRhesus,
+          })
+        }
+        else{
+          this.setState({
+            patientBloodGroup: "",
+            patientBloodGroupRhesus: "",
+          })
+        }
+      });
+    });
     this.setState({ patientId: selectedOption.value });
   }
 
@@ -218,6 +246,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         bloodMalariaTest: res.data.bloodMalariaTest,
       });
       if (res?.data?.patient) {
+        
         this.setState({
           patientId: res?.data?.patient,
         });

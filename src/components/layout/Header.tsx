@@ -130,12 +130,12 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
               </li>
             </ul>
           </li>
-{/* 
+
           <li className="nav-item navText nav-link">
             <a className="nav-link navText" href="/report/list">
               Report
             </a>
-          </li> */}
+          </li>
         </ul>
 
         <ul className="nav navbar-nav navbar-default">

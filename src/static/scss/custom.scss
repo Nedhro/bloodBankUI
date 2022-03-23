@@ -260,6 +260,16 @@ compatibility-first-td {
     width: 465px;
   }
 }
+
+.serology-table-two {
+  table,
+  tr td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0px 10px;
+    width: 465px;
+  }
+}
 .compatibility-table-three {
   table,
   tr td {
@@ -288,6 +298,9 @@ compatibility-first-td {
   .Form-Banner-compatibility-modal {
     margin-top: 30px;
   }
+  .report-body{
+    height: 550px;
+  }
   .compatibility-table {
     display: flex;
     justify-content: center;
@@ -302,6 +315,12 @@ compatibility-first-td {
       width: 672px;
     }
   }
+  .serology-table-two {
+  table,
+  tr td {
+     width: 590px;
+  }
+}
   .compatibility-table-three {
     table,
     tr td {
