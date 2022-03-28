@@ -361,6 +361,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                     // options={this.state.selectOptions}
                     options={this.state.showOptions ? this.state.selectOptions : []}
                     onInputChange={this.handleInputChange}
+                    menuIsOpen={this.state.showOptions}
                   />
                 )}
                 {patientId && (
@@ -373,6 +374,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                     // options={this.state.selectOptions}
                     options={this.state.showOptions ? this.state.selectOptions : []}
                     onInputChange={this.handleInputChange}
+                    menuIsOpen={this.state.showOptions}
                   />
                 )}
               </div>

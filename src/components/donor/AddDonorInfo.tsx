@@ -410,6 +410,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                         onChange={this.handleChange}
                         options={this.state.showOptions ? this.state.selectOptions : []}
                         onInputChange={this.handleInputChange}
+                        menuIsOpen={this.state.showOptions}
                       />
                     </div>
                   </div>
