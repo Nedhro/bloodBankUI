@@ -36,7 +36,7 @@ class ReportModal extends React.Component<TableModalProps, any> {
 
     }
     getPatientList() {
-        DonorService.getAllActivePatients(this.state.modalData.patientName).then((res) => {
+        DonorService.getPatientInformation(this.state.modalData.patientId).then((res) => {
             const result = res.data;
             this.setState({ patient: result[0] });
         });

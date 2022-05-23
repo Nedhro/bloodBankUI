@@ -74,7 +74,7 @@ class ReportList extends React.Component<CompatibilityListProps, any> {
         });
         this.setState({
           isLoaded: true,
-          items: dataFinal,
+          items: dataFinal.reverse(),
         });
       })
       .catch((err: any) => console.log(err));

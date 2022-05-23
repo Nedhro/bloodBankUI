@@ -12,6 +12,10 @@ class BloodStockService {
     return axios.get(urlPrefix + "bloodStockTracing/list")
       .then((response) => handleResponse(response));
   }
+  getApprovedBloodList() {
+    return axios.get(urlPrefix + "bloodStockTracing/approvedList")
+      .then((response) => handleResponse(response));
+  }
   getBloodStockById(id: number) {
     return axios.get(urlPrefix + "bloodStockTracing/" + id)
       .then((response) => handleResponse(response));

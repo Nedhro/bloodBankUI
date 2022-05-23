@@ -85,7 +85,8 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
         let dataFinal: any = [];
         let entries = this.filterData(res.data, keys);
         //rows
-        entries.map((entry: any) => dataFinal.push(entry));
+        let filterData = entries.filter((el: any) => el.donorSelection !== "Rejected").reverse();
+        filterData.map((entry: any) => dataFinal.push(entry));
         this.setState({
           isLoaded: true,
           items: dataFinal,

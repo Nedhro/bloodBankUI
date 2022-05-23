@@ -115,7 +115,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
         });
         this.setState({
           isLoaded: true,
-          items: dataFinal,
+          items: dataFinal.reverse(),
         });
       })
       .catch((err: any) => console.log(err));

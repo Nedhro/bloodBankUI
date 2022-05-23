@@ -40,6 +40,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       bloodMalariaTest: "",
       createdBy: "",
       updatedBy: "",
+      patientName: null,
       patientId: null,
       selectOptions: [],
       showOptions: false
@@ -62,7 +63,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     if (donorId) {
       DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
         if (res?.data?.patient) {
-          DonorService.getAllActivePatients(res.data.patient).then((res) => {
+          DonorService.getPatientInformation(res.data.patientId).then((res) => {
             const result = res.data;
             BloodStockService.getPatientBloodGroupById(result[0].patient_id).then((res) => {
               const result = res.data;
@@ -72,7 +73,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
               })
             });
           });
-          this.setState({ patientId: res.data.patient });
+          this.setState({ patientId: res.data.patientId, patientName: res.data.patient });
         }
       });
     }
@@ -104,45 +105,41 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
   }
 
   handleInputChange = (typedOption: any) => {
-    if (typedOption.length > 3) {
-      DonorService.getAllActivePatients(typedOption).then((res) => {
-        const result = res.data;
+    DonorService.getAllActivePatients(typedOption).then((res) => {
+      const result = res.data;
+
+      if (result.length > 0) {
         const options = result?.map((d: any) => ({
-          value: d.name,
+          value: d.patient_id,
           label: d.name,
         }));
         this.setState({ selectOptions: options });
-      });
-      this.setState(
-        { showOptions: true, }
-      )
-    }
-    else {
-      this.setState(
-        { showOptions: false }
-      )
-    }
+        this.setState(
+          { showOptions: true, }
+        )
+      }
+    });
   }
   handleChange(selectedOption: any) {
-    DonorService.getAllActivePatients(selectedOption.value).then((res) => {
-      const result = res.data;
-      BloodStockService.getPatientBloodGroupById(result[0].patient_id).then((res) => {
+    if (selectedOption.value !== null) {
+      BloodStockService.getPatientBloodGroupById(selectedOption.value).then((res) => {
         const result = res.data;
-        if(res.data !== "") {
+        if (res.data !== "") {
           this.setState({
             patientBloodGroup: result.patientBloodGroup,
             patientBloodGroupRhesus: result.patientBloodGroupRhesus,
           })
         }
-        else{
+        else {
           this.setState({
             patientBloodGroup: "",
             patientBloodGroupRhesus: "",
+            showOptions: false
           })
         }
       });
-    });
-    this.setState({ patientId: selectedOption.value });
+    }
+    this.setState({ showOptions: false, patientId: selectedOption.value, patientName: selectedOption.label });
   }
 
   changeHandler = (event: any) => {
@@ -166,7 +163,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       this.dataConfig = {
         bloodCompatibilityId: this.state.bloodCompatibilityId,
         bloodBagId: this.state.bloodBagId,
-        patient: this.state.patientId,
+        patientId: this.state.patientId,
+        patient: this.state.patientName,
         patientBloodGroup: this.state.patientBloodGroup,
         patientBloodGroupRhesus: this.state.patientBloodGroupRhesus,
         bloodGrouping: this.state.bloodGrouping,
@@ -183,7 +181,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     } else {
       this.dataConfig = {
         bloodBagId: this.state.bloodBagId,
-        patient: this.state.patientId,
+        patient: this.state.patientName,
+        patientId: this.state.patientId,
         patientBloodGroup: this.state.patientBloodGroup,
         patientBloodGroupRhesus: this.state.patientBloodGroupRhesus,
         bloodGrouping: this.state.bloodGrouping,
@@ -246,16 +245,17 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
         bloodMalariaTest: res.data.bloodMalariaTest,
       });
       if (res?.data?.patient) {
-        
+
         this.setState({
-          patientId: res?.data?.patient,
+          patientName: res?.data?.patient,
+          patientId: res?.data?.patientId,
         });
       }
     });
   }
   render() {
     const { translate } = this.props;
-    const { patientId } = this.state;
+    const { patientName } = this.state;
     return (
       <div className="container-fluid m-1 p-1">
         <h2 className="text-info text-center">
@@ -295,8 +295,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                   onChange={this.changeHandler}
                 />
               </div>
-        
-             
+
+
             </div>
 
             <div className="row form-group mt-0 mb-0 pb-0">
@@ -350,13 +350,13 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                 </label>
               </div>
               <div className="col-4">
-                {!patientId && (
+                {!patientName && (
                   <Select
                     className="text-left"
                     name="patient"
                     isSearchable={true}
                     isClearable={true}
-                    value={patientId}
+                    value={patientName}
                     onChange={this.handleChange}
                     // options={this.state.selectOptions}
                     options={this.state.showOptions ? this.state.selectOptions : []}
@@ -364,12 +364,12 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                     menuIsOpen={this.state.showOptions}
                   />
                 )}
-                {patientId && (
+                {patientName && (
                   <Select
                     className="text-left"
                     name="patient"
                     isSearchable={true}
-                    defaultInputValue={patientId}
+                    defaultInputValue={patientName}
                     onChange={this.handleChange}
                     // options={this.state.selectOptions}
                     options={this.state.showOptions ? this.state.selectOptions : []}

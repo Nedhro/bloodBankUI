@@ -68,32 +68,27 @@ class AddReport extends React.Component<CompatibilityProps, any> {
     }
 
     handleInputChange = (typedOption: any) => {
-        if (typedOption.length > 3) {
-            DonorService.getAllActivePatients(typedOption).then((res) => {
-                const result = res.data;
+        DonorService.getAllActivePatients(typedOption).then((res) => {
+            const result = res.data;
+            if (result.length > 0) {
                 const options = result?.map((d: any) => ({
                     value: d.patient_id,
                     label: d.name,
                 }));
-                this.setState({ selectOptions: options });
-            });
-            this.setState(
-                { showOptions: true, }
-            )
-        }
-        else {
-            this.setState(
-                { showOptions: false }
-            )
-        }
+                this.setState({ showOptions: true, selectOptions: options });
+            }
+          
+        });
+     
     }
     handleChange(selectedOption: any) {
-        if(selectedOption !== null){
-            this.setState({ 
+        if (selectedOption !== null) {
+            this.setState({
                 patientName: selectedOption.label,
-                patientId: selectedOption.value });
+                patientId: selectedOption.value, showOptions: false
+            });
         }
-        
+
     }
 
     changeHandler = (event: any) => {
@@ -110,7 +105,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                 patientBloodGroup: this.state.patientBloodGroup,
                 patientBloodGroupRhesus: this.state.patientBloodGroupRhesus,
 
-               
+
                 bloodHivTest: this.state.bloodHivTest,
                 bloodHbvTest: this.state.bloodHbvTest,
                 bloodHcvTest: this.state.bloodHcvTest,
@@ -125,7 +120,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                 patientBloodGroup: this.state.patientBloodGroup,
                 patientBloodGroupRhesus: this.state.patientBloodGroupRhesus,
 
-               
+
                 bloodHivTest: this.state.bloodHivTest,
                 bloodHbvTest: this.state.bloodHbvTest,
                 bloodHcvTest: this.state.bloodHcvTest,
@@ -135,7 +130,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
             }
         }
         this.saveSerologyTest(this.dataConfig);
-     
+
     };
 
     saveSerologyTest(data: any) {
@@ -156,13 +151,13 @@ class AddReport extends React.Component<CompatibilityProps, any> {
         BloodStockService.getReportById(id).then((res) => {
             this.setState({
                 bloodSerologyId: res.data.bloodSerologyId,
-              
+
                 patientName: res.data.patientName,
                 patientId: res.data.patientId,
                 patientBloodGroup: res.data.patientBloodGroup,
                 patientBloodGroupRhesus: res.data.patientBloodGroupRhesus,
-              
-               
+
+
                 bloodHivTest: res.data.bloodHivTest,
                 bloodHbvTest: res.data.bloodHbvTest,
                 bloodHcvTest: res.data.bloodHcvTest,
@@ -236,7 +231,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                 )}
                             </div>
 
-                           
+
                         </div>
                         <div className="row form-group mt-0 mb-2 pb-0">
                             <div className="col-4 text-right pl-2 pr-1">
@@ -245,7 +240,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                     htmlFor="patientBloodGroup"
                                 >
                                     {translate("patientBloodGroup")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8">
@@ -257,7 +252,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                             name="patientBloodGroup"
                                             id="patientBloodGroup"
                                             value={this.state.patientBloodGroup}
-                
+
                                             onChange={this.changeHandler}
                                         >
                                             <option value="">{translate("commonSelect")}</option>
@@ -277,7 +272,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                     htmlFor="patientBloodGroupRhesus"
                                 >
                                     {translate("patientBloodGroupRhesus")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8">
@@ -289,7 +284,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                             name="patientBloodGroupRhesus"
                                             id="patientBloodGroupRhesus"
                                             value={this.state.patientBloodGroupRhesus}
-                
+
                                             onChange={this.changeHandler}
                                         >
                                             <option value="">{translate("commonSelect")}</option>
@@ -304,7 +299,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                             <div className="col-4 text-right">
                                 <label className="font-weight-bold" htmlFor="bloodScreening">
                                     {translate("bloodScreening")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8 text-left">
@@ -316,7 +311,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                             <div className="col-4 text-right">
                                 <label className="font-weight-bold" htmlFor="bloodHivTest">
                                     {translate("bloodHivTest")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8">
@@ -325,7 +320,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                     name="bloodHivTest"
                                     id="bloodHivTest"
                                     value={this.state.bloodHivTest}
-        
+
                                     onChange={this.changeHandler}
                                 >
                                     <option value="">{translate("commonSelect")}</option>
@@ -341,7 +336,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                             <div className="col-4 text-right">
                                 <label className="font-weight-bold" htmlFor="bloodHbvTest">
                                     {translate("bloodHbvTest")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8">
@@ -350,7 +345,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                     name="bloodHbvTest"
                                     id="bloodHbvTest"
                                     value={this.state.bloodHbvTest}
-        
+
                                     onChange={this.changeHandler}
                                 >
                                     <option value="">{translate("commonSelect")}</option>
@@ -366,7 +361,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                             <div className="col-4 text-right">
                                 <label className="font-weight-bold" htmlFor="bloodHcvTest">
                                     {translate("bloodHcvTest")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8">
@@ -375,7 +370,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                     name="bloodHcvTest"
                                     id="bloodHcvTest"
                                     value={this.state.bloodHcvTest}
-        
+
                                     onChange={this.changeHandler}
                                 >
                                     <option value="">{translate("commonSelect")}</option>
@@ -391,7 +386,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                             <div className="col-4 text-right">
                                 <label className="font-weight-bold" htmlFor="bloodSyphilisTest">
                                     {translate("bloodSyphilisTest")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8">
@@ -400,7 +395,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                     name="bloodSyphilisTest"
                                     id="bloodSyphilisTest"
                                     value={this.state.bloodSyphilisTest}
-        
+
                                     onChange={this.changeHandler}
                                 >
                                     <option value="">{translate("commonSelect")}</option>
@@ -416,7 +411,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                             <div className="col-4 text-right">
                                 <label className="font-weight-bold" htmlFor="bloodMalariaTest">
                                     {translate("bloodMalariaTest")}
-                                    
+
                                 </label>
                             </div>
                             <div className="col-8">
@@ -425,7 +420,7 @@ class AddReport extends React.Component<CompatibilityProps, any> {
                                     name="bloodMalariaTest"
                                     id="bloodMalariaTest"
                                     value={this.state.bloodMalariaTest}
-        
+
                                     onChange={this.changeHandler}
                                 >
                                     <option value="">{translate("commonSelect")}</option>

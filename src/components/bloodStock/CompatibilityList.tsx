@@ -62,6 +62,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           "at37ByICT",
           "coombsTest",
           "patient",
+          "patientId",
           "patientBloodGroup",
           "patientBloodGroupRhesus",
           "uuid",
@@ -73,7 +74,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           "updatedBy",
         ];
         let dataFinal: any = [];
-        let entries = this.filterData(res.data, keys);
+        let entries = this.filterData(res.data, keys).reverse();
         entries.map((entry: any) => {
           return dataFinal.push(entry)
         });
@@ -139,6 +140,11 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       this.state;
     const { translate } = this.props;
     const columns: any = [
+      {
+        name: "Lab Id",
+        selector: "bloodCompatibilityId",
+        sortable: true,
+      },
       {
         name: `${translate("bloodBagId")}`,
         selector: "bloodBagId",

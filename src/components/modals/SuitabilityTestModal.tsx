@@ -197,6 +197,7 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
               {translate("commonPrint")}
             </Button>
             <Button
+              style={{ display: modalData.donorSelection === "Selected" ? "block" : "none" }}
               variant="info"
               onClick={() => {
                 if (modalData.donorSelection === "Selected") {

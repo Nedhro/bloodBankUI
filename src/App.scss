@@ -19,7 +19,11 @@ $body-bg: rgb(240, 240, 240);
   align-items: center;
   align-content: center;
 }
-
+.alert-message p{
+  font-size: 20px!important;
+  margin: 0px !important;
+  padding: 30px 50px!important;
+}
 // @media (prefers-reduced-motion: no-preference) {
 //   .App-logo {
 //     animation: App-logo-spin infinite 10s alternate-reverse;

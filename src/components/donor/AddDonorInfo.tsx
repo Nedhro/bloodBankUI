@@ -47,6 +47,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       createdBy: this.currentUser,
       updatedBy: this.currentUser,
       selectOptions: [],
+      patientName: null,
       patientId: null,
       consernSet: [],
       questionList: [],
@@ -172,34 +173,35 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       } else {
         this.setState({
           showPatient: false,
-          patientId: "",
+          patientName: "",
+          patientId: ""
         });
       }
     }
   };
+ 
 
   handleInputChange = (typedOption: any) => {
-    if (typedOption.length > 3) {
-      DonorService.getAllActivePatients(typedOption).then((res) => {
-        const result = res.data;
+    DonorService.getAllActivePatients(typedOption).then((res) => {
+      const result = res.data;
+      if (result.length > 0) {
         const options = result?.map((d: any) => ({
-          value: d.name,
-          label: d.name ,
+          value: d.patient_id,
+          label: d.name,
         }));
         this.setState({ selectOptions: options });
-      });
-      this.setState(
-        { showOptions: true, }
-      )
-    }
-    else {
-      this.setState(
-        { showOptions: false }
-      )
-    }
+        this.setState(
+          { showOptions: true, }
+        )
+      }
+    }); 
   }
-   handleChange(selectedOption: any) {
-    this.setState({ patientId: selectedOption.value });
+ 
+  handleChange(selectedOption: any) {
+    this.setState({ patientName: selectedOption.label, patientId: selectedOption.value });
+    this.setState(
+      { showOptions: false }
+    )
   }
   submitHandler = (event: any) => {
     event.preventDefault();
@@ -208,7 +210,10 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       donorName: this.state.donorName.toUpperCase(),
       donorAge: this.state.donorAge,
       typeOfDonor: this.state.typeOfDonor,
-      patient: this.state.patientId?.value
+      patient: this.state.patientName?.value
+        ? this.state.patientName.value
+        : this.state.patientName,
+      patientId: this.state.patientId?.value
         ? this.state.patientId.value
         : this.state.patientId,
       donorGuardian: this.state.donorGuardian,
@@ -293,7 +298,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       this.setState({
         donorId: res?.data?.donorId,
         donorName: res?.data?.donorName,
-        patientId: res?.data?.patient,
+        patientName: res?.data?.patient,
+        patientId: res?.data?.patientId,
         typeOfDonor: res?.data?.typeOfDonor,
         donorGuardian: res?.data?.donorGuardian,
         donorProfession: res?.data?.donorProfession,
@@ -321,7 +327,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
 
   render() {
     const { translate } = this.props;
-    const { questionList, showPatient, patientId } = this.state;
+    const { questionList, showPatient, patientName } = this.state;
     return (
       <div className="container-fluid mt-1 pb-4">
         <h2 className="text-info text-center">
@@ -406,7 +412,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       <Select
                         className="text-left"
                         name="patient"
-                        defaultInputValue={patientId}
+                        defaultInputValue={patientName}
                         onChange={this.handleChange}
                         options={this.state.showOptions ? this.state.selectOptions : []}
                         onInputChange={this.handleInputChange}

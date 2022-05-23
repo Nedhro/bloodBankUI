@@ -1,6 +1,10 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import BloodStockService from "../../services/BloodStockService";
+// import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import "../../static/scss/print.scss";
 import { history } from "../helper/history";
 import FormBanner from "../../static/images/hospitalBanner.png";
@@ -12,6 +16,7 @@ import { authenticationService } from "../../services/AuthenticationService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
+
 
 export interface TableModalProps {
   data: Object;
@@ -28,6 +33,9 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
       title: "",
       modalData: {},
       currentDateTime: Date().toLocaleString(),
+      open: false,
+      alertMessage: '',
+      bloodBagId: '',
     };
   }
 
@@ -37,6 +45,17 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
       this.currentUser = authenticationService.currentUserValue
     }
   }
+  handleClickOpen = (bloodBagId: string) => {
+    this.setState({
+      open: true,
+      bloodBagId: bloodBagId,
+    })
+  };
+  handleClose = () => {
+    this.setState({
+      open: false
+    });
+  };
 
   printDiv() {
     window.print();
@@ -48,8 +67,8 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
     return state;
   }
 
-  updateBloodStockStatus(bloodBagId: string) {
-    BloodStockService.updateStockStatus(bloodBagId, this.currentUser).then((res) => {
+  updateBloodStockStatus() {
+    BloodStockService.updateStockStatus(this.state.bloodBagId, this.currentUser).then((res) => {
       if (res.status === 202) {
         toast.success("Blood bag has been approved for the patient and made unavailable from the stock", { position: toast.POSITION.BOTTOM_RIGHT });
         history.push("/blood/stock/list");
@@ -76,6 +95,27 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
     const { translate } = this.props;
     return (
       <div>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent >
+            <div className="alert-message">
+              <p style={{ fontSize: '16px' }} className="font-weight-bold py-3 px-4 text-dark">Are you sure?</p>
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button className="btn btn-danger px-2 btn-sm  font-weight-bold mr-2" onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button className="btn btn-primary px-3 btn-sm  font-weight-bold" onClick={() => this.updateBloodStockStatus()} color="primary">
+              OK
+            </Button>
+
+          </DialogActions>
+        </Dialog>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             {translate("bloodStockId")} : {title}
@@ -194,6 +234,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
               {translate("commonPrint")}
             </Button>
             <Button
+              style={{ display: modalData.stockStatus === "Available" ? "block" : "none" }}
               variant="info"
               onClick={() => {
                 if (modalData.stockStatus === "Available") {
@@ -211,11 +252,12 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
               {translate("compatibilityWithPatient")}
             </Button>
             <Button
+              style={{ display: modalData.stockStatus === "Available" ? "block" : "none" }}
               variant="success"
               disabled={!modalData.bloodStorage || modalData.bloodStorage === "Discard-Fridge" ? true : false}
               onClick={() => {
                 const bloodBagId = modalData.bloodBagId;
-                this.updateBloodStockStatus(bloodBagId);
+                this.handleClickOpen(bloodBagId);
               }}
             >
               {translate("approveBlood")}

@@ -69,7 +69,7 @@ for tracking users who is creating or updating
       });
       this.setState({
         isLoaded: true,
-        items: datafinal,
+        items: datafinal.reverse(),
       });
     });
   }
