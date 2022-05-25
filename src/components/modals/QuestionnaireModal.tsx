@@ -39,13 +39,13 @@ class QuestionnaireModal extends React.Component<TableModalProps, any> {
   }
 
   render() {
-    const { title, modalData } = this.state;
+    const {  modalData } = this.state;
     const { translate } = this.props;
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {translate("quesId")} : {title}
+            {/* {translate("quesId")} : {title} */}
           </Modal.Title>
         </Modal.Header>
         <div id="printSection" className="print-container" style={{ margin: "0", padding: "0" }}>

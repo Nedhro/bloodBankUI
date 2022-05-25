@@ -91,7 +91,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
   }
 
   render() {
-    const { title, modalData } = this.state;
+    const {  modalData } = this.state;
     const { translate } = this.props;
     return (
       <div>
@@ -118,7 +118,7 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
         </Dialog>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {translate("bloodStockId")} : {title}
+            {/* {translate("bloodStockId")} : {title} */}
           </Modal.Title>
         </Modal.Header>
         <div
@@ -142,12 +142,12 @@ class BloodStockModal extends React.Component<TableModalProps, any> {
             </h4>
             <p><span className="font-weight-bold">{translate("date")}</span> :{" "}
               {this.formatDate(this.state.currentDateTime)} </p>
-            <p>
+            {/* <p>
               <span className="font-weight-bold">
                 {translate("bloodDonorId")}
               </span>{" "}
               : {modalData?.bloodDonorId || "N/A"}
-            </p>
+            </p> */}
             <p>
               <span className="font-weight-bold">{translate("donorName")}</span>{" "}
               : {modalData?.donorName || "N/A"}

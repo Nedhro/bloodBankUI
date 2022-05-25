@@ -96,12 +96,12 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                   className="text-info"
                   href="/donorPhysicalSuitability/test/list"
                 >
-                  {translate("test")}
+                  Selected Donor
                 </a>
               </li>
               <li className="p-1 m-1">
-                <a className="text-info" href="/donorRejected/test/list">
-                  Donor Rejected
+                <a className="text-danger" href="/donorRejected/test/list">
+                  Rejected Donor 
                 </a>
               </li>
               <li className="p-1 m-1">

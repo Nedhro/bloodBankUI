@@ -110,7 +110,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {translate("bloodCompatibilityId")} : {title}
+            {/* {translate("bloodCompatibilityId")} : {title} */}
           </Modal.Title>
         </Modal.Header>
         <div

@@ -87,9 +87,12 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
         //rows
         let filterData = entries.filter((el: any) => el.donorSelection !== "Rejected").reverse();
         filterData.map((entry: any) => dataFinal.push(entry));
+        const allData = filterData.map((el: any) => {return {
+          donorName: el.bloodDonor.donorName, ...el
+        }})
         this.setState({
           isLoaded: true,
-          items: dataFinal,
+          items: allData,
         });
       })
       .catch((err: any) => console.log(err));
@@ -109,7 +112,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
   }
 
   search = (rows: any) => {
-    const columns = rows[0] && Object.keys(rows[0]);
+    const columns = rows[0] && Object.keys(rows[0]).filter((key: any) => !key.includes('uuid') && !key.includes('dateCreated') && !key.includes('dateChanged') && !key.includes('status') && !key.includes('createdBy') && !key.includes('updatedBy') && !key.includes('bloodDonor'));
     return rows?.filter((row: any) =>
       columns?.some(
         (column: any) =>
@@ -126,11 +129,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
       this.state;
     const { translate } = this.props;
     const columns: any = [
-      {
-        name: `${translate("donorId")}`,
-        selector: "bloodDonor.donorId",
-        sortable: true,
-      },
+
       {
         name: `${translate("donorName")}`,
         selector: "bloodDonor.donorName",

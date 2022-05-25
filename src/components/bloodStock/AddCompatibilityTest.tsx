@@ -63,15 +63,12 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     if (donorId) {
       DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
         if (res?.data?.patient) {
-          DonorService.getPatientInformation(res.data.patientId).then((res) => {
+          BloodStockService.getPatientBloodGroupById(res.data.patient_id).then((res) => {
             const result = res.data;
-            BloodStockService.getPatientBloodGroupById(result[0].patient_id).then((res) => {
-              const result = res.data;
-              this.setState({
-                patientBloodGroup: result.patientBloodGroup,
-                patientBloodGroupRhesus: result.patientBloodGroupRhesus,
-              })
-            });
+            this.setState({
+              patientBloodGroup: result.patientBloodGroup,
+              patientBloodGroupRhesus: result.patientBloodGroupRhesus,
+            })
           });
           this.setState({ patientId: res.data.patientId, patientName: res.data.patient });
         }
@@ -121,7 +118,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     });
   }
   handleChange(selectedOption: any) {
-    if (selectedOption.value !== null) {
+    if (selectedOption !== null) {
       BloodStockService.getPatientBloodGroupById(selectedOption.value).then((res) => {
         const result = res.data;
         if (res.data !== "") {
@@ -138,8 +135,9 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
           })
         }
       });
+      this.setState({ showOptions: false, patientId: selectedOption.value, patientName: selectedOption.label });
     }
-    this.setState({ showOptions: false, patientId: selectedOption.value, patientName: selectedOption.label });
+    
   }
 
   changeHandler = (event: any) => {

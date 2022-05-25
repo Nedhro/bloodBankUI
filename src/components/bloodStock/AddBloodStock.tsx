@@ -6,6 +6,7 @@ import { authenticationService } from "../../services/AuthenticationService";
 import { toast } from 'react-toastify';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
+import DonorService from "../../services/DonorService";
 // toast-configuration method, 
 // it is compulsory method.
 toast.configure();
@@ -21,6 +22,8 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
   constructor(props: any) {
     super(props);
     this.state = {
+      donorName: "",
+      patientName: "",
       bloodStockTracingId: "",
       bloodDonorId: "",
       bloodStorage: "Fridge-1",
@@ -48,10 +51,20 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       || authenticationService.currentUserValue !== null) {
       this.currentUser = authenticationService.currentUserValue
     }
+
+
     const id = sessionStorage.getItem("bloodStockTracingId");
     const bloodGroup = sessionStorage.getItem("bloodGroup");
     const bloodGroupRhesus = sessionStorage.getItem("bloodGroupRhesus");
     const donorId = sessionStorage.getItem("bloodDonorId");
+    if (donorId) {
+      DonorService.getBloodDonorById(parseInt(donorId)).then(res => {
+        this.setState({
+          donorName: res?.data?.donorName,
+          patientName: res?.data?.patient,
+        })
+      });
+    }
     this.setState({
       bloodGroup: bloodGroup,
       bloodGroupRhesus: bloodGroupRhesus
@@ -80,6 +93,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       sessionStorage.removeItem("bloodGroup");
       sessionStorage.removeItem("bloodGroupRhesus");
       sessionStorage.removeItem("bloodDonorId");
+      
       BloodStockService.getStockByBloodBagId(bloodBagID).then(res => {
         this.setState({
           bloodStockTracingId: res.data.bloodStockTracingId,
@@ -258,6 +272,12 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
         stockStatus: res.data.stockStatus,
         bloodBagId: res.data.bloodBagId,
       });
+      DonorService.getBloodDonorById(parseInt(res?.data?.bloodDonor?.donorId,)).then(res => {
+        this.setState({
+          donorName: res?.data?.donorName,
+          patientName: res?.data?.patient,
+        })
+      });
     });
   }
 
@@ -277,7 +297,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
             onSubmit={this.submitHandler}
             onReset={this.resetFormFields}
           >
-            <div className="row form-group">
+            {/* <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodDonorId">
                   {translate("donorId")}
@@ -294,8 +314,37 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   onChange={this.changeHandler}
                 />
               </div>
+            </div> */}
+            <div style={{ display: this.state?.donorName === '' ? 'none' : '' }}  className="row form-group">
+              <div className="col-4 text-right">
+                <label className="font-weight-bold" htmlFor="donorName">
+                 Donor Name
+                </label>
+              </div>
+              <div className="col-8">
+                <input
+                  className="form-control"
+                  type="text"
+                  value={this.state?.donorName}
+                  readOnly
+                />
+              </div>
             </div>
-
+            <div style={{ display: this.state?.patientName === '' ? 'none' : '' }} className="row form-group">
+              <div className="col-4 text-right">
+                <label className="font-weight-bold" htmlFor="patientName">
+                  Patient Name
+                </label>
+              </div>
+              <div className="col-8">
+                <input
+                  className="form-control"
+                  type="text"
+                  value={this.state?.patientName}
+                  readOnly
+                />
+              </div>
+            </div>
             <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodGroup">

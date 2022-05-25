@@ -106,6 +106,7 @@ class ApprovedBloodList extends React.Component<BloodStockProps, any> {
                         bloodStorage: entry.bloodStorage,
                         sourceOfBlood: entry.sourceOfBlood,
                         bloodGroup: entry.bloodGroup,
+                        bloodGroupRhesus: entry.bloodGroupRhesus,
                         stockStatus: entry.stockStatus,
                         bloodBagId: entry.bloodBagId,
                         bloodComponent: entry.bloodComponent,
@@ -122,7 +123,7 @@ class ApprovedBloodList extends React.Component<BloodStockProps, any> {
     }
 
     search = (rows: any) => {
-        const columns = rows[0] && Object.keys(rows[0]);
+        const columns = rows[0] && Object.keys(rows[0]).filter((key: any) => !key.includes('bloodStockTracingId') && !key.includes('bloodDonorId'));
         return rows?.filter((row: any) =>
             columns?.some(
                 (column: any) =>
@@ -147,11 +148,6 @@ class ApprovedBloodList extends React.Component<BloodStockProps, any> {
         const { translate } = this.props;
         const columns: any = [
             {
-                name: `${translate("donorId")}`,
-                selector: "bloodDonorId",
-                sortable: true,
-            },
-            {
                 name: `${translate("donorName")}`,
                 selector: "donorName",
                 sortable: true,
@@ -164,6 +160,11 @@ class ApprovedBloodList extends React.Component<BloodStockProps, any> {
             {
                 name: `${translate("bloodGroup")}`,
                 selector: "bloodGroup",
+                sortable: true,
+            },
+            {
+                name: `${translate("bloodGroupRhesus")}`,
+                selector: "bloodGroupRhesus",
                 sortable: true,
             },
             {

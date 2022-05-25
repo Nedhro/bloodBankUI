@@ -100,7 +100,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
   }
 
   search = (rows: any) => {
-    const columns = rows[0] && Object.keys(rows[0]);
+    const columns = rows[0] && Object.keys(rows[0]).filter((key: any) => key.includes('patient') || key.includes('patientBloodGroup') || key.includes('bloodBagId') || key.includes('bloodCompatibilityId') || key.includes('Test'));
     return rows?.filter((row: any) =>
       columns?.some(
         (column: any) =>
@@ -153,6 +153,11 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       {
         name: `${translate("patient")}`,
         selector: "patient",
+        sortable: true,
+      },
+      {
+        name: `${translate("patientBloodGroup")}`,
+        selector: "patientBloodGroup",
         sortable: true,
       },
       {
