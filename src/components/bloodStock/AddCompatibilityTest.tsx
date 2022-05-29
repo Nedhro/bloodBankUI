@@ -63,7 +63,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
     if (donorId) {
       DonorService.getBloodDonorById(parseInt(donorId)).then((res) => {
         if (res?.data?.patient) {
-          BloodStockService.getPatientBloodGroupById(res.data.patient_id).then((res) => {
+          BloodStockService.getPatientBloodGroupById(res.data.patientId).then((res) => {
             const result = res.data;
             this.setState({
               patientBloodGroup: result.patientBloodGroup,

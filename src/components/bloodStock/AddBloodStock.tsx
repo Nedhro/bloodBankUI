@@ -534,17 +534,19 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
                   </>
                 ) : (
                   <>
-                    <input
-                      type="submit"
-                      disabled={!allowSave}
-                      className="btn btn-success m-1"
-                      value={translate("commonSave")}
-                    />
-                    <input
-                      type="reset"
-                      className="btn btn-danger m-1"
-                      value={translate("commonReset")}
-                    />
+                    <div className="mb-5">
+                        <input
+                          type="submit"
+                          disabled={!allowSave}
+                          className="btn btn-success m-1"
+                          value={translate("commonSave")}
+                        />
+                        <input
+                          type="reset"
+                          className="btn btn-danger m-1"
+                          value={translate("commonReset")}
+                        />
+                    </div>
                   </>
                 )}
               </div>

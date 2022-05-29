@@ -173,9 +173,10 @@ class AddPhysicalSuitabilityTest extends React.Component<
             </h2>
           </>
         )}
-        <div className="container p-1 m-1">
-          <form className="form" onSubmit={this.submitHandler}>
-            {/* <div className="row form-group">
+        <div className="d-flex justify-content-center">
+          <div className="container p-1 m-1">
+            <form className="form" onSubmit={this.submitHandler}>
+              {/* <div className="row form-group">
               <div className="col-4 text-right">
                 <label className="font-weight-bold" htmlFor="bloodDonorId">
                   {translate("donorId")}
@@ -192,245 +193,247 @@ class AddPhysicalSuitabilityTest extends React.Component<
                 />
               </div>
             </div> */}
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorName">
-                  {translate("donorName")}
-                </label>
-              </div>
-              <div className="col-8">
-                <input
-                  className="form-control"
-                  readOnly
-                  defaultValue={this.state.donorName}
-                />
-              </div>
-            </div>
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorHemoglobin">
-                  {translate("hemoglobin")}{" "}
-
-                </label>
-              </div>
-              <div className="col-8">
-                <input
-                  className="form-control"
-                  type="number"
-                  name="donorHemoglobin"
-                  id="donorHemoglobin"
-                  value={this.state.donorHemoglobin}
-
-                  onChange={this.changeHandler}
-                />
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorWeight">
-                  {translate("weight")}
-                  {" "}
-                </label>
-              </div>
-              <div className="col-8">
-                <input
-                  className="form-control"
-                  type="number"
-                  name="donorWeight"
-                  id="donorWeight"
-                  value={this.state.donorWeight}
-
-                  onChange={this.changeHandler}
-                />
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label
-                  className="font-weight-bold"
-                  htmlFor="donorBloodPressure"
-                >
-                  {translate("bloodPressure")}
-
-                </label>
-              </div>
-              <div className="col-8">
-                <input
-                  className="form-control"
-                  type="text"
-                  name="donorBloodPressure"
-                  id="donorBloodPressure"
-                  placeholder="120/80"
-                  value={this.state.donorBloodPressure}
-
-                  onChange={this.changeHandler}
-                />
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorPulseRate">
-                  {translate("pulse")}
-                  {" "}
-                </label>
-              </div>
-              <div className="col-8">
-                <input
-                  className="form-control"
-                  type="number"
-                  name="donorPulseRate"
-                  id="donorPulseRate"
-                  value={this.state.donorPulseRate}
-
-                  onChange={this.changeHandler}
-                />
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorTemperature">
-                  {translate("temp")} (<sup>o</sup>
-                  {translate("cel")})
-                </label>
-              </div>
-              <div className="col-8">
-                <input
-                  className="form-control"
-                  type="number"
-                  name="donorTemperature"
-                  id="donorTemperature"
-                  value={this.state.donorTemperature}
-
-                  onChange={this.changeHandler}
-                />
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorBloodGroup">
-                  {translate("bloodGroup")}
-
-                </label>
-              </div>
-              <div className="col-8">
-                <select
-                  className="form-control"
-                  name="donorBloodGroup"
-                  id="donorBloodGroup"
-                  value={this.state.donorBloodGroup}
-
-                  onChange={this.changeHandler}
-                >
-                  <option value="">{translate("commonSelect")}</option>
-                  <option value="A">A</option>
-                  <option value="AB">AB</option>
-                  <option value="B">B</option>
-                  <option value="O">O</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label
-                  className="font-weight-bold"
-                  htmlFor="donorBloodGroupRhesus"
-                >
-                  {translate("bloodGroupRhesus")}
-
-                </label>
-              </div>
-              <div className="col-8">
-                <select
-                  className="form-control"
-                  name="donorBloodGroupRhesus"
-                  id="donorBloodGroupRhesus"
-                  value={this.state.donorBloodGroupRhesus}
-
-                  onChange={this.changeHandler}
-                >
-                  <option value="">{translate("commonSelect")}</option>
-                  <option value="+Ve(Positive)">
-                    {translate("rhPositive")}
-                  </option>
-                  <option value="-Ve(Negative)">
-                    {translate("rhNegative")}
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-4 text-right">
-                <label className="font-weight-bold" htmlFor="donorSelection">
-                  {translate("permission")}
-                  <span className="text-danger">*</span>
-                </label>
-              </div>
-              <div className="col-8">
-                <select
-                  className="form-control"
-                  name="donorSelection"
-                  value={this.state.donorSelection}
-                  id="donorSelection"
-                  required
-                  onChange={this.changeHandler}
-                >
-                  <option value="">{translate("commonSelect")}</option>
-                  <option value="Selected">{translate("selected")}</option>
-                  <option value="Rejected">{translate("rejected")}</option>
-                </select>
-              </div>
-            </div>
-            {sessionStorage.getItem("donorPhysicalSuitabilityId") ? (
               <div className="row form-group">
-                <div className="col-4"></div>
-                <div className="col-3 m-1 p-1 float-right text-right">
-                  <input
-                    type="submit"
-                    className="form-control btn btn-success m-1 p-1"
-                    value={translate("commonUpdate")}
-                  />
+                <div className="col-4 text-right">
+                  <label className="font-weight-bold" htmlFor="donorName">
+                    {translate("donorName")}
+                  </label>
                 </div>
-                <div className="col-3 m-1 p-1 float-right text-right">
+                <div className="col-8">
                   <input
-                    type="cancel"
-                    className="form-control btn btn-danger m-1"
-                    onClick={() => {
-                      history.push("/donorPhysicalSuitability/test/list");
-
-                      sessionStorage.removeItem("bloodId");
-                      sessionStorage.removeItem("donorPhysicalSuitabilityId");
-                    }}
-                    value={translate("commonCancel")}
+                    className="form-control"
+                    readOnly
+                    defaultValue={this.state.donorName}
                   />
                 </div>
               </div>
-            ) : (
               <div className="row form-group">
-                <div className="col-4"></div>
-                <div className="col-3 m-1 p-1 float-right text-right">
-                  <input
-                    type="submit"
-                    className="form-control btn btn-success m-1 p-1"
-                    value={translate("commonSave")}
-                  />
+                <div className="col-4 text-right">
+                  <label className="font-weight-bold" htmlFor="donorHemoglobin">
+                    {translate("hemoglobin")}{" "}
+
+                  </label>
                 </div>
-                <div className="col-3 m-1 p-1 float-right text-right">
+                <div className="col-8">
                   <input
-                    type="reset"
-                    className="form-control btn btn-danger m-1 p-1"
-                    value={translate("commonReset")}
+                    className="form-control"
+                    type="number"
+                    name="donorHemoglobin"
+                    id="donorHemoglobin"
+                    value={this.state.donorHemoglobin}
+
+                    onChange={this.changeHandler}
                   />
                 </div>
               </div>
-            )}
-          </form>
+
+              <div className="row form-group">
+                <div className="col-4 text-right">
+                  <label className="font-weight-bold" htmlFor="donorWeight">
+                    {translate("weight")}
+                    {" "}
+                  </label>
+                </div>
+                <div className="col-8">
+                  <input
+                    className="form-control"
+                    type="number"
+                    name="donorWeight"
+                    id="donorWeight"
+                    value={this.state.donorWeight}
+
+                    onChange={this.changeHandler}
+                  />
+                </div>
+              </div>
+
+              <div className="row form-group">
+                <div className="col-4 text-right">
+                  <label
+                    className="font-weight-bold"
+                    htmlFor="donorBloodPressure"
+                  >
+                    {translate("bloodPressure")}
+
+                  </label>
+                </div>
+                <div className="col-8">
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="donorBloodPressure"
+                    id="donorBloodPressure"
+                    placeholder="120/80"
+                    value={this.state.donorBloodPressure}
+
+                    onChange={this.changeHandler}
+                  />
+                </div>
+              </div>
+
+              <div className="row form-group">
+                <div className="col-4 text-right">
+                  <label className="font-weight-bold" htmlFor="donorPulseRate">
+                    {translate("pulse")}
+                    {" "}
+                  </label>
+                </div>
+                <div className="col-8">
+                  <input
+                    className="form-control"
+                    type="number"
+                    name="donorPulseRate"
+                    id="donorPulseRate"
+                    value={this.state.donorPulseRate}
+
+                    onChange={this.changeHandler}
+                  />
+                </div>
+              </div>
+
+              <div className="row form-group">
+                <div className="col-4 text-right">
+                  <label className="font-weight-bold" htmlFor="donorTemperature">
+                    {translate("temp")} (<sup>o</sup>
+                    {translate("cel")})
+                  </label>
+                </div>
+                <div className="col-8">
+                  <input
+                    className="form-control"
+                    type="number"
+                    name="donorTemperature"
+                    id="donorTemperature"
+                    value={this.state.donorTemperature}
+
+                    onChange={this.changeHandler}
+                  />
+                </div>
+              </div>
+
+              <div className="row form-group">
+                <div className="col-4 text-right">
+                  <label className="font-weight-bold" htmlFor="donorBloodGroup">
+                    {translate("bloodGroup")}
+
+                  </label>
+                </div>
+                <div className="col-8">
+                  <select
+                    className="form-control"
+                    name="donorBloodGroup"
+                    id="donorBloodGroup"
+                    value={this.state.donorBloodGroup}
+
+                    onChange={this.changeHandler}
+                  >
+                    <option value="">{translate("commonSelect")}</option>
+                    <option value="A">A</option>
+                    <option value="AB">AB</option>
+                    <option value="B">B</option>
+                    <option value="O">O</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="row form-group">
+                <div className="col-4 text-right">
+                  <label
+                    className="font-weight-bold"
+                    htmlFor="donorBloodGroupRhesus"
+                  >
+                    {translate("bloodGroupRhesus")}
+
+                  </label>
+                </div>
+                <div className="col-8">
+                  <select
+                    className="form-control"
+                    name="donorBloodGroupRhesus"
+                    id="donorBloodGroupRhesus"
+                    value={this.state.donorBloodGroupRhesus}
+
+                    onChange={this.changeHandler}
+                  >
+                    <option value="">{translate("commonSelect")}</option>
+                    <option value="+Ve(Positive)">
+                      {translate("rhPositive")}
+                    </option>
+                    <option value="-Ve(Negative)">
+                      {translate("rhNegative")}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="row form-group">
+                <div className="col-4 text-right">
+                  <label className="font-weight-bold" htmlFor="donorSelection">
+                    {translate("permission")}
+                    <span className="text-danger">*</span>
+                  </label>
+                </div>
+                <div className="col-8">
+                  <select
+                    className="form-control"
+                    name="donorSelection"
+                    value={this.state.donorSelection}
+                    id="donorSelection"
+                    required
+                    onChange={this.changeHandler}
+                  >
+                    <option value="">{translate("commonSelect")}</option>
+                    <option value="Selected">{translate("selected")}</option>
+                    <option value="Rejected">{translate("rejected")}</option>
+                  </select>
+                </div>
+              </div>
+              {sessionStorage.getItem("donorPhysicalSuitabilityId") ? (
+                <div className="row form-group">
+                  <div className="col-4"></div>
+                  <div className="col-3 m-1 p-1 float-right text-right">
+                    <input
+                      type="submit"
+                      className="form-control btn btn-success m-1 p-1"
+                      value={translate("commonUpdate")}
+                    />
+                  </div>
+                  <div className="col-3 m-1 p-1 float-right text-right">
+                    <input
+                      type="cancel"
+                      className="form-control btn btn-danger m-1"
+                      onClick={() => {
+                        history.push("/donorPhysicalSuitability/test/list");
+
+                        sessionStorage.removeItem("bloodId");
+                        sessionStorage.removeItem("donorPhysicalSuitabilityId");
+                      }}
+                      value={translate("commonCancel")}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="row mb-5 form-group">
+                  <div className="col-4"></div>
+                  <div className="col-3 m-1 p-1 float-right text-right">
+                    <input
+                      type="submit"
+                      className="form-control btn btn-success m-1 p-1"
+                      value={translate("commonSave")}
+                    />
+                  </div>
+                  <div className="col-3 m-1 p-1 float-right text-right">
+                    <input
+                      type="reset"
+                      className="form-control btn btn-danger m-1 p-1"
+                      value={translate("commonReset")}
+                    />
+                  </div>
+                </div>
+              )}
+            </form>
+          </div>
+
         </div>
       </div>
     );

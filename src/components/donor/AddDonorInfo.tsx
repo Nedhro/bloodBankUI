@@ -735,7 +735,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                   </div>
                 </div>
               ) : (
-                <div className="row form-group">
+                <div className="row form-group mb-5">
                   <div className="col-8"></div>
                   <div className="col-2 float-right text-right">
                     <input
