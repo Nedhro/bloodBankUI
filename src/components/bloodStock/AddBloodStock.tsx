@@ -27,7 +27,7 @@ class AddBloodStock extends React.Component<BloodStockProps, any> {
       bloodStockTracingId: "",
       bloodDonorId: "",
       bloodStorage: "Fridge-1",
-      bloodComponent: "",
+      bloodComponent: "Whole Blood",
       sourceOfBlood: "",
       bloodGroup: "",
       bloodGroupRhesus: "",

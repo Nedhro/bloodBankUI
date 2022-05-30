@@ -83,3 +83,8 @@ $body-bg: rgb(240, 240, 240);
 .footer a:hover {
   color: wheat;
 }
+@media only screen and (max-width: 1300px) {
+  .header-title {
+    font-size: 20px;
+  }
+}

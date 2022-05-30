@@ -135,21 +135,31 @@ class DonorConsentForm extends Component<consentFormProps, any> {
                 <div>
                    {formData?.map((item: any, i: any) => (
               <div key={i}>
-                       {item.bloodDonor.concernSet.length > 0 && <div style={{ display: formData[0]?.donorSelection === 'Rejected' ? '' : 'none' }} className="container ml-5">
-                         <div className="text-left">
-                           <h4 className="mt-1 font-weight-bold text-dark">Reason for rejection</h4>
-                         </div>
-                         <div className="text-left">
-                           {item?.bloodDonor?.concernSet
-                           .filter((item: any)=> item?.concernStatus === 'Yes')
-                           .map((data: any, j: any) => (
-                             <div className="" key={j}>
-                             
-                               <li >{data?.concernName}{" "}<span className="font-weight-bold">({data?.concernStatus})</span></li>
-                               
-                             </div>
-                           ))}
-                         </div>
+                       {formData[0]?.donorSelection === 'Rejected' && <div style={{ display: formData[0]?.donorSelection === 'Rejected' ? '' : 'none' }} className="container ml-5">
+                       <div className="container">
+                           <div className="text-left">
+                             <h4 className="mt-1 font-weight-bold text-dark">Reason for rejection</h4>
+                           </div>
+                           <div className="text-left">
+                             {item?.bloodDonor?.concernSet
+                               .filter((item: any) => item?.concernStatus === 'Yes')
+                               .map((data: any, j: any) => (
+                                 <div className="" key={j}>
+
+                                   <li >{data?.concernName}{" "}<span className="font-weight-bold">({data?.concernStatus})</span></li>
+
+                                 </div>
+                               ))}
+                             <li style={{ display: item?.donorBloodGroup ? '' : 'none' }} className="font-weight-bold" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodGroup}</span></li>
+                             <li style={{ display: item?.donorBloodGroupRhesus ? '' : 'none' }} className="font-weight-bold " >{translate("rh")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodGroupRhesus}</span></li>
+                             <li style={{ display: item?.donorBloodPressure ? '' : 'none' }} className="font-weight-bold " >{translate("bloodPressure")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodPressure}</span></li>
+                             <li style={{ display: item?.donorHemoglobin ? '' : 'none' }} className="font-weight-bold" >{translate("hemoglobin")}: {" "}  <span className="font-weight-normal" >{item?.donorHemoglobin}</span></li>
+                             <li style={{ display: item?.donorPulseRate ? '' : 'none' }} className="font-weight-bold" >{translate("pulse")}: {" "}  <span className="font-weight-normal" >{item?.donorPulseRate}</span></li>
+                             <li style={{ display: item?.donorTemperature ? '' : 'none' }} className="font-weight-bold" >{translate("temp")} (<sup>o</sup>{translate("cel")}): {" "}  <span className="font-weight-normal" >{item?.donorTemperature}</span></li>
+                             <li style={{ display: item?.donorWeight ? '' : 'none' }} className="font-weight-bold" >{translate("weight")}: {" "}  <span className="font-weight-normal" >{item?.donorWeight}</span></li>
+                           </div>
+                       </div>
+
                        </div>}
                  </div>
                  ))}

@@ -175,303 +175,305 @@ class AddReport extends React.Component<CompatibilityProps, any> {
         const { translate } = this.props;
         const { patientId, patientName } = this.state;
         return (
-            <div className="container-fluid m-1 p-1">
-                <h2 className="text-info text-center">
-                    {sessionStorage.getItem("bloodSerologyId") ? (
-                        <>
-                            {" "}
-                            <h2 className="text-info text-center">
-                                Edit Report
-                            </h2>
-                        </>
-                    ) : (
-                        <>
-                            <h2 className="text-info text-center">
-                                Add Report
-                            </h2>
-                        </>
-                    )}
-                </h2>
-                <div className="container">
-                    <form className="form" onSubmit={this.submitHandler}>
-                        <div className="row form-group mt-0 mb-4 pb-0">
-                            <div className="col-4 text-right">
-                                <label className="font-weight-bold" htmlFor="patient">
-                                    {translate("patient")}
-                                    <span className="text-danger">*</span>
-                                </label>
+            <div>
+                <div className="m-1 p-1">
+                    <h2 className="text-info text-center">
+                        {sessionStorage.getItem("bloodSerologyId") ? (
+                            <>
+                                {" "}
+                                <h2 className="text-info text-center">
+                                    Edit Report
+                                </h2>
+                            </>
+                        ) : (
+                            <>
+                                <h2 className="text-info text-center">
+                                    Add Report
+                                </h2>
+                            </>
+                        )}
+                    </h2>
+                    <div className="container">
+                        <form className="form" onSubmit={this.submitHandler}>
+                            <div className="row form-group mt-0 mb-4 pb-0">
+                                <div className="col-4 text-right">
+                                    <label className="font-weight-bold" htmlFor="patient">
+                                        {translate("patient")}
+                                        <span className="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div className="col-4">
+                                    {!patientId && (
+                                        <Select
+                                            className="text-left"
+                                            name="patient"
+                                            isSearchable={true}
+                                            isClearable={true}
+                                            value={patientName}
+                                            onChange={this.handleChange}
+                                            // options={this.state.selectOptions}
+                                            options={this.state.showOptions ? this.state.selectOptions : []}
+                                            onInputChange={this.handleInputChange}
+                                            menuIsOpen={this.state.showOptions}
+                                        />
+                                    )}
+                                    {patientId && (
+                                        <Select
+                                            className="text-left"
+                                            name="patient"
+                                            isSearchable={true}
+                                            defaultInputValue={patientName}
+                                            onChange={this.handleChange}
+                                            // options={this.state.selectOptions}
+                                            options={this.state.showOptions ? this.state.selectOptions : []}
+                                            onInputChange={this.handleInputChange}
+                                            menuIsOpen={this.state.showOptions}
+                                        />
+                                    )}
+                                </div>
+
+
                             </div>
-                            <div className="col-4">
-                                {!patientId && (
-                                    <Select
-                                        className="text-left"
-                                        name="patient"
-                                        isSearchable={true}
-                                        isClearable={true}
-                                        value={patientName}
-                                        onChange={this.handleChange}
-                                        // options={this.state.selectOptions}
-                                        options={this.state.showOptions ? this.state.selectOptions : []}
-                                        onInputChange={this.handleInputChange}
-                                        menuIsOpen={this.state.showOptions}
-                                    />
-                                )}
-                                {patientId && (
-                                    <Select
-                                        className="text-left"
-                                        name="patient"
-                                        isSearchable={true}
-                                        defaultInputValue={patientName}
-                                        onChange={this.handleChange}
-                                        // options={this.state.selectOptions}
-                                        options={this.state.showOptions ? this.state.selectOptions : []}
-                                        onInputChange={this.handleInputChange}
-                                        menuIsOpen={this.state.showOptions}
-                                    />
-                                )}
-                            </div>
+                            <div className="row form-group mt-0 mb-2 pb-0">
+                                <div className="col-4 text-right pl-2 pr-1">
+                                    <label
+                                        className="font-weight-bold"
+                                        htmlFor="patientBloodGroup"
+                                    >
+                                        {translate("patientBloodGroup")}
 
+                                    </label>
+                                </div>
+                                <div className="col-8">
+                                    <div className="row form-group">
+                                        <div className="col-12 pl-3 pr-3 mt-0">
+                                            <select
+                                                style={{ width: "200px" }}
+                                                className="form-control pl-1"
+                                                name="patientBloodGroup"
+                                                id="patientBloodGroup"
+                                                value={this.state.patientBloodGroup}
 
-                        </div>
-                        <div className="row form-group mt-0 mb-2 pb-0">
-                            <div className="col-4 text-right pl-2 pr-1">
-                                <label
-                                    className="font-weight-bold"
-                                    htmlFor="patientBloodGroup"
-                                >
-                                    {translate("patientBloodGroup")}
-
-                                </label>
-                            </div>
-                            <div className="col-8">
-                                <div className="row form-group">
-                                    <div className="col-12 pl-3 pr-3 mt-0">
-                                        <select
-                                            style={{ width: "200px" }}
-                                            className="form-control pl-1"
-                                            name="patientBloodGroup"
-                                            id="patientBloodGroup"
-                                            value={this.state.patientBloodGroup}
-
-                                            onChange={this.changeHandler}
-                                        >
-                                            <option value="">{translate("commonSelect")}</option>
-                                            <option value="A">A</option>
-                                            <option value="AB">AB</option>
-                                            <option value="B">B</option>
-                                            <option value="O">O</option>
-                                        </select>
+                                                onChange={this.changeHandler}
+                                            >
+                                                <option value="">{translate("commonSelect")}</option>
+                                                <option value="A">A</option>
+                                                <option value="AB">AB</option>
+                                                <option value="B">B</option>
+                                                <option value="O">O</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row form-group mt-0 mb-2 pb-0">
-                            <div className="col-4 text-right pl-2 pr-1">
-                                <label
-                                    className="font-weight-bold"
-                                    htmlFor="patientBloodGroupRhesus"
-                                >
-                                    {translate("patientBloodGroupRhesus")}
+                            <div className="row form-group mt-0 mb-2 pb-0">
+                                <div className="col-4 text-right pl-2 pr-1">
+                                    <label
+                                        className="font-weight-bold"
+                                        htmlFor="patientBloodGroupRhesus"
+                                    >
+                                        {translate("patientBloodGroupRhesus")}
 
-                                </label>
-                            </div>
-                            <div className="col-8">
-                                <div className="row form-group">
-                                    <div className="col-12 pl-3 pr-3 mt-0">
-                                        <select
-                                            style={{ width: "200px" }}
-                                            className="form-control pl-1"
-                                            name="patientBloodGroupRhesus"
-                                            id="patientBloodGroupRhesus"
-                                            value={this.state.patientBloodGroupRhesus}
+                                    </label>
+                                </div>
+                                <div className="col-8">
+                                    <div className="row form-group">
+                                        <div className="col-12 pl-3 pr-3 mt-0">
+                                            <select
+                                                style={{ width: "200px" }}
+                                                className="form-control pl-1"
+                                                name="patientBloodGroupRhesus"
+                                                id="patientBloodGroupRhesus"
+                                                value={this.state.patientBloodGroupRhesus}
 
-                                            onChange={this.changeHandler}
-                                        >
-                                            <option value="">{translate("commonSelect")}</option>
-                                            <option value="+Ve(Positive)">{translate("rhPositive")}</option>
-                                            <option value="-Ve(Negative)">{translate("rhNegative")}</option>
-                                        </select>
+                                                onChange={this.changeHandler}
+                                            >
+                                                <option value="">{translate("commonSelect")}</option>
+                                                <option value="+Ve(Positive)">{translate("rhPositive")}</option>
+                                                <option value="-Ve(Negative)">{translate("rhNegative")}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row form-group mt-0 mb-0">
-                            <div className="col-4 text-right">
-                                <label className="font-weight-bold" htmlFor="bloodScreening">
-                                    {translate("bloodScreening")}
+                            <div className="row form-group mt-0 mb-0">
+                                <div className="col-4 text-right">
+                                    <label className="font-weight-bold" htmlFor="bloodScreening">
+                                        {translate("bloodScreening")}
 
-                                </label>
+                                    </label>
+                                </div>
+                                <div className="col-8 text-left">
+                                    <p className="ml-0">(Combined result of the following tests)</p>
+                                </div>
                             </div>
-                            <div className="col-8 text-left">
-                                <p className="ml-0">(Combined result of the following tests)</p>
+
+                            <div className="row form-group">
+                                <div className="col-4 text-right">
+                                    <label className="font-weight-bold" htmlFor="bloodHivTest">
+                                        {translate("bloodHivTest")}
+
+                                    </label>
+                                </div>
+                                <div className="col-8">
+                                    <select
+                                        className="form-control"
+                                        name="bloodHivTest"
+                                        id="bloodHivTest"
+                                        value={this.state.bloodHivTest}
+
+                                        onChange={this.changeHandler}
+                                    >
+                                        <option value="">{translate("commonSelect")}</option>
+                                        <option value="Reactive">{translate("reactive")}</option>
+                                        <option value="Non-Reactive">
+                                            {translate("Non-Reactive")}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="row form-group">
-                            <div className="col-4 text-right">
-                                <label className="font-weight-bold" htmlFor="bloodHivTest">
-                                    {translate("bloodHivTest")}
+                            <div className="row form-group">
+                                <div className="col-4 text-right">
+                                    <label className="font-weight-bold" htmlFor="bloodHbvTest">
+                                        {translate("bloodHbvTest")}
 
-                                </label>
+                                    </label>
+                                </div>
+                                <div className="col-8">
+                                    <select
+                                        className="form-control"
+                                        name="bloodHbvTest"
+                                        id="bloodHbvTest"
+                                        value={this.state.bloodHbvTest}
+
+                                        onChange={this.changeHandler}
+                                    >
+                                        <option value="">{translate("commonSelect")}</option>
+                                        <option value="Reactive">{translate("reactive")}</option>
+                                        <option value="Non-Reactive">
+                                            {translate("Non-Reactive")}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                            <div className="col-8">
-                                <select
-                                    className="form-control"
-                                    name="bloodHivTest"
-                                    id="bloodHivTest"
-                                    value={this.state.bloodHivTest}
 
-                                    onChange={this.changeHandler}
-                                >
-                                    <option value="">{translate("commonSelect")}</option>
-                                    <option value="Reactive">{translate("reactive")}</option>
-                                    <option value="Non-Reactive">
-                                        {translate("Non-Reactive")}
-                                    </option>
-                                </select>
+                            <div className="row form-group">
+                                <div className="col-4 text-right">
+                                    <label className="font-weight-bold" htmlFor="bloodHcvTest">
+                                        {translate("bloodHcvTest")}
+
+                                    </label>
+                                </div>
+                                <div className="col-8">
+                                    <select
+                                        className="form-control"
+                                        name="bloodHcvTest"
+                                        id="bloodHcvTest"
+                                        value={this.state.bloodHcvTest}
+
+                                        onChange={this.changeHandler}
+                                    >
+                                        <option value="">{translate("commonSelect")}</option>
+                                        <option value="Reactive">{translate("reactive")}</option>
+                                        <option value="Non-Reactive">
+                                            {translate("Non-Reactive")}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="row form-group">
-                            <div className="col-4 text-right">
-                                <label className="font-weight-bold" htmlFor="bloodHbvTest">
-                                    {translate("bloodHbvTest")}
+                            <div className="row form-group">
+                                <div className="col-4 text-right">
+                                    <label className="font-weight-bold" htmlFor="bloodSyphilisTest">
+                                        {translate("bloodSyphilisTest")}
 
-                                </label>
+                                    </label>
+                                </div>
+                                <div className="col-8">
+                                    <select
+                                        className="form-control"
+                                        name="bloodSyphilisTest"
+                                        id="bloodSyphilisTest"
+                                        value={this.state.bloodSyphilisTest}
+
+                                        onChange={this.changeHandler}
+                                    >
+                                        <option value="">{translate("commonSelect")}</option>
+                                        <option value="Reactive">{translate("reactive")}</option>
+                                        <option value="Non-Reactive">
+                                            {translate("Non-Reactive")}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                            <div className="col-8">
-                                <select
-                                    className="form-control"
-                                    name="bloodHbvTest"
-                                    id="bloodHbvTest"
-                                    value={this.state.bloodHbvTest}
 
-                                    onChange={this.changeHandler}
-                                >
-                                    <option value="">{translate("commonSelect")}</option>
-                                    <option value="Reactive">{translate("reactive")}</option>
-                                    <option value="Non-Reactive">
-                                        {translate("Non-Reactive")}
-                                    </option>
-                                </select>
+                            <div className="row form-group">
+                                <div className="col-4 text-right">
+                                    <label className="font-weight-bold" htmlFor="bloodMalariaTest">
+                                        {translate("bloodMalariaTest")}
+
+                                    </label>
+                                </div>
+                                <div className="col-8">
+                                    <select
+                                        className="form-control"
+                                        name="bloodMalariaTest"
+                                        id="bloodMalariaTest"
+                                        value={this.state.bloodMalariaTest}
+
+                                        onChange={this.changeHandler}
+                                    >
+                                        <option value="">{translate("commonSelect")}</option>
+                                        <option value="Reactive">{translate("reactive")}</option>
+                                        <option value="Non-Reactive">
+                                            {translate("Non-Reactive")}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="row form-group">
-                            <div className="col-4 text-right">
-                                <label className="font-weight-bold" htmlFor="bloodHcvTest">
-                                    {translate("bloodHcvTest")}
+                            <div className="row pb-5 form-group">
+                                <div className="col-4 text-right"></div>
+                                <div className="col-8 float-right text-right ">
+                                    {sessionStorage.getItem("bloodSerologyId") ? (
+                                        <>
+                                            {" "}
+                                            <input
+                                                type="submit"
+                                                className="btn btn-success m-1"
+                                                value={translate("commonUpdate")}
+                                            />
+                                            <input
+                                                type="cancel"
+                                                className="btn btn-danger m-1"
+                                                onClick={() => {
+                                                    history.push("/report/list");
 
-                                </label>
+                                                    sessionStorage.removeItem("bloodSerologyId");
+                                                    sessionStorage.removeItem("bloodBagId");
+                                                }}
+                                                value={translate("commonCancel")}
+                                            />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <input
+                                                type="submit"
+                                                className="btn btn-success m-1"
+                                                value={translate("commonSave")}
+                                            />
+                                            <input
+                                                type="reset"
+                                                className="btn btn-danger m-1"
+                                                value={translate("commonReset")}
+                                            />
+                                        </>
+                                    )}
+                                </div>
                             </div>
-                            <div className="col-8">
-                                <select
-                                    className="form-control"
-                                    name="bloodHcvTest"
-                                    id="bloodHcvTest"
-                                    value={this.state.bloodHcvTest}
-
-                                    onChange={this.changeHandler}
-                                >
-                                    <option value="">{translate("commonSelect")}</option>
-                                    <option value="Reactive">{translate("reactive")}</option>
-                                    <option value="Non-Reactive">
-                                        {translate("Non-Reactive")}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="row form-group">
-                            <div className="col-4 text-right">
-                                <label className="font-weight-bold" htmlFor="bloodSyphilisTest">
-                                    {translate("bloodSyphilisTest")}
-
-                                </label>
-                            </div>
-                            <div className="col-8">
-                                <select
-                                    className="form-control"
-                                    name="bloodSyphilisTest"
-                                    id="bloodSyphilisTest"
-                                    value={this.state.bloodSyphilisTest}
-
-                                    onChange={this.changeHandler}
-                                >
-                                    <option value="">{translate("commonSelect")}</option>
-                                    <option value="Reactive">{translate("reactive")}</option>
-                                    <option value="Non-Reactive">
-                                        {translate("Non-Reactive")}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="row form-group">
-                            <div className="col-4 text-right">
-                                <label className="font-weight-bold" htmlFor="bloodMalariaTest">
-                                    {translate("bloodMalariaTest")}
-
-                                </label>
-                            </div>
-                            <div className="col-8">
-                                <select
-                                    className="form-control"
-                                    name="bloodMalariaTest"
-                                    id="bloodMalariaTest"
-                                    value={this.state.bloodMalariaTest}
-
-                                    onChange={this.changeHandler}
-                                >
-                                    <option value="">{translate("commonSelect")}</option>
-                                    <option value="Reactive">{translate("reactive")}</option>
-                                    <option value="Non-Reactive">
-                                        {translate("Non-Reactive")}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="row pb-5 form-group">
-                            <div className="col-4 text-right"></div>
-                            <div className="col-8 float-right text-right ">
-                                {sessionStorage.getItem("bloodSerologyId") ? (
-                                    <>
-                                        {" "}
-                                        <input
-                                            type="submit"
-                                            className="btn btn-success m-1"
-                                            value={translate("commonUpdate")}
-                                        />
-                                        <input
-                                            type="cancel"
-                                            className="btn btn-danger m-1"
-                                            onClick={() => {
-                                                history.push("/report/list");
-
-                                                sessionStorage.removeItem("bloodSerologyId");
-                                                sessionStorage.removeItem("bloodBagId");
-                                            }}
-                                            value={translate("commonCancel")}
-                                        />
-                                    </>
-                                ) : (
-                                    <>
-                                        <input
-                                            type="submit"
-                                            className="btn btn-success m-1"
-                                            value={translate("commonSave")}
-                                        />
-                                        <input
-                                            type="reset"
-                                            className="btn btn-danger m-1"
-                                            value={translate("commonReset")}
-                                        />
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         );

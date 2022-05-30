@@ -38,7 +38,7 @@ const App: FC = () => {
           <img src={appLogo} className="App-logo" alt="logo" />
         </div>
         <div className="col-4">
-          <h2 className="text-left p-0 m-0">{translate("title")}</h2>
+          <h2 className="text-left p-0 m-0 header-title">{translate("title")}</h2>
         </div>
         <div className="col-7">
           <Header translate={translate} />
