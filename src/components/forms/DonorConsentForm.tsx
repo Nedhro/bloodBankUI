@@ -150,8 +150,6 @@ class DonorConsentForm extends Component<consentFormProps, any> {
 
                                  </div>
                                ))}
-                             <li style={{ display: item?.donorBloodGroup ? '' : 'none' }} className="font-weight-bold" >{translate("bloodGroup")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodGroup}</span></li>
-                             <li style={{ display: item?.donorBloodGroupRhesus ? '' : 'none' }} className="font-weight-bold " >{translate("rh")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodGroupRhesus}</span></li>
                              <li style={{ display: item?.donorBloodPressure ? '' : 'none' }} className="font-weight-bold " >{translate("bloodPressure")}: {" "}  <span className="font-weight-normal" >{item?.donorBloodPressure}</span></li>
                              <li style={{ display: item?.donorHemoglobin ? '' : 'none' }} className="font-weight-bold" >{translate("hemoglobin")}: {" "}  <span className="font-weight-normal" >{item?.donorHemoglobin}</span></li>
                              <li style={{ display: item?.donorPulseRate ? '' : 'none' }} className="font-weight-bold" >{translate("pulse")}: {" "}  <span className="font-weight-normal" >{item?.donorPulseRate}</span></li>
