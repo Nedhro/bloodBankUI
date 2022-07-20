@@ -30,14 +30,14 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       patientBloodGroup: "",
       patientBloodGroupRhesus: "",
       bloodGrouping: "",
-      atRoomTemp: "Compatible",
+      atRoomTemp: "",
       at37ByICT: "Not Done",
       coombsTest: "Not Done",
-      bloodHivTest: "Non-Reactive",
-      bloodHbvTest: "Non-Reactive",
-      bloodHcvTest: "Non-Reactive",
-      bloodSyphilisTest: "Non-Reactive",
-      bloodMalariaTest: "Non-Reactive",
+      bloodHivTest: "",
+      bloodHbvTest: "",
+      bloodHcvTest: "",
+      bloodSyphilisTest: "",
+      bloodMalariaTest: "",
       createdBy: "",
       updatedBy: "",
       patientName: null,
@@ -137,7 +137,7 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
       });
       this.setState({ showOptions: false, patientId: selectedOption.value, patientName: selectedOption.label });
     }
-    
+
   }
 
   changeHandler = (event: any) => {
