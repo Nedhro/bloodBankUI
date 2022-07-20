@@ -31,7 +31,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     this.state = {
       donorId: "",
       donorName: "",
-      typeOfDonor: "",
+      typeOfDonor: "Directed",
       donorGuardian: "",
       donorProfession: "",
       donorAge: "",
@@ -51,7 +51,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
       patientId: null,
       consernSet: [],
       questionList: [],
-      showPatient: false,
+      showPatient: true,
       showOptions: false
     };
     this.submitHandler = this.submitHandler.bind(this);
@@ -430,7 +430,7 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                   <div className="col-4 text-right">
                     <label htmlFor="donorGuardian" className="font-weight-bold">
                       {translate("donorGuardian")}
-                      <span className="text-danger">*</span>
+                      <span className="text-danger"></span>
                     </label>
                   </div>
                   <div className="col-8">
@@ -440,7 +440,6 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
                       name="donorGuardian"
                       id="donorGuardian"
                       value={this.state.donorGuardian}
-                      required
                       onChange={this.changeHandler}
                     />
                   </div>

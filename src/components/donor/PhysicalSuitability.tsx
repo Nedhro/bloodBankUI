@@ -141,6 +141,11 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
         sortable: true,
       },
       {
+        name: `${translate("donorAge")}`,
+        selector: "bloodDonor.donorAge",
+        sortable: true,
+      },
+      {
         name: `${translate("hemoglobin")}`,
         selector: "donorHemoglobin",
         sortable: true,
