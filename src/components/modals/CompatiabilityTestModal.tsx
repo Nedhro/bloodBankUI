@@ -128,7 +128,10 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
             </div>
             <div className="text-left ml-1 pl-1">
               {" "}
-              <h4 className="font-weight-bold text-center mt-4">
+              <h3 className="font-weight-bold text-center text-danger ">
+                Department of Transfusion Medicine
+              </h3>
+              <h4 style={{marginTop:'-5px'}} className="font-weight-bold text-center ">
                 {translate("crossMatchingReport")}
                 {/* ({translate("id")} :
                 {modalData.bloodCompatibilityId}) */}
