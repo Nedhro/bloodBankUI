@@ -356,10 +356,10 @@ class AddPhysicalSuitabilityTest extends React.Component<
                     onChange={this.changeHandler}
                   >
                     <option value="">{translate("commonSelect")}</option>
-                    <option value="+Ve(Positive)">
+                    <option value="+ve(Positive)">
                       {translate("rhPositive")}
                     </option>
-                    <option value="-Ve(Negative)">
+                    <option value="-ve(Negative)">
                       {translate("rhNegative")}
                     </option>
                   </select>

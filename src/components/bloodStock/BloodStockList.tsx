@@ -110,6 +110,8 @@ class BloodStock extends React.Component<BloodStockProps, any> {
             stockStatus: entry.stockStatus,
             bloodBagId: entry.bloodBagId,
             bloodComponent: entry.bloodComponent,
+            patient: entry?.bloodDonor?.patient,
+            dateCreated: new Date(entry.dateCreated)
           };
           dataFinal.push(dataObj);
           return entry;
@@ -152,11 +154,13 @@ class BloodStock extends React.Component<BloodStockProps, any> {
         name: `${translate("donorName")}`,
         selector: "donorName",
         sortable: true,
+        width: '150px'
       },
       {
         name: `${translate("donorMobileNo")}`,
         selector: "donorMobile",
         sortable: true,
+        width: '150px'
       },
       {
         name: `${translate("bloodGroup")}`,
@@ -183,6 +187,12 @@ class BloodStock extends React.Component<BloodStockProps, any> {
         name: `${translate("bloodBagId")}`,
         selector: "bloodBagId",
         sortable: true,
+      },
+      {
+        name: `${translate("patient")} (${translate("id")})`,
+        selector: "patient",
+        sortable: true,
+        width: '250px'
       },
       {
         name: `${translate("status")}`,

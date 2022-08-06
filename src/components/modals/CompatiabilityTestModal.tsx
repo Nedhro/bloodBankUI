@@ -153,10 +153,16 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                     }</span></td>
                   </tr>
                   <tr className="compatibility-first-tr" >
-                    <td><b>Patient Lab No:</b> {title}</td>
-                    <td colSpan={2}><b>Cabin/Ward No:</b> <span>{this.state.patient?.ward}</span></td>
-                    <td><b>Bed No:</b> <span>{this.state.patient?.bed}</span></td>
-                    <td><b>Unit:</b> <span>{this.state.patient?.unit}</span></td>
+                    
+                    <td colSpan={3}><b>Cabin/Ward No:</b> <span>{this.state.patient?.ward}</span></td>
+                    <td colSpan={1}><b>Bed No:</b> <span>{this.state.patient?.bed}</span></td>
+                    <td colSpan={1}><b>Unit:</b> <span>{this.state.patient?.unit}</span></td>
+                  </tr>
+                  <tr className="compatibility-first-tr">
+                    <td colSpan={1}><b>Patient Lab No:</b> {title}</td>
+                    <td colSpan={2}> <span className=" font-weight-bold">Donor Name: </span><span>{this.state.donorName}</span></td>
+                    
+                    <td colSpan={2}> <span className=" font-weight-bold">Donor Bag No: </span><span>{modalData.bloodBagId}</span></td>
                   </tr>
                   <tr >
                     <td colSpan={1}> <span className="pl-2 font-weight-bold">Patient Blood Group:</span></td>
@@ -168,11 +174,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                     <td colSpan={1}> <span className="pl-2 font-weight-bold">ABO:</span> {this.state.bloodBagGroup}</td>
                     <td colSpan={3}> <span className="pl-2 font-weight-bold">Rh(D): </span><span>{this.state.bloodGroupRhesus}</span></td>
                   </tr>
-                  <tr className="compatibility-first-tr">
-                    <td colSpan={3}> <span className=" font-weight-bold">Donor Name: </span><span>{this.state.donorName}</span></td>
-
-                    <td colSpan={2}> <span className=" font-weight-bold">Donor Bag No: </span><span>{modalData.bloodBagId}</span></td>
-                  </tr>
+                  
                 </table>
               </div>
               <div className="row mx-2 mt-5 ">
@@ -331,7 +333,7 @@ class CompatiabilityTestModal extends React.Component<TableModalProps, any> {
                   </p>
                 </div>
               </div>
-              <div className="text-center my-1">
+              <div style={{marginTop:'120px'}} className="text-center ">
                 <span><b>বিঃ দ্রঃ ১০ (দশ) দিনের মধ্যে রক্তের ব্যাগ ব্যবহার/গ্রহণ না করিলে অন্য রোগীকে বরাদ্দ করা হবে।</b></span>
                 <br />
                 <span style={{fontSize:'13px'}}><b>Powered By : Crystal Technology Bangladesh Ltd.</b></span>

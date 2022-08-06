@@ -431,8 +431,8 @@ class AddCompatibilityTest extends React.Component<CompatibilityProps, any> {
                       onChange={this.changeHandler}
                     >
                       <option value="">{translate("commonSelect")}</option>
-                      <option value="+Ve(Positive)">{translate("rhPositive")}</option>
-                      <option value="-Ve(Negative)">{translate("rhNegative")}</option>
+                      <option value="+ve(Positive)">{translate("rhPositive")}</option>
+                      <option value="-ve(Negative)">{translate("rhNegative")}</option>
                     </select>
                   </div>
                 </div>

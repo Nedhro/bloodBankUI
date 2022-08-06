@@ -285,7 +285,7 @@ class ApprovedBloodList extends React.Component<BloodStockProps, any> {
                         <div className="row no-printme">
                             <div className="col-12 p-1 m-1">
                                 <h2 className="text-info font-weight-bold">
-                                    Approved Blood List
+                                    Supplied Blood List
                                 </h2>
                                 <div className="container">
                                     <form className="form-group">
