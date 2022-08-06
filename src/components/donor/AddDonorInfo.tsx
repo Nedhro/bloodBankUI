@@ -243,7 +243,8 @@ class AddDonorInfo extends React.Component<DonorInfoProps, any> {
     DonorService.saveDonorInfo(dataConfig).then((res) => {
       if (res.status === 201) {
         toast.success("Donor Info Added Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-        history.push("/donor/list");
+        sessionStorage.setItem("donorId", res.data.donorId);
+        window.location.assign(`/donorPhysicalSuitability/test/add/${res.data.donorId}`);
 
       } else if (res.status === 202) {
         toast.success("Donor Info Updated Successfully", { position: toast.POSITION.BOTTOM_RIGHT });
