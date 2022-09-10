@@ -1,6 +1,5 @@
-
 // Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
 
 // Override default variables before the import
 $body-bg: rgb(240, 240, 240);
@@ -12,7 +11,7 @@ $body-bg: rgb(240, 240, 240);
   height: 10vmin;
   pointer-events: visible;
 }
-.mainlayout{
+.mainlayout {
   position: relative;
   display: inline-flexbox;
   flex-direction: column-reverse;
@@ -20,7 +19,11 @@ $body-bg: rgb(240, 240, 240);
   align-items: center;
   align-content: center;
 }
-
+.alert-message p{
+  font-size: 20px!important;
+  margin: 0px !important;
+  padding: 30px 50px!important;
+}
 // @media (prefers-reduced-motion: no-preference) {
 //   .App-logo {
 //     animation: App-logo-spin infinite 10s alternate-reverse;
@@ -36,7 +39,7 @@ $body-bg: rgb(240, 240, 240);
   font-size: calc(9px + 2vmin);
   color: white;
 }
-.navText{
+.navText {
   color: whitesmoke;
   padding: 10px;
   font-size: medium;
@@ -44,7 +47,7 @@ $body-bg: rgb(240, 240, 240);
   font-weight: bolder;
   text-align: center;
 }
-.navText:hover{
+.navText:hover {
   color: aquamarine;
   transition: all;
 }
@@ -61,18 +64,17 @@ $body-bg: rgb(240, 240, 240);
   }
 }
 
-.footer{
+.footer {
   display: block;
   position: fixed !important;
   left: 0;
   bottom: 0;
   width: 100%;
   // background-color:#046B86;
-  background-color:hsl(220, 85%, 8%);
-  color:hsl(214, 26%, 95%);
+  background-color: hsl(220, 85%, 8%);
+  color: hsl(214, 26%, 95%);
   font-weight: bold;
 }
-
 
 .footer a {
   color: whitesmoke;
@@ -80,4 +82,9 @@ $body-bg: rgb(240, 240, 240);
 }
 .footer a:hover {
   color: wheat;
+}
+@media only screen and (max-width: 1300px) {
+  .header-title {
+    font-size: 20px;
+  }
 }

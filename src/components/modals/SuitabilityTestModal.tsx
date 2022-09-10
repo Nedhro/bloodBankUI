@@ -52,13 +52,13 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
   }
 
   render() {
-    const { title, modalData } = this.state;
+    const { modalData } = this.state;
     const { translate } = this.props;
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {translate("testId")} : {title}
+            {/* {translate("testId")} : {title} */}
           </Modal.Title>
         </Modal.Header>
         <div
@@ -79,16 +79,14 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
             </div>
             <h4 className="text-center mb-3">
               <span className="font-weight-bold">
-                {translate("physicalTestResult")} ({translate("id")}
-              </span>
-              : {title})
+                {translate("physicalTestResult")}</span>
             </h4>
             <p><span className="font-weight-bold">{translate("date")}</span> :{" "}
               {this.formatDate(this.state.currentDateTime)} </p>
-            <p>
+            {/* <p>
               <span className="font-weight-bold">{translate("donorId")}</span> :{" "}
               {modalData.bloodDonor.donorId}
-            </p>
+            </p> */}
             <p>
               <span className="font-weight-bold">{translate("donorName")}</span>{" "}
               : {modalData.bloodDonor.donorName}
@@ -182,29 +180,32 @@ class SuitabilityTestModal extends React.Component<TableModalProps, any> {
           <Modal.Footer>
             <Button
               variant="info"
-              disabled={modalData.donorSelection === "Selected" ? false : true}
+              
               onClick={() => {
                 const donorPhysicalSuitabilityId = modalData?.donorPhysicalSuitabilityId;
                 sessionStorage.setItem("donorPhysicalSuitabilityId", donorPhysicalSuitabilityId);
                 history.push(`/donor/${donorPhysicalSuitabilityId}/consentForm`);
-                
+
               }}
             >
-              {translate("donorConsentForm")}
+              {modalData.donorSelection === "Selected" ? translate("donorConsentForm") : 'Donor Rejected Form'}
+     
             </Button>
             <Button variant="success" onClick={this.printDiv}>
               {translate("commonPrint")}
             </Button>
             <Button
+              style={{ display: modalData.donorSelection === "Selected" ? "block" : "none" }}
               variant="info"
               onClick={() => {
                 if (modalData.donorSelection === "Selected") {
                   const donorId = modalData.bloodDonor.donorId;
                   const bloodGroup = modalData.donorBloodGroup;
+                  const bloodGroupRhesus = modalData.donorBloodGroupRhesus;
                   sessionStorage.setItem("bloodDonorId", donorId);
                   sessionStorage.setItem("bloodGroup", bloodGroup);
+                  sessionStorage.setItem("bloodGroupRhesus", bloodGroupRhesus);
                   history.push(`/blood/${donorId}/stock/add`);
-                  
                 } else {
                   toast.warn("Donor is not fit for donating blood", { position: toast.POSITION.BOTTOM_RIGHT });
                 }

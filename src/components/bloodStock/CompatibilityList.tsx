@@ -58,8 +58,13 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           "bloodSyphilisTest",
           "bloodMalariaTest",
           "bloodBagId",
+          "atRoomTemp",
+          "at37ByICT",
+          "coombsTest",
           "patient",
+          "patientId",
           "patientBloodGroup",
+          "patientBloodGroupRhesus",
           "uuid",
           "status",
           "dateCreated",
@@ -69,7 +74,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
           "updatedBy",
         ];
         let dataFinal: any = [];
-        let entries = this.filterData(res.data, keys);
+        let entries = this.filterData(res.data, keys).reverse();
         entries.map((entry: any) => {
           return dataFinal.push(entry)
         });
@@ -95,7 +100,7 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
   }
 
   search = (rows: any) => {
-    const columns = rows[0] && Object.keys(rows[0]);
+    const columns = rows[0] && Object.keys(rows[0]).filter((key: any) => key.includes('patient') || key.includes('patientBloodGroup') || key.includes('bloodBagId') || key.includes('bloodCompatibilityId') || key.includes('Test'));
     return rows?.filter((row: any) =>
       columns?.some(
         (column: any) =>
@@ -136,6 +141,11 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
     const { translate } = this.props;
     const columns: any = [
       {
+        name: "Lab Id",
+        selector: "bloodCompatibilityId",
+        sortable: true,
+      },
+      {
         name: `${translate("bloodBagId")}`,
         selector: "bloodBagId",
         sortable: true,
@@ -146,8 +156,13 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
         sortable: true,
       },
       {
-        name: `${translate("bloodCrossMatching")}`,
-        selector: "bloodCrossMatching",
+        name: `${translate("patientBloodGroup")}`,
+        selector: "patientBloodGroup",
+        sortable: true,
+      },
+      {
+        name: `${translate("patientBloodGroupRhesus")}`,
+        selector: "patientBloodGroupRhesus",
         sortable: true,
       },
       {
@@ -173,6 +188,21 @@ class CompatibilityList extends React.Component<CompatibilityListProps, any> {
       {
         name: `${translate("bloodMalariaTest")}`,
         selector: "bloodMalariaTest",
+        sortable: true,
+      },
+      {
+        name: `${translate("atRoomTemp")}`,
+        selector: "atRoomTemp",
+        sortable: true,
+      },
+      {
+        name: `${translate("at37ByICT")}`,
+        selector: "at37ByICT",
+        sortable: true,
+      },
+      {
+        name: `${translate("coombsTest")}`,
+        selector: "coombsTest",
         sortable: true,
       },
       {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 /* variables */
 $primary-color: #1ccad8;
@@ -7,9 +7,11 @@ $bg-color: #f1f1f1;
 $light-color: #fff;
 $dark-color: #000;
 
-$ff-primary: 'Poppins', sans-serif;
+$ff-primary: "Poppins", sans-serif;
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -72,7 +74,6 @@ h1 {
   }
 
   &__brand {
-
     h1 {
       font-size: 20px;
 
@@ -219,9 +220,117 @@ h1 {
   }
 
   p {
-
     a {
       color: $primary-color;
+    }
+  }
+}
+
+//compatibility modal
+.Form-Banner-compatibility-modal {
+  width: 100%;
+}
+.compatibility-table {
+  display: flex;
+  justify-content: center;
+  table,
+  tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 714px;
+  }
+}
+
+.compatibility-first-tr {
+  td {
+    padding: 0px 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+}
+compatibility-first-td {
+  margin-left: 50px !important;
+}
+.compatibility-table-two {
+  table,
+  tr td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0px 10px;
+    width: 465px;
+  }
+}
+
+.serology-table-two {
+  table,
+  tr td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0px 10px;
+    width: 465px;
+  }
+}
+.compatibility-table-three {
+  table,
+  tr td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0px 10px;
+    width: 465px;
+  }
+}
+.compatibility-table-four {
+  table,
+  tr td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    width: 465px;
+  }
+}
+.compatibility-signature {
+  font-weight: bold;
+}
+.compatibility-footer {
+  margin-top: 170px;
+}
+@media print {
+  .Form-Banner-compatibility-modal {
+    margin-top: 30px;
+  }
+  .report-body{
+    height: 550px;
+  }
+  .compatibility-table {
+    display: flex;
+    justify-content: center;
+    table,
+    tr {
+      width: 907.5px;
+    }
+  }
+  .compatibility-table-two {
+    table,
+    tr td {
+      width: 672px;
+    }
+  }
+  .serology-table-two {
+  table,
+  tr td {
+     width: 590px;
+  }
+}
+  .compatibility-table-three {
+    table,
+    tr td {
+      width: 672px;
+    }
+  }
+  .compatibility-table-four {
+    table,
+    tr td {
+      width: 672px;
     }
   }
 }

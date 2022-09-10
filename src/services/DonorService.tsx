@@ -5,8 +5,11 @@ const urlPrefix = process.env.REACT_APP_API_URL + "/openmrs/ws/rest/v1/bloodbank
 
 class DonorService {
   //patients
-  getAllActivePatients() {
-    return axios.get(urlPrefix + "patients").then((response) => handleResponse(response));;
+  getPatientInformation(data: any) {
+    return axios.get(urlPrefix + `patients?id=${data}`).then((response) => handleResponse(response));
+  }
+  getAllActivePatients(data: any) {
+    return axios.get(urlPrefix + `patientsById?identifier=${data}`).then((response) => handleResponse(response));
   }
   //DonorForm
   saveDonorInfo(data: Object) {

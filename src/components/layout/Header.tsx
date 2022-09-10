@@ -96,7 +96,12 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                   className="text-info"
                   href="/donorPhysicalSuitability/test/list"
                 >
-                  {translate("test")}
+                  Selected Donor
+                </a>
+              </li>
+              <li className="p-1 m-1">
+                <a className="text-danger" href="/donorRejected/test/list">
+                  Rejected Donor 
                 </a>
               </li>
               <li className="p-1 m-1">
@@ -128,7 +133,21 @@ const Header: FC<HeaderProps> = ({ fixed, transparent }) => {
                   {translate("bloodStockList")}
                 </a>
               </li>
+              <li className="p-1 m-1">
+                <a
+                  className="text-info"
+                  href="/blood/approved/list"
+                >
+                  Approved Blood
+                </a>
+              </li>
             </ul>
+          </li>
+
+          <li className="nav-item navText nav-link">
+            <a className="nav-link navText" href="/report/list">
+              Report
+            </a>
           </li>
         </ul>
 

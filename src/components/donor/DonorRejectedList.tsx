@@ -1,0 +1,320 @@
+import React, { Fragment } from "react";
+import { Modal } from "react-bootstrap";
+import DataTable from "react-data-table-component";
+import DonorService from "../../services/DonorService";
+import SuitabilityTestModal from "../modals/SuitabilityTestModal";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+// Importing toastify module
+import { toast } from 'react-toastify';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+import { authenticationService } from "../../services/AuthenticationService";
+import { history } from "../helper/history";
+// toast-configuration method, 
+// it is compulsory method.
+toast.configure();
+
+interface PhysicalSuitabilityProps {
+    translate: (key: string) => string;
+}
+class DonorRejectedList extends React.Component<PhysicalSuitabilityProps, any> {
+    currentUser: any = "";
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            isLoaded: true,
+            error: null,
+            items: [],
+            show: false,
+            modalData: "",
+            query: "",
+        };
+    }
+
+    componentDidMount() {
+        /*
+      for tracking users who is creating or updating
+      */
+        if (authenticationService.currentUserValue !== undefined
+            || authenticationService.currentUserValue !== null) {
+            this.currentUser = authenticationService.currentUserValue
+        }
+        this.loadTests();
+    }
+
+    deleteSuitabilityTest(id: number) {
+        DonorService.deletePhysicalTest(id, this.currentUser).then((res) => {
+            if (res.status === 202) {
+                toast.success("The test is deleted successfully", { position: toast.POSITION.BOTTOM_RIGHT });
+                history.push("/donorPhysicalSuitability/test/list");
+            }
+        });
+    }
+
+    closeModal = () => {
+        this.setState({
+            show: false,
+        });
+
+    };
+
+    loadTests() {
+        DonorService.getPhysicalSuitabilityResults()
+            .then((res: any) => {
+                let keys = [
+                    "donorPhysicalSuitabilityId",
+                    "donorHemoglobin",
+                    "donorWeight",
+                    "donorBloodPressure",
+                    "donorPulseRate",
+                    "donorTemperature",
+                    "donorBloodGroup",
+                    "donorBloodGroupRhesus",
+                    "donorSelection",
+                    "bloodDonor",
+                    "uuid",
+                    "status",
+                    "dateCreated",
+                    "dateChanged",
+                    "voided",
+                    "createdBy",
+                    "updatedBy",
+                ];
+                let dataFinal: any = [];
+                let entries = this.filterData(res.data, keys);
+                let filterData = entries.filter((el: any) => el.donorSelection !== "Selected").reverse();;
+                //rows
+                filterData.map((entry: any) => dataFinal.push(entry));
+                const allData = filterData.map((el: any) => {
+                    return {
+                        donorName: el.bloodDonor.donorName, ...el
+                    }
+                })
+                this.setState({
+                    isLoaded: true,
+                    items: allData,
+                });
+            })
+            .catch((err: any) => console.log(err));
+    }
+
+    filterData(dataArr: any, keys: any) {
+        let data = dataArr.map((entry: any) => {
+            let filteredEntry: any = {};
+            keys.forEach((key: any) => {
+                if (key in entry) {
+                    filteredEntry[key] = entry[key];
+                }
+            });
+            return filteredEntry;
+        });
+        return data;
+    }
+
+    search = (rows: any) => {
+        const columns = rows[0] && Object.keys(rows[0]).filter((key: any) => !key.includes('uuid') && !key.includes('dateCreated') && !key.includes('dateChanged') && !key.includes('status') && !key.includes('createdBy') && !key.includes('updatedBy') && !key.includes('bloodDonor'));
+        return rows?.filter((row: any) =>
+            columns?.some(
+                (column: any) =>
+                    row[column]
+                        ?.toString()
+                        .toLowerCase()
+                        .indexOf(this.state.query.toLowerCase()) > -1
+            )
+        );
+    };
+
+    render() {
+        const { error, isLoaded, items, show, modalData, query } =
+            this.state;
+        const { translate } = this.props;
+        const columns: any = [
+            // {
+            //     name: `${translate("donorId")}`,
+            //     selector: "bloodDonor.donorId",
+            //     sortable: true,
+            // },
+            {
+                name: `${translate("donorName")}`,
+                selector: "bloodDonor.donorName",
+                sortable: true,
+            },
+            {
+                name: `${translate("donorMobileNo")}`,
+                selector: "bloodDonor.donorMobileNo",
+                sortable: true,
+            },
+            {
+                name: `${translate("donorAge")}`,
+                selector: "bloodDonor.donorAge",
+                sortable: true,
+            },
+            {
+                name: `${translate("hemoglobin")}`,
+                selector: "donorHemoglobin",
+                sortable: true,
+            },
+            {
+                name: `${translate("weight")}`,
+                selector: "donorWeight",
+                sortable: true,
+            },
+            {
+                name: `${translate("bloodPressure")}`,
+                selector: "donorBloodPressure",
+                sortable: true,
+            },
+            {
+                name: `${translate("pulse")}`,
+                selector: "donorPulseRate",
+                sortable: true,
+            },
+            {
+                name: `${translate("temp")}(o${translate("cel")})`,
+                selector: "donorTemperature",
+                sortable: true,
+            },
+            {
+                name: `${translate("bloodGroup")}`,
+                selector: "donorBloodGroup",
+                sortable: true,
+            },
+            {
+                name: `${translate("bloodGroupRhesus")}`,
+                selector: "donorBloodGroupRhesus",
+                sortable: true,
+            },
+            {
+                name: `${translate("permission")}`,
+                selector: "donorSelection",
+                sortable: true,
+            },
+            {
+                name: `${translate("action")}`,
+                sortable: false,
+                ignoreRowClick: true,
+                allowOverflow: true,
+                button: false,
+                cell: (record: any) => {
+                    return (
+                        <Fragment>
+                            <Link
+                                to={`/donorPhysicalSuitability/test/${record.bloodDonor.donorId}/${record.donorPhysicalSuitabilityId}`}
+                                className="btn btn-info btn-sm m-1"
+                                onClick={() => {
+                                    sessionStorage.setItem(
+                                        "donorPhysicalSuitabilityId",
+                                        record.donorPhysicalSuitabilityId
+                                    );
+                                }}
+                            >
+                                <FontAwesomeIcon size="sm" icon={faEdit} />
+                            </Link>
+                            <button
+                                className="btn btn-danger btn-sm m-1"
+                                onClick={() => {
+                                    const confirmBox = window.confirm(
+                                        "Are you sure!!! \nDo you really want to delete this test?"
+                                    );
+                                    if (confirmBox) {
+                                        const id = record.donorPhysicalSuitabilityId;
+                                        this.deleteSuitabilityTest(parseInt(id));
+                                    }
+                                }}
+                            >
+                                <FontAwesomeIcon size="sm" icon={faTrash} />
+                            </button>
+                        </Fragment>
+                    );
+                },
+            },
+        ];
+        if (error) {
+            return (
+                <div className="text-center font-weight-bold">
+                    Error: {error.message}
+                </div>
+            );
+        } else if (!isLoaded) {
+            return <div className="text-center font-weight-bold">Loading...</div>;
+        } else {
+            return (
+                <div className="container-fluid m-1">
+                    <div className="container bg-light p-2">
+                        <div className="form-inline">
+                            <a
+                                className="btn btn-info text-left float-left m-1 font-weight-bold"
+                                href="/donor/list"
+                            >
+                                {translate("commonDonors")}
+                            </a>
+                        </div>
+                        <div className="row no-printme">
+                            <div className="col-12 p-1 m-1">
+                                <h2>Donor Rejected List</h2>
+                                <div className="container">
+                                    <form className="form-group">
+                                        <div className="row">
+                                            <div className="col-3 form-inline">
+                                                <label htmlFor="filter m-2 p-2">{translate("commonFilter")}</label>
+                                                <input
+                                                    className="form-control m-1 p-1"
+                                                    type="text"
+                                                    value={query}
+                                                    onChange={(e) => {
+                                                        this.setState({ query: e.target.value });
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <DataTable
+                                    className="table table-stripped table-hover"
+                                    columns={columns}
+                                    data={this.search(items)}
+                                    pagination
+                                    pointerOnHover
+                                    highlightOnHover
+                                    paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
+                                    striped={true}
+                                    responsive
+                                    noHeader
+                                    onRowClicked={(dataFinal: any) => {
+                                        const modalData = dataFinal;
+                                        this.setState({
+                                            modalData: modalData,
+                                            show: true,
+                                        });
+                                    }}
+                                />
+                                <Modal
+                                    show={show}
+                                    onHide={this.closeModal}
+                                    size="lg"
+                                    aria-labelledby="contained-modal-title-vcenter"
+                                    centered
+                                >
+                                    {show ? (
+                                        <SuitabilityTestModal
+                                            translate={translate}
+                                            data={modalData}
+                                            title={modalData.donorPhysicalSuitabilityId}
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                </Modal>
+                            </div>
+                            <div className="p-2 m-2" aria-readonly></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    }
+}
+
+export default DonorRejectedList;
