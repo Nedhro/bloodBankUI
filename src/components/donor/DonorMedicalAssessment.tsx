@@ -69,7 +69,7 @@ for tracking users who is creating or updating
       });
       this.setState({
         isLoaded: true,
-        items: datafinal,
+        items: datafinal.reverse(),
       });
     });
   }
@@ -82,7 +82,7 @@ for tracking users who is creating or updating
   };
 
   search = (rows: any) => {
-    const columns = rows[0] && Object.keys(rows[0]);
+    const columns = rows[0] && Object.keys(rows[0]).filter((key: any) => !key.includes('uuid') && !key.includes('id') && !key.includes('lastDonatedPlace') && !key.includes('status') && !key.includes('concernSet'));
     return rows?.filter((row: any) =>
       columns?.some(
         (column: any) =>
@@ -99,11 +99,11 @@ for tracking users who is creating or updating
       this.state;
     const { translate } = this.props;
     const columns = [
-      {
-        name: `${translate("id")}`,
-        selector: "id",
-        sortable: true,
-      },
+      // {
+      //   name: `${translate("id")}`,
+      //   selector: "id",
+      //   sortable: true,
+      // },
       {
         name: `${translate("donorName")}`,
         selector: "name",
@@ -178,6 +178,9 @@ for tracking users who is creating or updating
             <div className="form-inline">
               <a
                 className="btn btn-info text-left float-left m-1 font-weight-bold"
+                onClick={() => {
+                  sessionStorage.clear()
+                }}
                 href="/donor/add"
               >
                 {translate("addDonor")}

@@ -85,10 +85,14 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
         let dataFinal: any = [];
         let entries = this.filterData(res.data, keys);
         //rows
-        entries.map((entry: any) => dataFinal.push(entry));
+        let filterData = entries.filter((el: any) => el.donorSelection !== "Rejected").reverse();
+        filterData.map((entry: any) => dataFinal.push(entry));
+        const allData = filterData.map((el: any) => {return {
+          donorName: el.bloodDonor.donorName, ...el
+        }})
         this.setState({
           isLoaded: true,
-          items: dataFinal,
+          items: allData,
         });
       })
       .catch((err: any) => console.log(err));
@@ -108,7 +112,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
   }
 
   search = (rows: any) => {
-    const columns = rows[0] && Object.keys(rows[0]);
+    const columns = rows[0] && Object.keys(rows[0]).filter((key: any) => !key.includes('uuid') && !key.includes('dateCreated') && !key.includes('dateChanged') && !key.includes('status') && !key.includes('createdBy') && !key.includes('updatedBy') && !key.includes('bloodDonor'));
     return rows?.filter((row: any) =>
       columns?.some(
         (column: any) =>
@@ -125,11 +129,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
       this.state;
     const { translate } = this.props;
     const columns: any = [
-      {
-        name: `${translate("donorId")}`,
-        selector: "bloodDonor.donorId",
-        sortable: true,
-      },
+
       {
         name: `${translate("donorName")}`,
         selector: "bloodDonor.donorName",
@@ -138,6 +138,11 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
       {
         name: `${translate("donorMobileNo")}`,
         selector: "bloodDonor.donorMobileNo",
+        sortable: true,
+      },
+      {
+        name: `${translate("donorAge")}`,
+        selector: "bloodDonor.donorAge",
         sortable: true,
       },
       {
@@ -171,7 +176,7 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
         sortable: true,
       },
       {
-        name: `${translate("bloodGroup")} ${translate("rhesus")}`,
+        name: `${translate("bloodGroupRhesus")}`,
         selector: "donorBloodGroupRhesus",
         sortable: true,
       },
@@ -193,7 +198,10 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 to={`/donorPhysicalSuitability/test/${record.bloodDonor.donorId}/${record.donorPhysicalSuitabilityId}`}
                 className="btn btn-info btn-sm m-1"
                 onClick={() => {
-                  sessionStorage.setItem("donorPhysicalSuitabilityId", record.donorPhysicalSuitabilityId);
+                  sessionStorage.setItem(
+                    "donorPhysicalSuitabilityId",
+                    record.donorPhysicalSuitabilityId
+                  );
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faEdit} />
@@ -203,12 +211,11 @@ class PhysicalSuitability extends React.Component<PhysicalSuitabilityProps, any>
                 onClick={() => {
                   const confirmBox = window.confirm(
                     "Are you sure!!! \nDo you really want to delete this test?"
-                  )
+                  );
                   if (confirmBox) {
                     const id = record.donorPhysicalSuitabilityId;
                     this.deleteSuitabilityTest(parseInt(id));
                   }
-
                 }}
               >
                 <FontAwesomeIcon size="sm" icon={faTrash} />

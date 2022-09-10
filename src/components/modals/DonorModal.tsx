@@ -53,14 +53,14 @@ class DonorModal extends React.Component<TableModalProps, any> {
   }
 
   render() {
-    const { title, modalData, donorId } = this.state;
+    const { modalData, donorId } = this.state;
     const { translate } = this.props;
 
     return (
       <div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {translate("donorId")} : {title}
+            {/* {translate("donorId")} : {title} */}
           </Modal.Title>
         </Modal.Header>
         <div
@@ -80,7 +80,9 @@ class DonorModal extends React.Component<TableModalProps, any> {
               />
             </div>
             <h4 className="text-center"><span className="font-weight-bold">{translate("donorInfoHeading")}
-            </span> ({translate("id")}: {donorId}) </h4>
+            </span>
+             {/* ({translate("id")}: {donorId})  */}
+             </h4>
             <p><span className="font-weight-bold">{translate("date")}</span> :{" "}
               {this.formatDate(this.state.currentDateTime)} </p>
 

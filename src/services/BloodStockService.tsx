@@ -12,6 +12,10 @@ class BloodStockService {
     return axios.get(urlPrefix + "bloodStockTracing/list")
       .then((response) => handleResponse(response));
   }
+  getApprovedBloodList() {
+    return axios.get(urlPrefix + "bloodStockTracing/approvedList")
+      .then((response) => handleResponse(response));
+  }
   getBloodStockById(id: number) {
     return axios.get(urlPrefix + "bloodStockTracing/" + id)
       .then((response) => handleResponse(response));
@@ -25,7 +29,29 @@ class BloodStockService {
       .then((response) => handleResponse(response));
   }
 
+  //Report
+  saveReport(data: Object) {
+    return axios.post(urlPrefix + "bloodSerologyTest/add", data)
+      .then((response) => handleResponse(response));
+  }
+  getReportById(id: number) {
+    return axios.get(urlPrefix + "bloodSerologyTest/" + id)
+      .then((response) => handleResponse(response));
+  }
+  getReportList() {
+    return axios.get(urlPrefix + "bloodSerologyTest/list")
+      .then((response) => handleResponse(response));
+  }
+  deleteReport(id: number, user: string) {
+    return axios.put(urlPrefix + "bloodSerologyTest/delete/" + id + "/by/" + user)
+      .then((response) => handleResponse(response));
+  }
+
   //CompatibilityTest
+  getPatientBloodGroupById(id: number) {
+    return axios.get(urlPrefix + "bloodSerologyTestByPatientId/" + id)
+      .then((response) => handleResponse(response));
+  }
   saveCompatibilityTest(data: Object) {
     return axios.post(urlPrefix + "bloodCompatibilityTest/add", data)
       .then((response) => handleResponse(response));

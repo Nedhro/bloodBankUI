@@ -18,6 +18,10 @@ import AddCompatibilityTest from "./components/bloodStock/AddCompatibilityTest";
 import CompatibilityList from "./components/bloodStock/CompatibilityList";
 import DonorConsentForm from "./components/forms/DonorConsentForm";
 import Cookies from 'universal-cookie';
+import ReportList from "./components/bloodStock/ReportList";
+import AddReport from "./components/bloodStock/AddReport";
+import ApprovedBloodList from "./components/bloodStock/ApprovedBloodList";
+import DonorRejectedList from "./components/donor/DonorRejectedList";
 const App: FC = () => {
   const cookies = new Cookies();
   const { dispatch: { translate } } = useContext(LangContext);
@@ -34,7 +38,7 @@ const App: FC = () => {
           <img src={appLogo} className="App-logo" alt="logo" />
         </div>
         <div className="col-4">
-          <h2 className="text-left p-0 m-0">{translate("title")}</h2>
+          <h2 className="text-left p-0 m-0 header-title">{translate("title")}</h2>
         </div>
         <div className="col-7">
           <Header translate={translate} />
@@ -54,7 +58,12 @@ const App: FC = () => {
           <Route exact path="/donor/:id">
             <AddDonorInfo translate={translate} />
           </Route>
-
+          <Route exact path="/report/list">
+            <ReportList translate={translate} />
+          </Route>
+          <Route exact path="/report/add">
+            <AddReport translate={translate} />
+          </Route>
           <Route exact path="/questionnaire/add">
             <AddQuestionnaire translate={translate} />
           </Route>
@@ -63,6 +72,9 @@ const App: FC = () => {
           </Route>
           <Route exact path="/questionnaire/:id">
             <AddQuestionnaire translate={translate} />
+          </Route>
+          <Route exact path="/donorRejected/test/list">
+            <DonorRejectedList translate={translate} />
           </Route>
           <Route exact path="/donorPhysicalSuitability/test/list">
             <PhysicalSuitability translate={translate} />
@@ -79,6 +91,9 @@ const App: FC = () => {
           </Route>
           <Route exact path="/blood/stock/list">
             <BloodStock translate={translate} />
+          </Route>
+          <Route exact path="/blood/approved/list">
+            <ApprovedBloodList translate={translate} />
           </Route>
           <Route exact path="/blood/stock/:id">
             <AddBloodStock translate={translate} />
