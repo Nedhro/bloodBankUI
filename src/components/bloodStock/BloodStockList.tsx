@@ -187,6 +187,7 @@ class BloodStock extends React.Component<BloodStockProps, any> {
         name: `${translate("bloodBagId")}`,
         selector: "bloodBagId",
         sortable: true,
+        width: '170px'
       },
       {
         name: `${translate("patient")} (${translate("id")})`,
